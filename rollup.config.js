@@ -2,6 +2,9 @@ import typescript from 'rollup-plugin-typescript2';
 import commonjs from 'rollup-plugin-commonjs';
 import external from 'rollup-plugin-peer-deps-external';
 import resolve from 'rollup-plugin-node-resolve';
+import * as react from 'react';
+import * as formik from 'formik';
+import * as scheduler from 'scheduler';
 
 import pkg from './package.json';
 
@@ -31,6 +34,11 @@ export default {
 			exclude: '**/__tests__/**',
 			clean: true,
 		}),
-		commonjs(),
+		commonjs({
+			// namedExports: {
+			// 	react: Object.keys(react),
+			// 	'node_modules/scheduler/index.js' : ['unstable_runWithPriority', 'LowPriority'],
+			// },
+		}),
 	],
 };

@@ -2,25 +2,38 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-import ExampleComponent from 'redactie-form-renderer';
+import { RedactionForm } from 'redactie-form-renderer';
 
 function App() {
+
+	const form = {
+		fields: [
+			{
+				name: 'firstname',
+				type: 'text',
+				label: 'Firstname'
+			},
+			{
+				name: 'lastname',
+				type: 'text',
+				label: 'Lastname'
+			},
+			{
+				name: 'lastname-2',
+				type: 'text',
+				label: 'Lastname'
+			},
+			{
+				name: 'lastname-3',
+				type: 'text',
+				label: 'Lastname'
+			}
+		]
+	}
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+			<RedactionForm schema={ form } />
     </div>
   );
 }
