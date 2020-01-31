@@ -1,8 +1,8 @@
 import React, { useMemo } from 'react';
 import { Field, FieldProps } from 'formik';
 
-import { fieldRegistry } from '../../services/fieldrregistry/fieldRegistry';
-import { FieldConfig } from '../../services/fieldrregistry/fieldRegistry.types';
+import { fieldRegistry } from '../../services/fieldRegistry/fieldRegistry';
+import { FieldConfig } from '../../services/fieldRegistry/fieldRegistry.types';
 
 import { FieldRendererProps } from './FieldRenderer.types';
 
