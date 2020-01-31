@@ -3,6 +3,7 @@ import { Field, FieldProps } from 'formik';
 
 import { fieldRegistry } from '../../services/fieldRegistry/fieldRegistry';
 import { FieldConfig } from '../../services/fieldRegistry/fieldRegistry.types';
+
 import { Fieldgroup } from '../Fields'
 
 import { FieldRendererProps } from './FieldRenderer.types';
@@ -43,9 +44,9 @@ const FieldRenderer: React.FC<FieldRendererProps> = ({ fieldSchema }) => {
 	}
 
 	return (
-		<React.Fragment>
+		<>
 			{ fieldSchema.type === 'fieldgroup' ? renderFieldGroup() : renderField() }
-		</React.Fragment>
+		</>
 	)
 }
 
