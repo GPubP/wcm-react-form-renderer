@@ -1,7 +1,7 @@
 import React from 'react';
 import { Textarea } from '@acpaas-ui/react-components';
 
-import { InputFieldProps } from '../../../services/fieldregistry/fieldRegistry.types';
+import { InputFieldProps } from '../../../services/fieldRegistry/fieldRegistry.types';
 
 const InputTextarea: React.FC<InputFieldProps> = ({
 	fieldProps,

@@ -1,7 +1,7 @@
 import React from 'react';
 import { RadioGroup } from '@acpaas-ui/react-components';
 
-import { InputFieldProps } from '../../../services/fieldregistry/fieldRegistry.types';
+import { InputFieldProps } from '../../../services/fieldRegistry/fieldRegistry.types';
 
 const Radio: React.FC<InputFieldProps> = ({
 	fieldProps,
