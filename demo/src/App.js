@@ -39,6 +39,15 @@ function App() {
 				}
 			},
 			{
+				name: 'zipcode-1',
+				module: 'core',
+				type: 'text',
+				label: 'Zipcode',
+				config: {
+					placeholder: 'zipcode',
+				}
+			},
+			{
 				name: 'city',
 				module: 'core',
 				type: 'text',

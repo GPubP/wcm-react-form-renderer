@@ -26,7 +26,7 @@ const RedactionForm: React.FC<FormProps> = ({ schema, onSubmit, ...rest }) => {
 	 */
 	useEffect(() => {
 		initInitialValues();
-	}, [schema])
+	}, [initInitialValues])
 
 	const onFormSubmit = (values: coreTypes.FormValues, actions: FormikHelpers<coreTypes.FormValues>): void => {
 		if (onSubmit) {
@@ -47,13 +47,14 @@ const RedactionForm: React.FC<FormProps> = ({ schema, onSubmit, ...rest }) => {
 	return (
 		<SchemaProvider value={{ schema }}>
 			<Formik
+				data-testid='formik-form'
 				initialValues={initialValues}
 				onSubmit={onFormSubmit}
 				{...rest}
 			>
-				<Form>
+				<Form data-testid='formik-form'>
 					{renderFields(schema.fields)}
-					<button className={'a-button'} type="submit">Submit</button>
+					<button className={'a-button'} type='submit'>Submit</button>
 				</Form>
 			</Formik>
 		</SchemaProvider>
