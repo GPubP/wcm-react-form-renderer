@@ -42,9 +42,9 @@ const FieldRenderer: React.FC<FieldRendererProps> = ({ fieldSchema }) => {
 	}
 
 	return (
-		<React.Fragment>
+		<>
 			{ fieldSchema.type === 'fieldgroup' ? renderFieldGroup() : renderField() }
-		</React.Fragment>
+		</>
 	)
 }
 

@@ -30,5 +30,8 @@ const DefaultFields: FieldConfig[] = [
 
 export {
 	InputText,
+	Textarea,
+	Select,
+	Radio,
 	DefaultFields,
 }
