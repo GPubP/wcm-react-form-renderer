@@ -15,6 +15,7 @@ function App() {
 				name: 'firstname',
 				module: 'core',
 				type: 'text',
+				dataType: 'string',
 				label: 'Firstname',
 				config: {
 					placeholder: 'firstname',
@@ -24,67 +25,72 @@ function App() {
 				name: 'lastname',
 				module: 'core',
 				type: 'text',
+				dataType: 'string',
 				label: 'Lastname',
 				config: {
 					placeholder: 'lastname',
 				}
 			},
 			{
-				name: 'zipcode',
+				name: 'address',
 				module: 'core',
-				type: 'text',
-				label: 'Zipcode',
-				config: {
-					placeholder: 'zipcode',
-				}
-			},
-			{
-				name: 'zipcode-1',
-				module: 'core',
-				type: 'text',
-				label: 'Zipcode',
-				config: {
-					placeholder: 'zipcode',
-				}
-			},
-			{
-				name: 'city',
-				module: 'core',
-				type: 'text',
-				label: 'City',
-				config: {
-					placeholder: 'city',
-				}
-			},
-			{
-				name: 'country',
-				module: 'core',
-				type: 'select',
-				label: 'Country',
-				config: {
-					options: [{
-						key: '0',
-						value: 'belgium',
-						label: 'Belgium',
-					},{
-						key: '1',
-						value: 'france',
-						label: 'France',
-					},{
-						key: '2',
-						value: 'germany',
-						label: 'Germany',
-					},{
-						key: '3',
-						value: 'finland',
-						label: 'Finland',
-					}]
-				}
+				type: 'fieldgroup',
+				dataType: 'object',
+				label: 'Adres',
+				fields: [
+					{
+						name: 'zipcode',
+						module: 'core',
+						type: 'text',
+						dataType: 'string',
+						label: 'Zipcode',
+						config: {
+							placeholder: 'zipcode',
+						}
+					},
+					{
+						name: 'city',
+						module: 'core',
+						type: 'text',
+						dataType: 'string',
+						label: 'City',
+						config: {
+							placeholder: 'city',
+						}
+					},
+					{
+						name: 'country',
+						module: 'core',
+						type: 'select',
+						dataType: 'string',
+						label: 'Country',
+						config: {
+							options: [{
+								key: '0',
+								value: 'belgium',
+								label: 'Belgium',
+							},{
+								key: '1',
+								value: 'france',
+								label: 'France',
+							},{
+								key: '2',
+								value: 'germany',
+								label: 'Germany',
+							},{
+								key: '3',
+								value: 'finland',
+								label: 'Finland',
+							}]
+						}
+					},
+				]
 			},
 			{
 				name: 'ages',
 				module: 'core',
 				type: 'radio',
+				dataType: 'string',
 				label: 'Ages',
 				config: {
 					options: [{
@@ -113,11 +119,12 @@ function App() {
 				name: 'questions',
 				module: 'core',
 				type: 'textarea',
+				dataType: 'string',
 				label: 'Questions',
 				config: {
 					placeholder: 'Questions?',
 				}
-			}
+			},
 		]
 	}
 

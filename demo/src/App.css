@@ -8,3 +8,12 @@
 	padding: 24px 0px ;
 }
 
+.field-group {
+	padding: 24px 24px;
+	border: 1px solid grey;
+	margin-bottom: 12px;
+}
+
+.field-group__wrapper {
+	padding-top: 12px;
+}
