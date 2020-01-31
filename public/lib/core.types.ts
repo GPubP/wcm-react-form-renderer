@@ -9,7 +9,7 @@ export interface FormSchema {
 	 * Form fields
 	 * They describe how each field will look like
 	 */
-	fields: Field[];
+	fields: FieldSchema[];
 }
 
 export interface FormValues {
@@ -17,11 +17,15 @@ export interface FormValues {
 	[key: string]: any;
 }
 
-export interface Field {
+export interface FieldSchema {
 	/**
 	 * Field name
 	 */
 	name: string;
+	/**
+	 * Module name
+	 */
+	module: string;
 	/**
 	 * Field type
 	 */
@@ -45,7 +49,7 @@ export interface Field {
 	/**
 	 * nested form fields
 	 */
-	fields?: Field[];
+	fields?: FieldSchema[];
 }
 
 

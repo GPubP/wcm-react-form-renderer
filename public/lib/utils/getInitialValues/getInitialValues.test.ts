@@ -8,12 +8,14 @@ describe('createInitialValues', () => {
 		fields: [
 			{
 				name: 'name',
+				module: 'core',
 				type: 'text',
 				dataType: 'string',
 				label: 'name',
 			},
 			{
 				name: 'lastname',
+				module: 'core',
 				type: 'text',
 				dataType: 'string',
 				label: 'name',
@@ -21,10 +23,12 @@ describe('createInitialValues', () => {
 			{
 				name: 'user',
 				dataType: 'object',
+				module: 'core',
 				type: 'fieldgroup',
 				label : 'user',
 				fields: [{
 					name: 'firstname',
+					module: 'core',
 					dataType: 'string',
 					type: 'text',
 					label: 'firstname',
@@ -37,10 +41,10 @@ describe('createInitialValues', () => {
 		const result = createInitialValues(schema);
 
 		expect(result).toEqual({
-			name: undefined,
-			lastname: undefined,
+			name: '',
+			lastname: '',
 			user: {
-				firstname: undefined,
+				firstname: '',
 			},
 		})
 	});

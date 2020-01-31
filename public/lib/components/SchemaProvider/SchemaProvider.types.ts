@@ -1,7 +1,7 @@
-import { RedactionFormSchema } from '../../core.types';
+import { FormSchema } from '../../core.types';
 
 export interface SchemaContextValue {
-	schema?: RedactionFormSchema;
+	schema?: FormSchema;
 }
 
 export interface SchemaProviderProps  {

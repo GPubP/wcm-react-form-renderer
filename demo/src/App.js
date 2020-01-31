@@ -5,36 +5,50 @@ import { RedactionForm } from 'redactie-form-renderer';
 
 function App() {
 
+	const onFormSubmit = (values) => {
+		alert(JSON.stringify(values));
+	}
+
 	const form = {
 		fields: [
 			{
 				name: 'firstname',
+				module: 'core',
 				type: 'text',
 				label: 'Firstname'
 			},
 			{
 				name: 'lastname',
+				module: 'core',
 				type: 'text',
 				label: 'Lastname'
 			},
 			{
-				name: 'lastname-2',
+				name: 'zipcode',
+				module: 'core',
 				type: 'text',
-				label: 'Lastname'
+				label: 'Zipcode'
 			},
 			{
-				name: 'lastname-3',
+				name: 'city',
+				module: 'core',
 				type: 'text',
-				label: 'Lastname'
+				label: 'City'
+			},
+			{
+				name: 'country',
+				module: 'core',
+				type: 'text',
+				label: 'Country'
 			}
 		]
 	}
 
-  return (
-    <div className="App">
-			<RedactionForm schema={ form } />
-    </div>
-  );
+	return (
+		<div className="App">
+			<RedactionForm onSubmit={onFormSubmit} schema={ form } />
+		</div>
+	);
 }
 
 export default App;

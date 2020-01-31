@@ -1,0 +1,56 @@
+
+import { DefaultFields } from '../../components/Fields';
+
+import { FieldsRegistryConfig, FieldConfig } from './fieldRegistry.types';
+
+class FieldRegistry {
+	private fields: FieldsRegistryConfig = {};
+
+	constructor(fields?: FieldConfig[]) {
+		if (Array.isArray(fields)) {
+			this.registerDefaultFields(fields);
+		}
+	}
+
+	private registerDefaultFields(fields: FieldConfig[]): void {
+		fields.forEach(field => this.add(field));
+	}
+
+	public get(moduleName: string, name: string): FieldConfig | undefined {
+		if (!moduleName || !name) {
+			return;
+		}
+
+		if (!this.fields[moduleName]) {
+			return;
+		}
+
+		return this.fields[moduleName][name];
+	}
+
+	public add(field: FieldConfig): void {
+
+		if (this.fields[field.module] && this.fields[field.module][field.name]) {
+			throw new Error(`Register Field failed, Field with name ${field.name} and module ${field.module} already exist`);
+		}
+
+		if (!field.name) {
+			throw new Error('Register Field failed, Field name is required');
+		}
+
+		if (!field.module) {
+			throw new Error('Register Field failed, Field module is required');
+		}
+
+		if (!this.fields[field.module]) {
+			this.fields[field.module] = {};
+		}
+
+		this.fields[field.module][field.name] = field;
+	}
+
+}
+
+export const fieldRegistry = new FieldRegistry(DefaultFields);
+
+export default FieldRegistry;
