@@ -18,8 +18,6 @@ const FieldRenderer: React.FC<FieldRendererProps> = ({ fieldSchema }) => {
 		[fieldSchema]
 	);
 
-	console.log(field, '//////////////:');
-
 	// Don't render anything when there is no field config available
 	if (!field) {
 		return null;

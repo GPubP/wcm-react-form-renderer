@@ -1,9 +1,9 @@
 import React from 'react';
-import { TextField } from '@acpaas-ui/react-components';
+import { Select } from '@acpaas-ui/react-components';
 
 import { InputFieldProps } from '../../../services/fieldregistry/fieldRegistry.types';
 
-const InputText: React.FC<InputFieldProps> = ({
+const InputSelect: React.FC<InputFieldProps> = ({
 	fieldProps,
 	fieldSchema,
 }) => {
@@ -11,7 +11,7 @@ const InputText: React.FC<InputFieldProps> = ({
 	const config = fieldSchema.config || {};
 
 	return (
-		<TextField
+		<Select
 			label={fieldSchema.label}
 			{...config}
 			{...fieldProps.field}
@@ -19,5 +19,5 @@ const InputText: React.FC<InputFieldProps> = ({
 	)
 }
 
-export default InputText;
+export default InputSelect;
 

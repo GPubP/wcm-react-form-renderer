@@ -17,6 +17,11 @@ export interface FormValues {
 	[key: string]: any;
 }
 
+export interface FieldOption {
+	key: string;
+	value: string;
+}
+
 export interface FieldSchema {
 	/**
 	 * Field name
@@ -40,10 +45,10 @@ export interface FieldSchema {
 	label: string;
 	/**
 	 * Field options
-	 * You can give any option you want
+	 * You can give any config you want
 	 */
-	options?: {
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	config?: {
+		options?: FieldOption[];
 		[key: string]: any;
 	};
 	/**
