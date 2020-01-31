@@ -1,7 +1,7 @@
 import React from 'react';
 import { Select } from '@acpaas-ui/react-components';
 
-import { InputFieldProps } from '../../../services/fieldregistry/fieldRegistry.types';
+import { InputFieldProps } from '../../../services/fieldrregistry/fieldRegistry.types';
 
 const InputSelect: React.FC<InputFieldProps> = ({
 	fieldProps,

@@ -1,4 +1,4 @@
-import { fieldRegistry } from './fieldregistry/fieldRegistry';
+import { fieldRegistry } from './fieldrregistry/fieldRegistry';
 
 export {
 	fieldRegistry,

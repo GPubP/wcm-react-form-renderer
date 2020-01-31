@@ -1,4 +1,4 @@
-import { FieldConfig } from '../../services/fieldregistry/fieldRegistry.types';
+import { FieldConfig } from '../../services/fieldrregistry/fieldRegistry.types';
 
 import InputText from './InputText/InputText';
 import Textarea from './TextArea/TextArea';
