@@ -16,7 +16,6 @@ export interface InputFieldProps {
 	 */
 	fieldSchema: FieldSchema;
 }
-
 export interface FieldConfig {
 	/**
 	 * Name of the field
