@@ -1,5 +1,5 @@
 import React from 'react';
-import { Select } from '@acpaas-ui/react-components';
+import { Select } from '@acpaas-ui/react-components/packages/form';
 
 import { InputFieldProps } from '../../../services/fieldRegistry/fieldRegistry.types';
 
