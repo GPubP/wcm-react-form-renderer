@@ -3,9 +3,9 @@ import './App.css';
 
 import { RedactionForm } from 'redactie-form-renderer';
 
-function App() {
+const App = () => {
 
-	const onFormSubmit = (values) => {
+	const onFormSubmit = (values: any) => {
 		alert(JSON.stringify(values));
 	}
 

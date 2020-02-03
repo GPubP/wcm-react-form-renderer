@@ -6,8 +6,9 @@
   "module": "dist/redactie-form-renderer.umd.js",
   "jsnext:main": "dist/redactie-form-renderer.umd.js",
   "scripts": {
-    "build": "webpack",
-    "build:w": "webpack -w",
+    "build:types": "tsc --emitDeclarationOnly",
+    "build": "npm run build:types && webpack",
+    "build:w": "npm run build:types && webpack -w",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "test": "jest ./public"
   },
