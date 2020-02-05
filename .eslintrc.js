@@ -5,6 +5,7 @@ module.exports = {
 		'@typescript-eslint',
 		'react',
 		'import',
+		'react-hooks',
 	],
 	extends: [
 		'eslint:recommended',
@@ -22,12 +23,16 @@ module.exports = {
 	},
 	rules: {
 		'@typescript-eslint/no-var-requires': 0,
+		'@typescript-eslint/no-explicit-any': 0,
+		"react-hooks/rules-of-hooks": "error",
+		"react-hooks/exhaustive-deps": "warn",
 		'import/order': 2,
 		'import/first': 2,
 		'import/exports-last': 2,
 		'import/no-duplicates': 2,
 		'quotes': [2, 'single'],
 		'indent': [2, 'tab'],
+		'react/prop-types': 0,
 		"comma-dangle": ["error", {
 			"arrays": "always-multiline",
 			"objects": "always-multiline",
