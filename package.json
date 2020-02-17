@@ -1,5 +1,5 @@
 {
-  "name": "redactie-form-renderer",
+  "name": "@redactie/form-renderer",
   "version": "1.0.0",
   "description": "A dynamic form component for react using a JSON schema",
   "main": "dist/redactie-form-renderer.umd.js",
@@ -30,6 +30,7 @@
     "@babel/preset-typescript": "7.8.3",
     "@commitlint/cli": "8.3.5",
     "@commitlint/config-conventional": "8.3.4",
+    "@redactie/module-webpack-plugin": "^2.0.0",
     "@testing-library/jest-dom": "5.0.2",
     "@testing-library/react": "9.4.0",
     "@types/jest": "24.9.1",

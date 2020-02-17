@@ -1,5 +1,5 @@
 import React from 'react';
-import { FieldProps } from 'formik';
+import { FieldProps, FieldHelperProps } from 'formik';
 
 import { FieldSchema, FieldDataType, FormValues } from '../../core.types';
 
@@ -15,6 +15,11 @@ export interface InputFieldProps {
 	 * But it only holds the schema information for a field
 	 */
 	fieldSchema: FieldSchema;
+	/**
+	 * FieldHelperProps
+	 * helper functions which you can use to imperatively change the value, error value or touched status for the field in question
+	 */
+	fieldHelperProps: FieldHelperProps<any>;
 }
 export interface FieldConfig {
 	/**
