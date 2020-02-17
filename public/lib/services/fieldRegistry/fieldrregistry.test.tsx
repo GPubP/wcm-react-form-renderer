@@ -11,7 +11,7 @@ describe('fieldRegistry', () => {
 		name: 'text',
 		module: 'core',
 		component: DummyFieldComponent,
-	}
+	};
 
 	describe('add', () => {
 		it('should add a new field config to the registry', () => {
@@ -51,7 +51,7 @@ describe('fieldRegistry', () => {
 
 			const error = (): void => {
 				fieldRegistry.add(fieldConfig);
-			}
+			};
 
 			expect(error).toThrow();
 		});
@@ -61,11 +61,11 @@ describe('fieldRegistry', () => {
 			const fieldConfig: FieldConfig = {
 				...DefaultFieldConfig,
 				module: undefined as unknown as string,
-			}
+			};
 
 			const error = (): void => {
 				fieldRegistry.add(fieldConfig);
-			}
+			};
 
 			expect(error).toThrow();
 		});

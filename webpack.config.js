@@ -2,7 +2,8 @@ const path = require('path');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const RedactionWebpackPlugin = require('@redactie/module-webpack-plugin');
 
-module.exports = env => {
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+module.exports = (env) => {
 	const defaultConfig = {
 		mode: 'production',
 		devtool: 'source-map',
@@ -48,8 +49,8 @@ module.exports = env => {
 				...defaultConfig.plugins,
 				new BundleAnalyzerPlugin(),
 			],
-		}
+		};
 	}
 
 	return defaultConfig;
-}
+};

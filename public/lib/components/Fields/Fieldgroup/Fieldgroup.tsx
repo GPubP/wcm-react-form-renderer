@@ -24,8 +24,8 @@ const Fieldgroup: React.FC<FieldGroupProps> = ({
 					.map((fieldSchema, index) => <FieldRenderer key={index} fieldSchema={fieldSchema} />) }
 			</div>
 		</div>
-	)
-}
+	);
+};
 
 export default Fieldgroup;
 

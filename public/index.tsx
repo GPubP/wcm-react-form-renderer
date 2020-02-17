@@ -62,9 +62,9 @@ Core.modules.exposeModuleApi('forms-module', {
 	'fieldRegistry': fieldRegistry,
 });
 
-export * from './lib/core.types'
+export * from './lib/core.types';
 export * from './lib/services/fieldRegistry/fieldRegistry.types';
 
 export {
 	RedactionForm,
-}
+};

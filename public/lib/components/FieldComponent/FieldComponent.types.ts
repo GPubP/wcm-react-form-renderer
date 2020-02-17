@@ -1,9 +1,9 @@
-import { FieldProps } from 'formik'
+import { FieldProps } from 'formik';
 import { FieldSchema } from '../../core.types';
 import { FieldConfig } from '../../services/fieldRegistry/fieldRegistry.types';
 
 export interface FieldComponentProps {
-	field: FieldConfig;
+	fieldConfig: FieldConfig;
 	fieldProps: FieldProps<any, {}>;
 	/**
 	 * Schema of one field
