@@ -27,7 +27,7 @@ const createInitialValues = (schema: FormSchema): FormValues => {
 		return acc;
 
 	}, {});
-}
+};
 
 
 export default createInitialValues;

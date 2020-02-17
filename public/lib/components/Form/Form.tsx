@@ -3,7 +3,7 @@ import { Formik, Form, FormikHelpers } from 'formik';
 
 import SchemaProvider from '../SchemaProvider/SchemaProvider';
 import FieldRenderer from '../FieldRenderer/FieldRenderer';
-import * as coreTypes from '../../core.types'
+import * as coreTypes from '../../core.types';
 import { getInitialValues } from '../../utils';
 
 import { FormProps } from './Form.types';
@@ -26,18 +26,18 @@ const RedactionForm: React.FC<FormProps> = ({ schema, onSubmit, ...rest }) => {
 	 */
 	useEffect(() => {
 		initInitialValues();
-	}, [initInitialValues])
+	}, [initInitialValues]);
 
 	const onFormSubmit = (values: coreTypes.FormValues, actions: FormikHelpers<coreTypes.FormValues>): void => {
 		if (onSubmit) {
 			onSubmit(values);
 		}
 		actions.setSubmitting(false);
-	}
+	};
 
 	const renderFields = (fields: coreTypes.FieldSchema[]): ReactNode => {
 		return fields.map((fieldSchema, index) => <FieldRenderer key={index} fieldSchema={fieldSchema} />);
-	}
+	};
 
 	// wait till the initial values are created
 	if (!initialValues) {
@@ -58,7 +58,7 @@ const RedactionForm: React.FC<FormProps> = ({ schema, onSubmit, ...rest }) => {
 				</Form>
 			</Formik>
 		</SchemaProvider>
-	)
-}
+	);
+};
 
 export default RedactionForm;
