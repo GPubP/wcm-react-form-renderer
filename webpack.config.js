@@ -1,8 +1,9 @@
 const path = require('path');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const RedactionWebpackPlugin = require('@redactie/module-webpack-plugin');
 
-module.exports = env => {
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+module.exports = (env) => {
 	const defaultConfig = {
 		mode: 'production',
 		devtool: 'source-map',
@@ -20,16 +21,19 @@ module.exports = env => {
 			],
 		},
 		resolve: {
-			extensions: [ '.tsx', '.ts', '.js' ],
+			extensions: ['.tsx', '.ts', '.js'],
 		},
 		plugins: [
 			// clean dist folder before every build
-			new CleanWebpackPlugin(),
+			new RedactionWebpackPlugin({
+				moduleName: 'redactie-form-renderer',
+			}),
 		],
 		externals: {
 			'react': 'react',
 			'react-dom': 'react-dom',
 			'rc-slider': 'rc-slider',
+			'@redactie/redactie-core': '@redactie/redactie-core',
 		},
 		output: {
 			filename: 'redactie-form-renderer.umd.js',
@@ -45,8 +49,8 @@ module.exports = env => {
 				...defaultConfig.plugins,
 				new BundleAnalyzerPlugin(),
 			],
-		}
+		};
 	}
 
 	return defaultConfig;
-}
+};

@@ -16,8 +16,8 @@ const InputTextarea: React.FC<InputFieldProps> = ({
 			{...config}
 			{...fieldProps.field}
 		/>
-	)
-}
+	);
+};
 
 export default InputTextarea;
 

@@ -16,8 +16,8 @@ const InputText: React.FC<InputFieldProps> = ({
 			{...config}
 			{...fieldProps.field}
 		/>
-	)
-}
+	);
+};
 
 export default InputText;
 

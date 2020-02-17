@@ -12,9 +12,9 @@ const renderForm = (props?: Partial<FormProps>): RenderResult => {
 			return;
 		},
 		schema: { fields: [] },
-	}
-	return render(<Form {...defaultProps} {...props}/>)
-}
+	};
+	return render(<Form {...defaultProps} {...props}/>);
+};
 
 describe('<Form />', () => {
 	it('should display a blank form when no schema is given', async() => {
@@ -50,7 +50,7 @@ describe('<Form />', () => {
 		// Two field plus a button === 3
 		expect(formikForm.children.length).toBe(3);
 
-	})
+	});
 
 	// Test is not working properly
 	// TODO: Fix this test if possible

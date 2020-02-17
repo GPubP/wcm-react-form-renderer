@@ -4,24 +4,25 @@ import { Field, FieldProps } from 'formik';
 import { fieldRegistry } from '../../services/fieldRegistry/fieldRegistry';
 import { FieldConfig } from '../../services/fieldRegistry/fieldRegistry.types';
 
-import { Fieldgroup } from '../Fields'
+import { Fieldgroup } from '../Fields';
+import FieldComponent from '../FieldComponent/FieldComponent';
 
 import { FieldRendererProps } from './FieldRenderer.types';
 
 const FieldRenderer: React.FC<FieldRendererProps> = ({ fieldSchema }) => {
 
-	const getFieldConfig = (): FieldConfig | undefined => {
-		return fieldRegistry.get(fieldSchema.module, fieldSchema.type);
-	}
+	const getFieldConfig = (): FieldConfig | undefined => (
+		fieldRegistry.get(fieldSchema.module, fieldSchema.type)
+	);
 
 	// only get the field config when field schema has changed
-	const field: FieldConfig | undefined = useMemo(
+	const fieldConfig: FieldConfig | undefined = useMemo(
 		getFieldConfig,
 		[fieldSchema]
 	);
 
 	// Don't render anything when there is no field config available
-	if (!field) {
+	if (!fieldConfig) {
 		return null;
 	}
 
@@ -31,23 +32,23 @@ const FieldRenderer: React.FC<FieldRendererProps> = ({ fieldSchema }) => {
 	const renderField = (): React.ReactNode => (
 		<Field name={fieldSchema.name}>
 			{(fieldProps: FieldProps<any, {}>): React.ReactNode => (
-				<field.component fieldProps={fieldProps} fieldSchema={fieldSchema}></field.component>
+				<FieldComponent fieldConfig={fieldConfig} fieldProps={fieldProps} fieldSchema={fieldSchema}></FieldComponent>
 			)}
 		</Field>
-	)
+	);
 
 	/**
 	 * Render a field group
 	 */
-	const renderFieldGroup = (): React.ReactNode => {
-		return <Fieldgroup fieldSchema={fieldSchema} />;
-	}
+	const renderFieldGroup = (): React.ReactNode => (
+		<Fieldgroup fieldSchema={fieldSchema} />
+	);
 
 	return (
 		<>
-			{ fieldSchema.type === 'fieldgroup' ? renderFieldGroup() : renderField() }
+			{fieldSchema.type === 'fieldgroup' ? renderFieldGroup() : renderField()}
 		</>
-	)
-}
+	);
+};
 
 export default FieldRenderer;

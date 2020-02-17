@@ -16,8 +16,8 @@ const Radio: React.FC<InputFieldProps> = ({
 			{...config}
 			{...fieldProps.field}
 		/>
-	)
-}
+	);
+};
 
 export default Radio;
 
