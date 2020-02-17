@@ -18,6 +18,9 @@
   "keywords": [
     "react"
   ],
+  "publishConfig": {
+    "@redactie:registry": "https://nexusrepo.antwerpen.be/repository/npm-private"
+  },
   "author": "glenn.verschooren@studiohyperdrive.be",
   "license": "ISC",
   "peerDependencies": {
