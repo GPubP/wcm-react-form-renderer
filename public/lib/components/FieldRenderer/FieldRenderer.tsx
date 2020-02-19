@@ -1,25 +1,19 @@
-import React, { useMemo } from 'react';
 import { Field, FieldProps } from 'formik';
+import React, { useMemo } from 'react';
 
 import { fieldRegistry } from '../../services/fieldRegistry/fieldRegistry';
 import { FieldConfig } from '../../services/fieldRegistry/fieldRegistry.types';
-
-import { Fieldgroup } from '../Fields';
 import FieldComponent from '../FieldComponent/FieldComponent';
+import { Fieldgroup } from '../Fields';
 
 import { FieldRendererProps } from './FieldRenderer.types';
 
-const FieldRenderer: React.FC<FieldRendererProps> = ({ fieldSchema }) => {
-
-	const getFieldConfig = (): FieldConfig | undefined => (
-		fieldRegistry.get(fieldSchema.module, fieldSchema.type)
-	);
+const FieldRenderer: React.FC<FieldRendererProps> = ({ fieldSchema }: FieldRendererProps) => {
+	const getFieldConfig = (): FieldConfig | undefined =>
+		fieldRegistry.get(fieldSchema.module, fieldSchema.type);
 
 	// only get the field config when field schema has changed
-	const fieldConfig: FieldConfig | undefined = useMemo(
-		getFieldConfig,
-		[fieldSchema]
-	);
+	const fieldConfig: FieldConfig | undefined = useMemo(getFieldConfig, [fieldSchema]);
 
 	// Don't render anything when there is no field config available
 	if (!fieldConfig) {
@@ -32,7 +26,11 @@ const FieldRenderer: React.FC<FieldRendererProps> = ({ fieldSchema }) => {
 	const renderField = (): React.ReactNode => (
 		<Field name={fieldSchema.name}>
 			{(fieldProps: FieldProps<any, {}>): React.ReactNode => (
-				<FieldComponent fieldConfig={fieldConfig} fieldProps={fieldProps} fieldSchema={fieldSchema}></FieldComponent>
+				<FieldComponent
+					fieldConfig={fieldConfig}
+					fieldProps={fieldProps}
+					fieldSchema={fieldSchema}
+				></FieldComponent>
 			)}
 		</Field>
 	);
@@ -40,15 +38,9 @@ const FieldRenderer: React.FC<FieldRendererProps> = ({ fieldSchema }) => {
 	/**
 	 * Render a field group
 	 */
-	const renderFieldGroup = (): React.ReactNode => (
-		<Fieldgroup fieldSchema={fieldSchema} />
-	);
+	const renderFieldGroup = (): React.ReactNode => <Fieldgroup fieldSchema={fieldSchema} />;
 
-	return (
-		<>
-			{fieldSchema.type === 'fieldgroup' ? renderFieldGroup() : renderField()}
-		</>
-	);
+	return <>{fieldSchema.type === 'fieldgroup' ? renderFieldGroup() : renderField()}</>;
 };
 
 export default FieldRenderer;

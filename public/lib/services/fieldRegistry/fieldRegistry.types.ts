@@ -1,7 +1,7 @@
+import { FieldHelperProps, FieldProps } from 'formik';
 import React from 'react';
-import { FieldProps, FieldHelperProps } from 'formik';
 
-import { FieldSchema, FieldDataType, FormValues } from '../../core.types';
+import { FieldDataType, FieldSchema, FormValues } from '../../core.types';
 
 export interface InputFieldProps {
 	/**

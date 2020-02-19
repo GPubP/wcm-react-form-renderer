@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@redactie/form-renderer-module": "file:..",
     "@testing-library/jest-dom": "4.2.4",
     "@testing-library/react": "9.4.0",
     "@testing-library/user-event": "7.2.1",
@@ -12,9 +13,9 @@
     "@types/react-dom": "16.9.5",
     "react": "file:../node_modules/react",
     "react-dom": "16.12.0",
+    "react-router-dom": "^5.1.2",
     "react-scripts": "3.3.1",
-    "typescript": "3.7.5",
-    "redactie-form-renderer": "file:.."
+    "typescript": "3.7.5"
   },
   "scripts": {
     "start": "react-scripts start",

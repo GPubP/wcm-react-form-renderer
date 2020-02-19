@@ -5,7 +5,6 @@ import RedactionForm from './lib/components/Form/Form';
 //import { FormSchema } from './lib/core.types';
 import { fieldRegistry } from './lib/services';
 
-
 /**
  * FormsRouteComponent can be used to test the FormsComponent in the Redactie POC
  * Steps to make it work:
@@ -58,13 +57,11 @@ Core.routes.register({
 
 // expose module
 Core.modules.exposeModuleApi('forms-module', {
-	'form': RedactionForm,
-	'fieldRegistry': fieldRegistry,
+	form: RedactionForm,
+	fieldRegistry: fieldRegistry,
 });
 
 export * from './lib/core.types';
 export * from './lib/services/fieldRegistry/fieldRegistry.types';
 
-export {
-	RedactionForm,
-};
+export { RedactionForm };

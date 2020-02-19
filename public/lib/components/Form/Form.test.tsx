@@ -1,5 +1,5 @@
-import React from 'react';
 import { render, RenderResult } from '@testing-library/react';
+import React from 'react';
 
 import { FieldDataType } from '../../core.types';
 
@@ -13,11 +13,11 @@ const renderForm = (props?: Partial<FormProps>): RenderResult => {
 		},
 		schema: { fields: [] },
 	};
-	return render(<Form {...defaultProps} {...props}/>);
+	return render(<Form {...defaultProps} {...props} />);
 };
 
 describe('<Form />', () => {
-	it('should display a blank form when no schema is given', async() => {
+	it('should display a blank form when no schema is given', async () => {
 		const { findByTestId } = renderForm();
 		const formikForm = await findByTestId('formik-form');
 
@@ -25,31 +25,33 @@ describe('<Form />', () => {
 		expect(formikForm.children.length).toBe(1);
 	});
 
-	it('should display a full form when a schema is given', async() => {
+	it('should display a full form when a schema is given', async () => {
 		const { findByTestId } = renderForm({
 			schema: {
-				fields: [{
-					name: 'name',
-					module: 'core',
-					type: 'text',
-					// TODO: Investigate why we need to cast the dataType
-					dataType: 'string' as FieldDataType,
-					label: 'name',
-				},{
-					name: 'lastname',
-					module: 'core',
-					type: 'text',
-					// TODO: Investigate why we need to cast the dataType
-					dataType: 'string' as FieldDataType,
-					label: 'lastname',
-				}],
+				fields: [
+					{
+						name: 'name',
+						module: 'core',
+						type: 'text',
+						// TODO: Investigate why we need to cast the dataType
+						dataType: 'string' as FieldDataType,
+						label: 'name',
+					},
+					{
+						name: 'lastname',
+						module: 'core',
+						type: 'text',
+						// TODO: Investigate why we need to cast the dataType
+						dataType: 'string' as FieldDataType,
+						label: 'lastname',
+					},
+				],
 			},
 		});
 		const formikForm = await findByTestId('formik-form');
 
 		// Two field plus a button === 3
 		expect(formikForm.children.length).toBe(3);
-
 	});
 
 	// Test is not working properly

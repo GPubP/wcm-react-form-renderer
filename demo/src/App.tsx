@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 
-import { RedactionForm } from 'redactie-form-renderer';
+import { RedactionForm, FormSchema } from '@redactie/form-renderer-module';
 
 const App = () => {
 
@@ -9,7 +9,7 @@ const App = () => {
 		alert(JSON.stringify(values));
 	}
 
-	const form = {
+	const form: FormSchema = {
 		fields: [
 			{
 				name: 'firstname',
@@ -69,15 +69,15 @@ const App = () => {
 								key: '0',
 								value: 'belgium',
 								label: 'Belgium',
-							},{
+							}, {
 								key: '1',
 								value: 'france',
 								label: 'France',
-							},{
+							}, {
 								key: '2',
 								value: 'germany',
 								label: 'Germany',
-							},{
+							}, {
 								key: '3',
 								value: 'finland',
 								label: 'Finland',
@@ -100,7 +100,7 @@ const App = () => {
 					},
 					{
 						key: '1',
-						value:'6-7 jaar',
+						value: '6-7 jaar',
 						label: '6-7 jaar',
 					},
 					{
@@ -133,7 +133,7 @@ const App = () => {
 			<div className='header'>
 				<h1>Redaction Form Renderer Module</h1>
 			</div>
-			<RedactionForm onSubmit={onFormSubmit} schema={ form } />
+			<RedactionForm onSubmit={onFormSubmit} schema={form} />
 		</div>
 	);
 }

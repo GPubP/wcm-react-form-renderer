@@ -1,14 +1,14 @@
-import React, { ReactNode, useCallback, useState, useEffect } from 'react';
-import { Formik, Form, FormikHelpers } from 'formik';
+import { Form, Formik, FormikHelpers } from 'formik';
+import React, { ReactNode, useCallback, useEffect, useState } from 'react';
 
-import SchemaProvider from '../SchemaProvider/SchemaProvider';
-import FieldRenderer from '../FieldRenderer/FieldRenderer';
 import * as coreTypes from '../../core.types';
 import { getInitialValues } from '../../utils';
+import FieldRenderer from '../FieldRenderer/FieldRenderer';
+import SchemaProvider from '../SchemaProvider/SchemaProvider';
 
 import { FormProps } from './Form.types';
 
-const RedactionForm: React.FC<FormProps> = ({ schema, onSubmit, ...rest }) => {
+const RedactionForm: React.FC<FormProps> = ({ schema, onSubmit, ...rest }: FormProps) => {
 	const [initialValues, setInitialValues] = useState();
 
 	/**
@@ -28,7 +28,10 @@ const RedactionForm: React.FC<FormProps> = ({ schema, onSubmit, ...rest }) => {
 		initInitialValues();
 	}, [initInitialValues]);
 
-	const onFormSubmit = (values: coreTypes.FormValues, actions: FormikHelpers<coreTypes.FormValues>): void => {
+	const onFormSubmit = (
+		values: coreTypes.FormValues,
+		actions: FormikHelpers<coreTypes.FormValues>
+	): void => {
 		if (onSubmit) {
 			onSubmit(values);
 		}
@@ -36,7 +39,9 @@ const RedactionForm: React.FC<FormProps> = ({ schema, onSubmit, ...rest }) => {
 	};
 
 	const renderFields = (fields: coreTypes.FieldSchema[]): ReactNode => {
-		return fields.map((fieldSchema, index) => <FieldRenderer key={index} fieldSchema={fieldSchema} />);
+		return fields.map((fieldSchema, index) => (
+			<FieldRenderer key={index} fieldSchema={fieldSchema} />
+		));
 	};
 
 	// wait till the initial values are created
@@ -47,14 +52,16 @@ const RedactionForm: React.FC<FormProps> = ({ schema, onSubmit, ...rest }) => {
 	return (
 		<SchemaProvider value={{ schema }}>
 			<Formik
-				data-testid='formik-form'
+				data-testid="formik-form"
 				initialValues={initialValues}
 				onSubmit={onFormSubmit}
 				{...rest}
 			>
-				<Form data-testid='formik-form'>
+				<Form data-testid="formik-form">
 					{renderFields(schema.fields)}
-					<button className={'a-button'} type='submit'>Submit</button>
+					<button className={'a-button'} type="submit">
+						Submit
+					</button>
 				</Form>
 			</Formik>
 		</SchemaProvider>
