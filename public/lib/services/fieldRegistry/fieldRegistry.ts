@@ -1,7 +1,6 @@
-
 import { DefaultFields } from '../../components/Fields';
 
-import { FieldsRegistryConfig, FieldConfig } from './fieldRegistry.types';
+import { FieldConfig, FieldsRegistryConfig } from './fieldRegistry.types';
 
 class FieldRegistry {
 	private fields: FieldsRegistryConfig = {};
@@ -29,9 +28,10 @@ class FieldRegistry {
 	}
 
 	public add(field: FieldConfig): void {
-
 		if (this.fields[field.module] && this.fields[field.module][field.name]) {
-			throw new Error(`Register Field failed, Field with name ${field.name} and module ${field.module} already exist`);
+			throw new Error(
+				`Register Field failed, Field with name ${field.name} and module ${field.module} already exist`
+			);
 		}
 
 		if (!field.name) {
@@ -48,7 +48,6 @@ class FieldRegistry {
 
 		this.fields[field.module][field.name] = field;
 	}
-
 }
 
 export const fieldRegistry = new FieldRegistry(DefaultFields);

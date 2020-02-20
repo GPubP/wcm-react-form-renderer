@@ -1,12 +1,11 @@
 import React from 'react';
-import { FieldConfig, InputFieldProps } from './fieldRegistry.types';
 
 import FieldRegistry from './fieldRegistry';
+import { FieldConfig, InputFieldProps } from './fieldRegistry.types';
 
-const DummyFieldComponent: React.FC<InputFieldProps> = () => (<div>component</div>);
+const DummyFieldComponent: React.FC<InputFieldProps> = () => <div>component</div>;
 
 describe('fieldRegistry', () => {
-
 	const DefaultFieldConfig: FieldConfig = {
 		name: 'text',
 		module: 'core',
@@ -23,7 +22,6 @@ describe('fieldRegistry', () => {
 			fieldRegistry.add(fieldConfig);
 
 			expect(fieldRegistry.get(fieldConfig.module, fieldConfig.name)).toEqual(fieldConfig);
-
 		});
 
 		it('should throw an error when the field already exist in the given module', () => {
@@ -39,14 +37,13 @@ describe('fieldRegistry', () => {
 			};
 
 			expect(error).toThrow();
-
 		});
 
 		it('should throw an error when the name is undefined or null', () => {
 			const fieldRegistry = new FieldRegistry();
 			const fieldConfig: FieldConfig = {
 				...DefaultFieldConfig,
-				name: undefined as unknown as string,
+				name: (undefined as unknown) as string,
 			};
 
 			const error = (): void => {
@@ -60,7 +57,7 @@ describe('fieldRegistry', () => {
 			const fieldRegistry = new FieldRegistry();
 			const fieldConfig: FieldConfig = {
 				...DefaultFieldConfig,
-				module: undefined as unknown as string,
+				module: (undefined as unknown) as string,
 			};
 
 			const error = (): void => {
@@ -92,7 +89,9 @@ describe('fieldRegistry', () => {
 		});
 
 		it('should return undefined when name or module is undefined or null', () => {
-			expect(fieldRegistry.get(undefined as unknown as string, fieldConfig.name)).toBeUndefined();
+			expect(
+				fieldRegistry.get((undefined as unknown) as string, fieldConfig.name)
+			).toBeUndefined();
 		});
 	});
 });

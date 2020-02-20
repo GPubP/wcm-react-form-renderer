@@ -3,7 +3,6 @@ import { FormSchema } from '../../core.types';
 import createInitialValues from './getInitialValues';
 
 describe('createInitialValues', () => {
-
 	const schema: FormSchema = {
 		fields: [
 			{
@@ -25,14 +24,16 @@ describe('createInitialValues', () => {
 				dataType: 'object',
 				module: 'core',
 				type: 'fieldgroup',
-				label : 'user',
-				fields: [{
-					name: 'firstname',
-					module: 'core',
-					dataType: 'string',
-					type: 'text',
-					label: 'firstname',
-				}],
+				label: 'user',
+				fields: [
+					{
+						name: 'firstname',
+						module: 'core',
+						dataType: 'string',
+						type: 'text',
+						label: 'firstname',
+					},
+				],
 			},
 		],
 	};
@@ -53,5 +54,3 @@ describe('createInitialValues', () => {
 		expect(true).toBe(true);
 	});
 });
-
-

@@ -1,10 +1,10 @@
 import { FieldConfig } from '../../services/fieldRegistry/fieldRegistry.types';
 
-import InputText from './InputText/InputText';
-import Textarea from './TextArea/TextArea';
-import Select from './Select/Select';
-import Radio from './Radio/Radio';
 import Fieldgroup from './Fieldgroup/Fieldgroup';
+import InputText from './InputText/InputText';
+import Radio from './Radio/Radio';
+import Select from './Select/Select';
+import Textarea from './TextArea/TextArea';
 
 const DefaultFields: FieldConfig[] = [
 	{
@@ -34,11 +34,4 @@ const DefaultFields: FieldConfig[] = [
 	},
 ];
 
-export {
-	InputText,
-	Textarea,
-	Select,
-	Radio,
-	Fieldgroup,
-	DefaultFields,
-};
+export { InputText, Textarea, Select, Radio, Fieldgroup, DefaultFields };

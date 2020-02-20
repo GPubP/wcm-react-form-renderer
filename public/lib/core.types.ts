@@ -1,4 +1,3 @@
-
 /**
  * A list of allowed field types
  */
@@ -20,6 +19,7 @@ export interface FormValues {
 export interface FieldOption {
 	key: string;
 	value: string;
+	label?: string;
 }
 
 export interface FieldSchema {
@@ -56,5 +56,3 @@ export interface FieldSchema {
 	 */
 	fields?: FieldSchema[];
 }
-
-
