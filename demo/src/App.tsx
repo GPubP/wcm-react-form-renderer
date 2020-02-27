@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 
-import { RedactionForm, FormSchema } from '@redactie/form-renderer-module';
+import { Form, FormSchema } from '@redactie/form-renderer-module';
 
 const App = () => {
 
@@ -193,7 +193,7 @@ const App = () => {
 			<div className='header'>
 				<h1>Redaction Form Renderer Module</h1>
 			</div>
-			<RedactionForm
+			<Form
 				validationSchema={validationSchema}
 				errorMessages={errorMessages}
 				onSubmit={onFormSubmit}

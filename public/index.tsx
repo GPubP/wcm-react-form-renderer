@@ -1,7 +1,8 @@
 import Core from '@redactie/redactie-core';
 import React, { FC } from 'react';
 
-import RedactionForm from './lib/components/Form/Form';
+import ErrorMessage from './lib/components/ErrorMessage/ErrorMessage';
+import Form from './lib/components/Form/Form';
 import { FormSchema } from './lib/core.types';
 import { fieldRegistry } from './lib/services';
 
@@ -59,7 +60,7 @@ const FormsRouteComponent: FC = () => {
 	return (
 		<>
 			<h1>Forms Module Route</h1>
-			<RedactionForm
+			<Form
 				validationSchema={validationSchema}
 				errorMessages={errorMessages}
 				onSubmit={value => {
@@ -73,8 +74,9 @@ const FormsRouteComponent: FC = () => {
 
 // expose module
 Core.modules.exposeModuleApi('forms-module', {
-	form: RedactionForm,
-	fieldRegistry: fieldRegistry,
+	Form,
+	ErrorMessage,
+	fieldRegistry,
 });
 
 const sitesModule = Core.modules.getModuleAPI('sites-module');
@@ -91,4 +93,4 @@ if (sitesModule) {
 export * from './lib/core.types';
 export * from './lib/services/fieldRegistry/fieldRegistry.types';
 
-export { RedactionForm };
+export { Form };

@@ -1,9 +1,8 @@
 import { Select } from '@acpaas-ui/react-components/packages/form';
-import { ErrorMessage } from 'formik';
 import React from 'react';
 
 import { InputFieldProps } from '../../../services/fieldRegistry/fieldRegistry.types';
-import RendererErrorMessage from '../../ErrorMessage/ErrorMessage';
+import ErrorMessage from '../../ErrorMessage/ErrorMessage';
 
 const InputSelect: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }: InputFieldProps) => {
 	const config = fieldSchema.config || {};
@@ -17,7 +16,7 @@ const InputSelect: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }: Inp
 				{...config}
 				{...fieldProps.field}
 			/>
-			<ErrorMessage component={RendererErrorMessage} name={field.name} />
+			<ErrorMessage name={field.name} />
 		</>
 	);
 };

@@ -1,9 +1,9 @@
 import { TextField } from '@acpaas-ui/react-components/packages/form';
-import { ErrorMessage, getIn } from 'formik';
+import { getIn } from 'formik';
 import React from 'react';
 
 import { InputFieldProps } from '../../../services/fieldRegistry/fieldRegistry.types';
-import RendererErrorMessage from '../../ErrorMessage/ErrorMessage';
+import ErrorMessage from '../../ErrorMessage/ErrorMessage';
 
 const InputText: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }: InputFieldProps) => {
 	const config = fieldSchema.config || {};
@@ -23,7 +23,7 @@ const InputText: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }: Input
 				{...config}
 				{...fieldProps.field}
 			/>
-			<ErrorMessage component={RendererErrorMessage} name={field.name} />
+			<ErrorMessage name={field.name} />
 		</>
 	);
 };
