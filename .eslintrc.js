@@ -41,5 +41,15 @@ module.exports = {
 			ignoreCase: true,
 			ignoreDeclarationSort: true,
 		}],
+		'semi': 'off',
+		'@typescript-eslint/semi': ['error', 'always', { 'omitLastInOneLineBlock': true}]
 	},
+	overrides: [
+		{
+				"files": ["**/*.tsx"],
+				"rules": {
+						"react/prop-types": "off"
+				}
+		}
+	]
 };

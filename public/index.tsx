@@ -32,10 +32,36 @@ const FormsRouteComponent: FC = () => {
 		],
 	};
 
+	const validationSchema = {
+		$schema: 'http://json-schema.org/draft-07/schema#',
+		type: 'object',
+		properties: {
+			firstname: {
+				type: 'string',
+				required: true,
+			},
+			lastname: {
+				type: 'string',
+				required: true,
+			},
+		},
+	};
+
+	const errorMessages = {
+		firstname: {
+			required: 'You must enter a name',
+		},
+		lastname: {
+			required: 'You must enter a lastname',
+		},
+	};
+
 	return (
 		<>
 			<h1>Forms Module Route</h1>
 			<RedactionForm
+				validationSchema={validationSchema}
+				errorMessages={errorMessages}
 				onSubmit={value => {
 					console.log('submit', value);
 				}}

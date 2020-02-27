@@ -18,6 +18,7 @@ const App = () => {
 				dataType: 'string',
 				label: 'Firstname',
 				config: {
+					required: true,
 					placeholder: 'firstname',
 				}
 			},
@@ -28,6 +29,7 @@ const App = () => {
 				dataType: 'string',
 				label: 'Lastname',
 				config: {
+					required: true,
 					placeholder: 'lastname',
 				}
 			},
@@ -45,6 +47,7 @@ const App = () => {
 						dataType: 'string',
 						label: 'Zipcode',
 						config: {
+							required: true,
 							placeholder: 'zipcode',
 						}
 					},
@@ -55,6 +58,7 @@ const App = () => {
 						dataType: 'string',
 						label: 'City',
 						config: {
+							required: true,
 							placeholder: 'city',
 						}
 					},
@@ -65,6 +69,7 @@ const App = () => {
 						dataType: 'string',
 						label: 'Country',
 						config: {
+							required: true,
 							options: [{
 								key: '0',
 								value: 'belgium',
@@ -93,6 +98,7 @@ const App = () => {
 				dataType: 'string',
 				label: 'Ages',
 				config: {
+					required: true,
 					options: [{
 						key: '0',
 						value: '1-5 jaar',
@@ -122,18 +128,76 @@ const App = () => {
 				dataType: 'string',
 				label: 'Questions',
 				config: {
+					required: true,
 					placeholder: 'Questions?',
 				}
 			},
 		]
 	}
 
+	const validationSchema = {
+		$schema: 'http://json-schema.org/draft-07/schema#',
+		type: 'object',
+		properties: {
+			firstname: {
+				type: 'string',
+				required: true,
+			},
+			lastname: {
+				type: 'string',
+				required: true,
+			},
+			address: {
+				type: 'object',
+				properties: {
+					zipcode: {
+						type: 'string',
+						required: true,
+					},
+					city: {
+						type: 'string',
+						required: true,
+					},
+					country: {
+						type: 'string',
+						required: true,
+					}
+				}
+			},
+			ages: {
+				type: 'string',
+				required: true,
+			},
+			questions: {
+				type: 'string',
+				required: true,
+			},
+		},
+	};
+
+	const errorMessages = {
+		firstname: {
+			required: 'You must enter a name',
+		},
+		lastname: {
+			required: 'You must enter a lastname',
+		},
+		zipcode: {
+			required: '${path} You must enter a zipcode',
+		},
+		$required: 'this is a default required message',
+	};
+
 	return (
 		<div className='App'>
 			<div className='header'>
 				<h1>Redaction Form Renderer Module</h1>
 			</div>
-			<RedactionForm onSubmit={onFormSubmit} schema={form} />
+			<RedactionForm
+				validationSchema={validationSchema}
+				errorMessages={errorMessages}
+				onSubmit={onFormSubmit}
+				schema={form} />
 		</div>
 	);
 }
