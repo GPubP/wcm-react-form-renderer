@@ -49,6 +49,7 @@ export interface FieldSchema {
 	 */
 	config?: {
 		options?: FieldOption[];
+		required?: boolean;
 		[key: string]: any;
 	};
 	/**

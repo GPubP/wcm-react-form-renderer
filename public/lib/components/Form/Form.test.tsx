@@ -6,8 +6,16 @@ import { FieldDataType } from '../../core.types';
 import Form from './Form';
 import { FormProps } from './Form.types';
 
+jest.mock('schema-to-yup', () => ({
+	buildYup: () => ({}),
+}));
+
 const renderForm = (props?: Partial<FormProps>): RenderResult => {
+	const validationSchema = {};
+	const errorMessages = {};
 	const defaultProps: FormProps = {
+		validationSchema,
+		errorMessages,
 		onSubmit: () => {
 			return;
 		},
@@ -56,26 +64,28 @@ describe('<Form />', () => {
 
 	// Test is not working properly
 	// TODO: Fix this test if possible
-	// it('should submit the form when clicking on the submit button', async() => {
+	// it('should submit the form when clicking on the submit button', async () => {
 	// 	const props = {
 	// 		schema: {
-	// 			fields: [{
-	// 				name: 'name',
-	// 				module: 'core',
-	// 				type: 'text',
-	// 				// TODO: Investigate why we need to cast the dataType
-	// 				dataType: 'string' as FieldDataType,
-	// 				label: 'name',
-	// 			}],
+	// 			fields: [
+	// 				{
+	// 					name: 'name',
+	// 					module: 'core',
+	// 					type: 'text',
+	// 					// TODO: Investigate why we need to cast the dataType
+	// 					dataType: 'string' as FieldDataType,
+	// 					label: 'name',
+	// 				},
+	// 			],
 	// 		},
 	// 		onSubmit: jest.fn(),
-	// 	}
+	// 	};
 
 	// 	const { findByRole } = renderForm(props);
 	// 	const spySubmit = spyOn(props, 'onSubmit');
 	// 	const submitButton = await findByRole('button');
 
-	// 	await act( async () => {
+	// 	await act(async () => {
 	// 		fireEvent.click(submitButton);
 	// 	});
 	// 	expect(spySubmit).toHaveBeenCalledWith({

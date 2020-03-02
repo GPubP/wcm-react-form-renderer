@@ -1,6 +1,7 @@
 const path = require('path');
 
 const RedactionWebpackPlugin = require('@redactie/module-webpack-plugin');
+const postcssPresetEnv = require('postcss-preset-env');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = env => {
@@ -17,6 +18,27 @@ module.exports = env => {
 					test: /\.ts(x)?$/,
 					use: 'ts-loader',
 					exclude: /node_modules/,
+				},
+				{
+					test: /\.s[ac]ss$/i,
+					use: [
+						'style-loader',
+						{
+							loader: 'css-loader',
+							options: {
+								modules: true,
+								importLoaders: 1,
+							},
+						},
+						{
+							loader: 'postcss-loader',
+							options: {
+								ident: 'postcss',
+								plugins: () => [postcssPresetEnv()],
+							},
+						},
+						'sass-loader',
+					],
 				},
 			],
 		},
