@@ -4,6 +4,8 @@ const RedactionWebpackPlugin = require('@redactie/module-webpack-plugin');
 const postcssPresetEnv = require('postcss-preset-env');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
+const packageJSON = require('./package.json');
+
 module.exports = env => {
 	const defaultConfig = {
 		mode: 'production',
@@ -72,7 +74,7 @@ module.exports = env => {
 			plugins: [
 				...defaultConfig.plugins,
 				new RedactionWebpackPlugin({
-					moduleName: 'redactie-form-renderer',
+					moduleName: packageJSON.name,
 				}),
 			],
 		};
