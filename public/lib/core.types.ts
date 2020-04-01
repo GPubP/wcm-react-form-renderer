@@ -1,3 +1,8 @@
+import { ErrorMessageProps } from 'formik';
+
+import { FormProps } from './components/Form/Form.types';
+import FieldRegistry from './services/fieldRegistry/fieldRegistry';
+
 /**
  * A list of allowed field types
  */
@@ -56,4 +61,10 @@ export interface FieldSchema {
 	 * nested form fields
 	 */
 	fields?: FieldSchema[];
+}
+
+export interface FormsAPI {
+	Form: React.FC<FormProps>;
+	ErrorMessage: React.FC<ErrorMessageProps>;
+	fieldRegistry: FieldRegistry;
 }
