@@ -11,6 +11,7 @@ const Radio: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }: InputFiel
 	return (
 		<>
 			<RadioGroup
+				id={fieldSchema.name}
 				required={fieldSchema.config?.required}
 				label={fieldSchema.label}
 				{...config}

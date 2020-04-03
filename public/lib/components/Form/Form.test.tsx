@@ -1,7 +1,7 @@
 import { render, RenderResult } from '@testing-library/react';
 import React from 'react';
 
-import { FieldDataType } from '../../core.types';
+import { FieldDataType, FormValues } from '../../core.types';
 
 import Form from './Form';
 import { FormProps } from './Form.types';
@@ -10,10 +10,10 @@ jest.mock('schema-to-yup', () => ({
 	buildYup: () => ({}),
 }));
 
-const renderForm = (props?: Partial<FormProps>): RenderResult => {
+const renderForm = (props?: Partial<FormProps<FormValues>>): RenderResult => {
 	const validationSchema = {};
 	const errorMessages = {};
-	const defaultProps: FormProps = {
+	const defaultProps: FormProps<FormValues> = {
 		validationSchema,
 		errorMessages,
 		onSubmit: () => {
@@ -21,7 +21,17 @@ const renderForm = (props?: Partial<FormProps>): RenderResult => {
 		},
 		schema: { fields: [] },
 	};
-	return render(<Form {...defaultProps} {...props} />);
+	return render(
+		<Form {...defaultProps} {...props}>
+			{() => (
+				<>
+					<button data-testid="formik-submit-btn" className={'a-button'} type="submit">
+						Submit
+					</button>
+				</>
+			)}
+		</Form>
+	);
 };
 
 describe('<Form />', () => {
@@ -62,34 +72,40 @@ describe('<Form />', () => {
 		expect(formikForm.children.length).toBe(3);
 	});
 
-	// Test is not working properly
-	// TODO: Fix this test if possible
-	// it('should submit the form when clicking on the submit button', async () => {
-	// 	const props = {
-	// 		schema: {
-	// 			fields: [
-	// 				{
-	// 					name: 'name',
-	// 					module: 'core',
-	// 					type: 'text',
-	// 					// TODO: Investigate why we need to cast the dataType
-	// 					dataType: 'string' as FieldDataType,
-	// 					label: 'name',
-	// 				},
-	// 			],
-	// 		},
-	// 		onSubmit: jest.fn(),
-	// 	};
+	it('should set the form with initial values', () => {
+		const formProps = {
+			schema: {
+				fields: [
+					{
+						name: 'name',
+						module: 'core',
+						type: 'text',
+						// TODO: Investigate why we need to cast the dataType
+						dataType: 'string' as FieldDataType,
+						label: 'name',
+					},
+					{
+						name: 'lastname',
+						module: 'core',
+						type: 'text',
+						// TODO: Investigate why we need to cast the dataType
+						dataType: 'string' as FieldDataType,
+						label: 'lastname',
+					},
+				],
+			},
+			initialValues: {
+				name: 'John',
+				lastname: 'Doe',
+			},
+		};
+		const { getByLabelText } = renderForm(formProps);
 
-	// 	const { findByRole } = renderForm(props);
-	// 	const spySubmit = spyOn(props, 'onSubmit');
-	// 	const submitButton = await findByRole('button');
-
-	// 	await act(async () => {
-	// 		fireEvent.click(submitButton);
-	// 	});
-	// 	expect(spySubmit).toHaveBeenCalledWith({
-	// 		name: '',
-	// 	});
-	// });
+		expect(getByLabelText(formProps.schema.fields[0].label).getAttribute('value')).toBe(
+			formProps.initialValues.name
+		);
+		expect(getByLabelText(formProps.schema.fields[1].label).getAttribute('value')).toBe(
+			formProps.initialValues.lastname
+		);
+	});
 });

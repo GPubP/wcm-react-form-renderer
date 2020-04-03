@@ -1,14 +1,14 @@
 import React from 'react';
 
 import { FieldSchema } from '../../../core.types';
-import addNamespace from '../../../utils/addNamespace/addNamespace';
+import { addNameSpace } from '../../../utils';
 import FieldRenderer from '../../FieldRenderer/FieldRenderer';
 
 import { FieldGroupProps } from './Fieldgroup.types';
 
 const Fieldgroup: React.FC<FieldGroupProps> = ({ fieldSchema }: FieldGroupProps) => {
 	const fields = Array.isArray(fieldSchema.fields) ? fieldSchema.fields : [];
-	const withNamespace = addNamespace(fieldSchema.name);
+	const withNamespace = addNameSpace(fieldSchema.name);
 
 	return (
 		<div className="field-group">

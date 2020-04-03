@@ -1,6 +1,11 @@
-import { FormSchema, FormValues } from '../../core.types';
+import React from 'react';
 
-const createInitialValues = (schema: FormSchema): FormValues => {
+import { FormSchema, FormValues } from './core.types';
+
+export const addNameSpace = (namespace: string) => (fieldName: string): string =>
+	namespace ? `${namespace}.${fieldName}` : fieldName;
+
+export const createInitialValues = (schema: FormSchema): FormValues => {
 	if (!Array.isArray(schema.fields)) {
 		// TODO: Decide if we want to throw an error here?
 		return {};
@@ -30,4 +35,6 @@ const createInitialValues = (schema: FormSchema): FormValues => {
 	}, {});
 };
 
-export default createInitialValues;
+export const isFunction = (obj: any): obj is Function => typeof obj === 'function';
+
+export const isEmptyChildren = (children: any): boolean => React.Children.count(children) === 0;
