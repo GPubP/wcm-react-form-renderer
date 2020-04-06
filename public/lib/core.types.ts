@@ -1,4 +1,4 @@
-import { ErrorMessageProps } from 'formik';
+import { ErrorMessageProps, FormikValues } from 'formik';
 
 import { FormProps } from './components/Form/Form.types';
 import FieldRegistry from './services/fieldRegistry/fieldRegistry';
@@ -16,10 +16,7 @@ export interface FormSchema {
 	fields: FieldSchema[];
 }
 
-export interface FormValues {
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	[key: string]: any;
-}
+export type FormValues = FormikValues;
 
 export interface FieldOption {
 	key: string;
@@ -64,7 +61,7 @@ export interface FieldSchema {
 }
 
 export interface FormsAPI {
-	Form: React.FC<FormProps>;
+	Form: React.FC<FormProps<FormValues>>;
 	ErrorMessage: React.FC<ErrorMessageProps>;
 	fieldRegistry: FieldRegistry;
 }

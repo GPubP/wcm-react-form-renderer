@@ -11,6 +11,7 @@ const InputSelect: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }: Inp
 	return (
 		<>
 			<Select
+				id={fieldSchema.name}
 				required={fieldSchema.config?.required}
 				label={fieldSchema.label}
 				{...config}

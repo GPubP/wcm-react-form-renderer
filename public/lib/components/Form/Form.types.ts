@@ -1,10 +1,18 @@
+import { FormikHelpers, FormikProps } from 'formik';
+
 import { FormSchema, FormValues } from '../../core.types';
 
-export interface FormProps {
+export interface FormProps<Values> {
 	/**
 	 * Form schema
 	 */
 	schema: FormSchema;
+	/**
+	 * Initialvalues
+	 */
+	initialValues?: {
+		[key: string]: any;
+	};
 	/**
 	 * Validation schema
 	 * This is a JSON schema config object
@@ -33,5 +41,9 @@ export interface FormProps {
 	 * Use this function to get the form results
 	 * // TODO: Let the user know that the form is valid or not
 	 */
-	onSubmit?: (values: FormValues) => void;
+	onSubmit?: (values: FormValues, actions: FormikHelpers<FormValues>) => void;
+	/**
+	 * React children or child render callback
+	 */
+	children?: ((props: FormikProps<Values>) => React.ReactNode) | React.ReactNode;
 }

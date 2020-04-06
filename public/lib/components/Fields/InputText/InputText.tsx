@@ -17,6 +17,7 @@ const InputText: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }: Input
 	return (
 		<>
 			<TextField
+				id={fieldSchema.name}
 				state={state}
 				required={fieldSchema.config?.required}
 				label={fieldSchema.label}

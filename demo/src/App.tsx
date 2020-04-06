@@ -175,6 +175,18 @@ const App = () => {
 		},
 	};
 
+	const initialValues = {
+		firstname: 'John',
+		lastname: 'Doe',
+		address: {
+			zipcode: '2500',
+			city: 'Lier',
+			country: 'belgium',
+		},
+		ages: '8-10 jaar',
+		questions: 'no questions',
+	};
+
 	const errorMessages = {
 		firstname: {
 			required: 'You must enter a name',
@@ -197,7 +209,16 @@ const App = () => {
 				validationSchema={validationSchema}
 				errorMessages={errorMessages}
 				onSubmit={onFormSubmit}
-				schema={form} />
+				initialValues={initialValues}
+				schema={form}>
+					{(props) => (
+						<>
+							<button data-testid="formik-submit-btn" className={'a-button'} type="submit">
+								Verstuur
+							</button>
+						</>
+					)}
+			</Form>
 		</div>
 	);
 }

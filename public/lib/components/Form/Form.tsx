@@ -1,22 +1,24 @@
-import { Form, Formik, FormikHelpers } from 'formik';
+import { Form, Formik, FormikHelpers, FormikProps } from 'formik';
 import React, { ReactNode, useCallback, useEffect, useState } from 'react';
 import { buildYup } from 'schema-to-yup';
 
-import * as coreTypes from '../../core.types';
-import { getInitialValues } from '../../utils';
+import { FieldSchema, FormValues } from '../../core.types';
+import { createInitialValues, isEmptyChildren, isFunction } from '../../utils';
 import FieldRenderer from '../FieldRenderer/FieldRenderer';
 import SchemaProvider from '../SchemaProvider/SchemaProvider';
 
 import { FormProps } from './Form.types';
 
-const RedactionForm: React.FC<FormProps> = ({
+const RedactionForm: React.FC<FormProps<FormValues>> = ({
 	schema,
 	onSubmit,
 	validationSchema,
 	errorMessages,
+	initialValues,
+	children,
 	...rest
-}: FormProps) => {
-	const [initialValues, setInitialValues] = useState();
+}) => {
+	const [initialFormValue, setInitialFormValue] = useState<FormValues | undefined>(initialValues);
 	const [yupValidationSchema, setYupValidationSchema] = useState();
 
 	/**
@@ -26,8 +28,10 @@ const RedactionForm: React.FC<FormProps> = ({
 	 * will throw an error saying that you have changed an input from uncontrolled to controlled.
 	 */
 	const initInitialValues = useCallback(() => {
-		setInitialValues(getInitialValues(schema));
-	}, [schema]);
+		if (!initialFormValue) {
+			setInitialFormValue(createInitialValues(schema));
+		}
+	}, [schema, initialFormValue]);
 
 	/**
 	 * Convert a JSON schema to a Yup schema
@@ -48,32 +52,28 @@ const RedactionForm: React.FC<FormProps> = ({
 		initYupValidationSchema();
 	}, [initInitialValues, initYupValidationSchema]);
 
-	const onFormSubmit = (
-		values: coreTypes.FormValues,
-		actions: FormikHelpers<coreTypes.FormValues>
-	): void => {
+	const onFormSubmit = (values: FormValues, actions: FormikHelpers<FormValues>): void => {
 		if (onSubmit) {
-			onSubmit(values);
+			onSubmit(values, actions);
 		}
 		actions.setSubmitting(false);
 	};
 
-	const renderFields = (fields: coreTypes.FieldSchema[]): ReactNode => {
+	const renderFields = (fields: FieldSchema[]): ReactNode => {
 		return fields.map((fieldSchema, index) => (
 			<FieldRenderer key={index} fieldSchema={fieldSchema} />
 		));
 	};
 
 	// wait till the initial values are created
-	if (!initialValues) {
+	if (!initialFormValue) {
 		return null;
 	}
 
 	return (
 		<SchemaProvider value={{ schema }}>
 			<Formik
-				data-testid="formik-form"
-				initialValues={initialValues}
+				initialValues={initialFormValue}
 				onSubmit={onFormSubmit}
 				validationSchema={yupValidationSchema}
 				{...rest}
@@ -81,9 +81,11 @@ const RedactionForm: React.FC<FormProps> = ({
 				{props => (
 					<Form noValidate onSubmit={props.handleSubmit} data-testid="formik-form">
 						{renderFields(schema.fields)}
-						<button className={'a-button'} type="submit">
-							Submit
-						</button>
+						{isFunction(children)
+							? (children as (bag: FormikProps<FormValues>) => React.ReactNode)(props)
+							: !isEmptyChildren(children)
+							? React.Children.only(children)
+							: null}
 					</Form>
 				)}
 			</Formik>
