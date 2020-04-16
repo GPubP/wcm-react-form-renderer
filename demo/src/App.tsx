@@ -9,6 +9,10 @@ const App = () => {
 		alert(JSON.stringify(values));
 	}
 
+	const onChange = (values: any) => {
+		console.log("change", values);
+	}
+
 	const form: FormSchema = {
 		fields: [
 			{
@@ -210,6 +214,7 @@ const App = () => {
 				errorMessages={errorMessages}
 				onSubmit={onFormSubmit}
 				initialValues={initialValues}
+				onChange={onChange}
 				schema={form}>
 					{(props) => (
 						<>
