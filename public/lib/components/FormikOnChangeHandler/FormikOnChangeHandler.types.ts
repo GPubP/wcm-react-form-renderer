@@ -1,6 +1,6 @@
 import { FormikValues } from 'formik';
 
-export interface AutoSubmitProps {
+export interface FormikOnChangeHandlerProps {
 	onChange: (values: FormikValues) => void;
 	initialValues?: { [key: string]: any };
 	values?: { [key: string]: any };
