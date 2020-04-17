@@ -1,10 +1,12 @@
-import { Form, Formik, FormikHelpers, FormikProps } from 'formik';
+import { Form, Formik, FormikHelpers, FormikProps, FormikValues } from 'formik';
+import debounce from 'lodash.debounce';
 import React, { ReactNode, useCallback, useEffect, useState } from 'react';
 import { buildYup } from 'schema-to-yup';
 
 import { FieldSchema, FormValues } from '../../core.types';
 import { createInitialValues, isEmptyChildren, isFunction } from '../../utils';
 import FieldRenderer from '../FieldRenderer/FieldRenderer';
+import FormikOnChangeHandler from '../FormikOnChangeHandler/FormikOnChangeHandler';
 import SchemaProvider from '../SchemaProvider/SchemaProvider';
 
 import { FormProps } from './Form.types';
@@ -12,10 +14,12 @@ import { FormProps } from './Form.types';
 const RedactionForm: React.FC<FormProps<FormValues>> = ({
 	schema,
 	onSubmit,
+	onChange,
 	validationSchema,
 	errorMessages,
 	initialValues,
 	children,
+	delay = 300,
 	...rest
 }) => {
 	const [initialFormValue, setInitialFormValue] = useState<FormValues | undefined>(initialValues);
@@ -59,6 +63,13 @@ const RedactionForm: React.FC<FormProps<FormValues>> = ({
 		actions.setSubmitting(false);
 	};
 
+	const onFormChange = (values: FormValues): void => {
+		if (onChange) {
+			return onChange(values);
+		}
+	};
+	const debouncedOnFormChange = debounce(onFormChange, delay);
+
 	const renderFields = (fields: FieldSchema[]): ReactNode => {
 		return fields.map((fieldSchema, index) => (
 			<FieldRenderer key={index} fieldSchema={fieldSchema} />
@@ -79,14 +90,25 @@ const RedactionForm: React.FC<FormProps<FormValues>> = ({
 				{...rest}
 			>
 				{props => (
-					<Form noValidate onSubmit={props.handleSubmit} data-testid="formik-form">
-						{renderFields(schema.fields)}
-						{isFunction(children)
-							? (children as (bag: FormikProps<FormValues>) => React.ReactNode)(props)
-							: !isEmptyChildren(children)
-							? React.Children.only(children)
-							: null}
-					</Form>
+					<>
+						{onChange ? (
+							<FormikOnChangeHandler
+								onChange={(values: FormikValues) =>
+									onChange ? debouncedOnFormChange(values) : null
+								}
+							></FormikOnChangeHandler>
+						) : null}
+						<Form noValidate onSubmit={props.handleSubmit} data-testid="formik-form">
+							{renderFields(schema.fields)}
+							{isFunction(children)
+								? (children as (bag: FormikProps<FormValues>) => React.ReactNode)(
+										props
+								  )
+								: !isEmptyChildren(children)
+								? React.Children.only(children)
+								: null}
+						</Form>
+					</>
 				)}
 			</Formik>
 		</SchemaProvider>

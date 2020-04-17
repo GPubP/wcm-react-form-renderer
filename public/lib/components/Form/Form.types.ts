@@ -38,10 +38,21 @@ export interface FormProps<Values> {
 	};
 	/**
 	 * onSubmit
-	 * Use this function to get the form results
-	 * // TODO: Let the user know that the form is valid or not
+	 * Use this function to get the form results on submit
+	 *
 	 */
+	// TODO: Let the user know that the form is valid or not
 	onSubmit?: (values: FormValues, actions: FormikHelpers<FormValues>) => void;
+	/**
+	 * onChange
+	 * Use this function to get the form results on change
+	 */
+	onChange?: (values: FormValues) => void;
+	/**
+	 * delay
+	 * Debounce time for onChange
+	 */
+	delay?: number;
 	/**
 	 * React children or child render callback
 	 */

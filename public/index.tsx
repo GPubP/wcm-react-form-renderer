@@ -14,3 +14,4 @@ Core.modules.exposeModuleApi('forms-module', {
 export * from './lib/core.types';
 export * from './lib/services/fieldRegistry/fieldRegistry.types';
 export { default as Form } from './lib/components/Form/Form';
+export { default as FormikOnChangeHandler } from './lib/components/FormikOnChangeHandler/FormikOnChangeHandler';
