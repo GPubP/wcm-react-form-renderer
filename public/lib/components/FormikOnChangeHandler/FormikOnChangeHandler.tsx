@@ -4,11 +4,8 @@ import { FC, useEffect, useRef } from 'react';
 
 import { FormikOnChangeHandlerProps } from './FormikOnChangeHandler.types';
 
-const FormikOnChangeHandler: FC<FormikOnChangeHandlerProps> = ({
-	onChange,
-	...formikProps
-}): null => {
-	const { initialValues, values } = useFormikContext() || formikProps;
+const FormikOnChangeHandler: FC<FormikOnChangeHandlerProps> = ({ onChange }): null => {
+	const { initialValues, values } = useFormikContext();
 
 	const oldValues = useRef(initialValues);
 
