@@ -1,12 +1,12 @@
-import { Form, Formik, FormikHelpers, FormikProps } from 'formik';
+import { Form, Formik, FormikHelpers, FormikProps, FormikValues } from 'formik';
 import debounce from 'lodash.debounce';
 import React, { ReactNode, useCallback, useEffect, useState } from 'react';
 import { buildYup } from 'schema-to-yup';
 
 import { FieldSchema, FormValues } from '../../core.types';
 import { createInitialValues, isEmptyChildren, isFunction } from '../../utils';
-import AutoSubmit from '../AutoSubmit/AutoSubmit';
 import FieldRenderer from '../FieldRenderer/FieldRenderer';
+import FormikOnChangeHandler from '../FormikOnChangeHandler/FormikOnChangeHandler';
 import SchemaProvider from '../SchemaProvider/SchemaProvider';
 
 import { FormProps } from './Form.types';
@@ -92,11 +92,11 @@ const RedactionForm: React.FC<FormProps<FormValues>> = ({
 				{props => (
 					<>
 						{onChange ? (
-							<AutoSubmit
-								onChange={values =>
+							<FormikOnChangeHandler
+								onChange={(values: FormikValues) =>
 									onChange ? debouncedOnFormChange(values) : null
 								}
-							></AutoSubmit>
+							></FormikOnChangeHandler>
 						) : null}
 						<Form noValidate onSubmit={props.handleSubmit} data-testid="formik-form">
 							{renderFields(schema.fields)}

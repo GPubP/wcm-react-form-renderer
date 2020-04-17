@@ -39,8 +39,9 @@ export interface FormProps<Values> {
 	/**
 	 * onSubmit
 	 * Use this function to get the form results on submit
-	 * // TODO: Let the user know that the form is valid or not
+	 *
 	 */
+	// TODO: Let the user know that the form is valid or not
 	onSubmit?: (values: FormValues, actions: FormikHelpers<FormValues>) => void;
 	/**
 	 * onChange

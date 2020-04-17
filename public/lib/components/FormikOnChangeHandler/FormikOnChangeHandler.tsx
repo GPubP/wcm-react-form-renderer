@@ -2,7 +2,7 @@ import { FormikValues, useFormikContext } from 'formik';
 import { equals } from 'ramda';
 import { FC, useEffect, useRef } from 'react';
 
-import { AutoSubmitProps } from './AutoSubmit.types';
+import { AutoSubmitProps } from './FormikOnChangeHandler.types';
 
 const AutoSubmit: FC<AutoSubmitProps> = ({ onChange, ...formikProps }): null => {
 	const { initialValues, values } = useFormikContext() || formikProps;
