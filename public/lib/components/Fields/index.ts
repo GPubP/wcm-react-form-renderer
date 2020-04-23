@@ -5,6 +5,7 @@ import InputText from './InputText/InputText';
 import Radio from './Radio/Radio';
 import Select from './Select/Select';
 import Textarea from './TextArea/TextArea';
+import Time from './Time/Time';
 
 const DefaultFields: FieldConfig[] = [
 	{
@@ -32,6 +33,11 @@ const DefaultFields: FieldConfig[] = [
 		module: 'core',
 		component: Fieldgroup,
 	},
+	{
+		name: 'time',
+		module: 'core',
+		component: Time,
+	},
 ];
 
-export { InputText, Textarea, Select, Radio, Fieldgroup, DefaultFields };
+export { InputText, Textarea, Select, Radio, Fieldgroup, Time, DefaultFields };

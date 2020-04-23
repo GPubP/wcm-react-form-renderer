@@ -136,6 +136,16 @@ const App = () => {
 					placeholder: 'Questions?',
 				}
 			},
+			{
+				name: 'time',
+				module: 'core',
+				type: 'time',
+				dataType: 'string',
+				label: 'Time',
+				config: {
+					required: true,
+				}
+			},
 		]
 	}
 
@@ -176,6 +186,10 @@ const App = () => {
 				type: 'string',
 				required: true,
 			},
+			time: {
+				type: 'string',
+				required: true,
+			},
 		},
 	};
 
@@ -189,6 +203,7 @@ const App = () => {
 		},
 		ages: '8-10 jaar',
 		questions: 'no questions',
+		time: '2020-04-23T01:40:00.000Z',
 	};
 
 	const errorMessages = {
