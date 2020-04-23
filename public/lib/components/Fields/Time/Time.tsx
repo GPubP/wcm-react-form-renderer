@@ -5,7 +5,7 @@ import { InputFieldProps } from '../../../services/fieldRegistry/fieldRegistry.t
 import ErrorMessage from '../../ErrorMessage/ErrorMessage';
 
 import { HOURS, MINUTES } from './Time.const';
-import { getHours, getMinutes, mapToObject } from './Time.helpers';
+import { getFormattedTime, mapToObject } from './Time.helpers';
 
 const Time: React.FC<InputFieldProps> = ({
 	fieldProps,
@@ -50,7 +50,7 @@ const Time: React.FC<InputFieldProps> = ({
 					required={config.required}
 					label="Uren"
 					options={mapToObject(HOURS)}
-					value={getHours(field.value || null)}
+					value={getFormattedTime(field.value || null)?.hours}
 					onChange={handleChange}
 				/>
 				<span className="a-timepicker__separator">:</span>
@@ -59,7 +59,7 @@ const Time: React.FC<InputFieldProps> = ({
 					required={config.required}
 					label="Minuten"
 					options={mapToObject(MINUTES)}
-					value={getMinutes(field.value || null)}
+					value={getFormattedTime(field.value || null)?.minutes}
 					onChange={handleChange}
 				/>
 			</div>

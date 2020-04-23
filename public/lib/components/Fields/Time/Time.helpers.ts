@@ -8,20 +8,14 @@ export const mapToObject = (items: Array<string>): any => {
 	});
 };
 
-export const getHours = (dateString: string): string => {
+export const getFormattedTime = (dateString: string): { hours: string; minutes: string } | null => {
 	if (!dateString) {
-		return '';
+		return null;
 	}
 
 	const date = new Date(dateString);
-	return date.getHours().toString();
-};
-
-export const getMinutes = (dateString: string): string => {
-	if (!dateString) {
-		return '';
-	}
-
-	const date = new Date(dateString);
-	return date.getMinutes().toString();
+	return {
+		hours: date.getHours().toString(),
+		minutes: date.getMinutes().toString(),
+	};
 };
