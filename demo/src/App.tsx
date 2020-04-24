@@ -144,6 +144,14 @@ const App = () => {
 				label: 'Time',
 				config: {
 					required: true,
+					hours: {
+						placeholder: 'hh',
+						label: 'Uren'
+					},
+					minutes: {
+						placeholder: 'mm',
+						label: 'Minuten'
+					},
 				}
 			},
 		]
@@ -203,7 +211,6 @@ const App = () => {
 		},
 		ages: '8-10 jaar',
 		questions: 'no questions',
-		time: '2020-04-23T01:40:00.000Z',
 	};
 
 	const errorMessages = {

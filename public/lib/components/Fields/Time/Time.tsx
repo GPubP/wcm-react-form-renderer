@@ -15,6 +15,9 @@ const Time: React.FC<InputFieldProps> = ({
 	const config = fieldSchema.config || {};
 	const { field } = fieldProps;
 
+	/**
+	 * Methods
+	 */
 	const handleSetHours = (prevDate: Date, hours: string): void => {
 		const newDate = prevDate;
 		newDate.setHours(Number(hours));
@@ -42,24 +45,36 @@ const Time: React.FC<InputFieldProps> = ({
 		}
 	};
 
+	/**
+	 * Render
+	 */
 	return (
 		<>
-			<div className="a-timepicker">
+			<label>{fieldSchema.label} </label>
+			<div className="a-timepicker u-margin-top-xs">
 				<Select
 					id={`${fieldSchema.name}-hours`}
 					required={config.required}
-					label="Uren"
+					label={config.hours?.label || 'Uren'}
 					options={mapToObject(HOURS)}
-					value={getFormattedTime(field.value || null)?.hours}
+					placeholder={
+						getFormattedTime(field.value || null)?.hours ||
+						config.hours?.placeholder ||
+						'hh'
+					}
 					onChange={handleChange}
 				/>
 				<span className="a-timepicker__separator">:</span>
 				<Select
 					id={`${fieldSchema.name}-minutes`}
 					required={config.required}
-					label="Minuten"
+					label={config.minutes?.label || 'Minuten'}
 					options={mapToObject(MINUTES)}
-					value={getFormattedTime(field.value || null)?.minutes}
+					placeholder={
+						getFormattedTime(field.value || null)?.minutes ||
+						config.minutes?.placeholder ||
+						'mm'
+					}
 					onChange={handleChange}
 				/>
 			</div>

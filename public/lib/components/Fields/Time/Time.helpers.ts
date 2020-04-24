@@ -9,7 +9,7 @@ export const mapToObject = (items: Array<string>): any => {
 };
 
 export const getFormattedTime = (dateString: string): { hours: string; minutes: string } | null => {
-	if (!dateString) {
+	if (!dateString || dateString.length === 0) {
 		return null;
 	}
 
