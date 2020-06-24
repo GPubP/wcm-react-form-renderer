@@ -12,7 +12,6 @@ const InputTextarea: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }: I
 		<>
 			<Textarea
 				id={fieldSchema.name}
-				required={fieldSchema.config?.required}
 				label={fieldSchema.label}
 				{...config}
 				{...fieldProps.field}
