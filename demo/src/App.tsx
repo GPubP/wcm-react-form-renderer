@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 
 import { Form, FormSchema } from '@redactie/form-renderer-module';
+import { type } from 'ramda';
 
 const App = () => {
 
@@ -143,6 +144,38 @@ const App = () => {
 					placeholder: 'Questions?',
 				}
 			},
+			{
+				name: 'children',
+				module: 'core',
+				type: 'repeater',
+				dataType: 'array',
+				label: 'Children',
+				config: {
+
+				},
+				fields: [
+					{
+						name: 'firstname',
+						module: 'core',
+						type: 'text',
+						dataType: 'string',
+						label: 'Firstname',
+						config: {
+
+						}
+					},
+					{
+						name: 'lastname',
+						module: 'core',
+						type: 'text',
+						dataType: 'string',
+						label: 'Lastname',
+						config: {
+
+						}
+					}
+				]
+			}
 		]
 	}
 
@@ -183,6 +216,9 @@ const App = () => {
 				type: 'string',
 				required: true,
 			},
+			children: {
+				type: 'array'
+			}
 		},
 	};
 
@@ -196,6 +232,13 @@ const App = () => {
 		},
 		ages: '8-10 jaar',
 		questions: 'no questions',
+		children: [{
+			firstname: 'glenn',
+			lastname: 'verschooren',
+		}, {
+			firstname: 'glenn',
+			lastname: 'verschooren',
+		}]
 	};
 
 	const errorMessages = {

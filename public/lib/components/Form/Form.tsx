@@ -33,6 +33,7 @@ const RedactionForm: React.FC<FormProps<FormValues>> = ({
 	 */
 	const initInitialValues = useCallback(() => {
 		if (!initialFormValue) {
+			console.log(createInitialValues(schema));
 			setInitialFormValue(createInitialValues(schema));
 		}
 	}, [schema, initialFormValue]);

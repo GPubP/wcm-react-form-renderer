@@ -6,7 +6,7 @@ import FieldRenderer from '../../FieldRenderer/FieldRenderer';
 
 import { FieldGroupProps } from './Fieldgroup.types';
 
-const Fieldgroup: React.FC<FieldGroupProps> = ({ fieldSchema }: FieldGroupProps) => {
+const Fieldgroup: React.FC<FieldGroupProps> = ({ fieldSchema }) => {
 	const config = fieldSchema.config || {};
 	const fields = Array.isArray(fieldSchema.fields) ? fieldSchema.fields : [];
 	const withNamespace = addNameSpace(fieldSchema.name);

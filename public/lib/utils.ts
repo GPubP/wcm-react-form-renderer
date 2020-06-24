@@ -29,6 +29,21 @@ export const createInitialValues = (schema: FormSchema): FormValues => {
 			return acc;
 		}
 
+		// checl if field is a repeater
+		if (
+			field.dataType === 'array' &&
+			field.type === 'repeater' &&
+			Array.isArray(field.fields)
+		) {
+			acc[field.name] = [
+				{
+					...createInitialValues({ fields: field.fields }),
+				},
+			];
+
+			return acc;
+		}
+
 		acc[field.name] = '';
 
 		return acc;
