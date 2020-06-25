@@ -12,7 +12,7 @@ const Fieldgroup: React.FC<FieldGroupProps> = ({ fieldSchema }) => {
 	const withNamespace = addNameSpace(fieldSchema.name);
 
 	return (
-		<div className={`${config.wrapperClassName}`}>
+		<div className={config.wrapperClassName}>
 			<h6 className="u-margin-bottom-xs">{fieldSchema.label}</h6>
 			{config.description ? <p className="u-margin-bottom "> {config.description} </p> : null}
 			<div className="row">
