@@ -33,7 +33,6 @@ const RedactionForm: React.FC<FormProps<FormValues>> = ({
 	 */
 	const initInitialValues = useCallback(() => {
 		if (!initialFormValue) {
-			console.log(createInitialValues(schema));
 			setInitialFormValue(createInitialValues(schema));
 		}
 	}, [schema, initialFormValue]);
@@ -42,12 +41,6 @@ const RedactionForm: React.FC<FormProps<FormValues>> = ({
 	 * Convert a JSON schema to a Yup schema
 	 */
 	const initYupValidationSchema = useCallback(() => {
-		console.log(
-			buildYup(validationSchema, {
-				errMessages: errorMessages,
-				log: true,
-			})
-		);
 		setYupValidationSchema(
 			buildYup(validationSchema, {
 				errMessages: errorMessages,
@@ -97,34 +90,25 @@ const RedactionForm: React.FC<FormProps<FormValues>> = ({
 				validationSchema={yupValidationSchema}
 				{...rest}
 			>
-				{props => {
-					console.log(props.errors);
-					return (
-						<>
-							{onChange ? (
-								<FormikOnChangeHandler
-									onChange={(values: FormikValues) =>
-										debouncedOnFormChange(values)
-									}
-								></FormikOnChangeHandler>
-							) : null}
-							<Form
-								noValidate
-								onSubmit={props.handleSubmit}
-								data-testid="formik-form"
-							>
-								{renderFields(schema.fields)}
-								{isFunction(children)
-									? (children as (
-											bag: FormikProps<FormValues>
-									  ) => React.ReactNode)(props)
-									: !isEmptyChildren(children)
-									? React.Children.only(children)
-									: null}
-							</Form>
-						</>
-					);
-				}}
+				{props => (
+					<>
+						{onChange ? (
+							<FormikOnChangeHandler
+								onChange={(values: FormikValues) => debouncedOnFormChange(values)}
+							></FormikOnChangeHandler>
+						) : null}
+						<Form noValidate onSubmit={props.handleSubmit} data-testid="formik-form">
+							{renderFields(schema.fields)}
+							{isFunction(children)
+								? (children as (bag: FormikProps<FormValues>) => React.ReactNode)(
+										props
+								  )
+								: !isEmptyChildren(children)
+								? React.Children.only(children)
+								: null}
+						</Form>
+					</>
+				)}
 			</Formik>
 		</SchemaProvider>
 	);
