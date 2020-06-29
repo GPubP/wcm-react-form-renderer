@@ -43,6 +43,9 @@ const App = () => {
 				type: 'fieldgroup',
 				dataType: 'object',
 				label: 'Adres',
+				config: {
+					description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent non odio in risus lobortis ornare. Aenean id diam risus.'
+				},
 				fields: [
 					{
 						name: 'zipcode',
@@ -51,8 +54,10 @@ const App = () => {
 						dataType: 'string',
 						label: 'Zipcode',
 						config: {
+							wrapperClassName: 'col-xs-6',
 							required: true,
 							placeholder: 'zipcode',
+							description: 'Description text'
 						}
 					},
 					{
@@ -62,6 +67,7 @@ const App = () => {
 						dataType: 'string',
 						label: 'City',
 						config: {
+							wrapperClassName: 'col-xs-6',
 							required: true,
 							placeholder: 'city',
 						}
@@ -74,6 +80,7 @@ const App = () => {
 						label: 'Country',
 						config: {
 							required: true,
+							wrapperClassName: 'col-xs-12',
 							options: [{
 								key: '0',
 								value: 'belgium',
@@ -199,6 +206,7 @@ const App = () => {
 			required: 'You must enter a lastname',
 		},
 		zipcode: {
+			// eslint-disable-next-line no-template-curly-in-string
 			required: '${path} You must enter a zipcode',
 		},
 		$required: 'this is a default required message',

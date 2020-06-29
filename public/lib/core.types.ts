@@ -6,7 +6,9 @@ import FieldRegistry from './services/fieldRegistry/fieldRegistry';
 /**
  * A list of allowed field types
  */
-export type FieldDataType = 'string' | 'number' | 'date' | 'array' | 'object';
+const ALL_FIELD_DATA_TYPES = ['string', 'number', 'date', 'array', 'object'];
+type FieldDataTypeTuple = typeof ALL_FIELD_DATA_TYPES;
+export type FieldDataType = FieldDataTypeTuple[number];
 
 export interface FormSchema {
 	/**
@@ -52,6 +54,7 @@ export interface FieldSchema {
 	config?: {
 		options?: FieldOption[];
 		required?: boolean;
+		wrapperClassName?: string;
 		[key: string]: any;
 	};
 	/**

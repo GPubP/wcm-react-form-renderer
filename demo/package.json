@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@a-ui/core": "^4.0.0",
+    "@a-ui/flexboxgrid": "^1.0.1",
     "@redactie/form-renderer-module": "file:..",
     "@testing-library/jest-dom": "4.2.4",
     "@testing-library/react": "9.4.0",

@@ -52,6 +52,7 @@ module.exports = env => {
 			react: 'react',
 			'react-dom': 'react-dom',
 			'rc-slider': 'rc-slider',
+			'@redactie/react-router-guards': '@redactie/react-router-guards',
 			'@redactie/redactie-core': '@redactie/redactie-core',
 		},
 		output: {
