@@ -229,6 +229,7 @@ const App = () => {
 			children: {
 				type: 'array',
 				required: true,
+				minItems: 7,
 				items: {
 					type: 'object',
 					properties: {
@@ -275,12 +276,18 @@ const App = () => {
 		lastname: {
 			required: 'You must enter a lastname',
 		},
-		zipcode: {
+		'address.zipcode': {
 			// eslint-disable-next-line no-template-curly-in-string
 			required: '${path} You must enter a zipcode',
 		},
 		children: {
 			minItems: 'Fill in at least two children',
+		},
+		'children[$].firstname': {
+			required: 'You muster enter the name of the child',
+		},
+		'children[$].lastname': {
+			required: 'You muster enter the lastname of the child',
 		},
 		$required: 'this is a default required message',
 	};

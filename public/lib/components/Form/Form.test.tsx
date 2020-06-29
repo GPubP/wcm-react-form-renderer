@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import { render, RenderResult } from '@testing-library/react';
 import React from 'react';
 
@@ -6,8 +7,9 @@ import { FormValues } from '../../core.types';
 import Form from './Form';
 import { FormProps } from './Form.types';
 
-jest.mock('schema-to-yup', () => ({
+jest.mock('@redactie/schema-to-yup', () => ({
 	buildYup: () => ({}),
+	ErrorMessageHandler: class ErrorMessageHandlerMock {},
 }));
 
 const renderForm = (props?: Partial<FormProps<FormValues>>): RenderResult => {

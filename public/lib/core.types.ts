@@ -63,6 +63,13 @@ export interface FieldSchema {
 	fields?: FieldSchema[];
 }
 
+export interface ValidationSchema {
+	type: string;
+	name?: string;
+	properties?: Record<string, ValidationSchema>;
+	items?: ValidationSchema;
+}
+
 export interface FormsAPI {
 	Form: React.FC<FormProps<FormValues>>;
 	ErrorMessage: React.FC<ErrorMessageProps>;

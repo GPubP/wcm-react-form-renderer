@@ -52,6 +52,8 @@ module.exports = env => {
 			react: 'react',
 			ramda: 'ramda',
 			formik: 'formik',
+			moment: 'moment',
+			yup: 'yup',
 			'react-dom': 'react-dom',
 			'rc-slider': 'rc-slider',
 			'@redactie/react-router-guards': '@redactie/react-router-guards',

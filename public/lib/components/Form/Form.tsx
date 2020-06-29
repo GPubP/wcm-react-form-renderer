@@ -1,10 +1,16 @@
+import { buildYup } from '@redactie/schema-to-yup';
 import { Form, Formik, FormikHelpers, FormikProps, FormikValues } from 'formik';
 import debounce from 'lodash.debounce';
 import React, { ReactNode, useCallback, useEffect, useState } from 'react';
-import { buildYup } from 'schema-to-yup';
 
+import { createErrorMessageHandler } from '../../classes/errorMessageHandler/errorMessageHandler';
 import { FieldSchema, FormValues } from '../../core.types';
-import { createInitialValues, isEmptyChildren, isFunction } from '../../utils';
+import {
+	createInitialValues,
+	isEmptyChildren,
+	isFunction,
+	parseValidationSchema,
+} from '../../utils';
 import FieldRenderer from '../FieldRenderer/FieldRenderer';
 import FormikOnChangeHandler from '../FormikOnChangeHandler/FormikOnChangeHandler';
 import SchemaProvider from '../SchemaProvider/SchemaProvider';
@@ -42,8 +48,9 @@ const RedactionForm: React.FC<FormProps<FormValues>> = ({
 	 */
 	const initYupValidationSchema = useCallback(() => {
 		setYupValidationSchema(
-			buildYup(validationSchema, {
+			buildYup(parseValidationSchema(validationSchema), {
 				errMessages: errorMessages,
+				createErrorMessageHandler,
 				log: true,
 			})
 		);
