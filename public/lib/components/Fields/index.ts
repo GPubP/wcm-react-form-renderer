@@ -3,7 +3,7 @@ import { FieldConfig } from '../../services/fieldRegistry/fieldRegistry.types';
 import Fieldgroup from './Fieldgroup/Fieldgroup';
 import InputText from './InputText/InputText';
 import Radio from './Radio/Radio';
-import Repeater from './Repeater/Repater';
+import Repeater from './Repeater/Repeater';
 import Select from './Select/Select';
 import Textarea from './TextArea/TextArea';
 
