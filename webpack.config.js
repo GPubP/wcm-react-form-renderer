@@ -50,10 +50,15 @@ module.exports = env => {
 		plugins: [],
 		externals: {
 			react: 'react',
+			ramda: 'ramda',
+			formik: 'formik',
+			moment: 'moment',
+			yup: 'yup',
 			'react-dom': 'react-dom',
 			'rc-slider': 'rc-slider',
 			'@redactie/react-router-guards': '@redactie/react-router-guards',
 			'@redactie/redactie-core': '@redactie/redactie-core',
+			'@acpaas-ui/react-components': '@acpaas-ui/react-components',
 		},
 		output: {
 			filename: 'redactie-form-renderer-module.umd.js',
