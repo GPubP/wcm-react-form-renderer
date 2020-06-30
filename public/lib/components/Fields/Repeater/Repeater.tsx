@@ -116,6 +116,12 @@ const Repeater: React.FC<RepeaterProps> = ({ fieldSchema }) => {
 												(schema): FieldSchema => ({
 													...schema,
 													name: `${fieldSchema.name}.${index}.${schema.name}`,
+													config: {
+														...schema.config,
+														wrapperClassName:
+															schema.config?.wrapperClassName ||
+															'col-xs-12',
+													},
 												})
 											)
 											.map((schema, index) => (
