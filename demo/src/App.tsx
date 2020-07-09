@@ -197,7 +197,30 @@ const App = () => {
 					max: 5,
 					description: 'Add dynamic content',
 				},
-				fields: [],
+				fields: [
+					{
+						name: 'textfield',
+						module: 'core',
+						type: 'text',
+						dataType: 'string',
+						label: 'Textfield',
+						config: {
+							placeholder: 'placeholder',
+							id: '12345',
+						},
+					},
+					{
+						name: 'textarea',
+						module: 'core',
+						type: 'textarea',
+						dataType: 'string',
+						label: 'Textarea',
+						config: {
+							placeholder: 'placeholder',
+							id: '67890',
+						},
+					},
+				],
 			},
 		],
 	};
@@ -285,7 +308,11 @@ const App = () => {
 				lastname: 'scheirs',
 			},
 		],
-		dynamicChildren: [],
+		dynamicChildren: [
+			{
+				value: 'maarten', type: "12345"
+			}
+		],
 	};
 
 	const errorMessages = {

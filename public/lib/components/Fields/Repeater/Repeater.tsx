@@ -38,7 +38,7 @@ const Repeater: React.FC<RepeaterProps> = ({ fieldSchema }) => {
 	 *
 	 * @param arrayHelper
 	 * @param index
-	 * @param repaterValue
+	 * @param repeaterValue
 	 */
 	const deleteItem = (arrayHelper: FieldArrayRenderProps, index: number): void => {
 		arrayHelper.remove(index);
@@ -72,16 +72,16 @@ const Repeater: React.FC<RepeaterProps> = ({ fieldSchema }) => {
 	 * Render array elements
 	 *
 	 * @param arrayHelper
-	 * @param repaterValue
+	 * @param repeaterValue
 	 */
 	const renderArrayElements = (
 		arrayHelper: FieldArrayRenderProps,
-		repaterValue: FormikValues[]
+		repeaterValue: FormikValues[]
 	): React.ReactNode => {
 		return (
 			<>
-				{repaterValue && repaterValue.length > 0
-					? repaterValue.map((value: any, index: number) => {
+				{repeaterValue && repeaterValue.length > 0
+					? repeaterValue.map((value: any, index: number) => {
 							return (
 								<div key={index} className={cx('repeater__item')}>
 									<div>
@@ -105,7 +105,7 @@ const Repeater: React.FC<RepeaterProps> = ({ fieldSchema }) => {
 												type="primary"
 												htmlType="button"
 												size="tiny"
-												disabled={repaterValue.length - 1 === index}
+												disabled={repeaterValue.length - 1 === index}
 												negative
 											/>
 										</div>
@@ -128,7 +128,7 @@ const Repeater: React.FC<RepeaterProps> = ({ fieldSchema }) => {
 												<FieldRenderer key={index} fieldSchema={schema} />
 											))}
 									</div>
-									{repaterValue.length > min ? (
+									{repeaterValue.length > min ? (
 										<div>
 											<Button
 												onClick={() => deleteItem(arrayHelper, index)}
