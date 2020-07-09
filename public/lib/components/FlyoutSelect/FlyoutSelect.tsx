@@ -1,4 +1,4 @@
-import { Button, ButtonGroup, Flyout } from '@acpaas-ui/react-components';
+import { Button, Flyout } from '@acpaas-ui/react-components';
 import React from 'react';
 
 import { FieldSchema } from '../../core.types';
@@ -14,13 +14,17 @@ const FlyoutSelect: React.FC<FlyoutSelectProps> = ({ onSelect, items }) => {
 				</Button>
 			}
 		>
-			<ButtonGroup direction="vertical">
+			<ul className="m-selectable-list">
 				{items.map((item: FieldSchema, index: number) => (
-					<Button htmlType="button" key={index} onClick={() => onSelect(item)} outline>
-						{item.name}
-					</Button>
+					<li
+						key={index}
+						onClick={() => onSelect(item)}
+						className="m-selectable-list__item"
+					>
+						{item.label}
+					</li>
 				))}
-			</ButtonGroup>
+			</ul>
 		</Flyout>
 	);
 };
