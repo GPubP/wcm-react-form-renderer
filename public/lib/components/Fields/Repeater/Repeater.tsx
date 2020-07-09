@@ -1,6 +1,7 @@
 import { Button } from '@acpaas-ui/react-components';
 import classNames from 'classnames/bind';
 import { FieldArray, FieldArrayRenderProps, FormikValues, useFormikContext } from 'formik';
+import { path, split } from 'ramda';
 import React from 'react';
 
 import { FieldSchema } from '../../../core.types';
@@ -16,7 +17,7 @@ const Repeater: React.FC<RepeaterProps> = ({ fieldSchema }) => {
 	const config = fieldSchema.config || {};
 	const fields = Array.isArray(fieldSchema.fields) ? fieldSchema.fields : [];
 	const { values } = useFormikContext<FormikValues>();
-	const value = values[fieldSchema.name];
+	const value = path(split('.', fieldSchema.name), values) as FormikValues[];
 	const min = config.min || 0;
 	const max = config.max === 0 || !config.max ? Number.MAX_SAFE_INTEGER : config.max;
 	const isRequired = min >= 1;
