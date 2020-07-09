@@ -186,6 +186,19 @@ const App = () => {
 					},
 				],
 			},
+			{
+				name: 'dynamicChildren',
+				module: 'core',
+				type: 'dynamicRepeater',
+				dataType: 'array',
+				label: 'Vrije paragrafen',
+				config: {
+					min: 0,
+					max: 5,
+					description: 'Add dynamic content',
+				},
+				fields: [],
+			},
 		],
 	};
 
@@ -244,6 +257,11 @@ const App = () => {
 					},
 				},
 			},
+			dynamicChildren: {
+				type: 'array',
+				required: true,
+				minItems: 0,
+			},
 		},
 	};
 
@@ -267,6 +285,7 @@ const App = () => {
 				lastname: 'scheirs',
 			},
 		],
+		dynamicChildren: [],
 	};
 
 	const errorMessages = {

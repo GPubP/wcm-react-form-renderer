@@ -1,5 +1,6 @@
 import { FieldConfig } from '../../services/fieldRegistry/fieldRegistry.types';
 
+import DynamicRepeater from './DynamicRepeater/DynamicRepeater';
 import Fieldgroup from './Fieldgroup/Fieldgroup';
 import InputText from './InputText/InputText';
 import Radio from './Radio/Radio';
@@ -38,6 +39,11 @@ const DefaultFields: FieldConfig[] = [
 		module: 'core',
 		component: Repeater,
 	},
+	{
+		name: 'dynamicRepeater',
+		module: 'core',
+		component: DynamicRepeater,
+	},
 ];
 
-export { InputText, Textarea, Select, Radio, Fieldgroup, Repeater, DefaultFields };
+export { InputText, Textarea, Select, Radio, Fieldgroup, Repeater, DynamicRepeater, DefaultFields };
