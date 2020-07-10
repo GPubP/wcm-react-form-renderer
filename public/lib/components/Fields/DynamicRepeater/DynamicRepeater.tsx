@@ -149,7 +149,6 @@ const DynamicRepeater: React.FC<DynamicRepeaterProps> = ({ fieldSchema }) => {
 										type="danger"
 										htmlType="button"
 										size="small"
-										outlined
 									/>
 								</div>
 							) : null}
