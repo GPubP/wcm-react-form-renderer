@@ -389,11 +389,6 @@ const App = () => {
 					},
 				},
 			},
-			dynamicChildren: {
-				type: 'array',
-				required: true,
-				minItems: 0,
-			},
 		},
 	};
 
