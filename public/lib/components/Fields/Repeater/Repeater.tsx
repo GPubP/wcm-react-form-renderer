@@ -16,7 +16,7 @@ const Repeater: React.FC<RepeaterProps> = ({ fieldSchema }) => {
 	const config = fieldSchema.config || {};
 	const fields = Array.isArray(fieldSchema.fields) ? fieldSchema.fields : [];
 	const { values } = useFormikContext<FormikValues>();
-	const value = values[fieldSchema.name];
+	const value = values[fieldSchema.name] || [];
 	const min = config.min || 0;
 	const max = config.max === 0 || !config.max ? Number.MAX_SAFE_INTEGER : config.max;
 	const isRequired = min >= 1;
