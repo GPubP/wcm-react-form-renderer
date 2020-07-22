@@ -55,6 +55,7 @@ export interface FieldSchema {
 		options?: FieldOption[];
 		required?: boolean;
 		wrapperClassName?: string;
+		id?: string;
 		[key: string]: any;
 	};
 	/**

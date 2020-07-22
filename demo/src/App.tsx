@@ -186,6 +186,151 @@ const App = () => {
 					},
 				],
 			},
+			{
+				name: 'dynamicRepeater',
+				module: 'core',
+				type: 'dynamicRepeater',
+				dataType: 'array',
+				label: 'Vrije paragrafen',
+				config: {
+					min: 0,
+					max: 5,
+					description: 'Add dynamic content',
+				},
+				fields: [
+					{
+						name: 'textfield',
+						module: 'core',
+						type: 'text',
+						dataType: 'string',
+						label: 'Textfield',
+						config: {
+							placeholder: 'placeholder',
+							id: '1',
+						},
+					},
+					{
+						name: 'textarea',
+						module: 'core',
+						type: 'textarea',
+						dataType: 'string',
+						label: 'Textarea',
+						config: {
+							placeholder: 'placeholder',
+							id: '2',
+						},
+					},
+					{
+						name: 'repeater',
+						module: 'core',
+						type: 'repeater',
+						dataType: 'array',
+						label: 'Repeater',
+						config: {
+							min: 4,
+							max: 5,
+							description: 'Add new children',
+							id: '3'
+						},
+						fields: [
+							{
+								name: 'firstname',
+								module: 'core',
+								type: 'text',
+								dataType: 'string',
+								label: 'Firstname',
+								config: {
+									required: true,
+									wrapperClassName: 'col-xs-6',
+								},
+							},
+							{
+								name: 'lastname',
+								module: 'core',
+								type: 'text',
+								dataType: 'string',
+								label: 'Lastname',
+								config: {
+									required: true,
+									wrapperClassName: 'col-xs-6',
+								},
+							},
+						],
+					},
+					{
+						name: 'address',
+						module: 'core',
+						type: 'fieldgroup',
+						dataType: 'object',
+						label: 'Adres',
+						config: {
+							id: '4',
+							description:
+								'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent non odio in risus lobortis ornare. Aenean id diam risus.',
+						},
+						fields: [
+							{
+								name: 'zipcode',
+								module: 'core',
+								type: 'text',
+								dataType: 'string',
+								label: 'Zipcode',
+								config: {
+									wrapperClassName: 'col-xs-6',
+									required: true,
+									placeholder: 'zipcode',
+									description: 'Description text',
+								},
+							},
+							{
+								name: 'city',
+								module: 'core',
+								type: 'text',
+								dataType: 'string',
+								label: 'City',
+								config: {
+									wrapperClassName: 'col-xs-6',
+									required: true,
+									placeholder: 'city',
+								},
+							},
+							{
+								name: 'country',
+								module: 'core',
+								type: 'select',
+								dataType: 'string',
+								label: 'Country',
+								config: {
+									required: true,
+									wrapperClassName: 'col-xs-12',
+									options: [
+										{
+											key: '0',
+											value: 'belgium',
+											label: 'Belgium',
+										},
+										{
+											key: '1',
+											value: 'france',
+											label: 'France',
+										},
+										{
+											key: '2',
+											value: 'germany',
+											label: 'Germany',
+										},
+										{
+											key: '3',
+											value: 'finland',
+											label: 'Finland',
+										},
+									],
+								},
+							},
+						],
+					},
+				],
+			},
 		],
 	};
 
@@ -266,6 +411,34 @@ const App = () => {
 				firstname: 'mieke',
 				lastname: 'scheirs',
 			},
+		],
+		dynamicRepeater: [
+			{
+				value: 'maarten', type: '1'
+			},
+			{
+				value: 'de weerdt', type: '2'
+			},
+			{
+				value: [
+					{
+						firstname: 'glenn',
+						lastname: 'verschooren',
+					},
+					{
+						firstname: 'mieke',
+						lastname: 'scheirs',
+					},
+				], type: '3'
+			},
+			{
+				value: {
+					zipcode: '2500',
+					city: 'Lier',
+					country: 'belgium',
+				},
+				type: '4'
+			}
 		],
 	};
 

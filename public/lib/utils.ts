@@ -29,7 +29,7 @@ export const createInitialValues = (schema: FormSchema): FormValues => {
 			return acc;
 		}
 
-		// checl if field is a repeater
+		// check if field is a repeater
 		if (
 			field.dataType === 'array' &&
 			field.type === 'repeater' &&
