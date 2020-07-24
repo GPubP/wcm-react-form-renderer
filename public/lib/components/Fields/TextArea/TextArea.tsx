@@ -1,4 +1,5 @@
 import { Textarea } from '@acpaas-ui/react-components/packages/form';
+import { omit } from 'ramda';
 import React from 'react';
 
 import { InputFieldProps } from '../../../services/fieldRegistry/fieldRegistry.types';
@@ -13,7 +14,7 @@ const InputTextarea: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }: I
 			<Textarea
 				id={fieldSchema.name}
 				label={fieldSchema.label}
-				{...config}
+				{...omit(['multiLanguage', 'min', 'max'])(config)}
 				{...fieldProps.field}
 			/>
 			<ErrorMessage name={field.name} />
