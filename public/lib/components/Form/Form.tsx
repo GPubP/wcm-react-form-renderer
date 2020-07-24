@@ -48,13 +48,18 @@ const RedactionForm: React.FC<FormProps<FormValues>> = ({
 	 * Convert a JSON schema to a Yup schema
 	 */
 	const initYupValidationSchema = useCallback(() => {
-		setYupValidationSchema(
-			buildYup(parseValidationSchema(validationSchema), {
-				errMessages: errorMessages,
-				createErrorMessageHandler,
-				log: true,
-			})
-		);
+		try {
+			setYupValidationSchema(
+				buildYup(parseValidationSchema(validationSchema), {
+					errMessages: errorMessages,
+					createErrorMessageHandler,
+					log: true,
+				})
+			);
+		} catch (e) {
+			console.warn('VALIDATION DISABLED BECAUSE OF AN ERROR!');
+			console.error(e);
+		}
 	}, [validationSchema, errorMessages]);
 
 	/**

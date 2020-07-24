@@ -18,8 +18,11 @@ const DynamicRepeater: React.FC<DynamicRepeaterProps> = ({ fieldSchema }) => {
 	const fields = Array.isArray(fieldSchema.fields) ? fieldSchema.fields : [];
 	const { values } = useFormikContext<FormikValues>();
 	const value = pathOr([], split('.', fieldSchema.name), values) as FormikValues[];
-	const min = config.min || 0;
-	const max = config.max === 0 || !config.max ? Number.MAX_SAFE_INTEGER : config.max;
+	const min = config.amount?.minValue || 0;
+	const max =
+		config.amount?.maxValue === 0 || !config.amount?.maxValue
+			? Number.MAX_SAFE_INTEGER
+			: config.amount?.maxValue;
 	const isRequired = min >= 1;
 
 	/**
