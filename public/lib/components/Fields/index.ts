@@ -1,7 +1,9 @@
 import { FieldConfig } from '../../services/fieldRegistry/fieldRegistry.types';
 
+import Datepicker from './Datepicker/Datepicker';
 import DynamicRepeater from './DynamicRepeater/DynamicRepeater';
 import Fieldgroup from './Fieldgroup/Fieldgroup';
+import InputNumber from './InputNumber/InputNumber';
 import InputText from './InputText/InputText';
 import Radio from './Radio/Radio';
 import Repeater from './Repeater/Repeater';
@@ -13,6 +15,16 @@ const DefaultFields: FieldConfig[] = [
 		name: 'text',
 		module: 'core',
 		component: InputText,
+	},
+	{
+		name: 'number',
+		module: 'core',
+		component: InputNumber,
+	},
+	{
+		name: 'date',
+		module: 'core',
+		component: Datepicker,
 	},
 	{
 		name: 'textarea',
