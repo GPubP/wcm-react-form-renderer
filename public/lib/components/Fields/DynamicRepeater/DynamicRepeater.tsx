@@ -90,7 +90,7 @@ const DynamicRepeater: React.FC<DynamicRepeaterProps> = ({ fieldSchema }) => {
 	): React.ReactNode => {
 		return (
 			<>
-				{repeaterValues
+				{(Array.isArray(repeaterValues) ? repeaterValues : [])
 					.map((value: FormikValues) => {
 						const config = getFieldSchema(value);
 						return config;
