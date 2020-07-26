@@ -75,7 +75,6 @@ const RedactionForm: React.FC<FormProps<FormValues>> = ({
 	};
 
 	const onFormChange = (values: FormValues): void => {
-		console.log(values);
 		if (onChange) {
 			return onChange(values);
 		}
