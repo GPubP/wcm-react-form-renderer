@@ -56,7 +56,7 @@ export const createInitialValues = (
 			return acc;
 		}
 
-		if (field.defaultValue !== null || field.defaultValue !== undefined) {
+		if (field.defaultValue !== null && field.defaultValue !== undefined) {
 			acc[field.name] = field.defaultValue;
 			return acc;
 		}
