@@ -1,3 +1,4 @@
+import { prop } from 'ramda';
 import React from 'react';
 
 import { FormSchema, FormValues, ValidationSchema } from './core.types';
@@ -5,7 +6,10 @@ import { FormSchema, FormValues, ValidationSchema } from './core.types';
 export const addNameSpace = (namespace: string) => (fieldName: string): string =>
 	namespace ? `${namespace}.${fieldName}` : fieldName;
 
-export const createInitialValues = (schema: FormSchema): FormValues => {
+export const createInitialValues = (
+	schema: FormSchema,
+	initialValues: Record<string, any>
+): FormValues => {
 	if (!Array.isArray(schema.fields)) {
 		// TODO: Decide if we want to throw an error here?
 		return {};
@@ -24,7 +28,10 @@ export const createInitialValues = (schema: FormSchema): FormValues => {
 			field.type === 'fieldgroup' &&
 			Array.isArray(field.fields)
 		) {
-			acc[field.name] = createInitialValues({ fields: field.fields });
+			acc[field.name] = createInitialValues(
+				{ fields: field.fields },
+				initialValues[field.name]
+			);
 
 			return acc;
 		}
@@ -37,10 +44,20 @@ export const createInitialValues = (schema: FormSchema): FormValues => {
 		) {
 			acc[field.name] = [
 				{
-					...createInitialValues({ fields: field.fields }),
+					...createInitialValues({ fields: field.fields }, initialValues[field.name]),
 				},
 			];
 
+			return acc;
+		}
+
+		if (prop(field.name)(initialValues)) {
+			acc[field.name] = initialValues[field.name];
+			return acc;
+		}
+
+		if (field.defaultValue !== null && field.defaultValue !== undefined) {
+			acc[field.name] = field.defaultValue;
 			return acc;
 		}
 

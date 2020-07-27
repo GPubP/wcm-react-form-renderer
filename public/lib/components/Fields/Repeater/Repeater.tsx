@@ -28,9 +28,12 @@ const Repeater: React.FC<RepeaterProps> = ({ fieldSchema }) => {
 	 * @param arrayHelper
 	 */
 	const addItem = (arrayHelper: FieldArrayRenderProps): void => {
-		const initialValues = createInitialValues({
-			fields,
-		});
+		const initialValues = createInitialValues(
+			{
+				fields,
+			},
+			{}
+		);
 		arrayHelper.push(initialValues);
 	};
 

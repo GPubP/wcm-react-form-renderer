@@ -1,7 +1,6 @@
 import { buildYup } from '@redactie/schema-to-yup';
 import { Form, Formik, FormikHelpers, FormikProps, FormikValues } from 'formik';
 import debounce from 'lodash.debounce';
-import { isEmpty } from 'ramda';
 import React, { ReactNode, useCallback, useEffect, useState } from 'react';
 
 import { createErrorMessageHandler } from '../../classes/errorMessageHandler/errorMessageHandler';
@@ -39,10 +38,8 @@ const RedactionForm: React.FC<FormProps<FormValues>> = ({
 	 * will throw an error saying that you have changed an input from uncontrolled to controlled.
 	 */
 	const initInitialValues = useCallback(() => {
-		if (!initialFormValue || isEmpty(initialFormValue)) {
-			setInitialFormValue(createInitialValues(schema));
-		}
-	}, [schema, initialFormValue]);
+		setInitialFormValue(createInitialValues(schema, initialValues || {}));
+	}, [schema]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	/**
 	 * Convert a JSON schema to a Yup schema
@@ -99,6 +96,7 @@ const RedactionForm: React.FC<FormProps<FormValues>> = ({
 		<SchemaProvider value={{ schema }}>
 			<Formik
 				initialValues={initialFormValue}
+				enableReinitialize={true}
 				onSubmit={onFormSubmit}
 				validationSchema={yupValidationSchema}
 				{...rest}

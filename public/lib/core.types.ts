@@ -62,6 +62,7 @@ export interface FieldSchema {
 	 * nested form fields
 	 */
 	fields?: FieldSchema[];
+	defaultValue?: any;
 }
 
 export interface ValidationSchema {
