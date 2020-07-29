@@ -23,7 +23,7 @@ const InputNumber: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }: Inp
 				label={fieldSchema.label}
 				type="number"
 				{...omit(['multiLanguage', 'min', 'max'])(config)}
-				{...fieldProps.field}
+				{...field}
 			/>
 			<ErrorMessage name={field.name} />
 		</>

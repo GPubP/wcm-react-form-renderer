@@ -15,7 +15,7 @@ const InputSelect: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }: Inp
 				id={fieldSchema.name}
 				label={fieldSchema.label}
 				{...omit(['multiLanguage', 'min', 'max'])(config)}
-				{...fieldProps.field}
+				{...field}
 			/>
 			<ErrorMessage name={field.name} />
 		</>

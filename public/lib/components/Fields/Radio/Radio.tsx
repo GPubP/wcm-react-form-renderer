@@ -15,7 +15,7 @@ const Radio: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }: InputFiel
 				id={fieldSchema.name}
 				label={fieldSchema.label}
 				{...omit(['multiLanguage', 'min', 'max'])(config)}
-				{...fieldProps.field}
+				{...field}
 			/>
 			<ErrorMessage name={field.name} />
 		</>

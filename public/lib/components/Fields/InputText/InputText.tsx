@@ -22,7 +22,7 @@ const InputText: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }: Input
 				state={state}
 				label={fieldSchema.label}
 				{...omit(['multiLanguage', 'min', 'max'])(config)}
-				{...fieldProps.field}
+				{...field}
 			/>
 			<ErrorMessage name={field.name} />
 		</>

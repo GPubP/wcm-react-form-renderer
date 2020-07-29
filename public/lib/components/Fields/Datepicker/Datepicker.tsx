@@ -22,7 +22,17 @@ const Datepicker: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }: Inpu
 				state={state}
 				label={fieldSchema.label}
 				{...omit(['multiLanguage', 'min', 'max'])(config)}
-				{...fieldProps.field}
+				onChange={(e: string) => {
+					const event = {
+						target: {
+							id: fieldSchema.name,
+							value: e,
+						},
+					};
+
+					field.onChange(event);
+				}}
+				activeDate={field.value}
 			/>
 			<ErrorMessage name={field.name} />
 		</>
