@@ -2,7 +2,7 @@ import { Button } from '@acpaas-ui/react-components';
 import classNames from 'classnames/bind';
 import { FieldArray, FieldArrayRenderProps, FormikValues, useFormikContext } from 'formik';
 import { pathOr, split } from 'ramda';
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import { FieldSchema } from '../../../core.types';
 import FieldRenderer from '../../FieldRenderer/FieldRenderer';
@@ -17,13 +17,19 @@ const DynamicRepeater: React.FC<DynamicRepeaterProps> = ({ fieldSchema }) => {
 	const config = fieldSchema.config || {};
 	const fields = Array.isArray(fieldSchema.fields) ? fieldSchema.fields : [];
 	const { values } = useFormikContext<FormikValues>();
-	const value = pathOr([], split('.', fieldSchema.name), values) as FormikValues[];
-	const min = config.amount?.minValue || 0;
-	const max =
-		config.amount?.maxValue === 0 || !config.amount?.maxValue
-			? Number.MAX_SAFE_INTEGER
-			: config.amount?.maxValue;
-	const isRequired = min >= 1;
+	const value = useMemo(
+		() => pathOr([], split('.', fieldSchema.name), values) as FormikValues[],
+		[fieldSchema.name, values]
+	);
+	const min = useMemo(() => config.amount?.minValue || 0, [config.amount]);
+	const max = useMemo(
+		() =>
+			config.amount?.maxValue === 0 || !config.amount?.maxValue
+				? Number.MAX_SAFE_INTEGER
+				: config.amount?.maxValue,
+		[config.amount]
+	);
+	const isRequired = useMemo(() => min >= 1, [min]);
 
 	/**
 	 * Add element to the field array
@@ -34,7 +40,7 @@ const DynamicRepeater: React.FC<DynamicRepeaterProps> = ({ fieldSchema }) => {
 	const addItem = (arrayHelper: FieldArrayRenderProps, item: FieldSchema): void => {
 		const itemToAdd = {
 			value: '',
-			type: item.config?.id || item.type,
+			type: item.config?.preset?._id || item.config?.preset || item.config?.id || item.type,
 		};
 
 		arrayHelper.push(itemToAdd);
@@ -72,7 +78,12 @@ const DynamicRepeater: React.FC<DynamicRepeaterProps> = ({ fieldSchema }) => {
 
 	const getFieldSchema = (fieldValue: FormikValues): FieldSchema | null => {
 		const fieldSchema = fields.find((field: FieldSchema) => {
-			return field.config?.id === fieldValue.type || field.type === fieldValue.type;
+			return (
+				field.config?.preset?._id === fieldValue.type ||
+				field.config?.preset === fieldValue.type ||
+				field.config?.id === fieldValue.type ||
+				field.type === fieldValue.type
+			);
 		});
 
 		return fieldSchema ? fieldSchema : null;
