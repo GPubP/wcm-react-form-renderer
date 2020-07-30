@@ -56,6 +56,7 @@ export interface FieldSchema {
 		required?: boolean;
 		wrapperClassName?: string;
 		id?: string;
+		preset?: Preset;
 		[key: string]: any;
 	};
 	/**
@@ -77,3 +78,54 @@ export interface FormsAPI {
 	ErrorMessage: React.FC<ErrorMessageProps>;
 	fieldRegistry: FieldRegistry;
 }
+
+export interface Validator {
+	uuid: string;
+	data: {
+		name: string;
+		label: string;
+		description: string;
+		dataTypes: string[];
+		defaultValue: Record<string, any>;
+		formSchema: {
+			fields: Field[];
+		};
+	};
+	meta: {
+		created: string;
+		lastModified: string;
+		lastEditor: string;
+		deleted: string;
+	};
+}
+
+export interface BasePreset<T, F> {
+	_id: string;
+	uuid: string;
+	data: {
+		name: string;
+		label: string;
+		defaultConfig: Record<string, any>;
+		fieldType: F;
+		generalConfig: {
+			isQueryable: boolean;
+			isTranslate: boolean;
+			isMultiple: boolean;
+		};
+		fields: {
+			field: any;
+			formSchema: {
+				fields: FieldSchema[];
+			};
+			validators: T[];
+		}[];
+		validators: T[];
+		meta: {
+			created: string;
+			lastModified: string;
+			deleted: boolean;
+		};
+	};
+}
+
+export type Preset = BasePreset<string, string>;
