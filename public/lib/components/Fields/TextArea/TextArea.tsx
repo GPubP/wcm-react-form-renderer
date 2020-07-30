@@ -15,7 +15,7 @@ const InputTextarea: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }: I
 				id={fieldSchema.name}
 				label={fieldSchema.label}
 				{...omit(['multiLanguage', 'min', 'max'])(config)}
-				{...fieldProps.field}
+				{...field}
 			/>
 			<ErrorMessage name={field.name} />
 		</>
