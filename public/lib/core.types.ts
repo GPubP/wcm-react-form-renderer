@@ -88,7 +88,7 @@ export interface Validator {
 		dataTypes: string[];
 		defaultValue: Record<string, any>;
 		formSchema: {
-			fields: Field[];
+			fields: FieldSchema[];
 		};
 	};
 	meta: {
