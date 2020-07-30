@@ -1,13 +1,15 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import { render, RenderResult } from '@testing-library/react';
 import React from 'react';
 
-import { FieldDataType, FormValues } from '../../core.types';
+import { FormValues } from '../../core.types';
 
 import Form from './Form';
 import { FormProps } from './Form.types';
 
-jest.mock('schema-to-yup', () => ({
+jest.mock('@redactie/schema-to-yup', () => ({
 	buildYup: () => ({}),
+	ErrorMessageHandler: class ErrorMessageHandlerMock {},
 }));
 
 const renderForm = (props?: Partial<FormProps<FormValues>>): RenderResult => {
@@ -51,16 +53,14 @@ describe('<Form />', () => {
 						name: 'name',
 						module: 'core',
 						type: 'text',
-						// TODO: Investigate why we need to cast the dataType
-						dataType: 'string' as FieldDataType,
+						dataType: 'string',
 						label: 'name',
 					},
 					{
 						name: 'lastname',
 						module: 'core',
 						type: 'text',
-						// TODO: Investigate why we need to cast the dataType
-						dataType: 'string' as FieldDataType,
+						dataType: 'string',
 						label: 'lastname',
 					},
 				],
@@ -80,16 +80,14 @@ describe('<Form />', () => {
 						name: 'name',
 						module: 'core',
 						type: 'text',
-						// TODO: Investigate why we need to cast the dataType
-						dataType: 'string' as FieldDataType,
+						dataType: 'string',
 						label: 'name',
 					},
 					{
 						name: 'lastname',
 						module: 'core',
 						type: 'text',
-						// TODO: Investigate why we need to cast the dataType
-						dataType: 'string' as FieldDataType,
+						dataType: 'string',
 						label: 'lastname',
 					},
 				],
@@ -107,5 +105,36 @@ describe('<Form />', () => {
 		expect(getByLabelText(formProps.schema.fields[1].label).getAttribute('value')).toBe(
 			formProps.initialValues.lastname
 		);
+	});
+
+	describe('<Field/>', () => {
+		describe('config', () => {
+			const formProps = {
+				schema: {
+					fields: [
+						{
+							name: 'name',
+							module: 'core',
+							type: 'text',
+							dataType: 'string',
+							label: 'name',
+							config: {
+								wrapperClassName: 'wrapperClass',
+							},
+						},
+					],
+				},
+				initialValues: {
+					name: 'John',
+				},
+			};
+
+			it('should add a wrapper class to a field', () => {
+				const { container } = renderForm(formProps);
+				const element = container.getElementsByClassName('wrapperClass')[0];
+
+				expect(element).toBeTruthy();
+			});
+		});
 	});
 });

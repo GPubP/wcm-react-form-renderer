@@ -1,10 +1,16 @@
+import { buildYup } from '@redactie/schema-to-yup';
 import { Form, Formik, FormikHelpers, FormikProps, FormikValues } from 'formik';
 import debounce from 'lodash.debounce';
 import React, { ReactNode, useCallback, useEffect, useState } from 'react';
-import { buildYup } from 'schema-to-yup';
 
+import { createErrorMessageHandler } from '../../classes/errorMessageHandler/errorMessageHandler';
 import { FieldSchema, FormValues } from '../../core.types';
-import { createInitialValues, isEmptyChildren, isFunction } from '../../utils';
+import {
+	createInitialValues,
+	isEmptyChildren,
+	isFunction,
+	parseValidationSchema,
+} from '../../utils';
 import FieldRenderer from '../FieldRenderer/FieldRenderer';
 import FormikOnChangeHandler from '../FormikOnChangeHandler/FormikOnChangeHandler';
 import SchemaProvider from '../SchemaProvider/SchemaProvider';
@@ -32,20 +38,25 @@ const RedactionForm: React.FC<FormProps<FormValues>> = ({
 	 * will throw an error saying that you have changed an input from uncontrolled to controlled.
 	 */
 	const initInitialValues = useCallback(() => {
-		if (!initialFormValue) {
-			setInitialFormValue(createInitialValues(schema));
-		}
-	}, [schema, initialFormValue]);
+		setInitialFormValue(createInitialValues(schema, initialValues || {}));
+	}, [schema]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	/**
 	 * Convert a JSON schema to a Yup schema
 	 */
 	const initYupValidationSchema = useCallback(() => {
-		setYupValidationSchema(
-			buildYup(validationSchema, {
-				errMessages: errorMessages,
-			})
-		);
+		try {
+			setYupValidationSchema(
+				buildYup(parseValidationSchema(validationSchema), {
+					errMessages: errorMessages,
+					createErrorMessageHandler,
+					log: true,
+				})
+			);
+		} catch (e) {
+			console.warn('VALIDATION DISABLED BECAUSE OF AN ERROR!');
+			console.error(e);
+		}
 	}, [validationSchema, errorMessages]);
 
 	/**
@@ -85,6 +96,7 @@ const RedactionForm: React.FC<FormProps<FormValues>> = ({
 		<SchemaProvider value={{ schema }}>
 			<Formik
 				initialValues={initialFormValue}
+				enableReinitialize={true}
 				onSubmit={onFormSubmit}
 				validationSchema={yupValidationSchema}
 				{...rest}
@@ -93,9 +105,7 @@ const RedactionForm: React.FC<FormProps<FormValues>> = ({
 					<>
 						{onChange ? (
 							<FormikOnChangeHandler
-								onChange={(values: FormikValues) =>
-									onChange ? debouncedOnFormChange(values) : null
-								}
+								onChange={(values: FormikValues) => debouncedOnFormChange(values)}
 							></FormikOnChangeHandler>
 						) : null}
 						<Form noValidate onSubmit={props.handleSubmit} data-testid="formik-form">

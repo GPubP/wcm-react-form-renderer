@@ -6,14 +6,16 @@ import FieldRenderer from '../../FieldRenderer/FieldRenderer';
 
 import { FieldGroupProps } from './Fieldgroup.types';
 
-const Fieldgroup: React.FC<FieldGroupProps> = ({ fieldSchema }: FieldGroupProps) => {
+const Fieldgroup: React.FC<FieldGroupProps> = ({ fieldSchema }) => {
+	const config = fieldSchema.config || {};
 	const fields = Array.isArray(fieldSchema.fields) ? fieldSchema.fields : [];
 	const withNamespace = addNameSpace(fieldSchema.name);
 
 	return (
-		<div className="field-group">
-			<label>{fieldSchema.label} </label>
-			<div className="field-group__wrapper">
+		<div className={config.wrapperClassName}>
+			<h6 className="u-margin-bottom-xs">{fieldSchema.label}</h6>
+			{config.description ? <p className="u-margin-bottom "> {config.description} </p> : null}
+			<div className="row">
 				{fields
 					.map(
 						(fieldSchema): FieldSchema => ({

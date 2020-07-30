@@ -10,9 +10,7 @@ export interface FormProps<Values> {
 	/**
 	 * Initialvalues
 	 */
-	initialValues?: {
-		[key: string]: any;
-	};
+	initialValues?: Record<string, any>;
 	/**
 	 * Validation schema
 	 * This is a JSON schema config object

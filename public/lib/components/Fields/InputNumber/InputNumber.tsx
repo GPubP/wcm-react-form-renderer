@@ -6,7 +6,7 @@ import React from 'react';
 import { InputFieldProps } from '../../../services/fieldRegistry/fieldRegistry.types';
 import ErrorMessage from '../../ErrorMessage/ErrorMessage';
 
-const InputText: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }: InputFieldProps) => {
+const InputNumber: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }: InputFieldProps) => {
 	const config = fieldSchema.config || {};
 	const { field, form } = fieldProps;
 
@@ -21,6 +21,7 @@ const InputText: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }: Input
 				id={fieldSchema.name}
 				state={state}
 				label={fieldSchema.label}
+				type="number"
 				{...omit(['multiLanguage', 'min', 'max'])(config)}
 				{...field}
 			/>
@@ -29,4 +30,4 @@ const InputText: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }: Input
 	);
 };
 
-export default InputText;
+export default InputNumber;

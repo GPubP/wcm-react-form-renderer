@@ -4,7 +4,7 @@ import React, { useMemo } from 'react';
 import { fieldRegistry } from '../../services/fieldRegistry/fieldRegistry';
 import { FieldConfig } from '../../services/fieldRegistry/fieldRegistry.types';
 import FieldComponent from '../FieldComponent/FieldComponent';
-import { Fieldgroup } from '../Fields';
+import { DynamicRepeater, Fieldgroup, Repeater } from '../Fields';
 
 import { FieldRendererProps } from './FieldRenderer.types';
 
@@ -40,7 +40,29 @@ const FieldRenderer: React.FC<FieldRendererProps> = ({ fieldSchema }: FieldRende
 	 */
 	const renderFieldGroup = (): React.ReactNode => <Fieldgroup fieldSchema={fieldSchema} />;
 
-	return <>{fieldSchema.type === 'fieldgroup' ? renderFieldGroup() : renderField()}</>;
+	/**
+	 * Render a field array
+	 */
+	const renderFieldArray = (): React.ReactNode => <Repeater fieldSchema={fieldSchema} />;
+
+	/**
+	 * Render a dynamic field array
+	 */
+	const renderDynamicFieldArray = (): React.ReactNode => (
+		<DynamicRepeater fieldSchema={fieldSchema} />
+	);
+
+	return (
+		<>
+			{fieldSchema.type === 'fieldgroup'
+				? renderFieldGroup()
+				: fieldSchema.type === 'repeater'
+				? renderFieldArray()
+				: fieldSchema.type === 'dynamicRepeater'
+				? renderDynamicFieldArray()
+				: renderField()}
+		</>
+	);
 };
 
 export default FieldRenderer;

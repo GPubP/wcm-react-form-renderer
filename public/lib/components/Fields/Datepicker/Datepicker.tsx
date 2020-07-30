@@ -1,4 +1,4 @@
-import { TextField } from '@acpaas-ui/react-components/packages/form';
+import { Datepicker as AuiDatepicker } from '@acpaas-ui/react-components/packages/form';
 import { getIn } from 'formik';
 import { omit } from 'ramda';
 import React from 'react';
@@ -6,7 +6,7 @@ import React from 'react';
 import { InputFieldProps } from '../../../services/fieldRegistry/fieldRegistry.types';
 import ErrorMessage from '../../ErrorMessage/ErrorMessage';
 
-const InputText: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }: InputFieldProps) => {
+const Datepicker: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }: InputFieldProps) => {
 	const config = fieldSchema.config || {};
 	const { field, form } = fieldProps;
 
@@ -17,16 +17,26 @@ const InputText: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }: Input
 
 	return (
 		<>
-			<TextField
+			<AuiDatepicker
 				id={fieldSchema.name}
 				state={state}
 				label={fieldSchema.label}
 				{...omit(['multiLanguage', 'min', 'max'])(config)}
-				{...field}
+				onChange={(e: string) => {
+					const event = {
+						target: {
+							id: fieldSchema.name,
+							value: e,
+						},
+					};
+
+					field.onChange(event);
+				}}
+				activeDate={field.value}
 			/>
 			<ErrorMessage name={field.name} />
 		</>
 	);
 };
 
-export default InputText;
+export default Datepicker;

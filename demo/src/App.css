@@ -1,19 +1,12 @@
+@import '~@a-ui/core/dist/main.css';
+@import '~@a-ui/flexboxgrid/dist/flexboxgrid.css';
+
 .App {
-	width: 50%;;
+	width: 70%;
 	margin: auto;
 	padding: 50px;
 }
 
 .header {
-	padding: 24px 0px ;
-}
-
-.field-group {
-	padding: 24px 24px;
-	border: 1px solid grey;
-	margin-bottom: 12px;
-}
-
-.field-group__wrapper {
-	padding-top: 12px;
+	padding: 24px 0;
 }
