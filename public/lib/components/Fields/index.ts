@@ -28,6 +28,11 @@ const DefaultFields: FieldConfig[] = [
 		component: Datepicker,
 	},
 	{
+		name: 'time',
+		module: 'core',
+		component: Time,
+	},
+	{
 		name: 'textarea',
 		module: 'core',
 		component: Textarea,
@@ -46,11 +51,6 @@ const DefaultFields: FieldConfig[] = [
 		name: 'fieldgroup',
 		module: 'core',
 		component: Fieldgroup,
-	},
-	{
-		name: 'time',
-		module: 'core',
-		component: Time,
 	},
 	{
 		name: 'repeater',

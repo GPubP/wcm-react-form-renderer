@@ -151,6 +151,24 @@ const App = () => {
 				},
 			},
 			{
+				name: 'time',
+				module: 'core',
+				type: 'time',
+				dataType: 'string',
+				label: 'Time',
+				config: {
+					required: true,
+					hours: {
+						placeholder: 'hh',
+						label: 'Uren'
+					},
+					minutes: {
+						placeholder: 'mm',
+						label: 'Minuten'
+					},
+				}
+			},
+			{
 				name: 'children',
 				module: 'core',
 				type: 'repeater',
@@ -329,25 +347,25 @@ const App = () => {
 							},
 						],
 					},
+					{
+						name: 'time',
+						module: 'core',
+						type: 'time',
+						dataType: 'string',
+						label: 'Time',
+						config: {
+							required: true,
+							hours: {
+								placeholder: 'hh',
+								label: 'Uren'
+							},
+							minutes: {
+								placeholder: 'mm',
+								label: 'Minuten'
+							},
+						}
+					},
 				],
-			},
-			{
-				name: 'time',
-				module: 'core',
-				type: 'time',
-				dataType: 'string',
-				label: 'Time',
-				config: {
-					required: true,
-					hours: {
-						placeholder: 'hh',
-						label: 'Uren'
-					},
-					minutes: {
-						placeholder: 'mm',
-						label: 'Minuten'
-					},
-				}
 			},
 		],
 	};
@@ -407,6 +425,10 @@ const App = () => {
 					},
 				},
 			},
+			time: {
+				type: 'string',
+				required: true
+			}
 		},
 	};
 
@@ -420,6 +442,7 @@ const App = () => {
 		},
 		ages: '8-10 jaar',
 		questions: 'no questions',
+		time: '10:30',
 		children: [
 			{
 				firstname: 'glenn',
