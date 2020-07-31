@@ -407,10 +407,6 @@ const App = () => {
 					},
 				},
 			},
-			time: {
-				type: 'string',
-				required: true,
-			}
 		},
 	};
 

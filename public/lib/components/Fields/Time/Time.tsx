@@ -1,18 +1,16 @@
-import { Select } from '@acpaas-ui/react-components/packages/form';
+import { Timepicker } from '@acpaas-ui/react-editorial-components';
 import React, { ChangeEvent } from 'react';
 
 import { InputFieldProps } from '../../../services/fieldRegistry/fieldRegistry.types';
 import ErrorMessage from '../../ErrorMessage/ErrorMessage';
 
 import { HOURS, MINUTES } from './Time.const';
-import { getFormattedTime, mapToObject } from './Time.helpers';
 
 const Time: React.FC<InputFieldProps> = ({
 	fieldProps,
 	fieldHelperProps,
 	fieldSchema,
 }: InputFieldProps) => {
-	const config = fieldSchema.config || {};
 	const { field } = fieldProps;
 
 	/**
@@ -51,33 +49,12 @@ const Time: React.FC<InputFieldProps> = ({
 	return (
 		<>
 			<label>{fieldSchema.label} </label>
-			<div className="a-timepicker u-margin-top-xs">
-				<Select
-					id={`${fieldSchema.name}-hours`}
-					required={config.required}
-					label={config.hours?.label || 'Uren'}
-					options={mapToObject(HOURS)}
-					placeholder={
-						getFormattedTime(field.value || null)?.hours ||
-						config.hours?.placeholder ||
-						'hh'
-					}
-					onChange={handleChange}
-				/>
-				<span className="a-timepicker__separator">:</span>
-				<Select
-					id={`${fieldSchema.name}-minutes`}
-					required={config.required}
-					label={config.minutes?.label || 'Minuten'}
-					options={mapToObject(MINUTES)}
-					placeholder={
-						getFormattedTime(field.value || null)?.minutes ||
-						config.minutes?.placeholder ||
-						'mm'
-					}
-					onChange={handleChange}
-				/>
-			</div>
+			<Timepicker
+				id={fieldSchema.name}
+				hourOptions={HOURS}
+				minuteOptions={MINUTES}
+				onChange={handleChange}
+			/>
 			<ErrorMessage name={field.name} />
 		</>
 	);
