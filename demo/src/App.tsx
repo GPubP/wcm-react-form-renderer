@@ -439,6 +439,10 @@ const App = () => {
 			time: {
 				type: 'string',
 				required: true
+			},
+			dateTime: {
+				type: 'string',
+				required: true
 			}
 		},
 	};
