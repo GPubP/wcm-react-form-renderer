@@ -169,6 +169,17 @@ const App = () => {
 				}
 			},
 			{
+				name: 'dateTime',
+				module: 'core',
+				type: 'dateTime',
+				dataType: 'string',
+				label: 'Datum en tijd',
+				config: {
+					required: true,
+					dateLabel: 'Datum'
+				}
+			},
+			{
 				name: 'children',
 				module: 'core',
 				type: 'repeater',

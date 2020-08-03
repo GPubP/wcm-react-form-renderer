@@ -4,26 +4,27 @@ import React from 'react';
 import { InputFieldProps } from '../../../services/fieldRegistry/fieldRegistry.types';
 import ErrorMessage from '../../ErrorMessage/ErrorMessage';
 
-const Time: React.FC<InputFieldProps> = ({
-	fieldProps,
-	fieldHelperProps,
-	fieldSchema,
-}: InputFieldProps) => {
+const Time: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }: InputFieldProps) => {
 	const { field } = fieldProps;
-
-	const handleChange = (event: string): void => {
-		fieldHelperProps.setValue(event);
-	};
 
 	/**
 	 * Render
 	 */
 	return (
 		<>
-			<label className="a-input__label">{fieldSchema.label}</label>
+			{fieldSchema.label && <label className="a-input__label">{fieldSchema.label}</label>}
 			<Timepicker
 				id={fieldSchema.name}
-				onChange={handleChange}
+				onChange={(e: string) => {
+					const event = {
+						target: {
+							id: fieldSchema.name,
+							value: e,
+						},
+					};
+
+					field.onChange(event);
+				}}
 				value={field.value}
 				required={fieldSchema.config?.required}
 			/>

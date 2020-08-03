@@ -1,5 +1,6 @@
 import { FieldConfig } from '../../services/fieldRegistry/fieldRegistry.types';
 
+import DateTime from './DateTime/DateTime';
 import Datepicker from './Datepicker/Datepicker';
 import DynamicRepeater from './DynamicRepeater/DynamicRepeater';
 import Fieldgroup from './Fieldgroup/Fieldgroup';
@@ -31,6 +32,11 @@ const DefaultFields: FieldConfig[] = [
 		name: 'time',
 		module: 'core',
 		component: Time,
+	},
+	{
+		name: 'dateTime',
+		module: 'core',
+		component: DateTime,
 	},
 	{
 		name: 'textarea',
