@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent, useMemo } from 'react';
 
 import { InputFieldProps } from '../../../services/fieldRegistry/fieldRegistry.types';
 import ErrorMessage from '../../ErrorMessage/ErrorMessage';
@@ -50,7 +50,7 @@ const DateTimepicker: React.FC<InputFieldProps> = ({
 							...fieldProps,
 							field: {
 								...fieldProps.field,
-								value: getDate(field.value),
+								value: useMemo(() => getDate(field.value), [field.value]),
 								onChange: (event: ChangeEvent<any>) =>
 									handleChange(event.target.value, 'date'),
 							},
@@ -68,7 +68,7 @@ const DateTimepicker: React.FC<InputFieldProps> = ({
 							...fieldProps,
 							field: {
 								...fieldProps.field,
-								value: getTime(field.value),
+								value: useMemo(() => getTime(field.value), [field.value]),
 								onChange: (event: ChangeEvent<any>) =>
 									handleChange(event.target.value, 'time'),
 							},
