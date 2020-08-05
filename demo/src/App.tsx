@@ -158,14 +158,6 @@ const App = () => {
 				label: 'Time',
 				config: {
 					required: true,
-					hours: {
-						placeholder: 'hh',
-						label: 'Uren'
-					},
-					minutes: {
-						placeholder: 'mm',
-						label: 'Minuten'
-					},
 				}
 			},
 			{
@@ -355,14 +347,6 @@ const App = () => {
 						label: 'Time',
 						config: {
 							required: true,
-							hours: {
-								placeholder: 'hh',
-								label: 'Uren'
-							},
-							minutes: {
-								placeholder: 'mm',
-								label: 'Minuten'
-							},
 						}
 					},
 				],
