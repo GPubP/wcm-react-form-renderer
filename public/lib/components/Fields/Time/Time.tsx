@@ -26,7 +26,6 @@ const Time: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }) => {
 					field.onChange(event);
 				}}
 				value={field.value}
-				required={fieldSchema.config?.required}
 				{...fieldSchema.config}
 			/>
 			<ErrorMessage name={field.name} />
