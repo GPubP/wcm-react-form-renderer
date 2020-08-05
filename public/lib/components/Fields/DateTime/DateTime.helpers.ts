@@ -48,8 +48,6 @@ export const getDate = (inputValue: string): string => {
 
 	const dateString = `${day}/${month}/${year}`;
 
-	console.log('date', dateString);
-
 	return dateString;
 };
 
