@@ -11,7 +11,7 @@ const DateTimepicker: React.FC<InputFieldProps> = ({
 	fieldProps,
 	fieldSchema,
 	fieldHelperProps,
-}: InputFieldProps) => {
+}) => {
 	const { field } = fieldProps;
 
 	const handleChange = (inputValue: string, type: string): void => {

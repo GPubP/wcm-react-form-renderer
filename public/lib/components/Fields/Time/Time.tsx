@@ -4,7 +4,7 @@ import React from 'react';
 import { InputFieldProps } from '../../../services/fieldRegistry/fieldRegistry.types';
 import ErrorMessage from '../../ErrorMessage/ErrorMessage';
 
-const Time: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }: InputFieldProps) => {
+const Time: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }) => {
 	const { field } = fieldProps;
 
 	/**
