@@ -1,4 +1,4 @@
-import { FormikHelpers, FormikProps } from 'formik';
+import { FormikHelpers, FormikProps, FormikValues } from 'formik';
 
 import { FormSchema, FormValues } from '../../core.types';
 
@@ -35,6 +35,15 @@ export interface FormProps<Values> {
 			| string;
 	};
 	/**
+	 * delay
+	 * Debounce time for onChange
+	 */
+	delay?: number;
+	/**
+	 * React children or child render callback
+	 */
+	children?: ((props: FormikProps<Values>) => React.ReactNode) | React.ReactNode;
+	/**
 	 * onSubmit
 	 * Use this function to get the form results on submit
 	 *
@@ -47,12 +56,7 @@ export interface FormProps<Values> {
 	 */
 	onChange?: (values: FormValues) => void;
 	/**
-	 * delay
-	 * Debounce time for onChange
+	 * A reference to the formik instance
 	 */
-	delay?: number;
-	/**
-	 * React children or child render callback
-	 */
-	children?: ((props: FormikProps<Values>) => React.ReactNode) | React.ReactNode;
+	formikRef?: (formikRef: FormikProps<FormikValues>) => void;
 }
