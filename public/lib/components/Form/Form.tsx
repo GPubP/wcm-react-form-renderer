@@ -26,6 +26,7 @@ const RedactionForm: React.FC<FormProps<FormValues>> = ({
 	initialValues,
 	children,
 	delay = 300,
+	formikRef,
 	...rest
 }) => {
 	const [initialFormValue, setInitialFormValue] = useState<FormValues | undefined>(initialValues);
@@ -95,6 +96,7 @@ const RedactionForm: React.FC<FormProps<FormValues>> = ({
 	return (
 		<SchemaProvider value={{ schema }}>
 			<Formik
+				innerRef={instance => isFunction(formikRef) && formikRef(instance)}
 				initialValues={initialFormValue}
 				enableReinitialize={true}
 				onSubmit={onFormSubmit}

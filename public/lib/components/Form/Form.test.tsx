@@ -6,6 +6,7 @@ import { FormValues } from '../../core.types';
 
 import Form from './Form';
 import { FormProps } from './Form.types';
+import { FormikProps } from 'formik';
 
 jest.mock('@redactie/schema-to-yup', () => ({
 	buildYup: () => ({}),
@@ -105,6 +106,21 @@ describe('<Form />', () => {
 		expect(getByLabelText(formProps.schema.fields[1].label).getAttribute('value')).toBe(
 			formProps.initialValues.lastname
 		);
+	});
+
+	it('should get access to the formik instance when using the formikRef function', () => {
+		let formikReference: FormikProps<FormValues> | undefined;
+		const formProps = {
+			schema: {
+				fields: [],
+			},
+			initialValues: {},
+			formikRef: (instance: FormikProps<FormValues>) => (formikReference = instance),
+		};
+		renderForm(formProps);
+		if (formikReference) {
+			expect(formikReference.isValid).toBe(true);
+		}
 	});
 
 	describe('<Field/>', () => {
