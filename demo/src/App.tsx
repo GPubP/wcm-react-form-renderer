@@ -161,6 +161,17 @@ const App = () => {
 				}
 			},
 			{
+				name: 'dateTime',
+				module: 'core',
+				type: 'dateTime',
+				dataType: 'string',
+				label: 'Datum en tijd',
+				config: {
+					required: true,
+					dateLabel: 'Datum'
+				}
+			},
+			{
 				name: 'children',
 				module: 'core',
 				type: 'repeater',
@@ -410,6 +421,10 @@ const App = () => {
 				},
 			},
 			time: {
+				type: 'string',
+				required: true
+			},
+			dateTime: {
 				type: 'string',
 				required: true
 			}
