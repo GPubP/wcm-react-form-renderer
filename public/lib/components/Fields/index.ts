@@ -1,5 +1,6 @@
 import { FieldConfig } from '../../services/fieldRegistry/fieldRegistry.types';
 
+import DateTime from './DateTime/DateTime';
 import Datepicker from './Datepicker/Datepicker';
 import DynamicRepeater from './DynamicRepeater/DynamicRepeater';
 import Fieldgroup from './Fieldgroup/Fieldgroup';
@@ -9,6 +10,7 @@ import Radio from './Radio/Radio';
 import Repeater from './Repeater/Repeater';
 import Select from './Select/Select';
 import Textarea from './TextArea/TextArea';
+import Time from './Time/Time';
 
 const DefaultFields: FieldConfig[] = [
 	{
@@ -25,6 +27,16 @@ const DefaultFields: FieldConfig[] = [
 		name: 'date',
 		module: 'core',
 		component: Datepicker,
+	},
+	{
+		name: 'time',
+		module: 'core',
+		component: Time,
+	},
+	{
+		name: 'dateTime',
+		module: 'core',
+		component: DateTime,
 	},
 	{
 		name: 'textarea',
@@ -58,4 +70,14 @@ const DefaultFields: FieldConfig[] = [
 	},
 ];
 
-export { InputText, Textarea, Select, Radio, Fieldgroup, Repeater, DynamicRepeater, DefaultFields };
+export {
+	InputText,
+	Textarea,
+	Select,
+	Radio,
+	Fieldgroup,
+	Time,
+	Repeater,
+	DynamicRepeater,
+	DefaultFields,
+};
