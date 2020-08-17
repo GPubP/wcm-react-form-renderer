@@ -1,3 +1,2 @@
-import { fieldRegistry } from './fieldRegistry/fieldRegistry';
-
-export { fieldRegistry };
+export * from './fieldRegistry/fieldRegistry';
+export * from './viewRegistry/viewRegistry';

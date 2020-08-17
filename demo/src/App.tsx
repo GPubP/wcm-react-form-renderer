@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 
-import { Form, FormSchema } from '@redactie/form-renderer-module';
+import { Form, FormSchema, View } from '@redactie/form-renderer-module';
 
 const App = () => {
 	const onFormSubmit = (values: any) => {
@@ -230,7 +230,7 @@ const App = () => {
 							min: 4,
 							max: 5,
 							description: 'Add new children',
-							id: '3'
+							id: '3',
 						},
 						fields: [
 							{
@@ -414,10 +414,12 @@ const App = () => {
 		],
 		dynamicRepeater: [
 			{
-				value: 'maarten', type: '1'
+				value: 'maarten',
+				type: '1',
 			},
 			{
-				value: 'de weerdt', type: '2'
+				value: 'de weerdt',
+				type: '2',
 			},
 			{
 				value: [
@@ -429,7 +431,8 @@ const App = () => {
 						firstname: 'mieke',
 						lastname: 'scheirs',
 					},
-				], type: '3'
+				],
+				type: '3',
 			},
 			{
 				value: {
@@ -437,8 +440,8 @@ const App = () => {
 					city: 'Lier',
 					country: 'belgium',
 				},
-				type: '4'
-			}
+				type: '4',
+			},
 		],
 	};
 
@@ -490,6 +493,7 @@ const App = () => {
 					</>
 				)}
 			</Form>
+			<View schema={form} values={initialValues} />
 		</div>
 	);
 };

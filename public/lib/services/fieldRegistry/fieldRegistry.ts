@@ -7,11 +7,11 @@ class FieldRegistry {
 
 	constructor(fields?: FieldConfig[]) {
 		if (Array.isArray(fields)) {
-			this.registerDefaultFields(fields);
+			this.registerFields(fields);
 		}
 	}
 
-	private registerDefaultFields(fields: FieldConfig[]): void {
+	private registerFields(fields: FieldConfig[]): void {
 		fields.forEach(field => this.add(field));
 	}
 
@@ -27,7 +27,11 @@ class FieldRegistry {
 		return this.fields[moduleName][name];
 	}
 
-	public add(field: FieldConfig): void {
+	public add(field: FieldConfig | FieldConfig[]): void {
+		if (Array.isArray(field)) {
+			return this.registerFields(field);
+		}
+
 		if (this.fields[field.module] && this.fields[field.module][field.name]) {
 			throw new Error(
 				`Register Field failed, Field with name ${field.name} and module ${field.module} already exist`
