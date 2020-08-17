@@ -1,5 +1,5 @@
 import { FieldConfig } from '../../services/fieldRegistry/fieldRegistry.types';
-import { DefaultView, FieldGroupView, RepeaterView } from '../Views';
+import { DefaultView, DynamicRepeaterView, FieldGroupView, RepeaterView } from '../Views';
 
 import Datepicker from './Datepicker/Datepicker';
 import DynamicRepeater from './DynamicRepeater/DynamicRepeater';
@@ -10,7 +10,6 @@ import Radio from './Radio/Radio';
 import Repeater from './Repeater/Repeater';
 import Select from './Select/Select';
 import Textarea from './TextArea/TextArea';
-import DynamicRepeaterView from '../Views/DynamicRepeater/DynamicRepeater';
 
 const DefaultFields: FieldConfig[] = [
 	{
