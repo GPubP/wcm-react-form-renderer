@@ -151,6 +151,27 @@ const App = () => {
 				},
 			},
 			{
+				name: 'time',
+				module: 'core',
+				type: 'time',
+				dataType: 'string',
+				label: 'Time',
+				config: {
+					required: true,
+				}
+			},
+			{
+				name: 'dateTime',
+				module: 'core',
+				type: 'dateTime',
+				dataType: 'string',
+				label: 'Datum en tijd',
+				config: {
+					required: true,
+					dateLabel: 'Datum'
+				}
+			},
+			{
 				name: 'children',
 				module: 'core',
 				type: 'repeater',
@@ -329,6 +350,16 @@ const App = () => {
 							},
 						],
 					},
+					{
+						name: 'time',
+						module: 'core',
+						type: 'time',
+						dataType: 'string',
+						label: 'Time',
+						config: {
+							required: true,
+						}
+					},
 				],
 			},
 		],
@@ -389,6 +420,14 @@ const App = () => {
 					},
 				},
 			},
+			time: {
+				type: 'string',
+				required: true
+			},
+			dateTime: {
+				type: 'string',
+				required: true
+			}
 		},
 	};
 
@@ -402,6 +441,7 @@ const App = () => {
 		},
 		ages: '8-10 jaar',
 		questions: 'no questions',
+		time: '10:30',
 		children: [
 			{
 				firstname: 'glenn',
