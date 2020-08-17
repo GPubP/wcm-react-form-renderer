@@ -1,9 +1,9 @@
 import { ErrorMessageProps, FormikValues } from 'formik';
 
-import { FormProps } from './components/Form/Form.types';
-import { ViewProps } from './components/View/View.types';
-import FieldRegistry from './services/fieldRegistry/fieldRegistry';
-import ViewRegistry from './services/viewRegistry/viewRegistry';
+import { FormProps } from './components/Form';
+import { ViewProps } from './components/View';
+import { FieldRegistry } from './services/fieldRegistry';
+import { ViewRegistry } from './services/viewRegistry';
 
 /**
  * A list of allowed field types

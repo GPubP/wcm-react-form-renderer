@@ -1,9 +1,10 @@
 import Core from '@redactie/redactie-core';
 
-import ErrorMessage from './lib/components/ErrorMessage/ErrorMessage';
-import Form from './lib/components/Form/Form';
-import View from './lib/components/View/View';
-import { fieldRegistry, viewRegistry } from './lib/services';
+import { ErrorMessage } from './lib/components/ErrorMessage';
+import { Form } from './lib/components/Form';
+import { View } from './lib/components/View';
+import { fieldRegistry } from './lib/services/fieldRegistry';
+import { viewRegistry } from './lib/services/viewRegistry';
 
 // expose module
 Core.modules.exposeModuleApi('forms-module', {

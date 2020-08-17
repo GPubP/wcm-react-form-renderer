@@ -3,8 +3,8 @@ import { getIn } from 'formik';
 import { omit } from 'ramda';
 import React from 'react';
 
-import { InputFieldProps } from '../../../services/fieldRegistry/fieldRegistry.types';
-import ErrorMessage from '../../ErrorMessage/ErrorMessage';
+import { InputFieldProps } from '../../../services/fieldRegistry';
+import { ErrorMessage } from '../../ErrorMessage';
 
 const Datepicker: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }: InputFieldProps) => {
 	const config = fieldSchema.config || {};

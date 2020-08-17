@@ -2,8 +2,8 @@ import { FormikValues } from 'formik';
 import React, { FC } from 'react';
 
 import { FieldSchema } from '../../../core.types';
-import { ViewFieldProps } from '../../../services/viewRegistry/viewRegistry.types';
-import ViewRenderer from '../../ViewRenderer/ViewRenderer';
+import { ViewFieldProps } from '../../../services/viewRegistry';
+import { ViewRenderer } from '../../ViewRenderer';
 
 const DynamicRepeaterView: FC<ViewFieldProps> = ({ fieldSchema, value }) => {
 	const { fields = [] } = fieldSchema;

@@ -1,7 +1,7 @@
 import { isObject } from 'formik';
 import React, { FC } from 'react';
 
-import { ViewFieldProps } from '../../../services/viewRegistry/viewRegistry.types';
+import { ViewFieldProps } from '../../../services/viewRegistry';
 
 const DefaultView: FC<ViewFieldProps> = ({ fieldSchema, value }) => {
 	const { label } = fieldSchema;

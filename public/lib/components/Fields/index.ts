@@ -1,15 +1,15 @@
-import { FieldConfig } from '../../services/fieldRegistry/fieldRegistry.types';
+import { FieldConfig } from '../../services/fieldRegistry';
 import { DefaultView, DynamicRepeaterView, FieldGroupView, RepeaterView } from '../Views';
 
-import Datepicker from './Datepicker/Datepicker';
-import DynamicRepeater from './DynamicRepeater/DynamicRepeater';
-import Fieldgroup from './Fieldgroup/Fieldgroup';
-import InputNumber from './InputNumber/InputNumber';
-import InputText from './InputText/InputText';
-import Radio from './Radio/Radio';
-import Repeater from './Repeater/Repeater';
-import Select from './Select/Select';
-import Textarea from './TextArea/TextArea';
+import { Datepicker } from './Datepicker';
+import { DynamicRepeater } from './DynamicRepeater';
+import { Fieldgroup } from './Fieldgroup';
+import { InputNumber } from './InputNumber';
+import { InputText } from './InputText';
+import { InputRadio } from './Radio';
+import { Repeater } from './Repeater';
+import { InputSelect } from './Select';
+import { InputTextarea } from './TextArea';
 
 const DefaultFields: FieldConfig[] = [
 	{
@@ -33,19 +33,19 @@ const DefaultFields: FieldConfig[] = [
 	{
 		name: 'textarea',
 		module: 'core',
-		component: Textarea,
+		component: InputTextarea,
 		viewComponent: DefaultView,
 	},
 	{
 		name: 'select',
 		module: 'core',
-		component: Select,
+		component: InputSelect,
 		viewComponent: DefaultView,
 	},
 	{
 		name: 'radio',
 		module: 'core',
-		component: Radio,
+		component: InputRadio,
 		viewComponent: DefaultView,
 	},
 	{
@@ -68,4 +68,13 @@ const DefaultFields: FieldConfig[] = [
 	},
 ];
 
-export { InputText, Textarea, Select, Radio, Fieldgroup, Repeater, DynamicRepeater, DefaultFields };
+export {
+	InputText,
+	InputTextarea,
+	InputSelect,
+	InputRadio,
+	Fieldgroup,
+	Repeater,
+	DynamicRepeater,
+	DefaultFields,
+};

@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 
 import { FieldSchema } from '../../../core.types';
-import { ViewFieldProps } from '../../../services/viewRegistry/viewRegistry.types';
+import { ViewFieldProps } from '../../../services/viewRegistry';
 import { addNameSpace } from '../../../utils';
-import ViewRenderer from '../../ViewRenderer/ViewRenderer';
+import { ViewRenderer } from '../../ViewRenderer';
 
 const FieldGroupView: FC<ViewFieldProps> = ({ fieldSchema }) => {
 	const { fields = [] } = fieldSchema;

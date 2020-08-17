@@ -2,7 +2,7 @@ import { DefaultFields } from '../../components/Fields';
 
 import { FieldConfig, FieldsRegistryConfig } from './fieldRegistry.types';
 
-class FieldRegistry {
+export class FieldRegistry {
 	private fields: FieldsRegistryConfig = {};
 
 	constructor(fields?: FieldConfig[]) {
@@ -55,5 +55,3 @@ class FieldRegistry {
 }
 
 export const fieldRegistry = new FieldRegistry(DefaultFields);
-
-export default FieldRegistry;

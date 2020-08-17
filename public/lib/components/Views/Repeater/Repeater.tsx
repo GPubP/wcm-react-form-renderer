@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
 
 import { FieldSchema } from '../../../core.types';
-import { ViewFieldProps } from '../../../services/viewRegistry/viewRegistry.types';
-import ViewRenderer from '../../ViewRenderer/ViewRenderer';
+import { ViewFieldProps } from '../../../services/viewRegistry';
+import { ViewRenderer } from '../../ViewRenderer';
 
 const RepeaterView: FC<ViewFieldProps> = ({ value, fieldSchema }) => {
 	const { fields = [] } = fieldSchema;

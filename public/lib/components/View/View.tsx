@@ -2,8 +2,8 @@ import { Formik } from 'formik';
 import React, { FC, ReactNode } from 'react';
 
 import { FieldSchema } from '../../core.types';
-import SchemaProvider from '../SchemaProvider/SchemaProvider';
-import ViewRenderer from '../ViewRenderer/ViewRenderer';
+import { SchemaProvider } from '../SchemaProvider';
+import { ViewRenderer } from '../ViewRenderer';
 
 import { ViewProps } from './View.types';
 

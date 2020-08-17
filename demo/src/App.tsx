@@ -473,27 +473,37 @@ const App = () => {
 			<div className="header">
 				<h1>Redaction Form Renderer Module</h1>
 			</div>
-			<Form
-				validationSchema={validationSchema}
-				errorMessages={errorMessages}
-				onSubmit={onFormSubmit}
-				initialValues={initialValues}
-				onChange={onChange}
-				schema={form}
-			>
-				{props => (
-					<>
-						<button
-							data-testid="formik-submit-btn"
-							className={'a-button'}
-							type="submit"
-						>
-							Verstuur
-						</button>
-					</>
-				)}
-			</Form>
-			<View schema={form} values={initialValues} />
+			<div className="u-margin-top">
+				<h2>Form</h2>
+				<div className="u-margin-top-xs">
+					<Form
+						validationSchema={validationSchema}
+						errorMessages={errorMessages}
+						onSubmit={onFormSubmit}
+						initialValues={initialValues}
+						onChange={onChange}
+						schema={form}
+					>
+						{props => (
+							<>
+								<button
+									data-testid="formik-submit-btn"
+									className={'a-button'}
+									type="submit"
+								>
+									Verstuur
+								</button>
+							</>
+						)}
+					</Form>
+				</div>
+			</div>
+			<div className="u-margin-top">
+				<h2>View</h2>
+				<div className="u-margin-top-xs">
+					<View schema={form} values={initialValues} />
+				</div>
+			</div>
 		</div>
 	);
 };

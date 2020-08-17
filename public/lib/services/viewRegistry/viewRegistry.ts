@@ -1,6 +1,6 @@
 import { ViewConfig, ViewRegistryConfig } from './viewRegistry.types';
 
-class ViewRegistry {
+export class ViewRegistry {
 	private views: ViewRegistryConfig = {};
 
 	constructor(views?: ViewConfig[]) {
@@ -58,5 +58,3 @@ class ViewRegistry {
 }
 
 export const viewRegistry = new ViewRegistry();
-
-export default ViewRegistry;
