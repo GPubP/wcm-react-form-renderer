@@ -2,7 +2,7 @@ import React from 'react';
 
 import { FieldSchema } from '../../../core.types';
 import { addNameSpace } from '../../../utils';
-import FieldRenderer from '../../FieldRenderer/FieldRenderer';
+import { FieldRenderer } from '../../FieldRenderer';
 
 import { FieldGroupProps } from './Fieldgroup.types';
 

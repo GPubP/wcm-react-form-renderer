@@ -5,8 +5,8 @@ import { pathOr, split } from 'ramda';
 import React, { useMemo } from 'react';
 
 import { FieldSchema } from '../../../core.types';
-import FieldRenderer from '../../FieldRenderer/FieldRenderer';
-import FlyoutSelect from '../../FlyoutSelect/FlyoutSelect';
+import { FieldRenderer } from '../../FieldRenderer';
+import { FlyoutSelect } from '../../FlyoutSelect';
 
 import styles from './DynamicRepeater.module.scss';
 import { DynamicRepeaterProps } from './DynamicRepeater.types';

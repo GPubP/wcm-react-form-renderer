@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 
-import { Form, FormSchema } from '@redactie/form-renderer-module';
+import { Form, FormSchema, View } from '@redactie/form-renderer-module';
 
 const App = () => {
 	const onFormSubmit = (values: any) => {
@@ -251,7 +251,7 @@ const App = () => {
 							min: 4,
 							max: 5,
 							description: 'Add new children',
-							id: '3'
+							id: '3',
 						},
 						fields: [
 							{
@@ -454,10 +454,12 @@ const App = () => {
 		],
 		dynamicRepeater: [
 			{
-				value: 'maarten', type: '1'
+				value: 'maarten',
+				type: '1',
 			},
 			{
-				value: 'de weerdt', type: '2'
+				value: 'de weerdt',
+				type: '2',
 			},
 			{
 				value: [
@@ -469,7 +471,8 @@ const App = () => {
 						firstname: 'mieke',
 						lastname: 'scheirs',
 					},
-				], type: '3'
+				],
+				type: '3',
 			},
 			{
 				value: {
@@ -477,8 +480,8 @@ const App = () => {
 					city: 'Lier',
 					country: 'belgium',
 				},
-				type: '4'
-			}
+				type: '4',
+			},
 		],
 	};
 
@@ -510,26 +513,37 @@ const App = () => {
 			<div className="header">
 				<h1>Redaction Form Renderer Module</h1>
 			</div>
-			<Form
-				validationSchema={validationSchema}
-				errorMessages={errorMessages}
-				onSubmit={onFormSubmit}
-				initialValues={initialValues}
-				onChange={onChange}
-				schema={form}
-			>
-				{props => (
-					<>
-						<button
-							data-testid="formik-submit-btn"
-							className={'a-button'}
-							type="submit"
-						>
-							Verstuur
-						</button>
-					</>
-				)}
-			</Form>
+			<div className="u-margin-top">
+				<h2>Form</h2>
+				<div className="u-margin-top-xs">
+					<Form
+						validationSchema={validationSchema}
+						errorMessages={errorMessages}
+						onSubmit={onFormSubmit}
+						initialValues={initialValues}
+						onChange={onChange}
+						schema={form}
+					>
+						{props => (
+							<>
+								<button
+									data-testid="formik-submit-btn"
+									className={'a-button'}
+									type="submit"
+								>
+									Verstuur
+								</button>
+							</>
+						)}
+					</Form>
+				</div>
+			</div>
+			<div className="u-margin-top">
+				<h2>View</h2>
+				<div className="u-margin-top-xs">
+					<View schema={form} values={initialValues} />
+				</div>
+			</div>
 		</div>
 	);
 };

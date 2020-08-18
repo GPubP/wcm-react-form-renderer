@@ -3,7 +3,7 @@ import { Form, Formik, FormikHelpers, FormikProps, FormikValues } from 'formik';
 import debounce from 'lodash.debounce';
 import React, { ReactNode, useCallback, useEffect, useState } from 'react';
 
-import { createErrorMessageHandler } from '../../classes/errorMessageHandler/errorMessageHandler';
+import { createErrorMessageHandler } from '../../classes/errorMessageHandler';
 import { FieldSchema, FormValues } from '../../core.types';
 import {
 	createInitialValues,
@@ -11,9 +11,9 @@ import {
 	isFunction,
 	parseValidationSchema,
 } from '../../utils';
-import FieldRenderer from '../FieldRenderer/FieldRenderer';
-import FormikOnChangeHandler from '../FormikOnChangeHandler/FormikOnChangeHandler';
-import SchemaProvider from '../SchemaProvider/SchemaProvider';
+import { FieldRenderer } from '../FieldRenderer';
+import { FormikOnChangeHandler } from '../FormikOnChangeHandler';
+import { SchemaProvider } from '../SchemaProvider';
 
 import { FormProps } from './Form.types';
 

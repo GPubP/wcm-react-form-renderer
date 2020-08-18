@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { render, RenderResult } from '@testing-library/react';
+import { FormikProps } from 'formik';
 import React from 'react';
 
 import { FormValues } from '../../core.types';
 
 import Form from './Form';
 import { FormProps } from './Form.types';
-import { FormikProps } from 'formik';
 
 jest.mock('@redactie/schema-to-yup', () => ({
 	buildYup: () => ({}),

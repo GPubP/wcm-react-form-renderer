@@ -1,7 +1,9 @@
 import { ErrorMessageProps, FormikValues } from 'formik';
 
-import { FormProps } from './components/Form/Form.types';
-import FieldRegistry from './services/fieldRegistry/fieldRegistry';
+import { FormProps } from './components/Form';
+import { ViewProps } from './components/View';
+import { FieldRegistry } from './services/fieldRegistry';
+import { ViewRegistry } from './services/viewRegistry';
 
 /**
  * A list of allowed field types
@@ -40,6 +42,11 @@ export interface FieldSchema {
 	 */
 	type: string;
 	/**
+	 * Field view
+	 * This field will be uses by the viewer component
+	 */
+	view?: string;
+	/**
 	 * Field Data type
 	 */
 	dataType: FieldDataType;
@@ -63,6 +70,9 @@ export interface FieldSchema {
 	 * nested form fields
 	 */
 	fields?: FieldSchema[];
+	/**
+	 * Default value
+	 */
 	defaultValue?: any;
 }
 
@@ -75,8 +85,10 @@ export interface ValidationSchema {
 
 export interface FormsAPI {
 	Form: React.FC<FormProps<FormValues>>;
+	View: React.FC<ViewProps>;
 	ErrorMessage: React.FC<ErrorMessageProps>;
 	fieldRegistry: FieldRegistry;
+	viewRegistry: ViewRegistry;
 }
 
 export interface Validator {

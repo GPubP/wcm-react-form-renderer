@@ -6,7 +6,7 @@ import React from 'react';
 
 import { FieldSchema } from '../../../core.types';
 import { createInitialValues } from '../../../utils';
-import FieldRenderer from '../../FieldRenderer/FieldRenderer';
+import { FieldRenderer } from '../../FieldRenderer';
 
 import styles from './Repeater.module.scss';
 import { RepeaterProps } from './Repeater.types';

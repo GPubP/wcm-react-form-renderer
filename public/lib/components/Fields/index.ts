@@ -1,82 +1,95 @@
-import { FieldConfig } from '../../services/fieldRegistry/fieldRegistry.types';
+import { FieldConfig } from '../../services/fieldRegistry';
+import { DefaultView, DynamicRepeaterView, FieldGroupView, RepeaterView } from '../Views';
 
-import DateTime from './DateTime/DateTime';
-import Datepicker from './Datepicker/Datepicker';
-import DynamicRepeater from './DynamicRepeater/DynamicRepeater';
-import Fieldgroup from './Fieldgroup/Fieldgroup';
-import InputNumber from './InputNumber/InputNumber';
-import InputText from './InputText/InputText';
-import Radio from './Radio/Radio';
-import Repeater from './Repeater/Repeater';
-import Select from './Select/Select';
-import Textarea from './TextArea/TextArea';
-import Time from './Time/Time';
+import { DateTimepicker } from './DateTime';
+import { Datepicker } from './Datepicker';
+import { DynamicRepeater } from './DynamicRepeater';
+import { Fieldgroup } from './Fieldgroup';
+import { InputNumber } from './InputNumber';
+import { InputText } from './InputText';
+import { InputRadio } from './Radio';
+import { Repeater } from './Repeater';
+import { InputSelect } from './Select';
+import { InputTextarea } from './TextArea';
+import { Time } from './Time';
 
 const DefaultFields: FieldConfig[] = [
 	{
 		name: 'text',
 		module: 'core',
 		component: InputText,
+		viewComponent: DefaultView,
 	},
 	{
 		name: 'number',
 		module: 'core',
 		component: InputNumber,
+		viewComponent: DefaultView,
 	},
 	{
 		name: 'date',
 		module: 'core',
 		component: Datepicker,
+		viewComponent: DefaultView,
 	},
 	{
 		name: 'time',
 		module: 'core',
 		component: Time,
+		viewComponent: DefaultView,
 	},
 	{
 		name: 'dateTime',
 		module: 'core',
-		component: DateTime,
+		component: DateTimepicker,
+		viewComponent: DefaultView,
 	},
 	{
 		name: 'textarea',
 		module: 'core',
-		component: Textarea,
+		component: InputTextarea,
+		viewComponent: DefaultView,
 	},
 	{
 		name: 'select',
 		module: 'core',
-		component: Select,
+		component: InputSelect,
+		viewComponent: DefaultView,
 	},
 	{
 		name: 'radio',
 		module: 'core',
-		component: Radio,
+		component: InputRadio,
+		viewComponent: DefaultView,
 	},
 	{
 		name: 'fieldgroup',
 		module: 'core',
 		component: Fieldgroup,
+		viewComponent: FieldGroupView,
 	},
 	{
 		name: 'repeater',
 		module: 'core',
 		component: Repeater,
+		viewComponent: RepeaterView,
 	},
 	{
 		name: 'dynamicRepeater',
 		module: 'core',
 		component: DynamicRepeater,
+		viewComponent: DynamicRepeaterView,
 	},
 ];
 
 export {
-	InputText,
-	Textarea,
-	Select,
-	Radio,
-	Fieldgroup,
+	DateTimepicker,
 	Time,
+	InputText,
+	InputTextarea,
+	InputSelect,
+	InputRadio,
+	Fieldgroup,
 	Repeater,
 	DynamicRepeater,
 	DefaultFields,
