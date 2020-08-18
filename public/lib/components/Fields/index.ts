@@ -1,6 +1,8 @@
 import { FieldConfig } from '../../services/fieldRegistry';
 import { DefaultView, DynamicRepeaterView, FieldGroupView, RepeaterView } from '../Views';
 
+import { CheckboxList } from './CheckBoxList';
+import { InputCheckbox } from './Checkbox';
 import { DateTimepicker } from './DateTime';
 import { Datepicker } from './Datepicker';
 import { DynamicRepeater } from './DynamicRepeater';
@@ -57,6 +59,18 @@ const DefaultFields: FieldConfig[] = [
 		viewComponent: DefaultView,
 	},
 	{
+		name: 'checkbox',
+		module: 'core',
+		component: InputCheckbox,
+		viewComponent: DefaultView,
+	},
+	{
+		name: 'checkboxList',
+		module: 'core',
+		component: CheckboxList,
+		viewComponent: DefaultView,
+	},
+	{
 		name: 'radio',
 		module: 'core',
 		component: InputRadio,
@@ -89,6 +103,8 @@ export {
 	InputTextarea,
 	InputSelect,
 	InputRadio,
+	InputCheckbox,
+	CheckboxList,
 	Fieldgroup,
 	Repeater,
 	DynamicRepeater,

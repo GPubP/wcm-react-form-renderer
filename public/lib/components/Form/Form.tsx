@@ -84,7 +84,7 @@ const RedactionForm: React.FC<FormProps<FormValues>> = ({
 
 	const renderFields = (fields: FieldSchema[]): ReactNode => {
 		return fields.map((fieldSchema, index) => (
-			<FieldRenderer key={index} fieldSchema={fieldSchema} />
+			<FieldRenderer key={`${index}-${fieldSchema.name}`} fieldSchema={fieldSchema} />
 		));
 	};
 

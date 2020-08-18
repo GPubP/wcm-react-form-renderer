@@ -124,7 +124,7 @@ const DynamicRepeater: React.FC<DynamicRepeaterProps> = ({ fieldSchema }) => {
 						};
 					})
 					.map((schema, index) => (
-						<div key={index} className={cx('repeater__item')}>
+						<div key={`${index}-${schema?.name}`} className={cx('repeater__item')}>
 							<div>
 								<div className="m-button-group m-button-group--vertical">
 									<Button
@@ -152,7 +152,7 @@ const DynamicRepeater: React.FC<DynamicRepeaterProps> = ({ fieldSchema }) => {
 								</div>
 							</div>
 							<div className={cx('repeater__item__field')}>
-								{schema ? <FieldRenderer key={index} fieldSchema={schema} /> : null}
+								{schema ? <FieldRenderer fieldSchema={schema} /> : null}
 							</div>
 							{repeaterValues.length > min ? (
 								<div>

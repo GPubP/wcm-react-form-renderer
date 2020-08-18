@@ -1,20 +1,33 @@
 import { Select } from '@acpaas-ui/react-components/packages/form';
 import { omit } from 'ramda';
-import React from 'react';
+import React, { FC, useMemo } from 'react';
 
 import { InputFieldProps } from '../../../services/fieldRegistry';
+import { filterAllowedOptions } from '../../../utils';
 import { ErrorMessage } from '../../ErrorMessage';
 
-const InputSelect: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }: InputFieldProps) => {
-	const config = fieldSchema.config || {};
+const InputSelect: FC<InputFieldProps> = ({ fieldProps, fieldSchema }: InputFieldProps) => {
+	const {
+		name,
+		label,
+		config = {
+			options: [],
+			allowedOptions: [],
+		},
+	} = fieldSchema;
 	const { field } = fieldProps;
+	const options = useMemo(() => filterAllowedOptions(config.options, config.allowedOptions), [
+		config.options,
+		config.allowedOptions,
+	]);
 
 	return (
 		<>
 			<Select
-				id={fieldSchema.name}
-				label={fieldSchema.label}
-				{...omit(['multiLanguage', 'min', 'max'])(config)}
+				id={name}
+				label={label}
+				options={options}
+				{...omit(['multiLanguage', 'min', 'max', 'options'])(config)}
 				{...field}
 			/>
 			<ErrorMessage name={field.name} />

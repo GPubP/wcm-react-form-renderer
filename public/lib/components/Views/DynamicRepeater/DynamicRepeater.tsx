@@ -45,7 +45,14 @@ const DynamicRepeaterView: FC<ViewFieldProps> = ({ fieldSchema, value }) => {
 					})
 					.map((schema, index) => {
 						return (
-							<>{schema ? <ViewRenderer key={index} fieldSchema={schema} /> : null}</>
+							<>
+								{schema ? (
+									<ViewRenderer
+										key={`${index}-${schema.name}`}
+										fieldSchema={schema}
+									/>
+								) : null}
+							</>
 						);
 					})}
 		</>

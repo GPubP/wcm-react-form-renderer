@@ -1,7 +1,7 @@
 import { prop } from 'ramda';
 import React from 'react';
 
-import { FormSchema, FormValues, ValidationSchema } from './core.types';
+import { FieldOption, FormSchema, FormValues, ValidationSchema } from './core.types';
 
 export const addNameSpace = (namespace: string) => (fieldName: string): string =>
 	namespace ? `${namespace}.${fieldName}` : fieldName;
@@ -89,3 +89,14 @@ export const parseValidationSchema = (
 	items: schema.items && parseValidationSchema(schema.items, `${path}[$]`),
 	name: path,
 });
+
+export const filterAllowedOptions = (
+	options: FieldOption[] | undefined,
+	allowedOptions: string[] | undefined
+): FieldOption[] => {
+	if (Array.isArray(options) && Array.isArray(allowedOptions) && allowedOptions.length > 0) {
+		return options.filter(option => allowedOptions.includes(option.value));
+	}
+
+	return options || [];
+};

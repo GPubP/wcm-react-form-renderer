@@ -17,7 +17,7 @@ const FlyoutSelect: React.FC<FlyoutSelectProps> = ({ onSelect, items }) => {
 			<ul className="m-selectable-list">
 				{items.map((item: FieldSchema, index: number) => (
 					<li
-						key={index}
+						key={`${index}-${item.name}`}
 						onClick={() => onSelect(item)}
 						className="m-selectable-list__item"
 					>
