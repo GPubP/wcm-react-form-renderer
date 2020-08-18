@@ -24,7 +24,10 @@ const Fieldgroup: React.FC<FieldGroupProps> = ({ fieldSchema }) => {
 						})
 					)
 					.map((fieldSchema, index) => (
-						<FieldRenderer key={index} fieldSchema={fieldSchema} />
+						<FieldRenderer
+							key={`${index}-${fieldSchema.name}`}
+							fieldSchema={fieldSchema}
+						/>
 					))}
 			</div>
 		</div>

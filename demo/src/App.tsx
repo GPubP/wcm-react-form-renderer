@@ -37,6 +37,44 @@ const App = () => {
 				},
 			},
 			{
+				name: 'hobbies',
+				module: 'core',
+				type: 'checkboxList',
+				dataType: 'array',
+				label: 'Hobbies',
+				config: {
+					required: true,
+					allowedOptions: ['skateboarding', 'snowboarding'],
+					options: [
+						{
+							key: '0',
+							value: 'skateboarding',
+							label: 'Skateboarding',
+						},
+						{
+							key: '1',
+							value: 'snowboarding',
+							label: 'Snowboarding',
+						},
+						{
+							key: '2',
+							value: 'surf',
+							label: 'Surf',
+						},
+					],
+				},
+			},
+			{
+				name: 'termsAndConditions',
+				module: 'core',
+				type: 'checkbox',
+				dataType: 'boolean',
+				label: 'I accept the Terms and conditions',
+				config: {
+					required: true,
+				},
+			},
+			{
 				name: 'address',
 				module: 'core',
 				type: 'fieldgroup',
@@ -81,6 +119,7 @@ const App = () => {
 						config: {
 							required: true,
 							wrapperClassName: 'col-xs-12',
+							allowedOptions: ['belgium', 'france'],
 							options: [
 								{
 									key: '0',
@@ -158,7 +197,7 @@ const App = () => {
 				label: 'Time',
 				config: {
 					required: true,
-				}
+				},
 			},
 			{
 				name: 'dateTime',
@@ -168,8 +207,8 @@ const App = () => {
 				label: 'Datum en tijd',
 				config: {
 					required: true,
-					dateLabel: 'Datum'
-				}
+					dateLabel: 'Datum',
+				},
 			},
 			{
 				name: 'children',
@@ -358,7 +397,7 @@ const App = () => {
 						label: 'Time',
 						config: {
 							required: true,
-						}
+						},
 					},
 				],
 			},
@@ -375,6 +414,14 @@ const App = () => {
 			},
 			lastname: {
 				type: 'string',
+				required: true,
+			},
+			hobbies: {
+				type: 'array',
+				required: true,
+			},
+			termsAndConditions: {
+				type: 'boolean',
 				required: true,
 			},
 			address: {
@@ -422,18 +469,19 @@ const App = () => {
 			},
 			time: {
 				type: 'string',
-				required: true
+				required: true,
 			},
 			dateTime: {
 				type: 'string',
-				required: true
-			}
+				required: true,
+			},
 		},
 	};
 
 	const initialValues = {
 		firstname: 'John',
 		lastname: 'Doe',
+		hobbies: ['skateboarding', 'snowboarding'],
 		address: {
 			zipcode: '2500',
 			city: 'Lier',

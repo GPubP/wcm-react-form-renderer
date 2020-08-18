@@ -12,7 +12,9 @@ const View: FC<ViewProps> = ({ schema, values }) => {
 	 * Methods
 	 */
 	const renderViews = (fields: FieldSchema[]): ReactNode =>
-		fields.map((fieldSchema, index) => <ViewRenderer key={index} fieldSchema={fieldSchema} />);
+		fields.map((fieldSchema, index) => (
+			<ViewRenderer key={`${index}-${fieldSchema.name}`} fieldSchema={fieldSchema} />
+		));
 
 	const noopSubmit = (): void => {
 		return;

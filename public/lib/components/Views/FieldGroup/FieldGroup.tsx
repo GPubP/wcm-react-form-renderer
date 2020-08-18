@@ -17,7 +17,7 @@ const FieldGroupView: FC<ViewFieldProps> = ({ fieldSchema }) => {
 					name: withNamespace(schema.name),
 				}))
 				.map((schema, index) => (
-					<ViewRenderer key={index} fieldSchema={schema} />
+					<ViewRenderer key={`${index}-${schema.name}`} fieldSchema={schema} />
 				))}
 		</>
 	);

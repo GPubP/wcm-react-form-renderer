@@ -128,8 +128,11 @@ const Repeater: React.FC<RepeaterProps> = ({ fieldSchema }) => {
 													},
 												})
 											)
-											.map((schema, index) => (
-												<FieldRenderer key={index} fieldSchema={schema} />
+											.map(schema => (
+												<FieldRenderer
+													key={schema.name}
+													fieldSchema={schema}
+												/>
 											))}
 									</div>
 									{repeaterValue.length > min ? (
