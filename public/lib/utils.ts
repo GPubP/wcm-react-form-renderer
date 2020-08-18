@@ -1,7 +1,7 @@
 import { prop } from 'ramda';
 import React from 'react';
 
-import { FormSchema, FormValues, ValidationSchema, FieldOption } from './core.types';
+import { FieldOption, FormSchema, FormValues, ValidationSchema } from './core.types';
 
 export const addNameSpace = (namespace: string) => (fieldName: string): string =>
 	namespace ? `${namespace}.${fieldName}` : fieldName;
