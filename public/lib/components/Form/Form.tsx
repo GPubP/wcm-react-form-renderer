@@ -1,6 +1,7 @@
 import { buildYup } from '@redactie/schema-to-yup';
 import { Form, Formik, FormikHelpers, FormikProps, FormikValues } from 'formik';
 import debounce from 'lodash.debounce';
+import { isEmpty } from 'ramda';
 import React, { ReactNode, useCallback, useEffect, useState } from 'react';
 
 import { createErrorMessageHandler } from '../../classes/errorMessageHandler';
@@ -39,7 +40,9 @@ const RedactionForm: React.FC<FormProps<FormValues>> = ({
 	 * will throw an error saying that you have changed an input from uncontrolled to controlled.
 	 */
 	const initInitialValues = useCallback(() => {
-		setInitialFormValue(createInitialValues(schema, initialValues || {}));
+		if ((isEmpty(initialFormValue) || initialFormValue === null) && schema) {
+			setInitialFormValue(createInitialValues(schema, initialValues || {}));
+		}
 	}, [schema]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	/**
@@ -89,7 +92,7 @@ const RedactionForm: React.FC<FormProps<FormValues>> = ({
 	};
 
 	// wait till the initial values are created
-	if (!initialFormValue) {
+	if (isEmpty(initialFormValue) || !initialFormValue) {
 		return null;
 	}
 
