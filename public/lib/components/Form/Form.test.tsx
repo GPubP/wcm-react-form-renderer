@@ -38,14 +38,6 @@ const renderForm = (props?: Partial<FormProps<FormValues>>): RenderResult => {
 };
 
 describe('<Form />', () => {
-	it('should display a blank form when no schema is given', async () => {
-		const { findByTestId } = renderForm();
-		const formikForm = await findByTestId('formik-form');
-
-		// Since there are no fields only the button is visible to the user
-		expect(formikForm.children.length).toBe(1);
-	});
-
 	it('should display a full form when a schema is given', async () => {
 		const { findByTestId } = renderForm({
 			schema: {
