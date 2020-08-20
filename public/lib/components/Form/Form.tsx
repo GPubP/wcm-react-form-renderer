@@ -40,7 +40,7 @@ const RedactionForm: React.FC<FormProps<FormValues>> = ({
 	 * will throw an error saying that you have changed an input from uncontrolled to controlled.
 	 */
 	const initInitialValues = useCallback(() => {
-		if ((isEmpty(initialFormValue) || initialFormValue === null) && schema) {
+		if (isEmpty(initialFormValue || {}) && schema) {
 			setInitialFormValue(createInitialValues(schema, initialValues || {}));
 		}
 	}, [schema]); // eslint-disable-line react-hooks/exhaustive-deps
