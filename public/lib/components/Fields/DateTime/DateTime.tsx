@@ -57,7 +57,7 @@ const DateTimepicker: React.FC<InputFieldProps> = ({
 						}}
 						fieldSchema={{
 							...fieldSchema,
-							label: fieldSchema.config?.dateLabel || '',
+							label: fieldSchema.config?.dateLabel || 'Datum',
 						}}
 						fieldHelperProps={fieldHelperProps}
 					/>

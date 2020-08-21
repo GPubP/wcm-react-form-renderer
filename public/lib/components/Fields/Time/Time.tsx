@@ -12,7 +12,7 @@ const Time: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }) => {
 	 */
 	return (
 		<>
-			{fieldSchema.label && <label className="a-input__label">{fieldSchema.label}</label>}
+			{fieldSchema.label && <h6 className="u-margin-bottom-xs">{fieldSchema.label}</h6>}
 			<Timepicker
 				id={fieldSchema.name}
 				onChange={(e: string) => {
