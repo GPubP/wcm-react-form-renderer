@@ -94,7 +94,7 @@ export const filterAllowedOptions = (
 	options: FieldOption[] | undefined,
 	allowedOptions: string[] | undefined
 ): FieldOption[] => {
-	if (Array.isArray(options) && Array.isArray(allowedOptions) && allowedOptions.length > 0) {
+	if (Array.isArray(options) && Array.isArray(allowedOptions)) {
 		return options.filter(option => allowedOptions.includes(option.value));
 	}
 
