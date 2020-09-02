@@ -8,7 +8,7 @@ export const addNameSpace = (namespace: string) => (fieldName: string): string =
 
 export const createInitialValues = (
 	schema: FormSchema,
-	initialValues: Record<string, any>
+	initialValues: Record<string, any> = {}
 ): FormValues => {
 	if (!Array.isArray(schema.fields)) {
 		// TODO: Decide if we want to throw an error here?
