@@ -30,6 +30,10 @@ export interface FieldOption {
 
 export interface FieldSchema {
 	/**
+	 * Field id
+	 */
+	_id: string;
+	/**
 	 * Field name
 	 */
 	name: string;
