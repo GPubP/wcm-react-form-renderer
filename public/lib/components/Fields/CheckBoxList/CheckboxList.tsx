@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import { FieldArray } from 'formik';
 import React, { ChangeEvent, FC, useEffect, useMemo } from 'react';
 
+import { useSelectFirstOptionWhenHidden } from '../../../hooks';
 import { InputFieldProps } from '../../../services/fieldRegistry';
 import { filterAllowedOptions } from '../../../utils';
 import { ErrorMessage } from '../../ErrorMessage';
@@ -21,11 +22,6 @@ const CheckboxList: FC<InputFieldProps> = ({ fieldProps, fieldSchema, fieldHelpe
 	const labelClass = classNames('a-input', {
 		'is-required': config.required,
 	});
-	const showField = !(
-		config.hideWhenOnlyOneAllowedOption &&
-		Array.isArray(config.allowedOptions) &&
-		config.allowedOptions.length === 1
-	);
 
 	/**
 	 * Hooks
@@ -34,13 +30,7 @@ const CheckboxList: FC<InputFieldProps> = ({ fieldProps, fieldSchema, fieldHelpe
 		config.options,
 		config.allowedOptions,
 	]);
-
-	useEffect(() => {
-		// Automatically select the first allowed option when the select field is hidden from the user
-		if (!showField && field.value !== config.allowedOptions[0]) {
-			fieldHelperProps.setValue(config.allowedOptions[0]);
-		}
-	}, [config.allowedOptions, field.value, fieldHelperProps, showField]);
+	const showField = useSelectFirstOptionWhenHidden(config, field.value, fieldHelperProps);
 
 	return (
 		<>

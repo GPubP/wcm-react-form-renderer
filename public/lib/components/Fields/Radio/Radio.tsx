@@ -1,7 +1,8 @@
 import { RadioGroup } from '@acpaas-ui/react-components/packages/form';
 import { omit } from 'ramda';
-import React, { FC, useEffect, useMemo } from 'react';
+import React, { FC, useMemo } from 'react';
 
+import { useSelectFirstOptionWhenHidden } from '../../../hooks';
 import { InputFieldProps } from '../../../services/fieldRegistry';
 import { filterAllowedOptions } from '../../../utils';
 import { ErrorMessage } from '../../ErrorMessage';
@@ -20,11 +21,6 @@ const InputRadio: FC<InputFieldProps> = ({
 		},
 	} = fieldSchema;
 	const { field } = fieldProps;
-	const showField = !(
-		config.hideWhenOnlyOneAllowedOption &&
-		Array.isArray(config.allowedOptions) &&
-		config.allowedOptions.length === 1
-	);
 
 	/**
 	 * Hooks
@@ -33,13 +29,7 @@ const InputRadio: FC<InputFieldProps> = ({
 		config.options,
 		config.allowedOptions,
 	]);
-
-	useEffect(() => {
-		// Automatically select the first allowed option when the select field is hidden from the user
-		if (!showField && field.value !== config.allowedOptions[0]) {
-			fieldHelperProps.setValue(config.allowedOptions[0]);
-		}
-	}, [config.allowedOptions, field.value, fieldHelperProps, showField]);
+	const showField = useSelectFirstOptionWhenHidden(config, field.value, fieldHelperProps);
 
 	return (
 		<>
