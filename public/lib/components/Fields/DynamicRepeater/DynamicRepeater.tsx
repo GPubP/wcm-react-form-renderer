@@ -40,7 +40,13 @@ const DynamicRepeater: React.FC<DynamicRepeaterProps> = ({ fieldSchema }) => {
 	const addItem = (arrayHelper: FieldArrayRenderProps, item: FieldSchema): void => {
 		const itemToAdd = {
 			value: '',
-			type: item.config?.preset?._id || item.config?.preset || item.config?.id || item.type,
+			type: item.type,
+			fieldType:
+				item.config?.preset?.uuid ||
+				item.config?.preset ||
+				item.config?.fieldType?.uuid ||
+				item.config?.fieldType ||
+				item.type,
 		};
 
 		arrayHelper.push(itemToAdd);
@@ -79,10 +85,11 @@ const DynamicRepeater: React.FC<DynamicRepeaterProps> = ({ fieldSchema }) => {
 	const getFieldSchema = (fieldValue: FormikValues): FieldSchema | null => {
 		const fieldSchema = fields.find((field: FieldSchema) => {
 			return (
-				field.config?.preset?._id === fieldValue.type ||
-				field.config?.preset === fieldValue.type ||
-				field.config?.id === fieldValue.type ||
-				field.type === fieldValue.type
+				field.config?.preset?.uuid === fieldValue.fieldType ||
+				field.config?.preset === fieldValue.fieldType ||
+				field.config?.fieldType?.uuid === fieldValue.fieldType ||
+				field.config?.fieldType === fieldValue.fieldType ||
+				field.type === fieldValue.fieldType
 			);
 		});
 
