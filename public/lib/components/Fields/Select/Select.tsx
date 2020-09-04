@@ -20,6 +20,7 @@ const InputSelect: FC<InputFieldProps> = ({
 		},
 	} = fieldSchema;
 	const { field } = fieldProps;
+	const value = field.value !== '' ? field.value : undefined;
 	const showField = !(
 		config.hideWhenOnlyOneAllowedOption &&
 		Array.isArray(config.allowedOptions) &&
@@ -49,8 +50,9 @@ const InputSelect: FC<InputFieldProps> = ({
 						id={name}
 						label={label}
 						options={options}
+						value={value}
 						{...omit(['multiLanguage', 'min', 'max', 'options'])(config)}
-						{...field}
+						{...omit(['value'])(field)}
 					/>
 					<ErrorMessage name={field.name} />
 				</>
