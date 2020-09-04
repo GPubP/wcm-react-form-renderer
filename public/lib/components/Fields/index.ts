@@ -4,6 +4,7 @@ import {
 	DateView,
 	DefaultView,
 	DynamicRepeaterView,
+	EmailView,
 	FieldGroupView,
 	RepeaterView,
 	TimeView,
@@ -29,6 +30,12 @@ const DefaultFields: FieldConfig[] = [
 		module: 'core',
 		component: InputText,
 		viewComponent: DefaultView,
+	},
+	{
+		name: 'email',
+		module: 'core',
+		component: InputText,
+		viewComponent: EmailView,
 	},
 	{
 		name: 'number',
