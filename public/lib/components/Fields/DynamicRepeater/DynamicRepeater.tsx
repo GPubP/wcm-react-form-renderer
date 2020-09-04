@@ -49,8 +49,6 @@ const DynamicRepeater: React.FC<DynamicRepeaterProps> = ({ fieldSchema }) => {
 				item.type,
 		};
 
-		console.log(itemToAdd);
-
 		arrayHelper.push(itemToAdd);
 	};
 
