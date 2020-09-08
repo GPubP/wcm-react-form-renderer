@@ -1,7 +1,7 @@
 import { Checkbox } from '@acpaas-ui/react-components';
 import classNames from 'classnames';
 import { FieldArray } from 'formik';
-import React, { ChangeEvent, FC, useEffect, useMemo } from 'react';
+import React, { ChangeEvent, FC, useMemo } from 'react';
 
 import { useSelectFirstOptionWhenHidden } from '../../../hooks';
 import { InputFieldProps } from '../../../services/fieldRegistry';
