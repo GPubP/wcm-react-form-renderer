@@ -13,8 +13,8 @@ const Fieldgroup: React.FC<FieldGroupProps> = ({ fieldSchema }) => {
 
 	return (
 		<div className={config.wrapperClassName}>
-			<h6 className="u-margin-bottom-xs">{fieldSchema.label}</h6>
-			{config.description ? <p className="u-margin-bottom "> {config.description} </p> : null}
+			{fieldSchema.label && <h6 className="u-margin-bottom">{fieldSchema.label}</h6>}
+			{config.description && <p className="u-margin-bottom">{config.description}</p>}
 			<div className="row">
 				{fields
 					.map(

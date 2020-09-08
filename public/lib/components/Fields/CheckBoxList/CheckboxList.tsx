@@ -37,7 +37,7 @@ const CheckboxList: FC<InputFieldProps> = ({ fieldProps, fieldSchema, fieldHelpe
 			{showField && (
 				<div>
 					<div className={labelClass}>
-						<label className="a-input__label">{label}</label>
+						{label && <label className="a-input__label">{label}</label>}
 					</div>
 					<FieldArray
 						name={name}
@@ -63,6 +63,7 @@ const CheckboxList: FC<InputFieldProps> = ({ fieldProps, fieldSchema, fieldHelpe
 							</div>
 						)}
 					/>
+					{config.description && <small>{config.description}</small>}
 					<ErrorMessage name={field.name} />
 				</div>
 			)}

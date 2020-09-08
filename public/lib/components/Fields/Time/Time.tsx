@@ -5,14 +5,19 @@ import { InputFieldProps } from '../../../services/fieldRegistry/fieldRegistry.t
 import ErrorMessage from '../../ErrorMessage/ErrorMessage';
 
 const Time: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }) => {
+	const { config = {}, label = '' } = fieldSchema;
 	const { field } = fieldProps;
+	const trimmedLabel = label?.trim();
 
 	/**
 	 * Render
 	 */
 	return (
 		<>
-			{fieldSchema.label && <h6 className="u-margin-bottom-xs">{fieldSchema.label}</h6>}
+			{trimmedLabel && trimmedLabel !== '' && (
+				<h6 className="u-margin-bottom">{fieldSchema.label}</h6>
+			)}
+			{config.description && <p className="u-margin-bottom">{config.description}</p>}
 			<Timepicker
 				id={fieldSchema.name}
 				onChange={(e: string) => {

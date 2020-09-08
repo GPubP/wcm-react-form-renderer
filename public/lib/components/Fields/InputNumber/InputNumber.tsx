@@ -22,6 +22,8 @@ const InputNumber: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }: Inp
 				state={state}
 				label={fieldSchema.label}
 				type="number"
+				min={config.minimum}
+				max={config.maximum}
 				{...omit(['multiLanguage', 'min', 'max'])(config)}
 				{...field}
 			/>

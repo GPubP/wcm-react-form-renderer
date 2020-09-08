@@ -87,7 +87,10 @@ const Repeater: React.FC<RepeaterProps> = ({ fieldSchema }) => {
 				{repeaterValue && repeaterValue.length > 0
 					? repeaterValue.map((value: any, index: number) => {
 							return (
-								<div key={index} className={cx('repeater__item')}>
+								<div
+									key={index}
+									className={cx('repeater__item', 'u-margin-bottom')}
+								>
 									<div>
 										<div className="m-button-group m-button-group--vertical">
 											<Button
@@ -124,7 +127,7 @@ const Repeater: React.FC<RepeaterProps> = ({ fieldSchema }) => {
 														...schema.config,
 														wrapperClassName:
 															schema.config?.wrapperClassName ||
-															'col-xs-12',
+															'col-xs-12 u-no-margin-bottom',
 													},
 												})
 											)
@@ -139,11 +142,11 @@ const Repeater: React.FC<RepeaterProps> = ({ fieldSchema }) => {
 										<div>
 											<Button
 												onClick={() => deleteItem(arrayHelper, index)}
+												negative
 												icon="trash"
 												ariaLabel="Delete item"
-												type="danger"
+												type="secondary"
 												htmlType="button"
-												size="small"
 											/>
 										</div>
 									) : null}
@@ -165,20 +168,22 @@ const Repeater: React.FC<RepeaterProps> = ({ fieldSchema }) => {
 					}
 					return (
 						<div className={cx('repeater', 'u-margin-bottom', config.wrapperClassName)}>
-							<h6
-								className={cx(
-									'repeater__label',
-									{
-										'is-required': isRequired,
-									},
-									'u-margin-bottom-xs'
-								)}
-							>
-								{fieldSchema.label}
-							</h6>
-							{config.description ? (
+							{fieldSchema.label && (
+								<h6
+									className={cx(
+										'repeater__label',
+										{
+											'is-required': isRequired,
+										},
+										'u-margin-bottom'
+									)}
+								>
+									{fieldSchema.label}
+								</h6>
+							)}
+							{config.description && (
 								<p className="u-margin-bottom"> {config.description} </p>
-							) : null}
+							)}
 							<div>
 								{renderArrayElements(arrayHelper, value)}
 								{value.length < max ? (

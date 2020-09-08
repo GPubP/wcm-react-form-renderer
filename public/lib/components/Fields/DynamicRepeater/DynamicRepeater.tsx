@@ -186,17 +186,19 @@ const DynamicRepeater: React.FC<DynamicRepeaterProps> = ({ fieldSchema }) => {
 				render={arrayHelper => {
 					return (
 						<div className={cx('repeater', 'u-margin-bottom', config.wrapperClassName)}>
-							<h6
-								className={cx(
-									'repeater__label',
-									{
-										'is-required': isRequired,
-									},
-									'u-margin-bottom-xs'
-								)}
-							>
-								{fieldSchema.label}
-							</h6>
+							{fieldSchema.label && (
+								<h6
+									className={cx(
+										'repeater__label',
+										{
+											'is-required': isRequired,
+										},
+										'u-margin-bottom-xs'
+									)}
+								>
+									{fieldSchema.label}
+								</h6>
+							)}
 							{config.description ? (
 								<p className="u-margin-bottom"> {config.description} </p>
 							) : null}
