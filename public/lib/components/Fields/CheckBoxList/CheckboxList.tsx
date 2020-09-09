@@ -35,7 +35,7 @@ const CheckboxList: FC<InputFieldProps> = ({ fieldProps, fieldSchema, fieldHelpe
 	return (
 		<>
 			{showField && (
-				<div>
+				<div className="a-input">
 					<div className={labelClass}>
 						{label && <label className="a-input__label">{label}</label>}
 					</div>
