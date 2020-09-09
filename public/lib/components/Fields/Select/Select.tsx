@@ -1,6 +1,6 @@
 import { Select } from '@acpaas-ui/react-components/packages/form';
 import { omit } from 'ramda';
-import React, { FC, useEffect, useMemo } from 'react';
+import React, { FC, useMemo } from 'react';
 
 import { useSelectFirstOptionWhenHidden } from '../../../hooks';
 import { InputFieldProps } from '../../../services/fieldRegistry';

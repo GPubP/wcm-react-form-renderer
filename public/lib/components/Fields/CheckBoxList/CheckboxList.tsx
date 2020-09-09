@@ -1,7 +1,7 @@
 import { Checkbox } from '@acpaas-ui/react-components';
 import classNames from 'classnames';
 import { FieldArray } from 'formik';
-import React, { ChangeEvent, FC, useEffect, useMemo } from 'react';
+import React, { ChangeEvent, FC, useMemo } from 'react';
 
 import { useSelectFirstOptionWhenHidden } from '../../../hooks';
 import { InputFieldProps } from '../../../services/fieldRegistry';
@@ -35,9 +35,9 @@ const CheckboxList: FC<InputFieldProps> = ({ fieldProps, fieldSchema, fieldHelpe
 	return (
 		<>
 			{showField && (
-				<div>
+				<div className="a-input">
 					<div className={labelClass}>
-						<label className="a-input__label">{label}</label>
+						{label && <label className="a-input__label">{label}</label>}
 					</div>
 					<FieldArray
 						name={name}
@@ -63,6 +63,7 @@ const CheckboxList: FC<InputFieldProps> = ({ fieldProps, fieldSchema, fieldHelpe
 							</div>
 						)}
 					/>
+					{config.description && <small>{config.description}</small>}
 					<ErrorMessage name={field.name} />
 				</div>
 			)}

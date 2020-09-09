@@ -53,7 +53,7 @@ export interface FieldSchema {
 	/**
 	 * Field label
 	 */
-	label: string;
+	label?: string;
 	/**
 	 * Field options
 	 * You can give any config you want

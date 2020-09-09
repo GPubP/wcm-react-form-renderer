@@ -1,3 +1,4 @@
+import { omit } from 'ramda';
 import React, { ChangeEvent, useMemo } from 'react';
 
 import { InputFieldProps } from '../../../services/fieldRegistry/fieldRegistry.types';
@@ -12,6 +13,7 @@ const DateTimepicker: React.FC<InputFieldProps> = ({
 	fieldSchema,
 	fieldHelperProps,
 }) => {
+	const config = fieldSchema.config || {};
 	const { field } = fieldProps;
 
 	const handleChange = (inputValue: string, type: string): void => {
@@ -42,7 +44,8 @@ const DateTimepicker: React.FC<InputFieldProps> = ({
 
 	return (
 		<>
-			<h6 className="u-margin-bottom-xs">{fieldSchema.label}</h6>
+			{fieldSchema.label && <h6 className="u-margin-bottom">{fieldSchema.label}</h6>}
+			{config.description && <p className="u-margin-bottom">{config.description}</p>}
 			<div className="row">
 				<div className="col-xs-12 col-md-6 u-margin-bottom-xs">
 					<Datepicker
@@ -57,6 +60,10 @@ const DateTimepicker: React.FC<InputFieldProps> = ({
 						}}
 						fieldSchema={{
 							...fieldSchema,
+							config: {
+								...config,
+								description: 'Geef een datum in',
+							},
 							label: fieldSchema.config?.dateLabel || 'Datum',
 						}}
 						fieldHelperProps={fieldHelperProps}
@@ -75,6 +82,7 @@ const DateTimepicker: React.FC<InputFieldProps> = ({
 						}}
 						fieldSchema={{
 							...fieldSchema,
+							config: omit(['description'], fieldSchema.config),
 							label: '',
 						}}
 						fieldHelperProps={fieldHelperProps}
