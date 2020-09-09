@@ -8,8 +8,9 @@ import { ErrorMessage } from '../../ErrorMessage';
 const InputCheckbox: FC<InputFieldProps> = ({ fieldSchema, fieldProps, fieldHelperProps }) => {
 	const { config = {}, name, label } = fieldSchema;
 	const { field } = fieldProps;
+
 	return (
-		<>
+		<div className="a-input">
 			<Checkbox
 				id={name}
 				name={name}
@@ -18,8 +19,9 @@ const InputCheckbox: FC<InputFieldProps> = ({ fieldSchema, fieldProps, fieldHelp
 				checked={field.value}
 				onChange={() => fieldHelperProps.setValue(!field.value)}
 			/>
+			{config.description && <small>{config.description}</small>}
 			<ErrorMessage name={field.name} />
-		</>
+		</div>
 	);
 };
 
