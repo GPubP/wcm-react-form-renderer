@@ -30,6 +30,7 @@ const DynamicRepeater: React.FC<DynamicRepeaterProps> = ({ fieldSchema }) => {
 		[config.amount]
 	);
 	const isRequired = useMemo(() => min >= 1, [min]);
+	const disabled = !!config.disabled;
 
 	/**
 	 * Add element to the field array
@@ -142,7 +143,7 @@ const DynamicRepeater: React.FC<DynamicRepeaterProps> = ({ fieldSchema }) => {
 										type="primary"
 										htmlType="button"
 										size="tiny"
-										disabled={index === 0}
+										disabled={index === 0 || disabled}
 										negative
 									/>
 									<Button
@@ -153,7 +154,7 @@ const DynamicRepeater: React.FC<DynamicRepeaterProps> = ({ fieldSchema }) => {
 										type="primary"
 										htmlType="button"
 										size="tiny"
-										disabled={repeaterValues.length - 1 === index}
+										disabled={repeaterValues.length - 1 === index || disabled}
 										negative
 									/>
 								</div>
@@ -167,6 +168,7 @@ const DynamicRepeater: React.FC<DynamicRepeaterProps> = ({ fieldSchema }) => {
 										onClick={() => deleteItem(arrayHelper, index)}
 										icon="trash"
 										ariaLabel="Delete item"
+										disabled={disabled}
 										type="danger"
 										htmlType="button"
 										size="small"
@@ -204,7 +206,7 @@ const DynamicRepeater: React.FC<DynamicRepeaterProps> = ({ fieldSchema }) => {
 							) : null}
 							<div>
 								{renderArrayElements(arrayHelper, value)}
-								{value.length < max ? (
+								{!disabled && value.length < max ? (
 									<FlyoutSelect
 										onSelect={(field: FieldSchema) =>
 											addItem(arrayHelper, field)
