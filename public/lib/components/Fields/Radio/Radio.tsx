@@ -1,24 +1,52 @@
 import { RadioGroup } from '@acpaas-ui/react-components/packages/form';
-import React from 'react';
+import { omit } from 'ramda';
+import React, { FC, useMemo } from 'react';
 
-import { InputFieldProps } from '../../../services/fieldRegistry/fieldRegistry.types';
-import ErrorMessage from '../../ErrorMessage/ErrorMessage';
+import { useSelectFirstOptionWhenHidden } from '../../../hooks';
+import { InputFieldProps } from '../../../services/fieldRegistry';
+import { filterAllowedOptions } from '../../../utils';
+import { ErrorMessage } from '../../ErrorMessage';
 
-const Radio: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }: InputFieldProps) => {
-	const config = fieldSchema.config || {};
+const InputRadio: FC<InputFieldProps> = ({
+	fieldProps,
+	fieldSchema,
+	fieldHelperProps,
+}: InputFieldProps) => {
+	const {
+		name,
+		label,
+		config = {
+			options: [],
+			hideWhenOnlyOneAllowedOption: false,
+		},
+	} = fieldSchema;
 	const { field } = fieldProps;
+
+	/**
+	 * Hooks
+	 */
+	const options = useMemo(() => filterAllowedOptions(config.options, config.allowedOptions), [
+		config.options,
+		config.allowedOptions,
+	]);
+	const showField = useSelectFirstOptionWhenHidden(config, field.value, fieldHelperProps);
 
 	return (
 		<>
-			<RadioGroup
-				id={fieldSchema.name}
-				label={fieldSchema.label}
-				{...config}
-				{...fieldProps.field}
-			/>
-			<ErrorMessage name={field.name} />
+			{showField && (
+				<>
+					<RadioGroup
+						id={name}
+						label={label}
+						options={options}
+						{...omit(['multiLanguage', 'min', 'max', 'options'])(config)}
+						{...field}
+					/>
+					<ErrorMessage name={field.name} />
+				</>
+			)}
 		</>
 	);
 };
 
-export default Radio;
+export default InputRadio;

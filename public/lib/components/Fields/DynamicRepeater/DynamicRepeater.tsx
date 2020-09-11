@@ -1,12 +1,12 @@
 import { Button } from '@acpaas-ui/react-components';
 import classNames from 'classnames/bind';
 import { FieldArray, FieldArrayRenderProps, FormikValues, useFormikContext } from 'formik';
-import { path, split } from 'ramda';
-import React from 'react';
+import { pathOr, split } from 'ramda';
+import React, { useMemo } from 'react';
 
 import { FieldSchema } from '../../../core.types';
-import FieldRenderer from '../../FieldRenderer/FieldRenderer';
-import FlyoutSelect from '../../FlyoutSelect/FlyoutSelect';
+import { FieldRenderer } from '../../FieldRenderer';
+import { FlyoutSelect } from '../../FlyoutSelect';
 
 import styles from './DynamicRepeater.module.scss';
 import { DynamicRepeaterProps } from './DynamicRepeater.types';
@@ -17,10 +17,19 @@ const DynamicRepeater: React.FC<DynamicRepeaterProps> = ({ fieldSchema }) => {
 	const config = fieldSchema.config || {};
 	const fields = Array.isArray(fieldSchema.fields) ? fieldSchema.fields : [];
 	const { values } = useFormikContext<FormikValues>();
-	const value = path(split('.', fieldSchema.name), values) as FormikValues[];
-	const min = config.min || 0;
-	const max = config.max === 0 || !config.max ? Number.MAX_SAFE_INTEGER : config.max;
-	const isRequired = min >= 1;
+	const value = useMemo(
+		() => pathOr([], split('.', fieldSchema.name), values) as FormikValues[],
+		[fieldSchema.name, values]
+	);
+	const min = useMemo(() => config.amount?.minValue || 0, [config.amount]);
+	const max = useMemo(
+		() =>
+			config.amount?.maxValue === 0 || !config.amount?.maxValue
+				? Number.MAX_SAFE_INTEGER
+				: config.amount?.maxValue,
+		[config.amount]
+	);
+	const isRequired = useMemo(() => min >= 1, [min]);
 
 	/**
 	 * Add element to the field array
@@ -31,7 +40,13 @@ const DynamicRepeater: React.FC<DynamicRepeaterProps> = ({ fieldSchema }) => {
 	const addItem = (arrayHelper: FieldArrayRenderProps, item: FieldSchema): void => {
 		const itemToAdd = {
 			value: '',
-			type: item.config?.id || item.type,
+			type: item.type,
+			fieldType:
+				item.config?.preset?.uuid ||
+				item.config?.preset ||
+				item.config?.fieldType?.uuid ||
+				item.config?.fieldType ||
+				item.type,
 		};
 
 		arrayHelper.push(itemToAdd);
@@ -69,7 +84,13 @@ const DynamicRepeater: React.FC<DynamicRepeaterProps> = ({ fieldSchema }) => {
 
 	const getFieldSchema = (fieldValue: FormikValues): FieldSchema | null => {
 		const fieldSchema = fields.find((field: FieldSchema) => {
-			return field.config?.id === fieldValue.type || field.type === fieldValue.type;
+			return (
+				field.config?.preset?.uuid === fieldValue.fieldType ||
+				field.config?.preset === fieldValue.fieldType ||
+				field.config?.fieldType?.uuid === fieldValue.fieldType ||
+				field.config?.fieldType === fieldValue.fieldType ||
+				field.type === fieldValue.fieldType
+			);
 		});
 
 		return fieldSchema ? fieldSchema : null;
@@ -90,7 +111,7 @@ const DynamicRepeater: React.FC<DynamicRepeaterProps> = ({ fieldSchema }) => {
 	): React.ReactNode => {
 		return (
 			<>
-				{repeaterValues
+				{(Array.isArray(repeaterValues) ? repeaterValues : [])
 					.map((value: FormikValues) => {
 						const config = getFieldSchema(value);
 						return config;
@@ -110,7 +131,7 @@ const DynamicRepeater: React.FC<DynamicRepeaterProps> = ({ fieldSchema }) => {
 						};
 					})
 					.map((schema, index) => (
-						<div key={index} className={cx('repeater__item')}>
+						<div key={`${index}-${schema?.name}`} className={cx('repeater__item')}>
 							<div>
 								<div className="m-button-group m-button-group--vertical">
 									<Button
@@ -138,7 +159,7 @@ const DynamicRepeater: React.FC<DynamicRepeaterProps> = ({ fieldSchema }) => {
 								</div>
 							</div>
 							<div className={cx('repeater__item__field')}>
-								{schema ? <FieldRenderer key={index} fieldSchema={schema} /> : null}
+								{schema ? <FieldRenderer fieldSchema={schema} /> : null}
 							</div>
 							{repeaterValues.length > min ? (
 								<div>
@@ -165,17 +186,19 @@ const DynamicRepeater: React.FC<DynamicRepeaterProps> = ({ fieldSchema }) => {
 				render={arrayHelper => {
 					return (
 						<div className={cx('repeater', 'u-margin-bottom', config.wrapperClassName)}>
-							<h6
-								className={cx(
-									'repeater__label',
-									{
-										'is-required': isRequired,
-									},
-									'u-margin-bottom-xs'
-								)}
-							>
-								{fieldSchema.label}
-							</h6>
+							{fieldSchema.label && (
+								<h6
+									className={cx(
+										'repeater__label',
+										{
+											'is-required': isRequired,
+										},
+										'u-margin-bottom-xs'
+									)}
+								>
+									{fieldSchema.label}
+								</h6>
+							)}
 							{config.description ? (
 								<p className="u-margin-bottom"> {config.description} </p>
 							) : null}

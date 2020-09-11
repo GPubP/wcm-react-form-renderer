@@ -1,12 +1,12 @@
 import { Button } from '@acpaas-ui/react-components';
 import classNames from 'classnames/bind';
 import { FieldArray, FieldArrayRenderProps, FormikValues, useFormikContext } from 'formik';
-import { path, split } from 'ramda';
+import { pathOr, split } from 'ramda';
 import React from 'react';
 
 import { FieldSchema } from '../../../core.types';
 import { createInitialValues } from '../../../utils';
-import FieldRenderer from '../../FieldRenderer/FieldRenderer';
+import { FieldRenderer } from '../../FieldRenderer';
 
 import styles from './Repeater.module.scss';
 import { RepeaterProps } from './Repeater.types';
@@ -17,7 +17,7 @@ const Repeater: React.FC<RepeaterProps> = ({ fieldSchema }) => {
 	const config = fieldSchema.config || {};
 	const fields = Array.isArray(fieldSchema.fields) ? fieldSchema.fields : [];
 	const { values } = useFormikContext<FormikValues>();
-	const value = path(split('.', fieldSchema.name), values) as FormikValues[];
+	const value = pathOr([], split('.', fieldSchema.name), values) as FormikValues[];
 	const min = config.min || 0;
 	const max = config.max === 0 || !config.max ? Number.MAX_SAFE_INTEGER : config.max;
 	const isRequired = min >= 1;
@@ -28,9 +28,12 @@ const Repeater: React.FC<RepeaterProps> = ({ fieldSchema }) => {
 	 * @param arrayHelper
 	 */
 	const addItem = (arrayHelper: FieldArrayRenderProps): void => {
-		const initialValues = createInitialValues({
-			fields,
-		});
+		const initialValues = createInitialValues(
+			{
+				fields,
+			},
+			{}
+		);
 		arrayHelper.push(initialValues);
 	};
 
@@ -84,7 +87,10 @@ const Repeater: React.FC<RepeaterProps> = ({ fieldSchema }) => {
 				{repeaterValue && repeaterValue.length > 0
 					? repeaterValue.map((value: any, index: number) => {
 							return (
-								<div key={index} className={cx('repeater__item')}>
+								<div
+									key={index}
+									className={cx('repeater__item', 'u-margin-bottom')}
+								>
 									<div>
 										<div className="m-button-group m-button-group--vertical">
 											<Button
@@ -121,23 +127,26 @@ const Repeater: React.FC<RepeaterProps> = ({ fieldSchema }) => {
 														...schema.config,
 														wrapperClassName:
 															schema.config?.wrapperClassName ||
-															'col-xs-12',
+															'col-xs-12 u-no-margin-bottom',
 													},
 												})
 											)
-											.map((schema, index) => (
-												<FieldRenderer key={index} fieldSchema={schema} />
+											.map(schema => (
+												<FieldRenderer
+													key={schema.name}
+													fieldSchema={schema}
+												/>
 											))}
 									</div>
 									{repeaterValue.length > min ? (
 										<div>
 											<Button
 												onClick={() => deleteItem(arrayHelper, index)}
+												negative
 												icon="trash"
 												ariaLabel="Delete item"
-												type="danger"
+												type="secondary"
 												htmlType="button"
-												size="small"
 											/>
 										</div>
 									) : null}
@@ -159,20 +168,22 @@ const Repeater: React.FC<RepeaterProps> = ({ fieldSchema }) => {
 					}
 					return (
 						<div className={cx('repeater', 'u-margin-bottom', config.wrapperClassName)}>
-							<h6
-								className={cx(
-									'repeater__label',
-									{
-										'is-required': isRequired,
-									},
-									'u-margin-bottom-xs'
-								)}
-							>
-								{fieldSchema.label}
-							</h6>
-							{config.description ? (
+							{fieldSchema.label && (
+								<h6
+									className={cx(
+										'repeater__label',
+										{
+											'is-required': isRequired,
+										},
+										'u-margin-bottom'
+									)}
+								>
+									{fieldSchema.label}
+								</h6>
+							)}
+							{config.description && (
 								<p className="u-margin-bottom"> {config.description} </p>
-							) : null}
+							)}
 							<div>
 								{renderArrayElements(arrayHelper, value)}
 								{value.length < max ? (

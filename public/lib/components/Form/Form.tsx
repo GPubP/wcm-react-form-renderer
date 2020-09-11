@@ -4,7 +4,7 @@ import debounce from 'lodash.debounce';
 import { isEmpty } from 'ramda';
 import React, { ReactNode, useCallback, useEffect, useState } from 'react';
 
-import { createErrorMessageHandler } from '../../classes/errorMessageHandler/errorMessageHandler';
+import { createErrorMessageHandler } from '../../classes/errorMessageHandler';
 import { FieldSchema, FormValues } from '../../core.types';
 import {
 	createInitialValues,
@@ -12,9 +12,9 @@ import {
 	isFunction,
 	parseValidationSchema,
 } from '../../utils';
-import FieldRenderer from '../FieldRenderer/FieldRenderer';
-import FormikOnChangeHandler from '../FormikOnChangeHandler/FormikOnChangeHandler';
-import SchemaProvider from '../SchemaProvider/SchemaProvider';
+import { FieldRenderer } from '../FieldRenderer';
+import { FormikOnChangeHandler } from '../FormikOnChangeHandler';
+import { SchemaProvider } from '../SchemaProvider';
 
 import { FormProps } from './Form.types';
 
@@ -27,6 +27,7 @@ const RedactionForm: React.FC<FormProps<FormValues>> = ({
 	initialValues,
 	children,
 	delay = 300,
+	formikRef,
 	...rest
 }) => {
 	const [initialFormValue, setInitialFormValue] = useState<FormValues | undefined>(initialValues);
@@ -39,22 +40,27 @@ const RedactionForm: React.FC<FormProps<FormValues>> = ({
 	 * will throw an error saying that you have changed an input from uncontrolled to controlled.
 	 */
 	const initInitialValues = useCallback(() => {
-		if (!initialFormValue || isEmpty(initialFormValue)) {
-			setInitialFormValue(createInitialValues(schema));
+		if (isEmpty(initialFormValue || {}) && schema) {
+			setInitialFormValue(createInitialValues(schema, initialValues || {}));
 		}
-	}, [schema, initialFormValue]);
+	}, [schema]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	/**
 	 * Convert a JSON schema to a Yup schema
 	 */
 	const initYupValidationSchema = useCallback(() => {
-		setYupValidationSchema(
-			buildYup(parseValidationSchema(validationSchema), {
-				errMessages: errorMessages,
-				createErrorMessageHandler,
-				log: true,
-			})
-		);
+		try {
+			setYupValidationSchema(
+				buildYup(parseValidationSchema(validationSchema), {
+					errMessages: errorMessages,
+					createErrorMessageHandler,
+					log: true,
+				})
+			);
+		} catch (e) {
+			console.warn('VALIDATION DISABLED BECAUSE OF AN ERROR!');
+			console.error(e);
+		}
 	}, [validationSchema, errorMessages]);
 
 	/**
@@ -81,19 +87,21 @@ const RedactionForm: React.FC<FormProps<FormValues>> = ({
 
 	const renderFields = (fields: FieldSchema[]): ReactNode => {
 		return fields.map((fieldSchema, index) => (
-			<FieldRenderer key={index} fieldSchema={fieldSchema} />
+			<FieldRenderer key={`${index}-${fieldSchema.name}`} fieldSchema={fieldSchema} />
 		));
 	};
 
 	// wait till the initial values are created
-	if (!initialFormValue) {
+	if (isEmpty(initialFormValue) || !initialFormValue) {
 		return null;
 	}
 
 	return (
 		<SchemaProvider value={{ schema }}>
 			<Formik
+				innerRef={instance => isFunction(formikRef) && formikRef(instance)}
 				initialValues={initialFormValue}
+				enableReinitialize={true}
 				onSubmit={onFormSubmit}
 				validationSchema={yupValidationSchema}
 				{...rest}

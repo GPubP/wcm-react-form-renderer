@@ -2,6 +2,7 @@ import { FieldHelperProps, FieldProps } from 'formik';
 import React from 'react';
 
 import { FieldDataType, FieldSchema, FormValues } from '../../core.types';
+import { ViewFieldProps } from '../viewRegistry/viewRegistry.types';
 
 export interface InputFieldProps {
 	/**
@@ -38,9 +39,13 @@ export interface FieldConfig {
 	 */
 	module: string;
 	/**
-	 * The component that will we rendered inside the form
+	 * The component that will be rendered inside the form
 	 */
 	component: React.FC<InputFieldProps>;
+	/**
+	 * The component that will be rendered inside the viewer
+	 */
+	viewComponent?: React.FC<ViewFieldProps>;
 }
 
 export interface FieldsRegistryConfig {

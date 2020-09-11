@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { render, RenderResult } from '@testing-library/react';
+import { FormikProps } from 'formik';
 import React from 'react';
 
 import { FormValues } from '../../core.types';
@@ -37,14 +38,6 @@ const renderForm = (props?: Partial<FormProps<FormValues>>): RenderResult => {
 };
 
 describe('<Form />', () => {
-	it('should display a blank form when no schema is given', async () => {
-		const { findByTestId } = renderForm();
-		const formikForm = await findByTestId('formik-form');
-
-		// Since there are no fields only the button is visible to the user
-		expect(formikForm.children.length).toBe(1);
-	});
-
 	it('should display a full form when a schema is given', async () => {
 		const { findByTestId } = renderForm({
 			schema: {
@@ -105,6 +98,21 @@ describe('<Form />', () => {
 		expect(getByLabelText(formProps.schema.fields[1].label).getAttribute('value')).toBe(
 			formProps.initialValues.lastname
 		);
+	});
+
+	it('should get access to the formik instance when using the formikRef function', () => {
+		let formikReference: FormikProps<FormValues> | undefined;
+		const formProps = {
+			schema: {
+				fields: [],
+			},
+			initialValues: {},
+			formikRef: (instance: FormikProps<FormValues>) => (formikReference = instance),
+		};
+		renderForm(formProps);
+		if (formikReference) {
+			expect(formikReference.isValid).toBe(true);
+		}
 	});
 
 	describe('<Field/>', () => {

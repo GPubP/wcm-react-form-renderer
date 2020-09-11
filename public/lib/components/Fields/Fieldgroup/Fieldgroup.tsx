@@ -2,7 +2,7 @@ import React from 'react';
 
 import { FieldSchema } from '../../../core.types';
 import { addNameSpace } from '../../../utils';
-import FieldRenderer from '../../FieldRenderer/FieldRenderer';
+import { FieldRenderer } from '../../FieldRenderer';
 
 import { FieldGroupProps } from './Fieldgroup.types';
 
@@ -13,8 +13,8 @@ const Fieldgroup: React.FC<FieldGroupProps> = ({ fieldSchema }) => {
 
 	return (
 		<div className={config.wrapperClassName}>
-			<h6 className="u-margin-bottom-xs">{fieldSchema.label}</h6>
-			{config.description ? <p className="u-margin-bottom "> {config.description} </p> : null}
+			{fieldSchema.label && <h6 className="u-margin-bottom">{fieldSchema.label}</h6>}
+			{config.description && <p className="u-margin-bottom">{config.description}</p>}
 			<div className="row">
 				{fields
 					.map(
@@ -24,7 +24,10 @@ const Fieldgroup: React.FC<FieldGroupProps> = ({ fieldSchema }) => {
 						})
 					)
 					.map((fieldSchema, index) => (
-						<FieldRenderer key={index} fieldSchema={fieldSchema} />
+						<FieldRenderer
+							key={`${index}-${fieldSchema.name}`}
+							fieldSchema={fieldSchema}
+						/>
 					))}
 			</div>
 		</div>

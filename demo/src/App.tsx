@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 
-import { Form, FormSchema } from '@redactie/form-renderer-module';
+import { Form, FormSchema, View } from '@redactie/form-renderer-module';
 
 const App = () => {
 	const onFormSubmit = (values: any) => {
@@ -34,6 +34,44 @@ const App = () => {
 				config: {
 					required: true,
 					placeholder: 'lastname',
+				},
+			},
+			{
+				name: 'hobbies',
+				module: 'core',
+				type: 'checkboxList',
+				dataType: 'array',
+				label: 'Hobbies',
+				config: {
+					required: true,
+					allowedOptions: ['skateboarding', 'snowboarding'],
+					options: [
+						{
+							key: '0',
+							value: 'skateboarding',
+							label: 'Skateboarding',
+						},
+						{
+							key: '1',
+							value: 'snowboarding',
+							label: 'Snowboarding',
+						},
+						{
+							key: '2',
+							value: 'surf',
+							label: 'Surf',
+						},
+					],
+				},
+			},
+			{
+				name: 'termsAndConditions',
+				module: 'core',
+				type: 'checkbox',
+				dataType: 'boolean',
+				label: 'I accept the Terms and conditions',
+				config: {
+					required: true,
 				},
 			},
 			{
@@ -81,6 +119,7 @@ const App = () => {
 						config: {
 							required: true,
 							wrapperClassName: 'col-xs-12',
+							allowedOptions: ['belgium', 'france'],
 							options: [
 								{
 									key: '0',
@@ -148,6 +187,27 @@ const App = () => {
 				config: {
 					required: true,
 					placeholder: 'Questions?',
+				},
+			},
+			{
+				name: 'time',
+				module: 'core',
+				type: 'time',
+				dataType: 'string',
+				label: 'Time',
+				config: {
+					required: true,
+				},
+			},
+			{
+				name: 'dateTime',
+				module: 'core',
+				type: 'dateTime',
+				dataType: 'string',
+				label: 'Datum en tijd',
+				config: {
+					required: true,
+					dateLabel: 'Datum',
 				},
 			},
 			{
@@ -230,7 +290,7 @@ const App = () => {
 							min: 4,
 							max: 5,
 							description: 'Add new children',
-							id: '3'
+							id: '3',
 						},
 						fields: [
 							{
@@ -329,6 +389,16 @@ const App = () => {
 							},
 						],
 					},
+					{
+						name: 'time',
+						module: 'core',
+						type: 'time',
+						dataType: 'string',
+						label: 'Time',
+						config: {
+							required: true,
+						},
+					},
 				],
 			},
 		],
@@ -344,6 +414,14 @@ const App = () => {
 			},
 			lastname: {
 				type: 'string',
+				required: true,
+			},
+			hobbies: {
+				type: 'array',
+				required: true,
+			},
+			termsAndConditions: {
+				type: 'boolean',
 				required: true,
 			},
 			address: {
@@ -389,12 +467,21 @@ const App = () => {
 					},
 				},
 			},
+			time: {
+				type: 'string',
+				required: true,
+			},
+			dateTime: {
+				type: 'string',
+				required: true,
+			},
 		},
 	};
 
 	const initialValues = {
 		firstname: 'John',
 		lastname: 'Doe',
+		hobbies: ['skateboarding', 'snowboarding'],
 		address: {
 			zipcode: '2500',
 			city: 'Lier',
@@ -402,6 +489,7 @@ const App = () => {
 		},
 		ages: '8-10 jaar',
 		questions: 'no questions',
+		time: '10:30',
 		children: [
 			{
 				firstname: 'glenn',
@@ -414,10 +502,12 @@ const App = () => {
 		],
 		dynamicRepeater: [
 			{
-				value: 'maarten', type: '1'
+				value: 'maarten',
+				type: '1',
 			},
 			{
-				value: 'de weerdt', type: '2'
+				value: 'de weerdt',
+				type: '2',
 			},
 			{
 				value: [
@@ -429,7 +519,8 @@ const App = () => {
 						firstname: 'mieke',
 						lastname: 'scheirs',
 					},
-				], type: '3'
+				],
+				type: '3',
 			},
 			{
 				value: {
@@ -437,8 +528,8 @@ const App = () => {
 					city: 'Lier',
 					country: 'belgium',
 				},
-				type: '4'
-			}
+				type: '4',
+			},
 		],
 	};
 
@@ -470,26 +561,37 @@ const App = () => {
 			<div className="header">
 				<h1>Redaction Form Renderer Module</h1>
 			</div>
-			<Form
-				validationSchema={validationSchema}
-				errorMessages={errorMessages}
-				onSubmit={onFormSubmit}
-				initialValues={initialValues}
-				onChange={onChange}
-				schema={form}
-			>
-				{props => (
-					<>
-						<button
-							data-testid="formik-submit-btn"
-							className={'a-button'}
-							type="submit"
-						>
-							Verstuur
-						</button>
-					</>
-				)}
-			</Form>
+			<div className="u-margin-top">
+				<h2>Form</h2>
+				<div className="u-margin-top-xs">
+					<Form
+						validationSchema={validationSchema}
+						errorMessages={errorMessages}
+						onSubmit={onFormSubmit}
+						initialValues={initialValues}
+						onChange={onChange}
+						schema={form}
+					>
+						{props => (
+							<>
+								<button
+									data-testid="formik-submit-btn"
+									className={'a-button'}
+									type="submit"
+								>
+									Verstuur
+								</button>
+							</>
+						)}
+					</Form>
+				</div>
+			</div>
+			<div className="u-margin-top">
+				<h2>View</h2>
+				<div className="u-margin-top-xs">
+					<View schema={form} values={initialValues} />
+				</div>
+			</div>
 		</div>
 	);
 };

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import FieldRegistry from './fieldRegistry';
+import { FieldRegistry } from './fieldRegistry';
 import { FieldConfig, InputFieldProps } from './fieldRegistry.types';
 
 const DummyFieldComponent: React.FC<InputFieldProps> = () => <div>component</div>;

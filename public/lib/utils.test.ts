@@ -50,7 +50,7 @@ describe('utils', () => {
 		};
 
 		it('should create initial values from a form schema', () => {
-			const result = createInitialValues(schema);
+			const result = createInitialValues(schema, {});
 			expect(result).toEqual({
 				name: '',
 				lastname: '',

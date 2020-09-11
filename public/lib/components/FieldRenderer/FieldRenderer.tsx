@@ -1,9 +1,8 @@
 import { Field, FieldProps } from 'formik';
 import React, { useMemo } from 'react';
 
-import { fieldRegistry } from '../../services/fieldRegistry/fieldRegistry';
-import { FieldConfig } from '../../services/fieldRegistry/fieldRegistry.types';
-import FieldComponent from '../FieldComponent/FieldComponent';
+import { FieldConfig, fieldRegistry } from '../../services/fieldRegistry';
+import { FieldComponent } from '../FieldComponent';
 import { DynamicRepeater, Fieldgroup, Repeater } from '../Fields';
 
 import { FieldRendererProps } from './FieldRenderer.types';

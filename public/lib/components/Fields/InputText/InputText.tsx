@@ -1,9 +1,10 @@
 import { TextField } from '@acpaas-ui/react-components/packages/form';
 import { getIn } from 'formik';
+import { omit } from 'ramda';
 import React from 'react';
 
-import { InputFieldProps } from '../../../services/fieldRegistry/fieldRegistry.types';
-import ErrorMessage from '../../ErrorMessage/ErrorMessage';
+import { InputFieldProps } from '../../../services/fieldRegistry';
+import { ErrorMessage } from '../../ErrorMessage';
 
 const InputText: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }: InputFieldProps) => {
 	const config = fieldSchema.config || {};
@@ -20,8 +21,8 @@ const InputText: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }: Input
 				id={fieldSchema.name}
 				state={state}
 				label={fieldSchema.label}
-				{...config}
-				{...fieldProps.field}
+				{...omit(['multiLanguage', 'min', 'max'])(config)}
+				{...field}
 			/>
 			<ErrorMessage name={field.name} />
 		</>
