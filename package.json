@@ -9,8 +9,9 @@
     "build:types": "tsc --emitDeclarationOnly",
     "build": "npm run build:types && webpack --env.prod",
     "build:w": "npm run build:types && webpack -w --env.prod",
+    "build:demo": "npm run build:types && webpack -w --env.local",
     "build:analyse": "npm run build:types && webpack --env.analyse",
-    "start": "concurrently --kill-others \"npm run build:w\" \"cd demo && npm run start\"",
+    "start": "npx concurrently --kill-others \"npm run build:demo\" \"cd demo && npm run start\"",
     "lint:scss": "stylelint public/**/*.scss --allow-empty-input",
     "lint:ts": "eslint --cache --cache-location .eslintcache --ext .js,.jsx,.ts,.tsx ./public",
     "lint": "npm run lint:scss && npm run lint:ts",
@@ -90,5 +91,7 @@
   "files": [
     "dist"
   ],
-  "dependencies": {}
+  "dependencies": {
+    "ajv": "^6.12.4"
+  }
 }

@@ -19,7 +19,7 @@ export const updateDate = (prevDate: Date, inputValue: string): string => {
 
 	prevDate.setUTCFullYear(year, month, day);
 
-	return String(prevDate);
+	return prevDate.toISOString();
 };
 
 export const updateTime = (prevDate: Date, inputValue: string): string => {

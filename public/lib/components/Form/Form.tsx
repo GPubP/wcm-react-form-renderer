@@ -1,17 +1,11 @@
-import { buildYup } from '@redactie/schema-to-yup';
 import { Form, Formik, FormikHelpers, FormikProps, FormikValues } from 'formik';
 import debounce from 'lodash.debounce';
 import { isEmpty } from 'ramda';
-import React, { ReactNode, useCallback, useEffect, useState } from 'react';
+import React, { ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
 
-import { createErrorMessageHandler } from '../../classes/errorMessageHandler';
+import { CustomValidator } from '../../classes/CustomValidator';
 import { FieldSchema, FormValues } from '../../core.types';
-import {
-	createInitialValues,
-	isEmptyChildren,
-	isFunction,
-	parseValidationSchema,
-} from '../../utils';
+import { createInitialValues, isEmptyChildren, isFunction } from '../../utils';
 import { FieldRenderer } from '../FieldRenderer';
 import { FormikOnChangeHandler } from '../FormikOnChangeHandler';
 import { SchemaProvider } from '../SchemaProvider';
@@ -31,7 +25,14 @@ const RedactionForm: React.FC<FormProps<FormValues>> = ({
 	...rest
 }) => {
 	const [initialFormValue, setInitialFormValue] = useState<FormValues | undefined>(initialValues);
-	const [yupValidationSchema, setYupValidationSchema] = useState();
+	const validator = useMemo(
+		() =>
+			new CustomValidator(validationSchema, errorMessages, {
+				allErrors: true,
+				messages: true,
+			}),
+		[errorMessages, validationSchema]
+	);
 
 	/**
 	 * Calculate the initial values of the form
@@ -46,30 +47,12 @@ const RedactionForm: React.FC<FormProps<FormValues>> = ({
 	}, [schema]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	/**
-	 * Convert a JSON schema to a Yup schema
-	 */
-	const initYupValidationSchema = useCallback(() => {
-		try {
-			setYupValidationSchema(
-				buildYup(parseValidationSchema(validationSchema), {
-					errMessages: errorMessages,
-					createErrorMessageHandler,
-					log: true,
-				})
-			);
-		} catch (e) {
-			console.warn('VALIDATION DISABLED BECAUSE OF AN ERROR!');
-			console.error(e);
-		}
-	}, [validationSchema, errorMessages]);
-
-	/**
 	 * Get the initial values everytime the given schema has changed
 	 */
 	useEffect(() => {
 		initInitialValues();
-		initYupValidationSchema();
-	}, [initInitialValues, initYupValidationSchema]);
+		// initYupValidationSchema();
+	}, [initInitialValues]);
 
 	const onFormSubmit = (values: FormValues, actions: FormikHelpers<FormValues>): void => {
 		if (onSubmit) {
@@ -103,7 +86,7 @@ const RedactionForm: React.FC<FormProps<FormValues>> = ({
 				initialValues={initialFormValue}
 				enableReinitialize={true}
 				onSubmit={onFormSubmit}
-				validationSchema={yupValidationSchema}
+				validate={values => validator.validate(values)}
 				{...rest}
 			>
 				{props => (
