@@ -32,8 +32,8 @@ export class CustomValidator {
 				err.keyword === 'required'
 					? `${err.dataPath}.${(err.params as RequiredParams).missingProperty}`
 					: err.dataPath;
-			const path = concatPath.replace(/^\./, '');
-			const errorPath = path.replace(/\[([0-9])\]/g, '[$]');
+			const path = concatPath.replace(/^\./, ''); // TODO: look into regex/non-regex speeds
+			const errorPath = path.replace(/\[([0-9])\]/g, '[$]'); // TODO: look into split/join (maybe faster?)
 
 			const error =
 				typeof this.errorMessages[errorPath] === 'string'
