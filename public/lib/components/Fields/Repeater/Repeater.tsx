@@ -21,6 +21,7 @@ const Repeater: React.FC<RepeaterProps> = ({ fieldSchema }) => {
 	const min = config.min || 0;
 	const max = config.max === 0 || !config.max ? Number.MAX_SAFE_INTEGER : config.max;
 	const isRequired = min >= 1;
+	const disabled = !!config.disabled;
 
 	/**
 	 * Add element to the field array
@@ -101,7 +102,7 @@ const Repeater: React.FC<RepeaterProps> = ({ fieldSchema }) => {
 												type="primary"
 												htmlType="button"
 												size="tiny"
-												disabled={index === 0}
+												disabled={index === 0 || disabled}
 												negative
 											/>
 											<Button
@@ -112,7 +113,9 @@ const Repeater: React.FC<RepeaterProps> = ({ fieldSchema }) => {
 												type="primary"
 												htmlType="button"
 												size="tiny"
-												disabled={repeaterValue.length - 1 === index}
+												disabled={
+													repeaterValue.length - 1 === index || disabled
+												}
 												negative
 											/>
 										</div>
@@ -144,6 +147,7 @@ const Repeater: React.FC<RepeaterProps> = ({ fieldSchema }) => {
 												onClick={() => deleteItem(arrayHelper, index)}
 												negative
 												icon="trash"
+												disabled={disabled}
 												ariaLabel="Delete item"
 												type="secondary"
 												htmlType="button"
@@ -191,6 +195,7 @@ const Repeater: React.FC<RepeaterProps> = ({ fieldSchema }) => {
 										onClick={() => addItem(arrayHelper)}
 										iconLeft="plus"
 										size="small"
+										disabled={disabled}
 										type="primary"
 										htmlType="button"
 										negative
