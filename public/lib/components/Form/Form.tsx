@@ -51,7 +51,6 @@ const RedactionForm: React.FC<FormProps<FormValues>> = ({
 	 */
 	useEffect(() => {
 		initInitialValues();
-		// initYupValidationSchema();
 	}, [initInitialValues]);
 
 	const onFormSubmit = (values: FormValues, actions: FormikHelpers<FormValues>): void => {
