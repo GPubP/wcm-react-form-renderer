@@ -1,25 +1,36 @@
 import AJV, { Ajv, Options, RequiredParams, ValidateFunction } from 'ajv';
 import { FormikErrors, FormikValues } from 'formik';
-import { lensPath, prop, set } from 'ramda';
+import { lensPath, omit, path, prop, set } from 'ramda';
 
 import { FormProps } from '../../components/Form';
 
 export class CustomValidator {
 	public readonly ajv: Ajv;
-	public readonly validator: ValidateFunction;
+	public readonly validator: ValidateFunction | null = null;
 	public readonly errorMessages: FormProps<FormikValues>['errorMessages'];
+	public readonly schema: boolean | object;
 
 	constructor(
-		schema: boolean | object,
+		schema: boolean | Record<string, any>,
 		errorMessages: FormProps<FormikValues>['errorMessages'],
 		options: Options
 	) {
 		this.ajv = new AJV(options);
-		this.validator = this.ajv.compile(schema);
+		this.schema = this.addSchemaToValidator(schema);
 		this.errorMessages = errorMessages;
+
+		try {
+			this.validator = this.ajv.compile(this.schema);
+		} catch (error) {
+			console.error('INVALID SCHEMA!', 'Validation has been disabled', error);
+		}
 	}
 
 	public validate(values: FormikValues): any {
+		if (!this.validator) {
+			return {};
+		}
+
 		this.validator(values);
 
 		return (this.validator.errors || []).reduce((acc, err): FormikErrors<any> => {
@@ -46,6 +57,7 @@ export class CustomValidator {
 				keyword: err.keyword,
 				message: err.message || '',
 				schemaPath: err.schemaPath,
+				params: err.params,
 			};
 
 			const lens = lensPath(
@@ -63,10 +75,27 @@ export class CustomValidator {
 		}, {} as FormikErrors<any>);
 	}
 
-	private stringReplacer(input: string, props: Record<string, string>): string {
+	private stringReplacer(input: string, props: Record<string, any>): string {
 		return input.replace(/\${([^{}]*)}/g, (a, b) => {
-			const r = props[b];
-			return typeof r === 'string' ? r : a;
+			const r = path(b.split('.'))(props);
+			return typeof r !== 'object' && !(r instanceof Date)
+				? (r as string | number | boolean).toString()
+				: a;
 		});
+	}
+
+	private addSchemaToValidator(schema: boolean | Record<string, object>): boolean | object {
+		if (typeof schema === 'boolean') {
+			return schema;
+		}
+
+		if (schema.schema && !schema.$schema) {
+			return {
+				...omit(['schema'])(schema),
+				$schema: schema.schema,
+			};
+		}
+
+		return schema;
 	}
 }
