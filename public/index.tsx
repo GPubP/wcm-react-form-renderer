@@ -21,3 +21,4 @@ export * from './lib/services/viewRegistry/viewRegistry.types';
 export { default as Form } from './lib/components/Form/Form';
 export { default as View } from './lib/components/View/View';
 export { default as FormikOnChangeHandler } from './lib/components/FormikOnChangeHandler/FormikOnChangeHandler';
+export { CustomValidator } from './lib/classes/CustomValidator';
