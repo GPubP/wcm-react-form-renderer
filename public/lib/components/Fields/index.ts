@@ -16,6 +16,7 @@ import { DateTimepicker } from './DateTime';
 import { Datepicker } from './Datepicker';
 import { DynamicRepeater } from './DynamicRepeater';
 import { Fieldgroup } from './Fieldgroup';
+import { FileUpload } from './FileUpload';
 import { InputNumber } from './InputNumber';
 import { InputText } from './InputText';
 import { InputRadio } from './Radio';
@@ -89,6 +90,12 @@ const DefaultFields: FieldConfig[] = [
 		name: 'radio',
 		module: 'core',
 		component: InputRadio,
+		viewComponent: DefaultView,
+	},
+	{
+		name: 'fileUpload',
+		module: 'core',
+		component: FileUpload,
 		viewComponent: DefaultView,
 	},
 	{

@@ -1,3 +1,5 @@
+import { FileUploadPresetView } from '../../components/Views/FileUploadPreset';
+
 import { ViewConfig, ViewRegistryConfig } from './viewRegistry.types';
 
 export class ViewRegistry {
@@ -57,4 +59,10 @@ export class ViewRegistry {
 	}
 }
 
-export const viewRegistry = new ViewRegistry();
+export const viewRegistry = new ViewRegistry([
+	{
+		name: 'fileUploadPreset',
+		module: 'core',
+		component: FileUploadPresetView,
+	},
+]);

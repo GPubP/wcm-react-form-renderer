@@ -1,0 +1,30 @@
+@import '~@a-ui/core/dist/assets/styles/quarks';
+
+.file-upload-view {
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+	border: 1px solid $brand-primary;
+	padding: $spacer;
+
+	&__thumbnail {
+		padding-right: $spacer;
+
+		span {
+			font-size: 50px;
+			color: $grey;
+		}
+	}
+
+	&__body {
+		flex: 1;
+
+		&__title {
+			color: $brand-primary;
+		}
+	}
+
+	&__action {
+		align-self: center;
+	}
+}

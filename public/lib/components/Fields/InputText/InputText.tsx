@@ -16,7 +16,7 @@ const InputText: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }: Input
 	const state = !!error && !!touch ? 'error' : '';
 
 	return (
-		<>
+		<div className={config.fieldClassName}>
 			<TextField
 				id={fieldSchema.name}
 				state={state}
@@ -25,7 +25,7 @@ const InputText: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }: Input
 				{...field}
 			/>
 			<ErrorMessage name={field.name} />
-		</>
+		</div>
 	);
 };
 
