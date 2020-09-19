@@ -267,6 +267,7 @@ const App = () => {
 						config: {
 							placeholder: 'placeholder',
 							id: '1',
+							fieldType: { _id: 'type-text-id', uuid: 'type-text-id'}
 						},
 					},
 					{
@@ -407,74 +408,86 @@ const App = () => {
 	const validationSchema = {
 		$schema: 'http://json-schema.org/draft-07/schema#',
 		type: 'object',
+		required: ['firstname', "lastname", 'hobbies', 'termsAndConditions', 'ages', 'address', 'questions', 'time', 'dateTime'],
 		properties: {
 			firstname: {
 				type: 'string',
-				required: true,
 			},
 			lastname: {
 				type: 'string',
-				required: true,
 			},
 			hobbies: {
 				type: 'array',
-				required: true,
 			},
 			termsAndConditions: {
 				type: 'boolean',
-				required: true,
 			},
 			address: {
 				type: 'object',
 				properties: {
 					zipcode: {
 						type: 'string',
-						required: true,
+						minLength: 4,
 					},
 					city: {
 						type: 'string',
-						required: true,
-					},
-					country: {
-						type: 'string',
-						required: true,
+						minLength: 1,
 					},
 				},
 			},
 			ages: {
 				type: 'string',
-				required: true,
 			},
 			questions: {
 				type: 'string',
-				required: true,
 			},
 			children: {
 				type: 'array',
-				required: true,
-				minItems: 7,
+				minItems: 4,
 				items: {
 					type: 'object',
+					required: ['firstname', 'lastname'],
 					properties: {
 						firstname: {
 							type: 'string',
-							required: true,
+							minLength: 1,
 						},
 						lastname: {
 							type: 'string',
-							required: true,
+							minLength: 1,
 						},
 					},
 				},
 			},
 			time: {
 				type: 'string',
-				required: true,
+				pattern: '^[0-9]{1,2}:[0-9]{1,2}$'
 			},
 			dateTime: {
 				type: 'string',
-				required: true,
+				format: 'date-time'
 			},
+			dynamicRepeater: {
+				type: 'array',
+				items: {
+					type: 'object',
+					properties: {
+						fieldType: {
+							type: 'string'
+						},
+						type: {
+							type: 'string'
+						},
+						value: {}
+					},
+					allOf: [
+						{
+							if: { properties: { fieldType: { const: 'type-text-id' } } },
+							then: { properties: { value: { minLength: 3 } } }
+						}
+					]
+				}
+			}
 		},
 	};
 
@@ -483,9 +496,9 @@ const App = () => {
 		lastname: 'Doe',
 		hobbies: ['skateboarding', 'snowboarding'],
 		address: {
-			zipcode: '2500',
-			city: 'Lier',
-			country: 'belgium',
+			zipcode: '',
+			city: '',
+			// country: 'belgium',
 		},
 		ages: '8-10 jaar',
 		questions: 'no questions',
@@ -504,6 +517,7 @@ const App = () => {
 			{
 				value: 'maarten',
 				type: '1',
+				fieldType: 'type-text-id'
 			},
 			{
 				value: 'de weerdt',
@@ -536,13 +550,17 @@ const App = () => {
 	const errorMessages = {
 		firstname: {
 			required: 'You must enter a name',
+			minLength: 'You must enter a name'
 		},
 		lastname: {
 			required: 'You must enter a lastname',
+			minLength: 'You must enter a lastname',
 		},
 		'address.zipcode': {
 			// eslint-disable-next-line no-template-curly-in-string
 			required: '${path} You must enter a zipcode',
+			// eslint-disable-next-line no-template-curly-in-string
+			minLength: '${path} You must enter a zipcode'
 		},
 		children: {
 			minItems: 'Fill in at least two children',
@@ -552,6 +570,9 @@ const App = () => {
 		},
 		'children[$].lastname': {
 			required: 'You muster enter the lastname of the child',
+		},
+		'dynamicRepeater[$].value': {
+			minLength: 'Give me minimum 3',
 		},
 		$required: 'this is a default required message',
 	};

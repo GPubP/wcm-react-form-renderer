@@ -61,7 +61,7 @@ export const createInitialValues = (
 			return acc;
 		}
 
-		acc[field.name] = '';
+		acc[field.name] = undefined;
 
 		return acc;
 	}, {});
