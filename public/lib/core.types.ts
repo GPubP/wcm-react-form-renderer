@@ -121,6 +121,7 @@ export interface BasePreset<T, F> {
 		label: string;
 		defaultConfig: Record<string, any>;
 		fieldType: F;
+		viewComponentName: string;
 		generalConfig: {
 			isQueryable: boolean;
 			isTranslate: boolean;
