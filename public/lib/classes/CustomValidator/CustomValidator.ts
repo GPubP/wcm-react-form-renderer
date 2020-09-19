@@ -1,4 +1,5 @@
 import AJV, { Ajv, Options, RequiredParams, ValidateFunction } from 'ajv';
+import addKeywords from 'ajv-keywords';
 import { FormikErrors, FormikValues } from 'formik';
 import { lensPath, omit, path, prop, set } from 'ramda';
 
@@ -15,9 +16,14 @@ export class CustomValidator {
 		errorMessages: FormProps<FormikValues>['errorMessages'],
 		options: Options
 	) {
-		this.ajv = new AJV(options);
+		this.ajv = new AJV({
+			...options,
+			$data: true,
+		});
 		this.schema = this.addSchemaToValidator(schema);
 		this.errorMessages = errorMessages;
+
+		addKeywords(this.ajv);
 
 		try {
 			this.validator = this.ajv.compile(this.schema);
@@ -31,7 +37,9 @@ export class CustomValidator {
 			return {};
 		}
 
-		this.validator(values);
+		const cleanValues = this.removeEmptyPropsFromObject(values);
+
+		this.validator(cleanValues);
 
 		return (this.validator.errors || []).reduce((acc, err): FormikErrors<any> => {
 			// Skip higher order validators since another validator while define de real error
@@ -97,5 +105,39 @@ export class CustomValidator {
 		}
 
 		return schema;
+	}
+
+	private detectTypeAndRemoveEmptyProps(value: any): any {
+		if (Array.isArray(value)) {
+			return this.removeEmptyPropsFromArray(value);
+		}
+
+		if (typeof value === 'object') {
+			return this.removeEmptyPropsFromObject(value);
+		}
+
+		if (['', null, undefined].includes(value)) {
+			return null;
+		}
+
+		return value;
+	}
+
+	private removeEmptyPropsFromArray(arr: any[]): any[] {
+		return arr.map(val => this.detectTypeAndRemoveEmptyProps(val));
+	}
+
+	private removeEmptyPropsFromObject(values: FormikValues): Record<string, any> {
+		return Object.keys(values).reduce((acc, key: string) => {
+			const cleanedValue = this.detectTypeAndRemoveEmptyProps(values[key]);
+
+			if (cleanedValue === null) {
+				return acc;
+			}
+
+			acc[key] = cleanedValue;
+
+			return acc;
+		}, {} as Record<string, any>);
 	}
 }
