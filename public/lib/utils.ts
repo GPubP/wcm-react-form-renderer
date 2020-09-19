@@ -91,10 +91,10 @@ export const parseValidationSchema = (
 });
 
 export const filterAllowedOptions = (
-	options: FieldOption[] | { value: FieldOption }[] | undefined,
+	options: FieldOption[] | undefined,
 	allowedOptions: string[] | undefined
-): FieldOption[] => {
-	const opts: FieldOption[] = ((options as { value: FieldOption }[]) || []).map(opt => ({
+): FieldOption['value'][] => {
+	const opts = (options || []).map(opt => ({
 		key: opt.value?.key || opt.value?.value,
 		value: opt.value?.value,
 		label: opt.value?.label,

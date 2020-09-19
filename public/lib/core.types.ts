@@ -23,9 +23,11 @@ export interface FormSchema {
 export type FormValues = FormikValues;
 
 export interface FieldOption {
-	key: string;
-	value: string;
-	label?: string;
+	value: {
+		key: string;
+		value: string;
+		label?: string;
+	};
 }
 
 export interface FieldSchema {
