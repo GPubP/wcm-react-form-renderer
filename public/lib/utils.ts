@@ -91,12 +91,18 @@ export const parseValidationSchema = (
 });
 
 export const filterAllowedOptions = (
-	options: FieldOption[] | undefined,
+	options: FieldOption[] | { value: FieldOption }[] | undefined,
 	allowedOptions: string[] | undefined
 ): FieldOption[] => {
-	if (Array.isArray(options) && Array.isArray(allowedOptions)) {
-		return options.filter(option => allowedOptions.includes(option.value));
+	const opts: FieldOption[] = ((options as { value: FieldOption }[]) || []).map(opt => ({
+		key: opt.value?.key || opt.value?.value,
+		value: opt.value?.value,
+		label: opt.value?.label,
+	}));
+
+	if (Array.isArray(allowedOptions)) {
+		return opts.filter(option => allowedOptions.includes(option.value));
 	}
 
-	return options || [];
+	return opts || [];
 };
