@@ -17,7 +17,7 @@ const DateView: FC<ViewFieldProps> = ({ fieldSchema, value }) => {
 	}
 
 	const formatDate = moment(value, 'DD/MM/YYYY').format(
-		DATE_FORMATS[config.dateFormat] || DATE_FORMATS.dayAndMonth
+		DATE_FORMATS[config.dateFormat] || DATE_FORMATS.dayMonthAndYear
 	);
 
 	return <div className="u-margin-bottom">{formatDate}</div>;
