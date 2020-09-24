@@ -9,6 +9,10 @@ import styles from './FileUploadPreset.module.scss';
 const cx = classNames.bind(styles);
 
 const FileUploadPresetView: FC<ViewFieldProps> = ({ value }) => {
+	if (!value) {
+		return null;
+	}
+
 	const { title, file = {}, description } = value;
 	const coreConfig = Core.config.getValue('core') ?? {};
 
