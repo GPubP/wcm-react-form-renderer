@@ -13,11 +13,11 @@ export const ISODateToDate = (date: string): string =>
 export const updateDate = (prevDate: Date, inputValue: string): string => {
 	const nextDate = new Date(dateToISODate(inputValue));
 
-	const year = nextDate.getUTCFullYear();
-	const month = nextDate.getUTCMonth();
-	const day = nextDate.getUTCDate();
+	const year = nextDate.getFullYear();
+	const month = nextDate.getMonth();
+	const day = nextDate.getDate();
 
-	prevDate.setUTCFullYear(year, month, day);
+	prevDate.setFullYear(year, month, day);
 
 	return prevDate.toISOString();
 };
@@ -32,7 +32,7 @@ export const updateTime = (prevDate: Date, inputValue: string): string => {
 		Number(timeArray[3]) || 0
 	);
 
-	return String(prevDate);
+	return prevDate.toISOString();
 };
 
 export const getDate = (inputValue: string): string => {

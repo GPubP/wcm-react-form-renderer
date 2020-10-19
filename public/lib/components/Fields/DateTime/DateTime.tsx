@@ -15,6 +15,7 @@ const DateTimepicker: React.FC<InputFieldProps> = ({
 }) => {
 	const config = fieldSchema.config || {};
 	const { field } = fieldProps;
+	const { setValue } = fieldHelperProps;
 
 	const handleChange = (inputValue: string, type: string): void => {
 		const { value } = field;
@@ -22,20 +23,12 @@ const DateTimepicker: React.FC<InputFieldProps> = ({
 
 		switch (type) {
 			case 'date':
-				field.onChange({
-					target: {
-						id: fieldSchema.name,
-						value: updateDate(prevDate, inputValue),
-					},
-				});
+				console.log('date', prevDate, inputValue, updateDate(prevDate, inputValue));
+				setValue(updateDate(prevDate, inputValue));
 				break;
 			case 'time':
-				field.onChange({
-					target: {
-						id: fieldSchema.name,
-						value: updateTime(prevDate, inputValue),
-					},
-				});
+				console.log('time', prevDate, inputValue, updateTime(prevDate, inputValue));
+				setValue(updateTime(prevDate, inputValue));
 				break;
 			default:
 				break;
@@ -52,8 +45,8 @@ const DateTimepicker: React.FC<InputFieldProps> = ({
 						fieldProps={{
 							...fieldProps,
 							field: {
-								...fieldProps.field,
-								value: useMemo(() => getDate(field.value), [field.value]),
+								...field,
+								// value: useMemo(() => getDate(field.value), [field.value]),
 								onChange: (event: ChangeEvent<any>) =>
 									handleChange(event.target.value, 'date'),
 							},
