@@ -43,12 +43,10 @@ export const getDate = (inputValue: string): string => {
 	const date = new Date(inputValue);
 
 	const year = date.getFullYear();
-	const month = ('0' + date.getMonth()).slice(-2);
-	const day = ('0' + date.getDate()).slice(-2);
+	const month = ('0' + (date.getMonth() + 1)).slice(-2);
+	const day = ('0' + date.getDate().toString()).slice(-2);
 
-	const dateString = `${day}/${month}/${year}`;
-
-	return dateString;
+	return `${day}/${month}/${year}`;
 };
 
 export const getTime = (inputValue: string): string => {

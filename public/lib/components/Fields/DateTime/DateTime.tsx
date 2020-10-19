@@ -6,7 +6,7 @@ import ErrorMessage from '../../ErrorMessage/ErrorMessage';
 import Datepicker from '../Datepicker/Datepicker';
 import Time from '../Time/Time';
 
-import { getTime, updateDate, updateTime } from './DateTime.helpers';
+import { getDate, getTime, updateDate, updateTime } from './DateTime.helpers';
 
 const DateTimepicker: React.FC<InputFieldProps> = ({
 	fieldProps,
@@ -16,6 +16,8 @@ const DateTimepicker: React.FC<InputFieldProps> = ({
 	const config = fieldSchema.config || {};
 	const { field } = fieldProps;
 	const { setValue } = fieldHelperProps;
+	const dateValue = useMemo(() => getDate(field.value), [field.value]);
+	const timeValue = useMemo(() => getTime(field.value), [field.value]);
 
 	const handleChange = (inputValue: string, type: string): void => {
 		const { value } = field;
@@ -40,15 +42,17 @@ const DateTimepicker: React.FC<InputFieldProps> = ({
 			<div className="row">
 				<div className="col-xs-12 col-md-6 u-margin-bottom-xs">
 					<Datepicker
-						fieldProps={{
-							...fieldProps,
-							field: {
-								...field,
-								// value: useMemo(() => getDate(field.value), [field.value]),
-								onChange: (event: ChangeEvent<any>) =>
-									handleChange(event.target.value, 'date'),
-							},
-						}}
+						fieldProps={
+							{
+								...fieldProps,
+								field: {
+									...field,
+									value: dateValue,
+									onChange: (event: ChangeEvent<any>) =>
+										handleChange(event.target.value, 'date'),
+								},
+							} as any
+						}
 						fieldSchema={{
 							...fieldSchema,
 							config: {
@@ -66,7 +70,7 @@ const DateTimepicker: React.FC<InputFieldProps> = ({
 							...fieldProps,
 							field: {
 								...fieldProps.field,
-								value: useMemo(() => getTime(field.value), [field.value]),
+								value: timeValue,
 								onChange: (event: ChangeEvent<any>) =>
 									handleChange(event.target.value, 'time'),
 							},
