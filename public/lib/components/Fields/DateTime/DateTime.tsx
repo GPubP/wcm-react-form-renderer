@@ -6,7 +6,7 @@ import ErrorMessage from '../../ErrorMessage/ErrorMessage';
 import Datepicker from '../Datepicker/Datepicker';
 import Time from '../Time/Time';
 
-import { getDate, getTime, updateDate, updateTime } from './DateTime.helpers';
+import { getTime, updateDate, updateTime } from './DateTime.helpers';
 
 const DateTimepicker: React.FC<InputFieldProps> = ({
 	fieldProps,
@@ -23,11 +23,9 @@ const DateTimepicker: React.FC<InputFieldProps> = ({
 
 		switch (type) {
 			case 'date':
-				console.log('date', prevDate, inputValue, updateDate(prevDate, inputValue));
 				setValue(updateDate(prevDate, inputValue));
 				break;
 			case 'time':
-				console.log('time', prevDate, inputValue, updateTime(prevDate, inputValue));
 				setValue(updateTime(prevDate, inputValue));
 				break;
 			default:
