@@ -1,5 +1,6 @@
 import Core from '@redactie/redactie-core';
 
+import { CustomValidator } from './lib/classes/CustomValidator/CustomValidator';
 import { ErrorMessage } from './lib/components/ErrorMessage';
 import { Form } from './lib/components/Form';
 import { View } from './lib/components/View';
@@ -11,6 +12,7 @@ Core.modules.exposeModuleApi('forms-module', {
 	Form,
 	View,
 	ErrorMessage,
+	CustomValidator,
 	fieldRegistry,
 	viewRegistry,
 });
