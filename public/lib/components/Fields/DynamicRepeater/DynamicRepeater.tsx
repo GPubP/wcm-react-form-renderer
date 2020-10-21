@@ -42,12 +42,10 @@ const DynamicRepeater: React.FC<DynamicRepeaterProps> = ({ fieldSchema }) => {
 		const itemToAdd: DynamicRepeaterItem = {
 			value: undefined,
 			type: item.type,
-			fieldRef: item.uuid,
+			fieldRef: item.uuid || '',
 			fieldType: item.config?.fieldType?.uuid || (item.config?.fieldType as string),
 			preset: item.config?.preset?.uuid || ((item.config?.preset as unknown) as string),
 		};
-
-		console.log(itemToAdd, item);
 
 		arrayHelper.push(itemToAdd);
 	};
