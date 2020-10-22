@@ -1,5 +1,6 @@
 import { ErrorMessageProps, FormikValues } from 'formik';
 
+import { CustomValidator } from './classes/CustomValidator';
 import { FormProps } from './components/Form';
 import { ViewProps } from './components/View';
 import { FieldRegistry } from './services/fieldRegistry';
@@ -89,6 +90,7 @@ export interface FormsAPI {
 	Form: React.FC<FormProps<FormValues>>;
 	View: React.FC<ViewProps>;
 	ErrorMessage: React.FC<ErrorMessageProps>;
+	CustomValidator: CustomValidator;
 	fieldRegistry: FieldRegistry;
 	viewRegistry: ViewRegistry;
 }
