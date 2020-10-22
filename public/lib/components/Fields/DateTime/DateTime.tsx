@@ -15,6 +15,9 @@ const DateTimepicker: React.FC<InputFieldProps> = ({
 }) => {
 	const config = fieldSchema.config || {};
 	const { field } = fieldProps;
+	const { setValue } = fieldHelperProps;
+	const dateValue = useMemo(() => getDate(field.value), [field.value]);
+	const timeValue = useMemo(() => getTime(field.value), [field.value]);
 
 	const handleChange = (inputValue: string, type: string): void => {
 		const { value } = field;
@@ -22,20 +25,10 @@ const DateTimepicker: React.FC<InputFieldProps> = ({
 
 		switch (type) {
 			case 'date':
-				field.onChange({
-					target: {
-						id: fieldSchema.name,
-						value: updateDate(prevDate, inputValue),
-					},
-				});
+				setValue(updateDate(prevDate, inputValue));
 				break;
 			case 'time':
-				field.onChange({
-					target: {
-						id: fieldSchema.name,
-						value: updateTime(prevDate, inputValue),
-					},
-				});
+				setValue(updateTime(prevDate, inputValue));
 				break;
 			default:
 				break;
@@ -49,15 +42,17 @@ const DateTimepicker: React.FC<InputFieldProps> = ({
 			<div className="row">
 				<div className="col-xs-12 col-md-6 u-margin-bottom-xs">
 					<Datepicker
-						fieldProps={{
-							...fieldProps,
-							field: {
-								...fieldProps.field,
-								value: useMemo(() => getDate(field.value), [field.value]),
-								onChange: (event: ChangeEvent<any>) =>
-									handleChange(event.target.value, 'date'),
-							},
-						}}
+						fieldProps={
+							{
+								...fieldProps,
+								field: {
+									...field,
+									value: dateValue,
+									onChange: (event: ChangeEvent<any>) =>
+										handleChange(event.target.value, 'date'),
+								},
+							} as any
+						}
 						fieldSchema={{
 							...fieldSchema,
 							config: {
@@ -75,7 +70,7 @@ const DateTimepicker: React.FC<InputFieldProps> = ({
 							...fieldProps,
 							field: {
 								...fieldProps.field,
-								value: useMemo(() => getTime(field.value), [field.value]),
+								value: timeValue,
 								onChange: (event: ChangeEvent<any>) =>
 									handleChange(event.target.value, 'time'),
 							},
