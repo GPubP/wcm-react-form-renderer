@@ -4,6 +4,7 @@ import { CustomValidator } from './lib/classes/CustomValidator/CustomValidator';
 import { ErrorMessage } from './lib/components/ErrorMessage';
 import { Form } from './lib/components/Form';
 import { View } from './lib/components/View';
+import { parseFields } from './lib/helpers';
 import { fieldRegistry } from './lib/services/fieldRegistry';
 import { viewRegistry } from './lib/services/viewRegistry';
 
@@ -15,6 +16,7 @@ Core.modules.exposeModuleApi('forms-module', {
 	CustomValidator,
 	fieldRegistry,
 	viewRegistry,
+	parseFields,
 });
 
 export * from './lib/core.types';

@@ -8,3 +8,11 @@ export interface DynamicRepeaterProps {
 	 */
 	fieldSchema: FieldSchema;
 }
+
+export interface DynamicRepeaterItem {
+	value: unknown;
+	type: string;
+	fieldRef: string;
+	fieldType: string;
+	preset?: string;
+}

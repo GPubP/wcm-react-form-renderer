@@ -9,7 +9,7 @@ import { FieldRenderer } from '../../FieldRenderer';
 import { FlyoutSelect } from '../../FlyoutSelect';
 
 import styles from './DynamicRepeater.module.scss';
-import { DynamicRepeaterProps } from './DynamicRepeater.types';
+import { DynamicRepeaterItem, DynamicRepeaterProps } from './DynamicRepeater.types';
 
 const cx = classNames.bind(styles);
 
@@ -18,7 +18,7 @@ const DynamicRepeater: React.FC<DynamicRepeaterProps> = ({ fieldSchema }) => {
 	const fields = Array.isArray(fieldSchema.fields) ? fieldSchema.fields : [];
 	const { values } = useFormikContext<FormikValues>();
 	const value = useMemo(
-		() => pathOr([], split('.', fieldSchema.name), values) as FormikValues[],
+		() => pathOr([], split('.', fieldSchema.name), values) as DynamicRepeaterItem[],
 		[fieldSchema.name, values]
 	);
 	const min = useMemo(() => config.amount?.minValue || 0, [config.amount]);
@@ -39,15 +39,12 @@ const DynamicRepeater: React.FC<DynamicRepeaterProps> = ({ fieldSchema }) => {
 	 * @param item
 	 */
 	const addItem = (arrayHelper: FieldArrayRenderProps, item: FieldSchema): void => {
-		const itemToAdd = {
+		const itemToAdd: DynamicRepeaterItem = {
 			value: undefined,
 			type: item.type,
-			fieldType:
-				item.config?.preset?.uuid ||
-				item.config?.preset ||
-				item.config?.fieldType?.uuid ||
-				item.config?.fieldType ||
-				item.type,
+			fieldRef: item.uuid || '',
+			fieldType: item.config?.fieldType?.uuid || (item.config?.fieldType as string),
+			preset: item.config?.preset?.uuid || ((item.config?.preset as unknown) as string),
 		};
 
 		arrayHelper.push(itemToAdd);
@@ -83,15 +80,9 @@ const DynamicRepeater: React.FC<DynamicRepeaterProps> = ({ fieldSchema }) => {
 		arrayHelper.move(index, index + 1);
 	};
 
-	const getFieldSchema = (fieldValue: FormikValues): FieldSchema | null => {
+	const getFieldSchema = (fieldValue: DynamicRepeaterItem): FieldSchema | null => {
 		const fieldSchema = fields.find((field: FieldSchema) => {
-			return (
-				field.config?.preset?.uuid === fieldValue.fieldType ||
-				field.config?.preset === fieldValue.fieldType ||
-				field.config?.fieldType?.uuid === fieldValue.fieldType ||
-				field.config?.fieldType === fieldValue.fieldType ||
-				field.type === fieldValue.fieldType
-			);
+			return field.uuid === fieldValue.fieldRef;
 		});
 
 		return fieldSchema ? fieldSchema : null;
@@ -108,12 +99,12 @@ const DynamicRepeater: React.FC<DynamicRepeaterProps> = ({ fieldSchema }) => {
 	 */
 	const renderArrayElements = (
 		arrayHelper: FieldArrayRenderProps,
-		repeaterValues: FormikValues[]
+		repeaterValues: DynamicRepeaterItem[]
 	): React.ReactNode => {
 		return (
 			<>
 				{(Array.isArray(repeaterValues) ? repeaterValues : [])
-					.map((value: FormikValues) => {
+					.map(value => {
 						const config = getFieldSchema(value);
 						return config;
 					})
