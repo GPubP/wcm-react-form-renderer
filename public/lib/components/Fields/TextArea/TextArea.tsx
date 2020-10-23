@@ -10,15 +10,16 @@ const InputTextarea: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }: I
 	const { field } = fieldProps;
 
 	return (
-		<>
+		<div className="a-input">
 			<Textarea
 				id={fieldSchema.name}
 				label={fieldSchema.label}
 				{...omit(['multiLanguage', 'min', 'max'])(config)}
 				{...field}
 			/>
+			{config.description && <small>{config.description}</small>}
 			<ErrorMessage name={field.name} />
-		</>
+		</div>
 	);
 };
 
