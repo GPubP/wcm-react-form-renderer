@@ -48,6 +48,7 @@ describe('<Form />', () => {
 						type: 'text',
 						dataType: 'string',
 						label: 'name',
+						uuid: 'some-uuid-1',
 					},
 					{
 						name: 'lastname',
@@ -55,6 +56,7 @@ describe('<Form />', () => {
 						type: 'text',
 						dataType: 'string',
 						label: 'lastname',
+						uuid: 'some-uuid-2',
 					},
 				],
 			},
@@ -75,6 +77,7 @@ describe('<Form />', () => {
 						type: 'text',
 						dataType: 'string',
 						label: 'name',
+						uuid: 'some-uuid-1',
 					},
 					{
 						name: 'lastname',
@@ -82,6 +85,7 @@ describe('<Form />', () => {
 						type: 'text',
 						dataType: 'string',
 						label: 'lastname',
+						uuid: 'some-uuid-2',
 					},
 				],
 			},
@@ -126,6 +130,7 @@ describe('<Form />', () => {
 							type: 'text',
 							dataType: 'string',
 							label: 'name',
+							uuid: 'some-uuid-1',
 							config: {
 								wrapperClassName: 'wrapperClass',
 							},
