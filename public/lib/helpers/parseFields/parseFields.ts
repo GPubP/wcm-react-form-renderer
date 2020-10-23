@@ -1,6 +1,6 @@
 import { omit } from 'ramda';
 
-import { ContentTypeFieldSchema, FieldSchema } from '../core.types';
+import { ContentTypeFieldSchema, FieldSchema } from '../../core.types';
 
 export const parseFields = (fields: ContentTypeFieldSchema[] = []): FieldSchema[] => {
 	const getFieldSchema = (field: ContentTypeFieldSchema): FieldSchema => {
