@@ -1,4 +1,4 @@
-import { ContentTypeFieldSchema } from '../core.types';
+import { ContentTypeFieldSchema } from '../../core.types';
 
 import { parseFields } from './parseFields';
 import {
