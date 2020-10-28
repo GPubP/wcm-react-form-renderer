@@ -8,6 +8,7 @@ import classNames from 'classnames';
 import { FieldHelperProps } from 'formik';
 import React, { useEffect, useState } from 'react';
 
+import { parseAllowedFileTypes } from '../../../helpers';
 import { InputFieldProps } from '../../../services/fieldRegistry';
 import { ErrorMessage } from '../../ErrorMessage';
 
@@ -18,11 +19,7 @@ const FileUpload: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema, fieldH
 	const { field } = fieldProps;
 	const coreConfig = Core.config.getValue('core') ?? {};
 
-	const allowedFileTypes =
-		typeof config.allowedFileTypes === 'string'
-			? config.allowedFileTypes.split(', ')
-			: config.allowedFileTypes;
-
+	const allowedFileTypes = parseAllowedFileTypes(config.allowedFileTypes);
 	const uploadFieldOptions = {
 		allowedMimeTypes: config.allowedMimeTypes ?? [],
 		allowedFileTypes: allowedFileTypes ?? [],
