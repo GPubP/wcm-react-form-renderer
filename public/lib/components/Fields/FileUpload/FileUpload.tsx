@@ -90,7 +90,7 @@ const FileUpload: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema, fieldH
 				selectUploadedFiles={handleUploadedFiles}
 				removeFile={() => fieldHelperProps.setValue(null)}
 			>
-				<FileUploadMessage>Selecteer of sleep een afbeelding</FileUploadMessage>
+				<FileUploadMessage>Selecteer of sleep een bestand</FileUploadMessage>
 				{config.description && (
 					<FileUploadDescription>{config.description}</FileUploadDescription>
 				)}

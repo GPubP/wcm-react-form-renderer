@@ -3,6 +3,7 @@ import { ErrorMessageProps, FormikValues } from 'formik';
 import { CustomValidator } from './classes/CustomValidator';
 import { FormProps } from './components/Form';
 import { ViewProps } from './components/View';
+import { parseFields } from './helpers/parseFields';
 import { FieldRegistry } from './services/fieldRegistry';
 import { ViewRegistry } from './services/viewRegistry';
 
@@ -77,6 +78,7 @@ export interface FieldSchema {
 	 * Default value
 	 */
 	defaultValue?: any;
+	uuid?: string;
 }
 
 export interface ValidationSchema {
@@ -93,6 +95,7 @@ export interface FormsAPI {
 	CustomValidator: CustomValidator;
 	fieldRegistry: FieldRegistry;
 	viewRegistry: ViewRegistry;
+	parseFields: typeof parseFields;
 }
 
 export interface Validator {
@@ -146,3 +149,56 @@ export interface BasePreset<T, F> {
 }
 
 export type Preset = BasePreset<string, string>;
+
+export interface FieldType {
+	_id: string;
+	uuid: string;
+	data: {
+		componentName: string;
+		module: string;
+		generalConfig: {
+			defaultGuideline?: string;
+			defaultLabel?: string;
+		};
+	};
+}
+
+export interface DataType {
+	_id: string;
+	meta: {
+		createdAt: string;
+		deleted: boolean;
+		lastModified: string;
+		created: string;
+	};
+	data: {
+		label: string;
+		type: string;
+		semanticType: string;
+	};
+	uuid: string;
+}
+
+export interface GeneralConfig {
+	guideline: string;
+	hidden: boolean;
+	max: number;
+	min: number;
+	multilanguage: boolean;
+	required: boolean;
+}
+
+export interface ContentTypeFieldSchema {
+	name: string;
+	label: string;
+	fieldType: FieldType;
+	dataType: DataType;
+	config?: {
+		required: boolean;
+		[key: string]: any;
+	};
+	generalConfig: GeneralConfig;
+	defaultValue: string;
+	preset?: Preset;
+	uuid?: string;
+}

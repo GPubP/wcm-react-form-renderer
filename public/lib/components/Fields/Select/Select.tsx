@@ -35,7 +35,7 @@ const InputSelect: FC<InputFieldProps> = ({
 	return (
 		<>
 			{showField && (
-				<>
+				<div className="a-input">
 					<Select
 						id={name}
 						label={label}
@@ -44,8 +44,9 @@ const InputSelect: FC<InputFieldProps> = ({
 						{...omit(['multiLanguage', 'min', 'max', 'options'])(config)}
 						{...omit(['value'])(field)}
 					/>
+					{config.description && <small>{config.description}</small>}
 					<ErrorMessage name={field.name} />
-				</>
+				</div>
 			)}
 		</>
 	);

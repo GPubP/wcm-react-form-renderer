@@ -22,6 +22,7 @@ describe('utils', () => {
 					type: 'text',
 					dataType: 'string',
 					label: 'name',
+					uuid: 'some-uuid-1',
 				},
 				{
 					name: 'lastname',
@@ -29,6 +30,7 @@ describe('utils', () => {
 					type: 'text',
 					dataType: 'string',
 					label: 'name',
+					uuid: 'some-uuid-2',
 				},
 				{
 					name: 'user',
@@ -36,6 +38,7 @@ describe('utils', () => {
 					module: 'core',
 					type: 'fieldgroup',
 					label: 'user',
+					uuid: 'some-uuid-3',
 					fields: [
 						{
 							name: 'firstname',
@@ -43,6 +46,7 @@ describe('utils', () => {
 							dataType: 'string',
 							type: 'text',
 							label: 'firstname',
+							uuid: 'some-uuid-3',
 						},
 					],
 				},
