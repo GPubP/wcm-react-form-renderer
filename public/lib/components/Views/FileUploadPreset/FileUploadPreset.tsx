@@ -30,7 +30,7 @@ const FileUploadPresetView: FC<ViewFieldProps> = ({ value }) => {
 			</div>
 			<div className={cx('file-upload-view__action')}>
 				<a
-					href={`/v1/proxy/assets/v1/assets/${file.uuid}/file?x-tenant-id=${coreConfig.tenantId}`}
+					href={`/v1/proxy/admin/assets/v1/assets/${file.uuid}/file?x-tenant-id=${coreConfig.tenantId}`}
 					target="_blank"
 					rel="noopener noreferrer"
 					className="m-upload__delete a-button a-button--small has-icon-left"
