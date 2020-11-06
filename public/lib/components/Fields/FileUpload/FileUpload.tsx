@@ -24,7 +24,7 @@ const FileUpload: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema, fieldH
 		allowedMimeTypes: config.allowedMimeTypes ?? [],
 		allowedFileTypes: allowedFileTypes ?? [],
 		maxFileSize: config.maxFileSize ?? 0,
-		url: config.url ?? `/v1/proxy/assets/v1/files`,
+		url: config.url ?? '/v1/proxy/admin/assets/v1/files',
 		requestHeader: {
 			key: 'x-tenant-id',
 			value: coreConfig.tenantId,
