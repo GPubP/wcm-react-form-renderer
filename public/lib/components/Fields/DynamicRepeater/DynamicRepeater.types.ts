@@ -11,6 +11,7 @@ export interface DynamicRepeaterProps {
 
 export interface DynamicRepeaterItem {
 	value: unknown;
+	uuid: string;
 	type: string;
 	fieldRef: string;
 	fieldType: string;
