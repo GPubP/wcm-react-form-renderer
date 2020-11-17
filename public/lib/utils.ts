@@ -36,7 +36,7 @@ export const createInitialValues = (
 			return acc;
 		}
 
-		// check if field is a repeater
+		// Check if field is a repeater
 		if (
 			field.dataType === 'array' &&
 			field.type === 'repeater' &&

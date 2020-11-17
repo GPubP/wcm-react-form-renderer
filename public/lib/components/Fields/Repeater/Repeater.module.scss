@@ -12,9 +12,17 @@
 		align-items: center;
 		min-width: 100%;
 
+		&:hover {
+			cursor: move;
+		}
+
 		&__fields {
 			flex-basis: 100%;
 			margin: 0 12px;
+		}
+
+		&--hovered {
+			opacity: 0;
 		}
 	}
 
