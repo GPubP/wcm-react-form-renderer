@@ -17,6 +17,7 @@ import { Datepicker } from './Datepicker';
 import { DynamicRepeater } from './DynamicRepeater';
 import { Fieldgroup } from './Fieldgroup';
 import { FileUpload } from './FileUpload';
+import { Hidden } from './Hidden';
 import { InputNumber } from './InputNumber';
 import { InputText } from './InputText';
 import { InputRadio } from './Radio';
@@ -116,6 +117,12 @@ const DefaultFields: FieldConfig[] = [
 		component: DynamicRepeater,
 		viewComponent: DynamicRepeaterView,
 	},
+	{
+		name: 'hidden',
+		module: 'core',
+		component: Hidden,
+		viewComponent: () => null,
+	},
 ];
 
 export {
@@ -130,5 +137,6 @@ export {
 	Fieldgroup,
 	Repeater,
 	DynamicRepeater,
+	Hidden,
 	DefaultFields,
 };

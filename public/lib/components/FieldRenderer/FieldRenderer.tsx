@@ -3,7 +3,7 @@ import React, { useMemo } from 'react';
 
 import { FieldConfig, fieldRegistry } from '../../services/fieldRegistry';
 import { FieldComponent } from '../FieldComponent';
-import { DynamicRepeater, Fieldgroup, Repeater } from '../Fields';
+import { DynamicRepeater, Fieldgroup, Hidden, Repeater } from '../Fields';
 
 import { FieldRendererProps } from './FieldRenderer.types';
 
@@ -45,6 +45,11 @@ const FieldRenderer: React.FC<FieldRendererProps> = ({ fieldSchema }: FieldRende
 	const renderFieldArray = (): React.ReactNode => <Repeater fieldSchema={fieldSchema} />;
 
 	/**
+	 * Render a hidden field
+	 */
+	const renderHiddenField = (): React.ReactNode => <Hidden fieldSchema={fieldSchema} />;
+
+	/**
 	 * Render a dynamic field array
 	 */
 	const renderDynamicFieldArray = (): React.ReactNode => (
@@ -53,7 +58,9 @@ const FieldRenderer: React.FC<FieldRendererProps> = ({ fieldSchema }: FieldRende
 
 	return (
 		<>
-			{fieldSchema.type === 'fieldgroup'
+			{fieldSchema.hidden
+				? renderHiddenField()
+				: fieldSchema.type === 'fieldgroup'
 				? renderFieldGroup()
 				: fieldSchema.type === 'repeater'
 				? renderFieldArray()
