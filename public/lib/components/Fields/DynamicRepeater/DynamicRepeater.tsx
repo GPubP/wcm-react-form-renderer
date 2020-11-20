@@ -1,13 +1,16 @@
 import { Button } from '@acpaas-ui/react-components';
+import { DndContainer, DndDragDroppable } from '@acpaas-ui/react-editorial-components';
 import classNames from 'classnames/bind';
 import { FieldArray, FieldArrayRenderProps, FormikValues, useFormikContext } from 'formik';
 import { pathOr, split } from 'ramda';
-import React, { useMemo } from 'react';
+import React, { ReactElement, Ref, useMemo } from 'react';
+import { v4 as uuid } from 'uuid';
 
 import { FieldSchema } from '../../../core.types';
 import { FieldRenderer } from '../../FieldRenderer';
 import { FlyoutSelect } from '../../FlyoutSelect';
 
+import { DND_ITEM_TYPE } from './DynamicRepeater.const';
 import styles from './DynamicRepeater.module.scss';
 import { DynamicRepeaterItem, DynamicRepeaterProps } from './DynamicRepeater.types';
 
@@ -41,6 +44,7 @@ const DynamicRepeater: React.FC<DynamicRepeaterProps> = ({ fieldSchema }) => {
 	const addItem = (arrayHelper: FieldArrayRenderProps, item: FieldSchema): void => {
 		const itemToAdd: DynamicRepeaterItem = {
 			value: undefined,
+			uuid: uuid(),
 			type: item.type,
 			fieldRef: item.uuid || '',
 			fieldType: item.config?.fieldType?.uuid || (item.config?.fieldType as string),
@@ -80,6 +84,27 @@ const DynamicRepeater: React.FC<DynamicRepeaterProps> = ({ fieldSchema }) => {
 		arrayHelper.move(index, index + 1);
 	};
 
+	/**
+	 * Move an element to a target index
+	 *
+	 * @param arrayHelper
+	 */
+	const moveRow = (arrayHelper: FieldArrayRenderProps) => (
+		source: { index: number },
+		target: { index: number }
+	): void => {
+		if (source.index === target.index) {
+			return;
+		}
+
+		arrayHelper.move(source.index, target.index);
+	};
+
+	/**
+	 * Get field schema for value
+	 *
+	 * @param fieldValue
+	 */
 	const getFieldSchema = (fieldValue: DynamicRepeaterItem): FieldSchema | null => {
 		const fieldSchema = fields.find((field: FieldSchema) => {
 			return field.uuid === fieldValue.fieldRef;
@@ -93,6 +118,90 @@ const DynamicRepeater: React.FC<DynamicRepeaterProps> = ({ fieldSchema }) => {
 	 */
 
 	/**
+	 * Render one array element
+	 *
+	 * @param arrayHelper
+	 * @param schema
+	 * @param value
+	 * @param index
+	 * @param list
+	 */
+	const renderListItem = (
+		arrayHelper: FieldArrayRenderProps,
+		schema: FieldSchema | null,
+		value: DynamicRepeaterItem,
+		index: number,
+		list: DynamicRepeaterItem[]
+	): ReactElement => (
+		<DndDragDroppable
+			key={`reapeater-${name}-${value.uuid}`}
+			id={value.uuid}
+			moveRow={moveRow(arrayHelper)}
+			index={index}
+			accept={[`${DND_ITEM_TYPE}_${name}`]}
+		>
+			{({
+				isDragging,
+				dragDropRef,
+			}: {
+				isDragging: boolean;
+				dragDropRef: Ref<HTMLDivElement>;
+			}) => (
+				<div
+					ref={dragDropRef}
+					key={`${index}-${schema?.name}`}
+					className={cx('repeater__item', {
+						'repeater__item--hovered': isDragging,
+					})}
+				>
+					<div>
+						<div className="m-button-group m-button-group--vertical">
+							<Button
+								className={cx('no-border')}
+								onClick={() => moveUp(arrayHelper, index)}
+								icon="chevron-up"
+								ariaLabel="Move item up"
+								type="primary"
+								htmlType="button"
+								size="tiny"
+								disabled={index === 0 || disabled}
+								negative
+							/>
+							<Button
+								className={cx('no-border')}
+								onClick={() => moveDown(arrayHelper, index)}
+								icon="chevron-down"
+								ariaLabel="Move item down"
+								type="primary"
+								htmlType="button"
+								size="tiny"
+								disabled={list.length - 1 === index || disabled}
+								negative
+							/>
+						</div>
+					</div>
+					<div className={cx('repeater__item__field')}>
+						{schema ? <FieldRenderer fieldSchema={schema} /> : null}
+					</div>
+					{list.length > min ? (
+						<div>
+							<Button
+								onClick={() => deleteItem(arrayHelper, index)}
+								icon="trash"
+								ariaLabel="Delete item"
+								disabled={disabled}
+								type="danger"
+								htmlType="button"
+								size="small"
+							/>
+						</div>
+					) : null}
+				</div>
+			)}
+		</DndDragDroppable>
+	);
+
+	/**
 	 * Render array elements
 	 *
 	 * @param arrayHelper
@@ -102,18 +211,12 @@ const DynamicRepeater: React.FC<DynamicRepeaterProps> = ({ fieldSchema }) => {
 		repeaterValues: DynamicRepeaterItem[]
 	): React.ReactNode => {
 		return (
-			<>
-				{(Array.isArray(repeaterValues) ? repeaterValues : [])
-					.map(value => {
-						const config = getFieldSchema(value);
-						return config;
-					})
-					.map((schema, index) => {
-						if (!schema) {
-							return null;
-						}
+			<DndContainer draggable={true}>
+				{(Array.isArray(repeaterValues) ? repeaterValues : []).map((value, index) => {
+					let schema = getFieldSchema(value);
 
-						return {
+					if (schema) {
+						schema = {
 							...schema,
 							name: `${fieldSchema.name}.${index}.value`,
 							config: {
@@ -121,54 +224,11 @@ const DynamicRepeater: React.FC<DynamicRepeaterProps> = ({ fieldSchema }) => {
 								wrapperClassName: schema?.config?.wrapperClassName || 'col-xs-12',
 							},
 						};
-					})
-					.map((schema, index) => (
-						<div key={`${index}-${schema?.name}`} className={cx('repeater__item')}>
-							<div>
-								<div className="m-button-group m-button-group--vertical">
-									<Button
-										className={cx('no-border')}
-										onClick={() => moveUp(arrayHelper, index)}
-										icon="chevron-up"
-										ariaLabel="Move item up"
-										type="primary"
-										htmlType="button"
-										size="tiny"
-										disabled={index === 0 || disabled}
-										negative
-									/>
-									<Button
-										className={cx('no-border')}
-										onClick={() => moveDown(arrayHelper, index)}
-										icon="chevron-down"
-										ariaLabel="Move item down"
-										type="primary"
-										htmlType="button"
-										size="tiny"
-										disabled={repeaterValues.length - 1 === index || disabled}
-										negative
-									/>
-								</div>
-							</div>
-							<div className={cx('repeater__item__field')}>
-								{schema ? <FieldRenderer fieldSchema={schema} /> : null}
-							</div>
-							{repeaterValues.length > min ? (
-								<div>
-									<Button
-										onClick={() => deleteItem(arrayHelper, index)}
-										icon="trash"
-										ariaLabel="Delete item"
-										disabled={disabled}
-										type="danger"
-										htmlType="button"
-										size="small"
-									/>
-								</div>
-							) : null}
-						</div>
-					))}
-			</>
+					}
+
+					return renderListItem(arrayHelper, schema, value, index, repeaterValues);
+				})}
+			</DndContainer>
 		);
 	};
 
