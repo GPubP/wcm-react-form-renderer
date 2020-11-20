@@ -46,6 +46,10 @@ export interface FieldSchema {
 	 */
 	type: string;
 	/**
+	 * Field hidden toggle
+	 */
+	hidden?: boolean;
+	/**
 	 * Field view
 	 * This field will be uses by the viewer component
 	 */
