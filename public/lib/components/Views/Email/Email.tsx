@@ -7,11 +7,7 @@ const EmailView: FC<ViewFieldProps> = ({ value }) => {
 		return null;
 	}
 
-	return (
-		<div className="u-margin-bottom">
-			<a href={`mailto:${value}`}>{value}</a>
-		</div>
-	);
+	return <a href={`mailto:${value}`}>{value}</a>;
 };
 
 export default EmailView;

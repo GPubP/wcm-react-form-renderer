@@ -11,14 +11,19 @@ const FieldGroupView: FC<ViewFieldProps> = ({ fieldSchema }) => {
 
 	return (
 		<>
-			{fields
-				.map((schema: FieldSchema) => ({
+			{fields.map((schema: FieldSchema, index) => {
+				const fieldGroupSchema = {
 					...schema,
 					name: withNamespace(schema.name),
-				}))
-				.map((schema, index) => (
-					<ViewRenderer key={`${index}-${schema.name}`} fieldSchema={schema} />
-				))}
+				};
+
+				return (
+					<ViewRenderer
+						key={`${index}-${fieldGroupSchema.name}`}
+						fieldSchema={fieldGroupSchema}
+					/>
+				);
+			})}
 		</>
 	);
 };

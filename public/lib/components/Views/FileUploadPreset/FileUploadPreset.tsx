@@ -17,7 +17,7 @@ const FileUploadPresetView: FC<ViewFieldProps> = ({ value }) => {
 	const coreConfig = Core.config.getValue('core') ?? {};
 
 	return (
-		<div className={cx('file-upload-view', 'u-margin-bottom')}>
+		<div className={cx('file-upload-view')}>
 			<div className={cx('file-upload-view__thumbnail')}>
 				<span className="fa fa-file"></span>
 			</div>

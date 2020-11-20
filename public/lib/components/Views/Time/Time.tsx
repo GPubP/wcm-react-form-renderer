@@ -10,7 +10,7 @@ const TimeView: FC<ViewFieldProps> = ({ value }) => {
 
 	const formatDate = moment(value, 'HH:mm').format('HH[u]mm');
 
-	return <div className="u-margin-bottom">{formatDate}</div>;
+	return <>{formatDate}</>;
 };
 
 export default TimeView;
