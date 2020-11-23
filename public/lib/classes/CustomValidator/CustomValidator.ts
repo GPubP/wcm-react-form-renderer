@@ -3,7 +3,7 @@ import addKeywords from 'ajv-keywords';
 import { FormikErrors, FormikValues } from 'formik';
 import { lensPath, omit, path, prop, set } from 'ramda';
 
-import { FormProps } from '../../components/Form';
+import { FormProps } from '../../components/Form/Form.types';
 
 export class CustomValidator {
 	public readonly ajv: Ajv;

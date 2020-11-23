@@ -19,6 +19,7 @@ const renderForm = (props?: Partial<FormProps<FormValues>>): RenderResult => {
 	const defaultProps: FormProps<FormValues> = {
 		validationSchema,
 		errorMessages,
+		validateWorker: false,
 		onSubmit: () => {
 			return;
 		},

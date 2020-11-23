@@ -44,6 +44,10 @@ export interface FormProps<Values> {
 	 */
 	children?: ((props: FormikProps<Values>) => React.ReactNode) | React.ReactNode;
 	/**
+	 * Run form validation in a web worker
+	 */
+	validateWorker?: boolean;
+	/**
 	 * onSubmit
 	 * Use this function to get the form results on submit
 	 *

@@ -1,9 +1,10 @@
+import { usePrevious, useTenantContext, useWillUnmount } from '@redactie/utils';
 import { Form, Formik, FormikHelpers, FormikProps, FormikValues } from 'formik';
 import debounce from 'lodash.debounce';
-import { isEmpty } from 'ramda';
-import React, { ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
+import { equals, isEmpty } from 'ramda';
+import React, { ReactNode, useCallback, useEffect, useState } from 'react';
 
-import { CustomValidator } from '../../classes/CustomValidator';
+import { CustomValidator, CustomValidatorWorker } from '../../classes';
 import { FieldSchema, FormValues } from '../../core.types';
 import { createInitialValues, isEmptyChildren, isFunction } from '../../utils';
 import { FieldRenderer } from '../FieldRenderer';
@@ -20,19 +21,61 @@ const RedactionForm: React.FC<FormProps<FormValues>> = ({
 	errorMessages,
 	initialValues,
 	children,
-	delay = 300,
+	validateWorker = true,
+	delay = 3000,
 	formikRef,
 	...rest
 }) => {
 	const [initialFormValue, setInitialFormValue] = useState<FormValues | undefined>(initialValues);
-	const validator = useMemo(
-		() =>
-			new CustomValidator(validationSchema, errorMessages, {
-				allErrors: true,
-				messages: true,
-			}),
-		[errorMessages, validationSchema]
-	);
+	const [validator, setValidator] = useState<CustomValidator | CustomValidatorWorker>();
+	const previousErrorMessages = usePrevious(errorMessages);
+	const previousValidationSchema = usePrevious(validationSchema);
+	const tenantContext = useTenantContext();
+
+	if (!tenantContext && validateWorker) {
+		throw new Error(
+			'Redactie form renderer must be used within a TenantProvider when validating the form using a web worker. Check @redactie/utils package for more info'
+		);
+	}
+
+	useEffect(() => {
+		if (
+			!equals(errorMessages, previousErrorMessages) ||
+			!equals(validationSchema, previousValidationSchema)
+		) {
+			if (validateWorker) {
+				if (validator) {
+					// terminate before creating a new one
+					(validator as CustomValidatorWorker).terminate();
+				}
+				setValidator(
+					new CustomValidatorWorker(
+						tenantContext.tenantId,
+						validationSchema,
+						errorMessages,
+						{
+							allErrors: true,
+							messages: true,
+						}
+					)
+				);
+			}
+			setValidator(
+				new CustomValidator(validationSchema, errorMessages, {
+					allErrors: true,
+					messages: true,
+				})
+			);
+		}
+	}, [
+		errorMessages,
+		previousErrorMessages,
+		validationSchema,
+		previousValidationSchema,
+		validateWorker,
+		validator,
+		tenantContext.tenantId,
+	]);
 
 	/**
 	 * Calculate the initial values of the form
@@ -52,6 +95,12 @@ const RedactionForm: React.FC<FormProps<FormValues>> = ({
 	useEffect(() => {
 		initInitialValues();
 	}, [initInitialValues]);
+
+	useWillUnmount(() => {
+		if (validator && typeof (validator as CustomValidatorWorker).terminate === 'function') {
+			(validator as CustomValidatorWorker).terminate();
+		}
+	});
 
 	const onFormSubmit = (values: FormValues, actions: FormikHelpers<FormValues>): void => {
 		if (onSubmit) {
@@ -85,7 +134,7 @@ const RedactionForm: React.FC<FormProps<FormValues>> = ({
 				initialValues={initialFormValue}
 				enableReinitialize={true}
 				onSubmit={onFormSubmit}
-				validate={values => validator.validate(values)}
+				validate={values => validator?.validate(values)}
 				{...rest}
 			>
 				{props => (
