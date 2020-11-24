@@ -1,6 +1,6 @@
 import { omit } from 'ramda';
 
-import { ContentTypeFieldSchema, FieldSchema } from '../../core.types';
+import { ContentTypeFieldSchema, FieldSchema, Preset } from '../../core.types';
 
 export const parseFields = (fields: ContentTypeFieldSchema[] = []): FieldSchema[] => {
 	const getFieldSchema = (field: ContentTypeFieldSchema): FieldSchema => {
@@ -49,7 +49,7 @@ export const parseFields = (fields: ContentTypeFieldSchema[] = []): FieldSchema[
 				...config,
 				...generalConfig,
 				description: generalConfig.guideline,
-				preset,
+				preset: preset as Preset,
 				fieldType,
 				dataType,
 			},
