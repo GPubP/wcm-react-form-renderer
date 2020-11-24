@@ -42,6 +42,28 @@ export class CustomValidatorWorker {
 		});
 	}
 
+	public setSchema(schema: boolean | Record<string, any>): void {
+		if (this._promiseWorker) {
+			this._promiseWorker.postMessage<
+				CustomValidatorWorkerMessage<boolean | Record<string, any>>
+			>({
+				type: CustomValidatorWorkerMessageTypes.SET_SCHEMA,
+				data: schema,
+			});
+		}
+	}
+
+	public setErrorMessages(errorMessages: FormProps<FormikValues>['errorMessages']): void {
+		if (this._promiseWorker) {
+			this._promiseWorker.postMessage<
+				CustomValidatorWorkerMessage<FormProps<FormikValues>['errorMessages']>
+			>({
+				type: CustomValidatorWorkerMessageTypes.SET_ERRORMESSAGES,
+				data: errorMessages,
+			});
+		}
+	}
+
 	public validate<Values = any>(values: FormikValues): Promise<FormikErrors<Values>> {
 		return this._promiseWorker.postMessage<CustomValidatorWorkerMessage<FormikValues>>({
 			type: CustomValidatorWorkerMessageTypes.VALIDATE,

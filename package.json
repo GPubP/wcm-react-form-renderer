@@ -7,7 +7,7 @@
   "scripts": {
     "prepublish": "npm run test && npm run build",
     "build:types": "tsc --emitDeclarationOnly",
-    "build": "rimraf ./dist && npm run build:types && webpack --env.prod",
+    "build": "npm run build:types && webpack --env.prod",
     "build:w": "npm run build:types && webpack -w --env.prod",
     "build:demo": "npm run build:types && webpack -w --env.local",
     "build:analyse": "npm run build:types && webpack --env.analyse",

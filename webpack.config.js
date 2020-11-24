@@ -12,13 +12,7 @@ module.exports = env => {
 		sassIncludes: [/public/, /node_modules\/@a-ui\/core/],
 		outputPath: path.resolve(__dirname, 'dist'),
 	})(env);
-	const workerConfig = getWorkerConfig({
-		entry: './public/lib/workers/index.ts',
-		workerFilter: /\.worker\.ts$/,
-		clean: false,
-		outputPath: path.resolve(process.cwd(), 'dist'),
-		mode: 'production',
-	});
+	const workerConfig = getWorkerConfig();
 
 	return [workerConfig, defaultConfig];
 };

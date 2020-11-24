@@ -6,6 +6,8 @@ import { FormProps } from '../../components/Form';
 export enum CustomValidatorWorkerMessageTypes {
 	INIT = 'init',
 	VALIDATE = 'validate',
+	SET_SCHEMA = 'set schema',
+	SET_ERRORMESSAGES = 'set errormessages',
 }
 
 export interface CustomValidatorWorkerMessage<Data = any> {

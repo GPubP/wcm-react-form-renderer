@@ -30,6 +30,7 @@ const RedactionForm: React.FC<FormProps<FormValues>> = ({
 	const [validator, setValidator] = useState<CustomValidator | CustomValidatorWorker>();
 	const previousErrorMessages = usePrevious(errorMessages);
 	const previousValidationSchema = usePrevious(validationSchema);
+	const previousValidateWorker = usePrevious(validateWorker);
 	const tenantContext = useTenantContext();
 
 	if (!tenantContext && validateWorker) {
@@ -39,42 +40,53 @@ const RedactionForm: React.FC<FormProps<FormValues>> = ({
 	}
 
 	useEffect(() => {
-		if (
-			!equals(errorMessages, previousErrorMessages) ||
-			!equals(validationSchema, previousValidationSchema)
-		) {
-			if (validateWorker) {
-				if (validator) {
-					// terminate before creating a new one
-					(validator as CustomValidatorWorker).terminate();
-				}
-				setValidator(
-					new CustomValidatorWorker(
-						tenantContext.tenantId,
-						validationSchema,
-						errorMessages,
-						{
-							allErrors: true,
-							messages: true,
-						}
-					)
-				);
+		if (validator) {
+			if (errorMessages && !equals(errorMessages, previousErrorMessages)) {
+				validator.setErrorMessages(errorMessages);
+			}
+
+			if (validationSchema && !equals(validationSchema, previousValidationSchema)) {
+				validator.setSchema(validationSchema);
+			}
+		}
+	}, [
+		errorMessages,
+		validationSchema,
+		previousErrorMessages,
+		previousValidationSchema,
+		validator,
+	]);
+
+	useEffect(() => {
+		if (validator && previousValidateWorker === validateWorker) {
+			return;
+		}
+
+		if (validateWorker) {
+			const workerValidator = validator as CustomValidatorWorker;
+			if (workerValidator?.terminate && typeof workerValidator.terminate === 'function') {
+				workerValidator.terminate();
 			}
 			setValidator(
-				new CustomValidator(validationSchema, errorMessages, {
+				new CustomValidatorWorker(tenantContext.tenantId, validationSchema, errorMessages, {
 					allErrors: true,
 					messages: true,
 				})
 			);
 		}
+		setValidator(
+			new CustomValidator(validationSchema, errorMessages, {
+				allErrors: true,
+				messages: true,
+			})
+		);
 	}, [
 		errorMessages,
-		previousErrorMessages,
-		validationSchema,
-		previousValidationSchema,
-		validateWorker,
-		validator,
+		previousValidateWorker,
 		tenantContext.tenantId,
+		validateWorker,
+		validationSchema,
+		validator,
 	]);
 
 	/**
