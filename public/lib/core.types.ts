@@ -185,24 +185,77 @@ export interface DataType {
 
 export interface GeneralConfig {
 	guideline: string;
-	hidden: boolean;
-	max: number;
-	min: number;
-	multilanguage: boolean;
-	required: boolean;
+	multiLanguage?: boolean;
+	required?: boolean;
+	hidden?: boolean;
+	disabled?: boolean;
+	min?: number;
+	max?: number;
+	combinedOutput?: boolean;
+	placeholder?: string;
+}
+
+export interface Operator {
+	label: string;
+	value: string;
+}
+
+export interface FieldCompartment {
+	uuid: string;
+	position: number;
+}
+
+export interface ValidationCheck {
+	key: string;
+	val: unknown;
+	err: string;
+}
+
+export interface ValicationCheckWithFields {
+	type: string;
+	fields: ValidationCheckField[];
+}
+
+export interface ValidationCheckField {
+	name: string;
+	type: string;
+	checks: ValidationCheck[];
+}
+
+export interface ValicationCheckWithAllowedFields {
+	id?: string;
+	type: string;
+	allowedFields: ValidationCheckAllowedField[];
+}
+
+export interface ValidationCheckAllowedField {
+	type: string;
+	fieldType: string;
+	checks: ValidationCheck[];
+}
+
+export interface Validation {
+	type: string;
+	checks: (ValidationCheck | ValicationCheckWithFields | ValicationCheckWithAllowedFields)[];
 }
 
 export interface ContentTypeFieldSchema {
-	name: string;
+	uuid?: string;
 	label: string;
-	fieldType: FieldType;
-	dataType: DataType;
+	module: string;
+	name: string;
 	config?: {
 		required: boolean;
+		fields?: ContentTypeFieldSchema[];
 		[key: string]: any;
 	};
-	generalConfig: GeneralConfig;
 	defaultValue: string;
+	validators: Validator[];
+	operators: Operator[];
+	validation?: Validation;
+	generalConfig: GeneralConfig;
+	dataType: DataType;
+	fieldType: FieldType;
 	preset?: Preset;
-	uuid?: string;
+	compartment: FieldCompartment;
 }
