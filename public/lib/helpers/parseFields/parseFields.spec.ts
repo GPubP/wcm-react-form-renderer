@@ -21,6 +21,8 @@ describe('parseFields', () => {
 					type: fieldTypeSingle.fieldType.data.componentName,
 					view: '',
 					dataType: fieldTypeSingle.dataType.data.type,
+					hidden: fieldTypeSingle.generalConfig.hidden,
+					uuid: fieldTypeSingle.uuid,
 					fields: [],
 					config: {
 						...fieldTypeSingle.config,
@@ -54,6 +56,8 @@ describe('parseFields', () => {
 						label: fieldTypeMultiple.fieldType.data.generalConfig.defaultLabel,
 						module: fieldTypeMultiple.fieldType.data.module,
 						type: fieldTypeMultiple.fieldType.data.componentName,
+						hidden: fieldTypeMultiple.generalConfig.hidden,
+						uuid: fieldTypeMultiple.uuid,
 						view: '',
 						dataType: fieldTypeMultiple.dataType.data.type,
 						fields: [],
@@ -84,6 +88,8 @@ describe('parseFields', () => {
 					module: presetSingle.fieldType.data.module,
 					type: presetSingle.fieldType.data.componentName,
 					view: presetSingle.preset.data.name,
+					hidden: presetSingle.generalConfig.hidden,
+					uuid: presetSingle.uuid,
 					dataType: presetSingle.dataType.data.type,
 					fields: [
 						{
@@ -93,6 +99,8 @@ describe('parseFields', () => {
 							type: fieldTypeSingle.fieldType.data.componentName,
 							view: '',
 							dataType: fieldTypeSingle.dataType.data.type,
+							hidden: fieldTypeSingle.generalConfig.hidden,
+							uuid: fieldTypeSingle.uuid,
 							fields: [],
 							config: {
 								max: fieldTypeSingle.generalConfig.max,
@@ -146,6 +154,8 @@ describe('parseFields', () => {
 							type: presetMultiple.fieldType.data.componentName,
 							view: presetMultiple.preset.data.name,
 							dataType: presetMultiple.dataType.data.type,
+							hidden: presetMultiple.generalConfig.hidden,
+							uuid: presetMultiple.uuid,
 							fields: [
 								{
 									name: fieldTypeSingle.name,
@@ -154,6 +164,8 @@ describe('parseFields', () => {
 									type: fieldTypeSingle.fieldType.data.componentName,
 									view: '',
 									dataType: fieldTypeSingle.dataType.data.type,
+									hidden: fieldTypeSingle.generalConfig.hidden,
+									uuid: fieldTypeSingle.uuid,
 									fields: [],
 									config: {
 										max: fieldTypeSingle.generalConfig.max,
