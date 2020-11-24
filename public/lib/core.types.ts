@@ -111,7 +111,7 @@ export interface Validator {
 		dataTypes: string[];
 		defaultValue: Record<string, any>;
 		formSchema: {
-			fields: FieldSchema[];
+			fields: ContentTypeFieldSchema[];
 		};
 	};
 	meta: {
@@ -139,7 +139,7 @@ export interface BasePreset<T, F> {
 		fields: {
 			field: any;
 			formSchema: {
-				fields: FieldSchema[];
+				fields: ContentTypeFieldSchema[];
 			};
 			validators: T[];
 		}[];
@@ -153,6 +153,7 @@ export interface BasePreset<T, F> {
 }
 
 export type Preset = BasePreset<string, string>;
+export type PresetDetail = BasePreset<Validator, FieldType>;
 
 export interface FieldType {
 	_id: string;
@@ -249,13 +250,13 @@ export interface ContentTypeFieldSchema {
 		fields?: ContentTypeFieldSchema[];
 		[key: string]: any;
 	};
-	defaultValue: string;
+	defaultValue?: string;
 	validators: Validator[];
 	operators: Operator[];
 	validation?: Validation;
 	generalConfig: GeneralConfig;
 	dataType: DataType;
 	fieldType: FieldType;
-	preset?: Preset;
+	preset?: Preset | PresetDetail;
 	compartment: FieldCompartment;
 }
