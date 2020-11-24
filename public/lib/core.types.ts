@@ -246,7 +246,6 @@ export interface ContentTypeFieldSchema {
 	module: string;
 	name: string;
 	config?: {
-		required: boolean;
 		fields?: ContentTypeFieldSchema[];
 		[key: string]: any;
 	};
