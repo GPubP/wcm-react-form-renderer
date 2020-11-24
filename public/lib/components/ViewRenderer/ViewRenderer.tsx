@@ -31,11 +31,13 @@ const ViewRenderer: FC<ViewRendererProps> = ({ fieldSchema }) => {
 	}
 
 	const renderView = (): React.ReactNode => (
-		<Field name={fieldSchema.name}>
-			{(fieldProps: FieldProps<any, {}>): React.ReactNode => (
-				<ViewComponent fieldSchema={fieldSchema} value={fieldProps.field.value} />
-			)}
-		</Field>
+		<div className="u-margin-bottom">
+			<Field name={fieldSchema.name}>
+				{(fieldProps: FieldProps<any, {}>): React.ReactNode => (
+					<ViewComponent fieldSchema={fieldSchema} value={fieldProps.field.value} />
+				)}
+			</Field>
+		</div>
 	);
 
 	return <>{renderView()}</>;

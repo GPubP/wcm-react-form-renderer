@@ -31,7 +31,8 @@ const DefaultFields: FieldConfig[] = [
 		name: 'text',
 		module: 'core',
 		component: InputText,
-		viewComponent: DefaultView,
+		// Remove comment for dev testing
+		// viewComponent: DefaultView,
 	},
 	{
 		name: 'email',
@@ -43,7 +44,8 @@ const DefaultFields: FieldConfig[] = [
 		name: 'number',
 		module: 'core',
 		component: InputNumber,
-		viewComponent: DefaultView,
+		// Remove comment for dev testing
+		// viewComponent: DefaultView,
 	},
 	{
 		name: 'date',
@@ -67,37 +69,43 @@ const DefaultFields: FieldConfig[] = [
 		name: 'textarea',
 		module: 'core',
 		component: InputTextarea,
-		viewComponent: DefaultView,
+		// Remove comment for dev testing
+		// viewComponent: DefaultView,
 	},
 	{
 		name: 'select',
 		module: 'core',
 		component: InputSelect,
-		viewComponent: DefaultView,
+		// Remove comment for dev testing
+		// viewComponent: DefaultView,
 	},
 	{
 		name: 'checkbox',
 		module: 'core',
 		component: InputCheckbox,
-		viewComponent: DefaultView,
+		// Remove comment for dev testing
+		// viewComponent: DefaultView,
 	},
 	{
 		name: 'checkboxList',
 		module: 'core',
 		component: CheckboxList,
-		viewComponent: DefaultView,
+		// Remove comment for dev testing
+		// viewComponent: DefaultView,
 	},
 	{
 		name: 'radio',
 		module: 'core',
 		component: InputRadio,
-		viewComponent: DefaultView,
+		// Remove comment for dev testing
+		// viewComponent: DefaultView,
 	},
 	{
 		name: 'fileUpload',
 		module: 'core',
 		component: FileUpload,
-		viewComponent: DefaultView,
+		// Remove comment for dev testing
+		// viewComponent: DefaultView,
 	},
 	{
 		name: 'fieldgroup',

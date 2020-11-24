@@ -20,7 +20,7 @@ const DateTimeView: FC<ViewFieldProps> = ({ fieldSchema, value }) => {
 		DATE_FORMATS[config.dateFormat] || DATE_FORMATS.dayMonthAndYear
 	);
 
-	return <div className="u-margin-bottom">{formatDate}</div>;
+	return <>{formatDate}</>;
 };
 
 export default DateTimeView;
