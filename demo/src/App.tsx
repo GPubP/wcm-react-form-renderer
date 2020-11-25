@@ -267,7 +267,7 @@ const App = () => {
 						config: {
 							placeholder: 'placeholder',
 							id: '1',
-							fieldType: { _id: 'type-text-id', uuid: 'type-text-id'}
+							fieldType: { _id: 'type-text-id', uuid: 'type-text-id' },
 						},
 					},
 					{
@@ -408,7 +408,17 @@ const App = () => {
 	const validationSchema = {
 		$schema: 'http://json-schema.org/draft-07/schema#',
 		type: 'object',
-		required: ['firstname', "lastname", 'hobbies', 'termsAndConditions', 'ages', 'address', 'questions', 'time', 'dateTime'],
+		required: [
+			'firstname',
+			'lastname',
+			'hobbies',
+			'termsAndConditions',
+			'ages',
+			'address',
+			'questions',
+			'time',
+			'dateTime',
+		],
 		properties: {
 			firstname: {
 				type: 'string',
@@ -461,11 +471,11 @@ const App = () => {
 			},
 			time: {
 				type: 'string',
-				pattern: '^[0-9]{1,2}:[0-9]{1,2}$'
+				pattern: '^[0-9]{1,2}:[0-9]{1,2}$',
 			},
 			dateTime: {
 				type: 'string',
-				format: 'date-time'
+				format: 'date-time',
 			},
 			dynamicRepeater: {
 				type: 'array',
@@ -473,21 +483,21 @@ const App = () => {
 					type: 'object',
 					properties: {
 						fieldType: {
-							type: 'string'
+							type: 'string',
 						},
 						type: {
-							type: 'string'
+							type: 'string',
 						},
-						value: {}
+						value: {},
 					},
 					allOf: [
 						{
 							if: { properties: { fieldType: { const: 'type-text-id' } } },
-							then: { properties: { value: { minLength: 3 } } }
-						}
-					]
-				}
-			}
+							then: { properties: { value: { minLength: 3 } } },
+						},
+					],
+				},
+			},
 		},
 	};
 
@@ -517,7 +527,7 @@ const App = () => {
 			{
 				value: 'maarten',
 				type: '1',
-				fieldType: 'type-text-id'
+				fieldType: 'type-text-id',
 			},
 			{
 				value: 'de weerdt',
@@ -550,7 +560,7 @@ const App = () => {
 	const errorMessages = {
 		firstname: {
 			required: 'You must enter a name',
-			minLength: 'You must enter a name'
+			minLength: 'You must enter a name',
 		},
 		lastname: {
 			required: 'You must enter a lastname',
@@ -560,7 +570,7 @@ const App = () => {
 			// eslint-disable-next-line no-template-curly-in-string
 			required: '${path} You must enter a zipcode',
 			// eslint-disable-next-line no-template-curly-in-string
-			minLength: '${path} You must enter a zipcode'
+			minLength: '${path} You must enter a zipcode',
 		},
 		children: {
 			minItems: 'Fill in at least two children',
@@ -591,6 +601,7 @@ const App = () => {
 						onSubmit={onFormSubmit}
 						initialValues={initialValues}
 						onChange={onChange}
+						validateWorker={false}
 						schema={form}
 					>
 						{props => (

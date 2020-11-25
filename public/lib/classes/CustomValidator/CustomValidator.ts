@@ -3,13 +3,25 @@ import addKeywords from 'ajv-keywords';
 import { FormikErrors, FormikValues } from 'formik';
 import { lensPath, omit, path, prop, set } from 'ramda';
 
-import { FormProps } from '../../components/Form';
+import { FormProps } from '../../components/Form/Form.types';
 
 export class CustomValidator {
 	public readonly ajv: Ajv;
-	public readonly validator: ValidateFunction | null = null;
-	public readonly errorMessages: FormProps<FormikValues>['errorMessages'];
-	public readonly schema: boolean | object;
+	private _validator: ValidateFunction | null = null;
+	private _errorMessages: FormProps<FormikValues>['errorMessages'] = {};
+	private _schema: boolean | object = {};
+
+	public get validator(): ValidateFunction | null {
+		return this._validator;
+	}
+
+	public get schema(): boolean | object {
+		return this._schema;
+	}
+
+	public get errorMessages(): FormProps<FormikValues>['errorMessages'] {
+		return this._errorMessages;
+	}
 
 	constructor(
 		schema: boolean | Record<string, any>,
@@ -20,28 +32,29 @@ export class CustomValidator {
 			...options,
 			$data: true,
 		});
-		this.schema = this.addSchemaToValidator(schema);
-		this.errorMessages = errorMessages;
-
 		addKeywords(this.ajv);
 
-		try {
-			this.validator = this.ajv.compile(this.schema);
-		} catch (error) {
-			console.error('INVALID SCHEMA!', 'Validation has been disabled', error);
-		}
+		this._compile(schema, errorMessages);
+	}
+
+	public setErrorMessages(errorMessages: FormProps<FormikValues>['errorMessages']): void {
+		this._compile(this._schema, errorMessages);
+	}
+
+	public setSchema(schema: boolean | object): void {
+		this._compile(schema, this._errorMessages);
 	}
 
 	public validate(values: FormikValues): any {
-		if (!this.validator) {
+		if (!this._validator) {
 			return {};
 		}
 
-		const cleanValues = this.removeEmptyPropsFromObject(values);
+		const cleanValues = this._removeEmptyPropsFromObject(values);
 
-		this.validator(cleanValues);
+		this._validator(cleanValues);
 
-		return (this.validator.errors || []).reduce((acc, err): FormikErrors<any> => {
+		return (this._validator.errors || []).reduce((acc, err): FormikErrors<any> => {
 			// Skip higher order validators since another validator while define de real error
 			if (['if'].includes(err.keyword)) {
 				return acc;
@@ -55,9 +68,9 @@ export class CustomValidator {
 			const errorPath = path.replace(/\[([0-9])\]/g, '[$]'); // TODO: look into split/join (maybe faster?)
 
 			const error =
-				typeof this.errorMessages[errorPath] === 'string'
-					? (this.errorMessages[errorPath] as string)
-					: prop(err.keyword)(this.errorMessages[errorPath] as Record<string, string>) ||
+				typeof this._errorMessages[errorPath] === 'string'
+					? (this._errorMessages[errorPath] as string)
+					: prop(err.keyword)(this._errorMessages[errorPath] as Record<string, string>) ||
 					  err.message ||
 					  err.keyword;
 			const errorProps = {
@@ -79,11 +92,27 @@ export class CustomValidator {
 					})
 			);
 
-			return set(lens, this.stringReplacer(error, errorProps), acc);
+			return set(lens, this._stringReplacer(error, errorProps), acc);
 		}, {} as FormikErrors<any>);
 	}
 
-	private stringReplacer(input: string, props: Record<string, any>): string {
+	private _compile(
+		schema: boolean | Record<string, any>,
+		errorMessages: FormProps<FormikValues>['errorMessages']
+	): void {
+		if (this.ajv) {
+			this._schema = this._addSchemaToValidator(schema);
+			this._errorMessages = errorMessages;
+
+			try {
+				this._validator = this.ajv.compile(this._schema);
+			} catch (error) {
+				console.error('INVALID SCHEMA!', 'Validation has been disabled', error);
+			}
+		}
+	}
+
+	private _stringReplacer(input: string, props: Record<string, any>): string {
 		return input.replace(/\${([^{}]*)}/g, (a, b) => {
 			const r = path(b.split('.'))(props);
 			return typeof r !== 'object' && !(r instanceof Date)
@@ -92,7 +121,7 @@ export class CustomValidator {
 		});
 	}
 
-	private addSchemaToValidator(schema: boolean | Record<string, object>): boolean | object {
+	private _addSchemaToValidator(schema: boolean | Record<string, object>): boolean | object {
 		if (typeof schema === 'boolean') {
 			return schema;
 		}
@@ -107,29 +136,29 @@ export class CustomValidator {
 		return schema;
 	}
 
-	private detectTypeAndRemoveEmptyProps(value: any): any {
+	private _detectTypeAndRemoveEmptyProps(value: any): any {
 		if (['', null, undefined].includes(value)) {
 			return null;
 		}
 
 		if (Array.isArray(value)) {
-			return this.removeEmptyPropsFromArray(value);
+			return this._removeEmptyPropsFromArray(value);
 		}
 
 		if (typeof value === 'object') {
-			return this.removeEmptyPropsFromObject(value);
+			return this._removeEmptyPropsFromObject(value);
 		}
 
 		return value;
 	}
 
-	private removeEmptyPropsFromArray(arr: any[]): any[] {
-		return arr.map(val => this.detectTypeAndRemoveEmptyProps(val));
+	private _removeEmptyPropsFromArray(arr: any[]): any[] {
+		return arr.map(val => this._detectTypeAndRemoveEmptyProps(val));
 	}
 
-	private removeEmptyPropsFromObject(values: FormikValues): Record<string, any> {
+	private _removeEmptyPropsFromObject(values: FormikValues): Record<string, any> {
 		return Object.keys(values).reduce((acc, key: string) => {
-			const cleanedValue = this.detectTypeAndRemoveEmptyProps(values[key]);
+			const cleanedValue = this._detectTypeAndRemoveEmptyProps(values[key]);
 
 			if (cleanedValue === null) {
 				return acc;

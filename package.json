@@ -38,10 +38,12 @@
     "@babel/preset-typescript": "^7.8.0",
     "@commitlint/cli": "8.3.5",
     "@commitlint/config-conventional": "8.3.4",
+    "@datorama/akita": "^5.2.5",
     "@redactie/module-webpack-plugin": "2.0.0",
     "@redactie/react-router-guards": "1.0.2",
     "@redactie/redactie-core": "^1.10.5",
     "@redactie/schema-to-yup": "1.9.25",
+    "@redactie/utils": "^0.16.0",
     "@testing-library/jest-dom": "5.0.2",
     "@testing-library/react": "9.4.0",
     "@types/classnames": "^2.2.9",
@@ -68,12 +70,10 @@
     "formik": "2.1.4",
     "husky": "4.2.1",
     "identity-obj-proxy": "^3.0.0",
-    "install": "0.13.0",
     "jest": "^25.1.0",
     "lodash.debounce": "^4.0.8",
     "lodash.kebabcase": "^4.1.1",
     "node-sass": "^4.13.1",
-    "npm": "6.13.7",
     "postcss-loader": "^3.0.0",
     "postcss-preset-env": "^6.7.0",
     "prettier": "1.19.1",
@@ -89,7 +89,8 @@
     "typescript-plugin-css-modules": "^2.1.2",
     "webpack": "4.41.5",
     "webpack-bundle-analyzer": "3.6.0",
-    "webpack-cli": "3.3.10"
+    "webpack-cli": "3.3.10",
+    "worker-loader": "^3.0.5"
   },
   "files": [
     "dist"

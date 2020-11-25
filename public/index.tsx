@@ -1,6 +1,6 @@
 import Core from '@redactie/redactie-core';
 
-import { CustomValidator } from './lib/classes/CustomValidator/CustomValidator';
+import { CustomValidator, CustomValidatorWorker } from './lib/classes';
 import { ErrorMessage } from './lib/components/ErrorMessage';
 import { Form } from './lib/components/Form';
 import { View } from './lib/components/View';
@@ -14,6 +14,7 @@ Core.modules.exposeModuleApi('forms-module', {
 	View,
 	ErrorMessage,
 	CustomValidator,
+	CustomValidatorWorker,
 	fieldRegistry,
 	viewRegistry,
 	parseFields,
