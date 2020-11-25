@@ -71,6 +71,7 @@ const RedactionForm: React.FC<FormProps<FormValues>> = ({
 				new CustomValidatorWorker(tenantContext.tenantId, validationSchema, errorMessages, {
 					allErrors: true,
 					messages: true,
+					log: window.DEBUG || false,
 				})
 			);
 		}
@@ -78,6 +79,7 @@ const RedactionForm: React.FC<FormProps<FormValues>> = ({
 			new CustomValidator(validationSchema, errorMessages, {
 				allErrors: true,
 				messages: true,
+				log: window.DEBUG || false,
 			})
 		);
 	}, [

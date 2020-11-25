@@ -1,8 +1,9 @@
 import { PromiseWorker } from '@redactie/utils';
-import { Options, ValidateFunction } from 'ajv';
+import { ValidateFunction } from 'ajv';
 import { FormikErrors, FormikValues } from 'formik';
 
 import { FormProps } from '../../components/Form';
+import { CustomValidatorOptions } from '../CustomValidator/CustomValidator.types';
 
 import {
 	CustomValidatorWorkerInitData,
@@ -21,7 +22,7 @@ export class CustomValidatorWorker {
 		tenantId: string,
 		schema: boolean | Record<string, any>,
 		errorMessages: FormProps<FormikValues>['errorMessages'],
-		options: Options
+		options: CustomValidatorOptions = {}
 	) {
 		this.errorMessages = errorMessages;
 		this.schema = schema;

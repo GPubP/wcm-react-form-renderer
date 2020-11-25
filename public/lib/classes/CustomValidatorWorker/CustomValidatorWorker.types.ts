@@ -1,7 +1,7 @@
-import { Options } from 'ajv';
 import { FormikValues } from 'formik';
 
 import { FormProps } from '../../components/Form';
+import { CustomValidatorOptions } from '../CustomValidator/CustomValidator.types';
 
 export enum CustomValidatorWorkerMessageTypes {
 	INIT = 'init',
@@ -18,5 +18,5 @@ export interface CustomValidatorWorkerMessage<Data = any> {
 export interface CustomValidatorWorkerInitData {
 	schema: boolean | object;
 	errorMessages: FormProps<FormikValues>['errorMessages'];
-	options: Options;
+	options: CustomValidatorOptions;
 }
