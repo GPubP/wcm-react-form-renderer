@@ -22,7 +22,7 @@ const RedactionForm: React.FC<FormProps<FormValues>> = ({
 	initialValues,
 	children,
 	validateWorker = true,
-	delay = 3000,
+	delay = 300,
 	formikRef,
 	...rest
 }) => {
