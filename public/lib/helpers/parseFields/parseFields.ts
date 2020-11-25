@@ -1,6 +1,6 @@
 import { omit } from 'ramda';
 
-import { ContentTypeFieldSchema, FieldSchema } from '../../core.types';
+import { ContentTypeFieldSchema, FieldSchema, Preset } from '../../core.types';
 
 export const parseFields = (fields: ContentTypeFieldSchema[] = []): FieldSchema[] => {
 	const getFieldSchema = (field: ContentTypeFieldSchema): FieldSchema => {
@@ -44,11 +44,12 @@ export const parseFields = (fields: ContentTypeFieldSchema[] = []): FieldSchema[
 			dataType: dataType.data.type,
 			fields: parseFields(config.fields),
 			uuid: field.uuid,
+			hidden: !!generalConfig.hidden,
 			config: {
 				...config,
 				...generalConfig,
 				description: generalConfig.guideline,
-				preset,
+				preset: preset as Preset,
 				fieldType,
 				dataType,
 			},
@@ -103,17 +104,6 @@ export const parseFields = (fields: ContentTypeFieldSchema[] = []): FieldSchema[
 	};
 
 	return fields.reduce((acc, field) => {
-		const {
-			generalConfig = {
-				hidden: false,
-			},
-		} = field;
-
-		// Don't show field when it is a hidden field
-		if (generalConfig.hidden) {
-			return acc;
-		}
-
 		acc.push(getFieldSchema(field));
 
 		return acc;

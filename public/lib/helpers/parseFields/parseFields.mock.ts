@@ -1,6 +1,7 @@
 export const fieldTypeSingle = {
 	name: 'fieldTypeSingle',
 	label: 'field type single',
+	uuid: 'some-uuid',
 	fieldType: {
 		data: {
 			module: 'core',
@@ -48,6 +49,7 @@ export const fieldTypeMultiple = {
 export const presetSingle = {
 	name: 'presetSingle',
 	label: 'preset single',
+	uuid: 'some-uuid',
 	fieldType: {
 		data: {
 			module: 'core',

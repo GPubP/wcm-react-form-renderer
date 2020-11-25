@@ -137,16 +137,16 @@ export class CustomValidator {
 	}
 
 	private _detectTypeAndRemoveEmptyProps(value: any): any {
+		if (['', null, undefined].includes(value)) {
+			return null;
+		}
+
 		if (Array.isArray(value)) {
 			return this._removeEmptyPropsFromArray(value);
 		}
 
 		if (typeof value === 'object') {
 			return this._removeEmptyPropsFromObject(value);
-		}
-
-		if (['', null, undefined].includes(value)) {
-			return null;
 		}
 
 		return value;
