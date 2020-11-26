@@ -10,7 +10,7 @@ export const createInitialValues = (
 	schema: FormSchema,
 	initialValues: Record<string, any> = {}
 ): FormValues => {
-	if (!Array.isArray(schema.fields)) {
+	if (!Array.isArray(schema?.fields)) {
 		// TODO: Decide if we want to throw an error here?
 		return {};
 	}

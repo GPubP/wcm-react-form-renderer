@@ -34,7 +34,7 @@ const Repeater: React.FC<RepeaterProps> = ({ fieldSchema }) => {
 	const disabled = !!config.disabled;
 
 	useEffect(() => {
-		if (!Array.isArray(value)) {
+		if (value && !Array.isArray(value)) {
 			helpers.setValue([
 				{
 					value,

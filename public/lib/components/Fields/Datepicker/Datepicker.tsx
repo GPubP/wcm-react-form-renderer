@@ -34,7 +34,7 @@ const Datepicker: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }: Inpu
 				}}
 				activeDate={field.value}
 			/>
-			<ErrorMessage name={field.name} />
+			{!config.skipErrorMessage ? <ErrorMessage name={field.name} /> : null}
 		</>
 	);
 };
