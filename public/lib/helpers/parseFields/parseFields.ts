@@ -86,6 +86,7 @@ export const parseFields = (fields: ContentTypeFieldSchema[] = []): FieldSchema[
 				label,
 				type: 'repeater',
 				dataType: 'array',
+				hidden: !!generalConfig.hidden,
 				config: {
 					...config,
 					...generalConfig,
