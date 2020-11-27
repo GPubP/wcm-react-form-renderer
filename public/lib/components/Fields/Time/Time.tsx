@@ -33,7 +33,7 @@ const Time: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }) => {
 				value={field.value}
 				{...fieldSchema.config}
 			/>
-			<ErrorMessage name={field.name} />
+			{!config.skipErrorMessage ? <ErrorMessage name={field.name} /> : null}
 		</>
 	);
 };

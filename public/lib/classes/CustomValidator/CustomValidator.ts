@@ -64,7 +64,12 @@ export class CustomValidator {
 				err.keyword === 'required'
 					? `${err.dataPath}.${(err.params as RequiredParams).missingProperty}`
 					: err.dataPath;
-			const path = concatPath.replace(/^\./, ''); // TODO: look into regex/non-regex speeds
+			const path = concatPath
+				// Replaces leading dot in path
+				.replace(/^\./, '')
+				// Replaces ['field-name'] notation to `field-name` (formik expects this)
+				.replace(/\['(.*)'\]/g, '$1'); // TODO: look into regex/non-regex speeds
+			// Replaces index notation [1] to [$] for errorMessages map
 			const errorPath = path.replace(/\[([0-9])\]/g, '[$]'); // TODO: look into split/join (maybe faster?)
 
 			const error =
@@ -83,6 +88,7 @@ export class CustomValidator {
 
 			const lens = lensPath(
 				path
+					// Replaces index notation [1] to .1 because formik expects this
 					.replace(/\[([0-9])\]/g, '.$1')
 					.split('.')
 					.map(key => {
