@@ -23,6 +23,7 @@ const renderForm = (props?: Partial<FormProps<FormValues>>): RenderResult => {
 		onSubmit: () => {
 			return;
 		},
+		log: false,
 		schema: { fields: [] },
 	};
 	return render(

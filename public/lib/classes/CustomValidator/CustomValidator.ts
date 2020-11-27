@@ -1,9 +1,11 @@
-import AJV, { Ajv, Options, RequiredParams, ValidateFunction } from 'ajv';
+import AJV, { Ajv, RequiredParams, ValidateFunction } from 'ajv';
 import addKeywords from 'ajv-keywords';
 import { FormikErrors, FormikValues } from 'formik';
 import { lensPath, omit, path, prop, set } from 'ramda';
 
 import { FormProps } from '../../components/Form/Form.types';
+
+import { CustomValidatorOptions } from './CustomValidator.types';
 
 export class CustomValidator {
 	public readonly ajv: Ajv;
@@ -26,10 +28,10 @@ export class CustomValidator {
 	constructor(
 		schema: boolean | Record<string, any>,
 		errorMessages: FormProps<FormikValues>['errorMessages'],
-		options: Options
+		private _options: CustomValidatorOptions = {}
 	) {
 		this.ajv = new AJV({
-			...options,
+			...omit(['log'], this._options),
 			$data: true,
 		});
 		addKeywords(this.ajv);
@@ -54,7 +56,9 @@ export class CustomValidator {
 
 		this._validator(cleanValues);
 
-		return (this._validator.errors || []).reduce((acc, err): FormikErrors<any> => {
+		this._log('RAW ERRORS', this.validator?.errors || []);
+
+		const result = (this._validator.errors || []).reduce((acc, err): FormikErrors<any> => {
 			// Skip higher order validators since another validator while define de real error
 			if (['if'].includes(err.keyword)) {
 				return acc;
@@ -100,6 +104,16 @@ export class CustomValidator {
 
 			return set(lens, this._stringReplacer(error, errorProps), acc);
 		}, {} as FormikErrors<any>);
+
+		this._log('PARSED ERRORS', result);
+
+		return result;
+	}
+
+	private _log(...args: any[]): void {
+		if (this._options.log) {
+			console.log('CUSTOM VALIDATOR:', ...args);
+		}
 	}
 
 	private _compile(

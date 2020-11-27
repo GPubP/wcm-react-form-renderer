@@ -48,6 +48,10 @@ export interface FormProps<Values> {
 	 */
 	validateWorker?: boolean;
 	/**
+	 * Specify if dev logs (eg validator results) should be shown
+	 */
+	log: boolean;
+	/**
 	 * onSubmit
 	 * Use this function to get the form results on submit
 	 *
