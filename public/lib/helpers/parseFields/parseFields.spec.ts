@@ -42,6 +42,7 @@ describe('parseFields', () => {
 				name: fieldTypeMultiple.name,
 				module: 'core',
 				label: fieldTypeMultiple.label,
+				hidden: false,
 				type: 'repeater',
 				dataType: 'array',
 				config: {
@@ -137,6 +138,7 @@ describe('parseFields', () => {
 					name: presetMultiple.name,
 					module: presetMultiple.fieldType.data.module,
 					label: presetMultiple.label,
+					hidden: false,
 					type: 'repeater',
 					dataType: 'array',
 					config: {
