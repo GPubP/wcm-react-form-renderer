@@ -1,8 +1,11 @@
 import { omit } from 'ramda';
 
-import { ContentTypeFieldSchema, FieldSchema, Preset } from '../../core.types';
+import { ContentTypeFieldSchema, FieldSchema, GeneralConfig, Preset } from '../../core.types';
 
-export const parseFields = (fields: ContentTypeFieldSchema[] = []): FieldSchema[] => {
+export const parseFields = (
+	fields: ContentTypeFieldSchema[] = [],
+	parentGeneralConfig?: GeneralConfig
+): FieldSchema[] => {
 	const getFieldSchema = (field: ContentTypeFieldSchema): FieldSchema => {
 		const {
 			generalConfig = {
@@ -30,6 +33,7 @@ export const parseFields = (fields: ContentTypeFieldSchema[] = []): FieldSchema[
 			preset,
 		} = field;
 		const isMultiple = (generalConfig.max || 0) > 1;
+		const isDisabled = parentGeneralConfig?.disabled || generalConfig.disabled || false;
 		const isPreset = !!preset;
 		const formField: FieldSchema = {
 			name,
@@ -42,12 +46,16 @@ export const parseFields = (fields: ContentTypeFieldSchema[] = []): FieldSchema[
 					: preset.data.name
 				: '',
 			dataType: dataType.data.type,
-			fields: parseFields(config.fields),
+			fields: parseFields(config.fields, {
+				...generalConfig,
+				...(parentGeneralConfig || {}),
+			}),
 			uuid: field.uuid,
 			hidden: !!generalConfig.hidden,
 			config: {
 				...config,
 				...generalConfig,
+				disabled: isDisabled,
 				description: generalConfig.guideline,
 				preset: preset as Preset,
 				fieldType,
@@ -91,6 +99,7 @@ export const parseFields = (fields: ContentTypeFieldSchema[] = []): FieldSchema[
 					...config,
 					...generalConfig,
 					description: generalConfig.guideline,
+					disabled: isDisabled,
 				},
 				fields: [
 					{
