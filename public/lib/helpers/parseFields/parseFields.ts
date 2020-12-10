@@ -99,6 +99,7 @@ export const parseFields = (
 					...config,
 					...generalConfig,
 					description: generalConfig.guideline,
+					disabled: isDisabled,
 				},
 				fields: [
 					{

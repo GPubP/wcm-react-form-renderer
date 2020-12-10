@@ -30,6 +30,7 @@ describe('parseFields', () => {
 						fieldType: fieldTypeSingle.fieldType,
 						dataType: fieldTypeSingle.dataType,
 						description: fieldTypeSingle.generalConfig.guideline,
+						disabled: false,
 					},
 				});
 			});
@@ -50,6 +51,7 @@ describe('parseFields', () => {
 					guideline: fieldTypeMultiple.generalConfig.guideline,
 					hidden: fieldTypeMultiple.generalConfig.hidden,
 					description: fieldTypeMultiple.generalConfig.guideline,
+					disabled: false,
 				},
 				fields: [
 					{
@@ -71,6 +73,7 @@ describe('parseFields', () => {
 							preset: undefined,
 							fieldType: fieldTypeMultiple.fieldType,
 							dataType: fieldTypeMultiple.dataType,
+							disabled: false,
 						},
 					},
 				],
@@ -111,6 +114,7 @@ describe('parseFields', () => {
 								preset: undefined,
 								fieldType: fieldTypeSingle.fieldType,
 								dataType: fieldTypeSingle.dataType,
+								disabled: false,
 							},
 						},
 					],
@@ -123,6 +127,7 @@ describe('parseFields', () => {
 						preset: presetSingle.preset,
 						fieldType: presetSingle.fieldType,
 						dataType: presetSingle.dataType,
+						disabled: false,
 					},
 				});
 			});
@@ -147,6 +152,7 @@ describe('parseFields', () => {
 						guideline: presetMultiple.generalConfig.guideline,
 						hidden: presetMultiple.generalConfig.hidden,
 						description: presetMultiple.generalConfig.guideline,
+						disabled: false,
 					},
 					fields: [
 						{
@@ -177,6 +183,7 @@ describe('parseFields', () => {
 										preset: undefined,
 										fieldType: fieldTypeSingle.fieldType,
 										dataType: fieldTypeSingle.dataType,
+										disabled: false,
 									},
 								},
 							],
@@ -188,6 +195,7 @@ describe('parseFields', () => {
 								preset: presetMultiple.preset,
 								fieldType: presetMultiple.fieldType,
 								dataType: presetMultiple.dataType,
+								disabled: false,
 							},
 						},
 					],
