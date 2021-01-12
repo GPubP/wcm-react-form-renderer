@@ -26,7 +26,7 @@ export type FormValues = FormikValues;
 
 export interface FieldOption {
 	value: {
-		key: string;
+		key?: string;
 		value: string;
 		label?: string;
 	};
