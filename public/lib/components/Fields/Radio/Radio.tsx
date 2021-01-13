@@ -25,10 +25,10 @@ const InputRadio: FC<InputFieldProps> = ({
 	/**
 	 * Hooks
 	 */
-	const options = useMemo(() => filterAllowedOptions(config.options, config.allowedOptions), [
-		config.options,
-		config.allowedOptions,
-	]);
+	const options = useMemo(
+		() => filterAllowedOptions(config.options, config.allowedOptions, field.name),
+		[config.options, config.allowedOptions, field.name]
+	);
 	const showField = useSelectFirstOptionWhenHidden(config, field.value, fieldHelperProps);
 
 	return (
