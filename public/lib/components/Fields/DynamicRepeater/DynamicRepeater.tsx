@@ -43,7 +43,6 @@ const DynamicRepeater: React.FC<DynamicRepeaterProps> = ({ fieldSchema }) => {
 	 * @param item
 	 */
 	const addItem = (arrayHelper: FieldArrayRenderProps, item: FieldSchema): void => {
-		console.log('addItem', item);
 		const itemToAdd: DynamicRepeaterItem = {
 			value: undefined,
 			uuid: uuid(),
@@ -227,8 +226,6 @@ const DynamicRepeater: React.FC<DynamicRepeaterProps> = ({ fieldSchema }) => {
 							},
 						};
 					}
-
-					console.log('DR', schema, value);
 
 					return renderListItem(arrayHelper, schema, value, index, repeaterValues);
 				})}

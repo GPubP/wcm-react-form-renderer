@@ -1,7 +1,4 @@
-@import '~@a-ui/core/src/styles/quarks/quarks.mixins';
-@import '~@a-ui/core/src/styles/quarks/quarks.functions';
-@import "~@a-ui/core/src/styles/quarks/_quarks.colors";
-@import "~@a-ui/core/src/styles/quarks/_quarks.variables";
+@import '~@a-ui/core/src/styles/_quarks';
 
 .a-field-renderer-field {
 	margin-bottom: $spacer;
