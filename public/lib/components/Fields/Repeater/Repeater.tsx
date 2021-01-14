@@ -15,6 +15,7 @@ import { v4 as uuid } from 'uuid';
 import { FieldSchema } from '../../../core.types';
 import { createInitialValues } from '../../../utils';
 import { FieldRenderer } from '../../FieldRenderer';
+import { FormRendererFieldTitle } from '../../FormRendererFieldTitle';
 
 import { DND_ITEM_TYPE } from './Repeater.const';
 import styles from './Repeater.module.scss';
@@ -114,11 +115,11 @@ const Repeater: React.FC<RepeaterProps> = ({ fieldSchema }) => {
 		index: number
 	): ReactElement => (
 		<DndDragDroppable
-			key={`reapeater-${name}-${value.uuid}`}
+			key={`reapeater-${arrayHelper.name}-${value.uuid}`}
 			id={value.uuid}
 			moveRow={moveRow(arrayHelper)}
 			index={index}
-			accept={[`${DND_ITEM_TYPE}_${name}`]}
+			accept={[`${DND_ITEM_TYPE}_${arrayHelper.name}`]}
 		>
 			{({
 				isDragging,
@@ -226,19 +227,14 @@ const Repeater: React.FC<RepeaterProps> = ({ fieldSchema }) => {
 						addItem(arrayHelper);
 					}
 					return (
-						<div className={cx('repeater', 'u-margin-bottom', config.wrapperClassName)}>
+						<div className={cx('repeater', config.wrapperClassName)}>
 							{fieldSchema.label && (
-								<h6
-									className={cx(
-										'repeater__label',
-										{
-											'is-required': isRequired,
-										},
-										'u-margin-bottom'
-									)}
+								<FormRendererFieldTitle
+									isRequired={isRequired}
+									className="u-margin-bottom"
 								>
 									{fieldSchema.label}
-								</h6>
+								</FormRendererFieldTitle>
 							)}
 							{config.description && (
 								<p className="u-margin-bottom"> {config.description} </p>

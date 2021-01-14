@@ -31,6 +31,7 @@ export const parseFields = (
 			dataType,
 			label,
 			preset,
+			uuid,
 		} = field;
 		const isMultiple = (generalConfig.max || 0) > 1;
 		const isDisabled = parentGeneralConfig?.disabled || generalConfig.disabled || false;
@@ -38,6 +39,7 @@ export const parseFields = (
 		const formField: FieldSchema = {
 			name,
 			label,
+			uuid,
 			module: fieldType?.data?.module,
 			type: fieldType?.data?.componentName,
 			view: preset
@@ -50,7 +52,6 @@ export const parseFields = (
 				...generalConfig,
 				...(parentGeneralConfig || {}),
 			}),
-			uuid: field.uuid,
 			hidden: !!generalConfig.hidden,
 			config: {
 				...config,
@@ -90,8 +91,9 @@ export const parseFields = (
 
 			return {
 				name,
-				module: 'core',
 				label,
+				uuid,
+				module: 'core',
 				type: 'repeater',
 				dataType: 'array',
 				hidden: !!generalConfig.hidden,

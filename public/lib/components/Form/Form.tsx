@@ -5,12 +5,13 @@ import { equals, isEmpty } from 'ramda';
 import React, { ReactNode, useCallback, useEffect, useState } from 'react';
 
 import { CustomValidator, CustomValidatorWorker } from '../../classes';
+import { FormContext } from '../../context';
 import { FieldSchema, FormValues } from '../../core.types';
 import { createInitialValues, isEmptyChildren, isFunction } from '../../utils';
 import { FieldRenderer } from '../FieldRenderer';
 import { FormikOnChangeHandler } from '../FormikOnChangeHandler';
-import { SchemaProvider } from '../SchemaProvider';
 
+import { DEFAULT_ALLOWED_HEADERS } from './Form.const';
 import { FormProps } from './Form.types';
 
 const RedactionForm: React.FC<FormProps<FormValues>> = ({
@@ -24,6 +25,8 @@ const RedactionForm: React.FC<FormProps<FormValues>> = ({
 	validateWorker = true,
 	delay = 300,
 	formikRef,
+	useDividers = false,
+	allowedHeaders = DEFAULT_ALLOWED_HEADERS,
 	...rest
 }) => {
 	const [initialFormValue, setInitialFormValue] = useState<FormValues | undefined>(initialValues);
@@ -142,7 +145,7 @@ const RedactionForm: React.FC<FormProps<FormValues>> = ({
 	}
 
 	return (
-		<SchemaProvider value={{ schema }}>
+		<FormContext.Provider value={{ useDividers, schema, allowedHeaders }}>
 			<Formik
 				innerRef={instance => isFunction(formikRef) && formikRef(instance)}
 				initialValues={initialFormValue}
@@ -171,7 +174,7 @@ const RedactionForm: React.FC<FormProps<FormValues>> = ({
 					</>
 				)}
 			</Formik>
-		</SchemaProvider>
+		</FormContext.Provider>
 	);
 };
 

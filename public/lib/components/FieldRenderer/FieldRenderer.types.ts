@@ -5,4 +5,5 @@ export interface FieldRendererProps {
 	 * Schema of one field
 	 */
 	fieldSchema: FieldSchema;
+	level?: number;
 }
