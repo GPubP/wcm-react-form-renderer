@@ -43,7 +43,7 @@ const DynamicRepeater: React.FC<DynamicRepeaterProps> = ({ fieldSchema }) => {
 	 */
 	const addItem = (arrayHelper: FieldArrayRenderProps, item: FieldSchema): void => {
 		const itemToAdd: DynamicRepeaterItem = {
-			value: undefined,
+			value: config.fields.find((f: FieldSchema) => f.name === item.name)?.defaultValue,
 			uuid: uuid(),
 			type: item.type,
 			fieldRef: item.uuid || '',
