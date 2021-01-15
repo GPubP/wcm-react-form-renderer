@@ -1,4 +1,4 @@
-import { RadioGroup } from '@acpaas-ui/react-components/packages/form';
+import { RadioGroup } from '@acpaas-ui/react-components';
 import { omit } from 'ramda';
 import React, { FC, useMemo } from 'react';
 
