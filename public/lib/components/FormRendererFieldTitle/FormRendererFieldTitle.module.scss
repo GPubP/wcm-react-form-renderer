@@ -1,6 +1,6 @@
 .a-field-renderer-field__title--required {
-    &::after {
-        color: #da291c;
-        content: ' *';
-    }
+	&::after {
+		color: #da291c;
+		content: ' *';
+	}
 }

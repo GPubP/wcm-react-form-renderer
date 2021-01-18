@@ -1,0 +1,31 @@
+@import '~@a-ui/core/src/styles/_quarks';
+
+.field-group {
+	&__item {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		min-width: 100%;
+
+		&__fields {
+			flex-basis: 100%;
+		}
+
+		&--hidden {
+			display: block;
+
+			.field-group__item__fields {
+				padding: $spacer;
+				border: 1px dashed $grey;
+			}
+		}
+
+		card {
+			min-width: 100%;
+		}
+	}
+
+	.no-border {
+		border: none !important;
+	}
+}

@@ -46,6 +46,7 @@ describe('parseFields', () => {
 				hidden: false,
 				type: 'repeater',
 				dataType: 'array',
+				uuid: fieldTypeMultiple.uuid,
 				config: {
 					max: 2,
 					guideline: fieldTypeMultiple.generalConfig.guideline,
@@ -146,6 +147,7 @@ describe('parseFields', () => {
 					hidden: false,
 					type: 'repeater',
 					dataType: 'array',
+					uuid: presetMultiple.uuid,
 					config: {
 						fields: presetMultiple.config.fields,
 						max: presetMultiple.generalConfig.max,
