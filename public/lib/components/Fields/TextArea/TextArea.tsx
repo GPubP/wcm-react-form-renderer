@@ -1,4 +1,4 @@
-import { Textarea } from '@acpaas-ui/react-components/packages/form';
+import { Textarea } from '@acpaas-ui/react-components';
 import { omit } from 'ramda';
 import React from 'react';
 

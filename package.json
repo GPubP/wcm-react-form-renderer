@@ -29,7 +29,7 @@
   "author": "glenn.verschooren@studiohyperdrive.be",
   "license": "ISC",
   "devDependencies": {
-    "@acpaas-ui/react-components": "^4.0.0",
+    "@acpaas-ui/react-components": "4.8.1",
     "@acpaas-ui/react-editorial-components": "0.0.2-9",
     "@babel/compat-data": "^7.8.0",
     "@babel/core": "^7.8.0",

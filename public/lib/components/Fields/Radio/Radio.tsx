@@ -1,4 +1,4 @@
-import { RadioGroup } from '@acpaas-ui/react-components/packages/form';
+import { RadioGroup } from '@acpaas-ui/react-components';
 import { omit } from 'ramda';
 import React, { FC, useMemo } from 'react';
 
@@ -25,10 +25,10 @@ const InputRadio: FC<InputFieldProps> = ({
 	/**
 	 * Hooks
 	 */
-	const options = useMemo(() => filterAllowedOptions(config.options, config.allowedOptions), [
-		config.options,
-		config.allowedOptions,
-	]);
+	const options = useMemo(
+		() => filterAllowedOptions(config.options, config.allowedOptions, field.name),
+		[config.options, config.allowedOptions, field.name]
+	);
 	const showField = useSelectFirstOptionWhenHidden(config, field.value, fieldHelperProps);
 
 	return (
