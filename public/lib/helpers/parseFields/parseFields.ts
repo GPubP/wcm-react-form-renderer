@@ -32,6 +32,7 @@ export const parseFields = (
 			label,
 			preset,
 			uuid,
+			defaultValue,
 		} = field;
 		const isMultiple = (generalConfig.max || 0) > 1;
 		const isDisabled = parentGeneralConfig?.disabled || generalConfig.disabled || false;
@@ -62,6 +63,7 @@ export const parseFields = (
 				fieldType,
 				dataType,
 			},
+			defaultValue,
 		};
 
 		if (isMultiple) {
@@ -97,6 +99,7 @@ export const parseFields = (
 				type: 'repeater',
 				dataType: 'array',
 				hidden: !!generalConfig.hidden,
+				defaultValue,
 				config: {
 					...config,
 					...generalConfig,
@@ -105,7 +108,7 @@ export const parseFields = (
 				},
 				fields: [
 					{
-						...formField,
+						...omit(['defaultValue'], formField),
 						name: 'value',
 					} as FieldSchema,
 				],
