@@ -2,8 +2,11 @@ import { ErrorMessageProps, FormikValues } from 'formik';
 
 import { CustomValidator, CustomValidatorWorker } from './classes';
 import { FormProps } from './components/Form';
+import { FormRendererFieldTitleProps } from './components/FormRendererFieldTitle/FormRendererFieldTitle.types';
 import { ViewProps } from './components/View';
+import { FieldRendererContext } from './context';
 import { parseFields } from './helpers/parseFields';
+import { useFieldRendererContext, useFormContext } from './hooks';
 import { FieldRegistry } from './services/fieldRegistry';
 import { ViewRegistry } from './services/viewRegistry';
 
@@ -101,6 +104,10 @@ export interface FormsAPI {
 	fieldRegistry: FieldRegistry;
 	viewRegistry: ViewRegistry;
 	parseFields: typeof parseFields;
+	useFieldRendererContext: typeof useFieldRendererContext;
+	useFormContext: typeof useFormContext;
+	FieldRendererContext: typeof FieldRendererContext;
+	FormRendererFieldTitle: FormRendererFieldTitleProps;
 }
 
 export interface Validator {

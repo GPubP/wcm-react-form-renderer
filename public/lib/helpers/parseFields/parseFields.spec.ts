@@ -24,6 +24,7 @@ describe('parseFields', () => {
 					hidden: fieldTypeSingle.generalConfig.hidden,
 					uuid: fieldTypeSingle.uuid,
 					fields: [],
+					defaultValue: fieldTypeSingle.defaultValue,
 					config: {
 						...fieldTypeSingle.config,
 						...fieldTypeSingle.generalConfig,
@@ -31,6 +32,7 @@ describe('parseFields', () => {
 						dataType: fieldTypeSingle.dataType,
 						description: fieldTypeSingle.generalConfig.guideline,
 						disabled: false,
+						preset: undefined,
 					},
 				});
 			});
@@ -46,6 +48,8 @@ describe('parseFields', () => {
 				hidden: false,
 				type: 'repeater',
 				dataType: 'array',
+				uuid: fieldTypeMultiple.uuid,
+				defaultValue: fieldTypeMultiple.defaultValue,
 				config: {
 					max: 2,
 					guideline: fieldTypeMultiple.generalConfig.guideline,
@@ -95,6 +99,7 @@ describe('parseFields', () => {
 					hidden: presetSingle.generalConfig.hidden,
 					uuid: presetSingle.uuid,
 					dataType: presetSingle.dataType.data.type,
+					defaultValue: presetSingle.defaultValue,
 					fields: [
 						{
 							name: fieldTypeSingle.name,
@@ -105,6 +110,7 @@ describe('parseFields', () => {
 							dataType: fieldTypeSingle.dataType.data.type,
 							hidden: fieldTypeSingle.generalConfig.hidden,
 							uuid: fieldTypeSingle.uuid,
+							defaultValue: fieldTypeSingle.defaultValue,
 							fields: [],
 							config: {
 								max: fieldTypeSingle.generalConfig.max,
@@ -146,6 +152,8 @@ describe('parseFields', () => {
 					hidden: false,
 					type: 'repeater',
 					dataType: 'array',
+					uuid: presetMultiple.uuid,
+					defaultValue: presetMultiple.defaultValue,
 					config: {
 						fields: presetMultiple.config.fields,
 						max: presetMultiple.generalConfig.max,
@@ -174,6 +182,7 @@ describe('parseFields', () => {
 									dataType: fieldTypeSingle.dataType.data.type,
 									hidden: fieldTypeSingle.generalConfig.hidden,
 									uuid: fieldTypeSingle.uuid,
+									defaultValue: fieldTypeSingle.defaultValue,
 									fields: [],
 									config: {
 										max: fieldTypeSingle.generalConfig.max,

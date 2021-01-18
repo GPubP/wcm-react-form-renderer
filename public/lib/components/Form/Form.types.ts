@@ -2,6 +2,10 @@ import { FormikHelpers, FormikProps, FormikValues } from 'formik';
 
 import { FormSchema, FormValues } from '../../core.types';
 
+export interface AllowedHeader {
+	element: string;
+	class: string;
+}
 export interface FormProps<Values> {
 	/**
 	 * Form schema
@@ -67,4 +71,9 @@ export interface FormProps<Values> {
 	 * A reference to the formik instance
 	 */
 	formikRef?: (formikRef: FormikProps<FormikValues>) => void;
+	/**
+	 * Specify if the form should use dividers between fields
+	 */
+	useDividers?: boolean;
+	allowedHeaders?: readonly AllowedHeader[] | AllowedHeader[];
 }

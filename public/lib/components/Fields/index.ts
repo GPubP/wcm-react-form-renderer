@@ -2,7 +2,6 @@ import { FieldConfig } from '../../services/fieldRegistry';
 import {
 	DateTimeView,
 	DateView,
-	DefaultView,
 	DynamicRepeaterView,
 	EmailView,
 	FieldGroupView,

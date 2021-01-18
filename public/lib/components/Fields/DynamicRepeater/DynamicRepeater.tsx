@@ -9,6 +9,7 @@ import { v4 as uuid } from 'uuid';
 import { FieldSchema } from '../../../core.types';
 import { FieldRenderer } from '../../FieldRenderer';
 import { FlyoutSelect } from '../../FlyoutSelect';
+import { FormRendererFieldTitle } from '../../FormRendererFieldTitle';
 
 import { DND_ITEM_TYPE } from './DynamicRepeater.const';
 import styles from './DynamicRepeater.module.scss';
@@ -240,17 +241,12 @@ const DynamicRepeater: React.FC<DynamicRepeaterProps> = ({ fieldSchema }) => {
 					return (
 						<div className={cx('repeater', 'u-margin-bottom', config.wrapperClassName)}>
 							{fieldSchema.label && (
-								<h6
-									className={cx(
-										'repeater__label',
-										{
-											'is-required': isRequired,
-										},
-										'u-margin-bottom-xs'
-									)}
+								<FormRendererFieldTitle
+									isRequired={isRequired}
+									className="u-margin-bottom-xs"
 								>
 									{fieldSchema.label}
-								</h6>
+								</FormRendererFieldTitle>
 							)}
 							{config.description ? (
 								<p className="u-margin-bottom"> {config.description} </p>

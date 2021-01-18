@@ -1,11 +1,4 @@
 .repeater {
-	&__label.is-required {
-		&::after {
-			color: #da291c;
-			content: ' *';
-		}
-	}
-
 	&__item {
 		display: flex;
 		justify-content: space-between;

@@ -1,2 +1,2 @@
-export { default as FieldRenderer } from './FieldRenderer';
+export { default as FieldRenderer, FieldRendererStyles } from './FieldRenderer';
 export * from './FieldRenderer.types';

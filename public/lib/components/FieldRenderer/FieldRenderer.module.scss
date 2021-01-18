@@ -1,0 +1,25 @@
+@import '~@a-ui/core/src/styles/_quarks';
+
+.a-field-renderer-field {
+	margin-bottom: $spacer;
+
+	&--level-0 {
+		padding: $spacer-lg $spacer;
+		margin-bottom: 0;
+
+		// This hack is needed to have crontrol over de dashed width and gaps;
+		background-image: linear-gradient(to right, $grey 50%, transparent 50%);
+		background-position: left bottom;
+		background-repeat: repeat-x;
+		background-size: 10px 2px;
+
+		&:first-child {
+			padding-top: 0;
+		}
+
+		&:last-child {
+			padding-bottom: 0;
+			background: none;
+		}
+	}
+}
