@@ -1,4 +1,4 @@
-import { TextField } from '@acpaas-ui/react-components/packages/form';
+import { TextField } from '@acpaas-ui/react-components';
 import { getIn } from 'formik';
 import { omit } from 'ramda';
 import React from 'react';
