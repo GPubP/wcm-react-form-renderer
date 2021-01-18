@@ -2,8 +2,8 @@ import { useContext } from 'react';
 
 import { FormContext, FormContextValue } from '../../context';
 
-const useForm = (): FormContextValue => {
+const useFormContext = (): FormContextValue => {
 	return useContext(FormContext);
 };
 
-export default useForm;
+export default useFormContext;

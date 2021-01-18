@@ -7,8 +7,7 @@ import { FormRendererFieldTitle } from './lib/components/FormRendererFieldTitle'
 import { View } from './lib/components/View';
 import { FieldRendererContext } from './lib/context';
 import { parseFields } from './lib/helpers';
-import { useFieldRenderer } from './lib/hooks';
-import useForm from './lib/hooks/useForm/useForm';
+import { useFieldRendererContext, useFormContext } from './lib/hooks';
 import { fieldRegistry } from './lib/services/fieldRegistry';
 import { viewRegistry } from './lib/services/viewRegistry';
 
@@ -22,8 +21,8 @@ Core.modules.exposeModuleApi('forms-module', {
 	fieldRegistry,
 	viewRegistry,
 	parseFields,
-	useFieldRenderer,
-	useForm,
+	useFieldRendererContext,
+	useFormContext,
 	FieldRendererContext,
 	FormRendererFieldTitle,
 });

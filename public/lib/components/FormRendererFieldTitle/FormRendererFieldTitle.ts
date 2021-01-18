@@ -1,8 +1,7 @@
 import classNames from 'classnames/bind';
 import { createElement, FC } from 'react';
 
-import { useFieldRenderer } from '../../hooks';
-import { useForm } from '../../hooks/useForm';
+import { useFieldRendererContext, useFormContext } from '../../hooks';
 
 import styles from './FormRendererFieldTitle.module.scss';
 import { FormRendererFieldTitleProps } from './FormRendererFieldTitle.types';
@@ -15,8 +14,8 @@ export const FormRendererFieldTitle: FC<FormRendererFieldTitleProps> = ({
 	className: inputClassName,
 	...props
 }) => {
-	const { level } = useFieldRenderer();
-	const { allowedHeaders } = useForm();
+	const { level } = useFieldRendererContext();
+	const { allowedHeaders } = useFormContext();
 
 	const controlledLevel = level >= allowedHeaders.length ? allowedHeaders.length - 1 : level;
 

@@ -3,8 +3,7 @@ import { Field, FieldProps } from 'formik';
 import React, { useMemo, useState } from 'react';
 
 import { FieldRenderContextValue, FieldRendererContext } from '../../context';
-import { useFieldRenderer } from '../../hooks';
-import { useForm } from '../../hooks/useForm';
+import { useFieldRendererContext, useFormContext } from '../../hooks';
 import { FieldConfig, fieldRegistry } from '../../services/fieldRegistry';
 import { FieldComponent } from '../FieldComponent';
 import { DynamicRepeater, Fieldgroup, Hidden, Repeater } from '../Fields';
@@ -21,8 +20,8 @@ const FieldRenderer: React.FC<FieldRendererProps> = ({ fieldSchema }: FieldRende
 	const fieldConfig: FieldConfig | undefined = useMemo(getFieldConfig, [fieldSchema]);
 
 	// Get Parent context
-	const { level } = useFieldRenderer();
-	const { useDividers } = useForm();
+	const { level } = useFieldRendererContext();
+	const { useDividers } = useFormContext();
 	// Setup child context
 	const [newContext, setNewContext] = useState<FieldRenderContextValue>({
 		level: level + 1,

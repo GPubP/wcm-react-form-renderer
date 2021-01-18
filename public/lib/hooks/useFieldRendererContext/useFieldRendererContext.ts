@@ -2,8 +2,8 @@ import { useContext } from 'react';
 
 import { FieldRenderContextValue, FieldRendererContext } from '../../context';
 
-const useFieldRenderer = (): FieldRenderContextValue => {
+const useFieldRendererContext = (): FieldRenderContextValue => {
 	return useContext(FieldRendererContext);
 };
 
-export default useFieldRenderer;
+export default useFieldRendererContext;
