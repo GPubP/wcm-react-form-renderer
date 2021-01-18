@@ -42,7 +42,6 @@ const DynamicRepeater: React.FC<DynamicRepeaterProps> = ({ fieldSchema }) => {
 	 * @param item
 	 */
 	const addItem = (arrayHelper: FieldArrayRenderProps, item: FieldSchema): void => {
-		console.log(item.config?.defaultValue);
 		const itemToAdd: DynamicRepeaterItem = {
 			value: item.defaultValue,
 			uuid: uuid(),
