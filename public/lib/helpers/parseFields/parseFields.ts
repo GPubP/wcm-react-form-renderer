@@ -31,6 +31,7 @@ export const parseFields = (
 			dataType,
 			label,
 			preset,
+			defaultValue,
 		} = field;
 		const isMultiple = (generalConfig.max || 0) > 1;
 		const isDisabled = parentGeneralConfig?.disabled || generalConfig.disabled || false;
@@ -61,6 +62,7 @@ export const parseFields = (
 				fieldType,
 				dataType,
 			},
+			defaultValue,
 		};
 
 		if (isMultiple) {
