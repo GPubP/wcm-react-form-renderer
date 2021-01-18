@@ -54,7 +54,7 @@ export interface FormProps<Values> {
 	/**
 	 * Specify if dev logs (eg validator results) should be shown
 	 */
-	log: boolean;
+	log?: boolean;
 	/**
 	 * onSubmit
 	 * Use this function to get the form results on submit
