@@ -1,7 +1,7 @@
 import { ErrorMessageProps, FormikValues } from 'formik';
 
 import { CustomValidator, CustomValidatorWorker } from './classes';
-import { FormProps } from './components/Form';
+import { AllowedHeader, FormProps } from './components/Form';
 import { FormRendererFieldTitleProps } from './components/FormRendererFieldTitle/FormRendererFieldTitle.types';
 import { ViewProps } from './components/View';
 import { FieldRendererContext } from './context';
@@ -108,6 +108,7 @@ export interface FormsAPI {
 	useFormContext: typeof useFormContext;
 	FieldRendererContext: typeof FieldRendererContext;
 	FormRendererFieldTitle: FormRendererFieldTitleProps;
+	DEFAULT_ALLOWED_HEADERS: readonly AllowedHeader[];
 }
 
 export interface Validator {
