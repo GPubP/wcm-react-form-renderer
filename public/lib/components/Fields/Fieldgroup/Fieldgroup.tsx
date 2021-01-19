@@ -24,8 +24,6 @@ const Fieldgroup: React.FC<FieldGroupProps> = ({ fieldSchema }) => {
 	const [formikField, , helpers] = useField(fieldSchema.name);
 	const [showFieldGroup, setShowFieldGroup] = useState<boolean>(false);
 
-	console.log(fieldSchema.name, showFieldGroup, formikField.value, config.required);
-
 	useEffect(() => {
 		setShowFieldGroup(
 			config.required || (typeof formikField.value === 'object' && formikField.value !== null)
