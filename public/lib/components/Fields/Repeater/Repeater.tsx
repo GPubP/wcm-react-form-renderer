@@ -1,4 +1,4 @@
-import { Button } from '@acpaas-ui/react-components';
+import { Button, Card, CardBody } from '@acpaas-ui/react-components';
 import { DndContainer, DndDragDroppable } from '@acpaas-ui/react-editorial-components';
 import classNames from 'classnames/bind';
 import {
@@ -161,24 +161,32 @@ const Repeater: React.FC<RepeaterProps> = ({ fieldSchema }) => {
 							/>
 						</div>
 					</div>
-					<div className={cx('repeater__item__fields', 'row')}>
-						{fields
-							.map(
-								(schema): FieldSchema => ({
-									...schema,
-									name: `${fieldSchema.name}.${index}.${schema.name}`,
-									config: {
-										...schema.config,
-										wrapperClassName:
-											schema.config?.wrapperClassName ||
-											'col-xs-12 u-no-margin-bottom',
-									},
-								})
-							)
-							.map(schema => (
-								<FieldRenderer key={schema.name} fieldSchema={schema} />
-							))}
-					</div>
+					<Card className={cx('repeater__item__fields', 'row')}>
+						<CardBody>
+							{fields
+								.map(
+									(schema): FieldSchema => ({
+										...schema,
+										name: `${fieldSchema.name}.${index}.${schema.name}`,
+										config: {
+											...schema.config,
+											wrapperClassName:
+												schema.config?.wrapperClassName ||
+												'u-no-margin-bottom',
+										},
+									})
+								)
+								.map(schema => (
+									<FieldRenderer
+										key={schema.name}
+										fieldSchema={schema}
+										renderContext={{
+											wrappedInCard: true,
+										}}
+									/>
+								))}
+						</CardBody>
+					</Card>
 					{list.length > min ? (
 						<div>
 							<Button

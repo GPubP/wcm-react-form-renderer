@@ -13,21 +13,23 @@ import { FieldRendererProps } from './FieldRenderer.types';
 
 const cx = classNames.bind(FieldRendererStyles);
 
-const FieldRenderer: React.FC<FieldRendererProps> = ({ fieldSchema }: FieldRendererProps) => {
+const FieldRenderer: React.FC<FieldRendererProps> = ({ fieldSchema, renderContext }) => {
 	const getFieldConfig = (): FieldConfig | undefined =>
 		fieldRegistry.get(fieldSchema.module, fieldSchema.type);
 	// only get the field config when field schema has changed
 	const fieldConfig: FieldConfig | undefined = useMemo(getFieldConfig, [fieldSchema]);
 
 	// Get Parent context
-	const { level } = useFieldRendererContext();
+	const parentContext = useFieldRendererContext();
 	const { useDividers } = useFormContext();
 	// Setup child context
 	const [newContext, setNewContext] = useState<FieldRenderContextValue>({
-		level: level + 1,
+		fieldSchema,
+		parentContext,
+		level: parentContext.level + 1,
 		// We can type it as it can't be undefined because the `if` below blocks further rendering
 		fieldConfig: fieldConfig as FieldRenderContextValue['fieldConfig'],
-		fieldSchema,
+		renderContext,
 	});
 
 	// Don't render anything when there is no field config available
@@ -37,7 +39,7 @@ const FieldRenderer: React.FC<FieldRendererProps> = ({ fieldSchema }: FieldRende
 
 	const className = cx(
 		'a-field-renderer-field',
-		level === 0 && useDividers ? 'a-field-renderer-field--level-0' : '',
+		parentContext.level === 0 && useDividers ? 'a-field-renderer-field--level-0' : '',
 		fieldSchema.config?.wrapperClassName
 	);
 
@@ -56,7 +58,7 @@ const FieldRenderer: React.FC<FieldRendererProps> = ({ fieldSchema }: FieldRende
 						fieldConfig={fieldConfig}
 						fieldProps={fieldProps}
 						fieldSchema={fieldSchema}
-					></FieldComponent>
+					/>
 				);
 			}}
 		</Field>

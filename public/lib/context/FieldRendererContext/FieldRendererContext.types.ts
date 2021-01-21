@@ -3,6 +3,10 @@ import { FieldProps } from 'formik';
 import { FieldSchema } from '../../core.types';
 import { FieldConfig } from '../../services/fieldRegistry';
 
+export interface FieldRendererRenderContext {
+	wrappedInCard?: boolean;
+	wrappedInDashedContainer?: boolean;
+}
 export interface FieldRenderContextValue {
 	level: number;
 	fieldConfig?: FieldConfig;
@@ -12,4 +16,6 @@ export interface FieldRenderContextValue {
 	 */
 	fieldSchema?: FieldSchema;
 	fieldProps?: FieldProps<any, {}>;
+	parentContext?: FieldRenderContextValue;
+	renderContext?: FieldRendererRenderContext;
 }
