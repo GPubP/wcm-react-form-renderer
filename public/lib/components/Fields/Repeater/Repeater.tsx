@@ -161,7 +161,7 @@ const Repeater: React.FC<RepeaterProps> = ({ fieldSchema }) => {
 							/>
 						</div>
 					</div>
-					<Card className={cx('repeater__item__fields', 'row')}>
+					<Card className={cx('repeater__item__fields')}>
 						<CardBody>
 							{fields
 								.map(

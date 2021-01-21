@@ -50,37 +50,60 @@ const Fieldgroup: React.FC<FieldGroupProps> = ({ fieldSchema }) => {
 	const renderAsRequiredField = (): ReactElement => (
 		<div className={cx('field-group__item')}>
 			<div className={cx('field-group__item__fields', 'u-margin-right-xs')}>
-				<div className="row">
+				<div className={cx('field-group__item__fields_row-wrapper', 'row')}>
 					{fields
 						.map(
-							(fieldSchema): FieldSchema => ({
-								...fieldSchema,
-								name: withNamespace(fieldSchema.name),
+							(childFieldSchema): FieldSchema => ({
+								...childFieldSchema,
+								name: withNamespace(childFieldSchema.name),
 							})
 						)
-						.map((fieldSchema, index) => (
-							<FieldRenderer
-								key={`${index}-${fieldSchema.name}`}
-								fieldSchema={fieldSchema}
-							/>
-						))}
+						.map((childFieldSchema, index) =>
+							fieldSchema.type === childFieldSchema.type &&
+							!childFieldSchema.config?.wrapperClassName ? (
+								<div className="col-xs-12">
+									<FieldRenderer
+										key={`${index}-${childFieldSchema.name}`}
+										fieldSchema={childFieldSchema}
+									/>
+								</div>
+							) : (
+								<FieldRenderer
+									key={`${index}-${childFieldSchema.name}`}
+									fieldSchema={childFieldSchema}
+								/>
+							)
+						)}
 				</div>
 			</div>
 		</div>
 	);
 
 	const renderFields = (): ReactElement => (
-		<div className="row">
+		<div className={cx('field-group__item__fields_row-wrapper', 'row')}>
 			{fields
 				.map(
-					(fieldSchema): FieldSchema => ({
-						...fieldSchema,
-						name: withNamespace(fieldSchema.name),
+					(childFieldSchema): FieldSchema => ({
+						...childFieldSchema,
+						name: withNamespace(childFieldSchema.name),
 					})
 				)
-				.map((fieldSchema, index) => (
-					<FieldRenderer key={`${index}-${fieldSchema.name}`} fieldSchema={fieldSchema} />
-				))}
+				.map((childFieldSchema, index) =>
+					fieldSchema.type === childFieldSchema.type &&
+					!childFieldSchema.config?.wrapperClassName ? (
+						<div className="col-xs-12">
+							<FieldRenderer
+								key={`${index}-${childFieldSchema.name}`}
+								fieldSchema={childFieldSchema}
+							/>
+						</div>
+					) : (
+						<FieldRenderer
+							key={`${index}-${childFieldSchema.name}`}
+							fieldSchema={childFieldSchema}
+						/>
+					)
+				)}
 		</div>
 	);
 

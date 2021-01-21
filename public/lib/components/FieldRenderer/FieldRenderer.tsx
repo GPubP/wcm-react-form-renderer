@@ -39,7 +39,7 @@ const FieldRenderer: React.FC<FieldRendererProps> = ({ fieldSchema, renderContex
 
 	const className = cx(
 		'a-field-renderer-field',
-		parentContext.level === 0 && useDividers ? 'a-field-renderer-field--level-0' : '',
+		parentContext.level === -1 && useDividers ? 'a-field-renderer-field--level-0' : '',
 		fieldSchema.config?.wrapperClassName
 	);
 
