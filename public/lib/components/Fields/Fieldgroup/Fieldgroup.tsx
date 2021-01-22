@@ -4,6 +4,7 @@ import { useField } from 'formik';
 import React, { ReactElement, useEffect, useState } from 'react';
 
 import { FieldSchema } from '../../../core.types';
+import { useFieldRendererContext } from '../../../hooks';
 import { addNameSpace } from '../../../utils';
 import { FieldRenderer } from '../../FieldRenderer';
 import { FormRendererFieldTitle } from '../../FormRendererFieldTitle';
@@ -22,13 +23,17 @@ const Fieldgroup: React.FC<FieldGroupProps> = ({ fieldSchema }) => {
 	 * HOOKS
 	 */
 	const [formikField, , helpers] = useField(fieldSchema.name);
+	const { renderContext } = useFieldRendererContext();
 	const [showFieldGroup, setShowFieldGroup] = useState<boolean>(false);
 
 	useEffect(() => {
 		setShowFieldGroup(
-			config.required || (typeof formikField.value === 'object' && formikField.value !== null)
+			config.required ||
+				renderContext?.wrappedInCard ||
+				renderContext?.wrappedInDashedContainer ||
+				(typeof formikField.value === 'object' && formikField.value !== null)
 		);
-	}, [config.required, fieldSchema.name, formikField.value]);
+	}, [config.required, fieldSchema.name, formikField.value, renderContext]);
 
 	/**
 	 * METHODS
@@ -42,7 +47,71 @@ const Fieldgroup: React.FC<FieldGroupProps> = ({ fieldSchema }) => {
 	/**
 	 * RENDER
 	 */
-	const renderFields = (): ReactElement => {
+	const renderAsRequiredField = (): ReactElement => (
+		<div className={cx('field-group__item')}>
+			<div className={cx('field-group__item__fields', 'u-margin-right-xs')}>
+				<div className={cx('field-group__item__fields_row-wrapper', 'row')}>
+					{fields
+						.map(
+							(childFieldSchema): FieldSchema => ({
+								...childFieldSchema,
+								name: withNamespace(childFieldSchema.name),
+							})
+						)
+						.map((childFieldSchema, index) =>
+							fieldSchema.type === childFieldSchema.type &&
+							!childFieldSchema.config?.wrapperClassName ? (
+								<div className="col-xs-12">
+									<FieldRenderer
+										key={`${index}-${childFieldSchema.name}`}
+										fieldSchema={childFieldSchema}
+									/>
+								</div>
+							) : (
+								<FieldRenderer
+									key={`${index}-${childFieldSchema.name}`}
+									fieldSchema={childFieldSchema}
+								/>
+							)
+						)}
+				</div>
+			</div>
+		</div>
+	);
+
+	const renderFields = (): ReactElement => (
+		<div className={cx('field-group__item__fields_row-wrapper', 'row')}>
+			{fields
+				.map(
+					(childFieldSchema): FieldSchema => ({
+						...childFieldSchema,
+						name: withNamespace(childFieldSchema.name),
+					})
+				)
+				.map((childFieldSchema, index) =>
+					fieldSchema.type === childFieldSchema.type &&
+					!childFieldSchema.config?.wrapperClassName ? (
+						<div className="col-xs-12">
+							<FieldRenderer
+								key={`${index}-${childFieldSchema.name}`}
+								fieldSchema={childFieldSchema}
+							/>
+						</div>
+					) : (
+						<FieldRenderer
+							key={`${index}-${childFieldSchema.name}`}
+							fieldSchema={childFieldSchema}
+						/>
+					)
+				)}
+		</div>
+	);
+
+	const renderFieldsWrappper = (): ReactElement => {
+		if (config.required) {
+			return renderAsRequiredField();
+		}
+
 		if (!showFieldGroup) {
 			return (
 				<div className={cx('field-group__item', 'field-group__item--hidden')}>
@@ -68,38 +137,26 @@ const Fieldgroup: React.FC<FieldGroupProps> = ({ fieldSchema }) => {
 
 		return (
 			<div className={cx('field-group__item')}>
-				<Card className={cx('field-group__item__fields', 'u-margin-right-xs')}>
-					<CardBody>
-						<div className="row">
-							{fields
-								.map(
-									(fieldSchema): FieldSchema => ({
-										...fieldSchema,
-										name: withNamespace(fieldSchema.name),
-									})
-								)
-								.map((fieldSchema, index) => (
-									<FieldRenderer
-										key={`${index}-${fieldSchema.name}`}
-										fieldSchema={fieldSchema}
-									/>
-								))}
+				{renderContext?.wrappedInCard || renderContext?.wrappedInDashedContainer ? (
+					renderFields()
+				) : (
+					<>
+						<Card className={cx('field-group__item__fields', 'u-margin-right-xs')}>
+							<CardBody>{renderFields()}</CardBody>
+						</Card>
+						<div>
+							<Button
+								onClick={() => clearItem()}
+								negative
+								icon="trash"
+								disabled={config.disabled}
+								ariaLabel="Delete item"
+								type="secondary"
+								htmlType="button"
+							/>
 						</div>
-					</CardBody>
-				</Card>
-				{!config.required ? (
-					<div>
-						<Button
-							onClick={() => clearItem()}
-							negative
-							icon="trash"
-							disabled={config.disabled}
-							ariaLabel="Delete item"
-							type="secondary"
-							htmlType="button"
-						/>
-					</div>
-				) : null}
+					</>
+				)}
 			</div>
 		);
 	};
@@ -112,7 +169,7 @@ const Fieldgroup: React.FC<FieldGroupProps> = ({ fieldSchema }) => {
 				</FormRendererFieldTitle>
 			)}
 			{config.description && <p className="u-margin-bottom">{config.description}</p>}
-			{renderFields()}
+			{renderFieldsWrappper()}
 		</div>
 	);
 };

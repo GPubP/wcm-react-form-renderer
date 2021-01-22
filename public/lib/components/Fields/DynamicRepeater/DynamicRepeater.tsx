@@ -182,7 +182,12 @@ const DynamicRepeater: React.FC<DynamicRepeaterProps> = ({ fieldSchema }) => {
 						</div>
 					</div>
 					<div className={cx('repeater__item__field')}>
-						{schema ? <FieldRenderer fieldSchema={schema} /> : null}
+						{schema ? (
+							<FieldRenderer
+								fieldSchema={schema}
+								renderContext={{ wrappedInDashedContainer: true }}
+							/>
+						) : null}
 					</div>
 					{list.length > min ? (
 						<div>

@@ -11,6 +11,10 @@
 			flex-basis: 100%;
 		}
 
+		&__fields_row-wrapper {
+			min-width: 100%;
+		}
+
 		&--hidden {
 			display: block;
 

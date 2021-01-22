@@ -1,3 +1,4 @@
+import { FieldRendererRenderContext } from '../../context';
 import { FieldSchema } from '../../core.types';
 
 export interface FieldRendererProps {
@@ -6,4 +7,5 @@ export interface FieldRendererProps {
 	 */
 	fieldSchema: FieldSchema;
 	level?: number;
+	renderContext?: FieldRendererRenderContext;
 }
