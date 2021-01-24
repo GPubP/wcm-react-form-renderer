@@ -56,6 +56,8 @@ export class CustomValidator {
 
 		this._validator(cleanValues);
 
+		this._log('RAW INPUT', values);
+		this._log('CLEANED INPUT', cleanValues);
 		this._log('RAW ERRORS', this.validator?.errors || []);
 
 		const result = (this._validator.errors || []).reduce((acc, err): FormikErrors<any> => {

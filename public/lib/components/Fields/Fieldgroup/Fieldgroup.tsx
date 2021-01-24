@@ -1,7 +1,7 @@
 import { Button, Card, CardBody } from '@acpaas-ui/react-components';
 import classNames from 'classnames/bind';
 import { useField } from 'formik';
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, { ReactElement, useCallback, useEffect, useState } from 'react';
 
 import { FieldSchema } from '../../../core.types';
 import { useFieldRendererContext } from '../../../hooks';
@@ -25,24 +25,28 @@ const Fieldgroup: React.FC<FieldGroupProps> = ({ fieldSchema }) => {
 	const [formikField, , helpers] = useField(fieldSchema.name);
 	const { renderContext } = useFieldRendererContext();
 	const [showFieldGroup, setShowFieldGroup] = useState<boolean>(false);
-
-	useEffect(() => {
-		setShowFieldGroup(
-			config.required ||
-				renderContext?.wrappedInCard ||
-				renderContext?.wrappedInDashedContainer ||
-				(typeof formikField.value === 'object' && formikField.value !== null)
-		);
-	}, [config.required, fieldSchema.name, formikField.value, renderContext]);
-
-	/**
-	 * METHODS
-	 */
-
-	const clearItem = (): void => {
+	const clearItem = useCallback((): void => {
 		helpers.setValue(undefined);
 		setShowFieldGroup(false);
-	};
+	}, [helpers]);
+	const createFieldGroup = useCallback((): void => {
+		if (typeof formikField.value !== 'object') {
+			helpers.setValue({});
+		}
+
+		setShowFieldGroup(true);
+	}, [formikField.value, helpers]);
+
+	useEffect(
+		() =>
+			config.required ||
+			renderContext?.wrappedInCard ||
+			renderContext?.wrappedInDashedContainer ||
+			(typeof formikField.value === 'object' && formikField.value !== null)
+				? createFieldGroup()
+				: clearItem(),
+		[config.required, fieldSchema.name, renderContext] // eslint-disable-line
+	);
 
 	/**
 	 * RENDER
@@ -120,7 +124,7 @@ const Fieldgroup: React.FC<FieldGroupProps> = ({ fieldSchema }) => {
 					</div>
 					<div className="u-margin-top">
 						<Button
-							onClick={() => setShowFieldGroup(true)}
+							onClick={() => createFieldGroup()}
 							iconLeft="plus"
 							size="small"
 							disabled={config.disabled}
