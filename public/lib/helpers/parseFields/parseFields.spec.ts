@@ -51,6 +51,8 @@ describe('parseFields', () => {
 				uuid: fieldTypeMultiple.uuid,
 				defaultValue: fieldTypeMultiple.defaultValue,
 				config: {
+					dataType: fieldTypeMultiple.dataType,
+					fieldType: fieldTypeMultiple.fieldType,
 					max: 2,
 					guideline: fieldTypeMultiple.generalConfig.guideline,
 					hidden: fieldTypeMultiple.generalConfig.hidden,
@@ -155,6 +157,9 @@ describe('parseFields', () => {
 					uuid: presetMultiple.uuid,
 					defaultValue: presetMultiple.defaultValue,
 					config: {
+						dataType: presetMultiple.dataType,
+						fieldType: presetMultiple.fieldType,
+						preset: presetMultiple.preset,
 						fields: presetMultiple.config.fields,
 						max: presetMultiple.generalConfig.max,
 						guideline: presetMultiple.generalConfig.guideline,

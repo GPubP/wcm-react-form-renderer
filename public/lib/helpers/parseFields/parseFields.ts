@@ -46,7 +46,7 @@ export const parseFields = (
 			view: preset
 				? preset.data?.viewComponentName
 					? preset.data?.viewComponentName
-					: preset.data.name
+					: preset.data?.name
 				: '',
 			dataType: dataType.data.type,
 			fields: parseFields(config.fields, {
@@ -103,6 +103,7 @@ export const parseFields = (
 				config: {
 					...config,
 					...generalConfig,
+					...formField.config,
 					description: generalConfig.guideline,
 					disabled: isDisabled,
 				},
