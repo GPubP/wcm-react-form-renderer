@@ -62,22 +62,12 @@ const Fieldgroup: React.FC<FieldGroupProps> = ({ fieldSchema }) => {
 								name: withNamespace(childFieldSchema.name),
 							})
 						)
-						.map((childFieldSchema, index) =>
-							fieldSchema.type === childFieldSchema.type &&
-							!childFieldSchema.config?.wrapperClassName ? (
-								<div className="col-xs-12">
-									<FieldRenderer
-										key={`${index}-${childFieldSchema.name}`}
-										fieldSchema={childFieldSchema}
-									/>
-								</div>
-							) : (
-								<FieldRenderer
-									key={`${index}-${childFieldSchema.name}`}
-									fieldSchema={childFieldSchema}
-								/>
-							)
-						)}
+						.map((childFieldSchema, index) => (
+							<FieldRenderer
+								key={`${index}-${childFieldSchema.name}`}
+								fieldSchema={childFieldSchema}
+							/>
+						))}
 				</div>
 			</div>
 		</div>
@@ -92,22 +82,12 @@ const Fieldgroup: React.FC<FieldGroupProps> = ({ fieldSchema }) => {
 						name: withNamespace(childFieldSchema.name),
 					})
 				)
-				.map((childFieldSchema, index) =>
-					fieldSchema.type === childFieldSchema.type &&
-					!childFieldSchema.config?.wrapperClassName ? (
-						<div className="col-xs-12">
-							<FieldRenderer
-								key={`${index}-${childFieldSchema.name}`}
-								fieldSchema={childFieldSchema}
-							/>
-						</div>
-					) : (
-						<FieldRenderer
-							key={`${index}-${childFieldSchema.name}`}
-							fieldSchema={childFieldSchema}
-						/>
-					)
-				)}
+				.map((childFieldSchema, index) => (
+					<FieldRenderer
+						key={`${index}-${childFieldSchema.name}`}
+						fieldSchema={childFieldSchema}
+					/>
+				))}
 		</div>
 	);
 
@@ -141,13 +121,9 @@ const Fieldgroup: React.FC<FieldGroupProps> = ({ fieldSchema }) => {
 
 		return (
 			<div className={cx('field-group__item')}>
-				{renderContext?.wrappedInCard || renderContext?.wrappedInDashedContainer ? (
-					renderFields()
-				) : (
+				{/* {renderContext?.wrappedInCard || renderContext?.wrappedInDashedContainer ? (
 					<>
-						<Card className={cx('field-group__item__fields', 'u-margin-right-xs')}>
-							<CardBody>{renderFields()}</CardBody>
-						</Card>
+						<div>{renderFields()}</div>
 						<div>
 							<Button
 								onClick={() => clearItem()}
@@ -160,7 +136,24 @@ const Fieldgroup: React.FC<FieldGroupProps> = ({ fieldSchema }) => {
 							/>
 						</div>
 					</>
-				)}
+				) : ( */}
+				<>
+					<Card className={cx('field-group__item__fields', 'u-margin-right-xs')}>
+						<CardBody>{renderFields()}</CardBody>
+					</Card>
+					<div>
+						<Button
+							onClick={() => clearItem()}
+							negative
+							icon="trash"
+							disabled={config.disabled}
+							ariaLabel="Delete item"
+							type="secondary"
+							htmlType="button"
+						/>
+					</div>
+				</>
+				{/* )} */}
 			</div>
 		);
 	};
