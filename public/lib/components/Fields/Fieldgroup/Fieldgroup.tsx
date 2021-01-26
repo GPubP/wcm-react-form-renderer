@@ -121,22 +121,6 @@ const Fieldgroup: React.FC<FieldGroupProps> = ({ fieldSchema }) => {
 
 		return (
 			<div className={cx('field-group__item')}>
-				{/* {renderContext?.wrappedInCard || renderContext?.wrappedInDashedContainer ? (
-					<>
-						<div>{renderFields()}</div>
-						<div>
-							<Button
-								onClick={() => clearItem()}
-								negative
-								icon="trash"
-								disabled={config.disabled}
-								ariaLabel="Delete item"
-								type="secondary"
-								htmlType="button"
-							/>
-						</div>
-					</>
-				) : ( */}
 				<>
 					<Card className={cx('field-group__item__fields', 'u-margin-right-xs')}>
 						<CardBody>{renderFields()}</CardBody>
