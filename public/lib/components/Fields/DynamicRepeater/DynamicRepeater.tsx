@@ -248,7 +248,7 @@ const DynamicRepeater: React.FC<DynamicRepeaterProps> = ({ fieldSchema }) => {
 							{fieldSchema.label && (
 								<FormRendererFieldTitle
 									isRequired={isRequired}
-									className="u-margin-bottom-xs"
+									className="u-margin-bottom"
 								>
 									{fieldSchema.label}
 								</FormRendererFieldTitle>
