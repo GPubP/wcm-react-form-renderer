@@ -1,12 +1,11 @@
 import AJV, { Ajv, RequiredParams, ValidateFunction } from 'ajv';
 import addKeywords from 'ajv-keywords';
-import { FormikErrors, FormikValues } from 'formik';
-import { lensPath, omit, path, prop, set } from 'ramda';
+import { FormikErrors, FormikValues, setIn } from 'formik';
+import { omit, path, prop } from 'ramda';
 
 import { FormProps } from '../../components/Form/Form.types';
 
 import { CustomValidatorOptions } from './CustomValidator.types';
-
 export class CustomValidator {
 	public readonly ajv: Ajv;
 	private _validator: ValidateFunction | null = null;
@@ -92,19 +91,11 @@ export class CustomValidator {
 				params: err.params,
 			};
 
-			const lens = lensPath(
-				path
-					// Replaces index notation [1] to .1 because formik expects this
-					.replace(/\[([0-9])\]/g, '.$1')
-					.split('.')
-					.map(key => {
-						const match = key.match(/^([0-9])$/);
+			const objectPath = path.replace(/\[([0-9])\]/g, '.$1');
 
-						return match ? parseInt(match[0]) : key;
-					})
-			);
-
-			return set(lens, this._stringReplacer(error, errorProps), acc);
+			return setIn(acc, objectPath, {
+				__errorMessage: this._stringReplacer(error, errorProps),
+			});
 		}, {} as FormikErrors<any>);
 
 		this._log('PARSED ERRORS', result);
@@ -137,7 +128,7 @@ export class CustomValidator {
 	private _stringReplacer(input: string, props: Record<string, any>): string {
 		return input.replace(/\${([^{}]*)}/g, (a, b) => {
 			const r = path(b.split('.'))(props);
-			return typeof r !== 'object' && !(r instanceof Date)
+			return typeof r !== 'object' && typeof r !== 'undefined' && !(r instanceof Date)
 				? (r as string | number | boolean).toString()
 				: a;
 		});

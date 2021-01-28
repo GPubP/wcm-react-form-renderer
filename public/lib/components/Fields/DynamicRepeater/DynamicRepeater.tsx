@@ -7,6 +7,7 @@ import React, { ReactElement, Ref, useMemo } from 'react';
 import { v4 as uuid } from 'uuid';
 
 import { FieldSchema } from '../../../core.types';
+import { ErrorMessage } from '../../ErrorMessage';
 import { FieldRenderer } from '../../FieldRenderer';
 import { FlyoutSelect } from '../../FlyoutSelect';
 import { FormRendererFieldTitle } from '../../FormRendererFieldTitle';
@@ -20,7 +21,7 @@ const cx = classNames.bind(styles);
 const DynamicRepeater: React.FC<DynamicRepeaterProps> = ({ fieldSchema }) => {
 	const config = fieldSchema.config || {};
 	const fields = Array.isArray(fieldSchema.fields) ? fieldSchema.fields : [];
-	const { values } = useFormikContext<FormikValues>();
+	const { values, setFieldValue } = useFormikContext<FormikValues>();
 	const value = useMemo(
 		() => pathOr([], split('.', fieldSchema.name), values) as DynamicRepeaterItem[],
 		[fieldSchema.name, values]
@@ -62,7 +63,13 @@ const DynamicRepeater: React.FC<DynamicRepeaterProps> = ({ fieldSchema }) => {
 	 * @param index
 	 */
 	const deleteItem = (arrayHelper: FieldArrayRenderProps, index: number): void => {
-		arrayHelper.remove(index);
+		if (value.length === 1) {
+			// We set the field value to undefined because we don't want to have validation errors caused by an empty array
+			// when using minItems and maxItems JSON Schema validators
+			setFieldValue(fieldSchema.name, undefined, true);
+		} else {
+			arrayHelper.remove(index);
+		}
 	};
 
 	/**
@@ -189,19 +196,17 @@ const DynamicRepeater: React.FC<DynamicRepeaterProps> = ({ fieldSchema }) => {
 							/>
 						) : null}
 					</div>
-					{list.length > min ? (
-						<div>
-							<Button
-								onClick={() => deleteItem(arrayHelper, index)}
-								icon="trash"
-								ariaLabel="Delete item"
-								disabled={disabled}
-								type="danger"
-								htmlType="button"
-								size="small"
-							/>
-						</div>
-					) : null}
+					<div>
+						<Button
+							onClick={() => deleteItem(arrayHelper, index)}
+							icon="trash"
+							ariaLabel="Delete item"
+							disabled={disabled}
+							type="danger"
+							htmlType="button"
+							size="small"
+						/>
+					</div>
 				</div>
 			)}
 		</DndDragDroppable>
@@ -258,6 +263,9 @@ const DynamicRepeater: React.FC<DynamicRepeaterProps> = ({ fieldSchema }) => {
 							) : null}
 							<div>
 								{renderArrayElements(arrayHelper, value)}
+								<div className="u-margin-bottom">
+									<ErrorMessage name={fieldSchema.name} />
+								</div>
 								{!disabled && value.length < max ? (
 									<FlyoutSelect
 										onSelect={(field: FieldSchema) =>
