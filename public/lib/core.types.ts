@@ -107,7 +107,7 @@ export interface FormsAPI {
 	useFieldRendererContext: typeof useFieldRendererContext;
 	useFormContext: typeof useFormContext;
 	FieldRendererContext: typeof FieldRendererContext;
-	FormRendererFieldTitle: FormRendererFieldTitleProps;
+	FormRendererFieldTitle: React.FC<FormRendererFieldTitleProps>;
 	DEFAULT_ALLOWED_HEADERS: readonly AllowedHeader[];
 }
 
