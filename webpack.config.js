@@ -12,7 +12,7 @@ module.exports = env => {
 		sassIncludes: [/public/, /node_modules\/@a-ui\/core/],
 		outputPath: path.resolve(__dirname, 'dist'),
 	})(env);
-	const workerConfig = getWorkerConfig();
+	const workerConfig = getWorkerConfig({ clean: false });
 
 	return [workerConfig, defaultConfig];
 };
