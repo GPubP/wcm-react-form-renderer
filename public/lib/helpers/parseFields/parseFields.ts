@@ -10,6 +10,7 @@ export const parseFields = (
 ): FieldSchema[] => {
 	const parseOptions: ParseFieldsOptions = {
 		noHiddenFields: false,
+		noDisabledFields: false,
 		...(options ? options : {}),
 	};
 
@@ -42,8 +43,9 @@ export const parseFields = (
 			defaultValue,
 		} = field;
 		const isMultiple = (generalConfig.max || 0) > 1;
-		const isDisabled =
-			parseOptions.parentGeneralConfig?.disabled || generalConfig.disabled || false;
+		const isDisabled = parseOptions.noDisabledFields
+			? false
+			: parseOptions.parentGeneralConfig?.disabled || generalConfig.disabled || false;
 		const isHidden = parseOptions.noHiddenFields ? false : !!generalConfig.hidden;
 		const isPreset = !!preset;
 		const formField: FieldSchema = {

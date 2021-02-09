@@ -108,3 +108,25 @@ export const hiddenPresetSingle = {
 		hidden: true,
 	},
 };
+
+export const disabledPresetSingle = {
+	...presetSingle,
+	name: 'disabledSinglePreset',
+	label: 'disabled single preset',
+	config: {
+		...presetSingle.config,
+		fields: [
+			...presetSingle.config.fields.map(field => ({
+				...field,
+				generalConfig: {
+					...field.generalConfig,
+					disabled: true,
+				},
+			})),
+		],
+	},
+	generalConfig: {
+		...presetSingle.generalConfig,
+		disabled: true,
+	},
+};

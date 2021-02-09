@@ -2,6 +2,7 @@ import { ContentTypeFieldSchema, FieldSchema } from '../../core.types';
 
 import { parseFields } from './parseFields';
 import {
+	disabledPresetSingle,
 	fieldTypeMultiple,
 	fieldTypeSingle,
 	hiddenPresetSingle,
@@ -232,6 +233,20 @@ describe('parseFields', () => {
 					expect(fields[0]?.config?.hidden).toBe(false);
 					expect((fields[0]?.fields as FieldSchema[])[0].hidden).toBe(false);
 					expect((fields[0]?.fields as FieldSchema[])[0].config?.hidden).toBe(false);
+				});
+			});
+
+			describe('noDisabledFields', () => {
+				it('should set the `disabled` prop on all fields to false when set to true', () => {
+					const fields = parseFields(
+						([disabledPresetSingle] as unknown) as ContentTypeFieldSchema[],
+						{
+							noDisabledFields: true,
+						}
+					);
+
+					expect(fields[0]?.config?.disabled).toBe(false);
+					expect((fields[0]?.fields as FieldSchema[])[0].config?.disabled).toBe(false);
 				});
 			});
 		});
