@@ -86,3 +86,25 @@ export const presetMultiple = {
 		guideline: 'preset multiple guideline',
 	},
 };
+
+export const hiddenPresetSingle = {
+	...presetSingle,
+	name: 'hiddenSinglePreset',
+	label: 'hidden single preset',
+	config: {
+		...presetSingle.config,
+		fields: [
+			...presetSingle.config.fields.map(field => ({
+				...field,
+				generalConfig: {
+					...field.generalConfig,
+					hidden: true,
+				},
+			})),
+		],
+	},
+	generalConfig: {
+		...presetSingle.generalConfig,
+		hidden: true,
+	},
+};

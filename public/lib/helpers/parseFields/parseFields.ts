@@ -1,11 +1,18 @@
 import { omit } from 'ramda';
 
-import { ContentTypeFieldSchema, FieldSchema, GeneralConfig, Preset } from '../../core.types';
+import { ContentTypeFieldSchema, FieldSchema, Preset } from '../../core.types';
+
+import { ParseFieldsOptions } from './parseFields.types';
 
 export const parseFields = (
 	fields: ContentTypeFieldSchema[] = [],
-	parentGeneralConfig?: GeneralConfig
+	options?: ParseFieldsOptions
 ): FieldSchema[] => {
+	const parseOptions: ParseFieldsOptions = {
+		noHiddenFields: false,
+		...(options ? options : {}),
+	};
+
 	const getFieldSchema = (field: ContentTypeFieldSchema): FieldSchema => {
 		const {
 			generalConfig = {
@@ -35,7 +42,9 @@ export const parseFields = (
 			defaultValue,
 		} = field;
 		const isMultiple = (generalConfig.max || 0) > 1;
-		const isDisabled = parentGeneralConfig?.disabled || generalConfig.disabled || false;
+		const isDisabled =
+			parseOptions.parentGeneralConfig?.disabled || generalConfig.disabled || false;
+		const isHidden = parseOptions.noHiddenFields ? false : !!generalConfig.hidden;
 		const isPreset = !!preset;
 		const formField: FieldSchema = {
 			name,
@@ -50,13 +59,17 @@ export const parseFields = (
 				: '',
 			dataType: dataType.data.type,
 			fields: parseFields(config.fields, {
-				...generalConfig,
-				...(parentGeneralConfig || {}),
+				...parseOptions,
+				parentGeneralConfig: {
+					...generalConfig,
+					...(parseOptions.parentGeneralConfig || {}),
+				},
 			}),
-			hidden: !!generalConfig.hidden,
+			hidden: isHidden,
 			config: {
 				...config,
 				...generalConfig,
+				hidden: isHidden,
 				disabled: isDisabled,
 				description: generalConfig.guideline,
 				preset: preset as Preset,
@@ -98,7 +111,7 @@ export const parseFields = (
 				module: 'core',
 				type: 'repeater',
 				dataType: 'array',
-				hidden: !!generalConfig.hidden,
+				hidden: isHidden,
 				defaultValue,
 				config: {
 					...config,
@@ -106,6 +119,7 @@ export const parseFields = (
 					...formField.config,
 					description: generalConfig.guideline,
 					disabled: isDisabled,
+					hidden: isHidden,
 				},
 				fields: [
 					{
