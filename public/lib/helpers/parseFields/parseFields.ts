@@ -1,8 +1,40 @@
 import { omit } from 'ramda';
 
-import { ContentTypeFieldSchema, FieldSchema, Preset } from '../../core.types';
+import {
+	ContentTypeFieldSchema,
+	FieldSchema,
+	FieldType,
+	Preset,
+	PresetDetail,
+} from '../../core.types';
 
 import { ParseFieldsOptions } from './parseFields.types';
+
+/**
+ * Return the view component name
+ * The view component is used to visualize the field when using the ViewRenderer component
+ */
+const getViewComponentName = (
+	fieldType?: FieldType,
+	preset?: Preset | PresetDetail
+): string | undefined => {
+	if (preset) {
+		// Most of the time a preset is based on a fieldType `fieldgroup`
+		// By default the field type component name is used to render the view. This means that when we don't set the
+		// view the system will use the default view component based on the field type, which is in this case the fieldGroup
+		// view component.
+		// We don't want that to happen, that is why we always set the view when we render a preset!
+		return preset.data?.viewComponentName ? preset.data?.viewComponentName : preset.data?.name;
+	}
+	if (fieldType) {
+		// By default we use the component name of the field type to render the view
+		// The problem is that the user can set the component name on multiple field types.
+		// Some example, an email field is using the text component to render the field but it needs
+		// a different view then the default view of the text component.
+		// Set the viewComponentName on the field type to render an other view then the base text field
+		return fieldType.data?.viewComponentName;
+	}
+};
 
 export const parseFields = (
 	fields: ContentTypeFieldSchema[] = [],
@@ -54,11 +86,7 @@ export const parseFields = (
 			uuid,
 			module: fieldType?.data?.module,
 			type: fieldType?.data?.componentName,
-			view: preset
-				? preset.data?.viewComponentName
-					? preset.data?.viewComponentName
-					: preset.data?.name
-				: '',
+			view: getViewComponentName(fieldType as FieldType, preset),
 			dataType: dataType.data.type,
 			fields: parseFields(config.fields, {
 				...parseOptions,
