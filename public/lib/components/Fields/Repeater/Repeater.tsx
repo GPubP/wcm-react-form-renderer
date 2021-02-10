@@ -217,7 +217,7 @@ const Repeater: React.FC<RepeaterProps> = ({ fieldSchema }) => {
 	): React.ReactNode => {
 		return (
 			<DndContainer draggable={true}>
-				{repeaterValue && repeaterValue.length > 0
+				{Array.isArray(repeaterValue) && repeaterValue.length > 0
 					? repeaterValue.map((value: any, index: number) =>
 							renderListItem(arrayHelper, repeaterValue, value, index)
 					  )
