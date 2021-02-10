@@ -7,3 +7,4 @@ export * from './Date';
 export * from './DateTime';
 export * from './Time';
 export * from './FileUploadPreset';
+export * from './TelephoneNumber';

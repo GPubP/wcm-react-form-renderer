@@ -169,6 +169,7 @@ export interface FieldType {
 	uuid: string;
 	data: {
 		componentName: string;
+		viewComponentName?: string;
 		module: string;
 		generalConfig: {
 			defaultGuideline?: string;

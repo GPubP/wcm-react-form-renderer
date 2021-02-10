@@ -1,4 +1,6 @@
+import { EmailView } from '../../components/Views/Email';
 import { FileUploadPresetView } from '../../components/Views/FileUploadPreset';
+import { TelephoneNumberView } from '../../components/Views/TelephoneNumber';
 
 import { ViewConfig, ViewRegistryConfig } from './viewRegistry.types';
 
@@ -64,5 +66,15 @@ export const viewRegistry = new ViewRegistry([
 		name: 'fileUploadPreset',
 		module: 'core',
 		component: FileUploadPresetView,
+	},
+	{
+		name: 'email',
+		module: 'core',
+		component: EmailView,
+	},
+	{
+		name: 'telephoneNumber',
+		module: 'core',
+		component: TelephoneNumberView,
 	},
 ]);
