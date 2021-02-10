@@ -1,9 +1,11 @@
-import { ContentTypeFieldSchema } from '../../core.types';
+import { ContentTypeFieldSchema, FieldSchema } from '../../core.types';
 
 import { parseFields } from './parseFields';
 import {
+	disabledPresetSingle,
 	fieldTypeMultiple,
 	fieldTypeSingle,
+	hiddenPresetSingle,
 	presetMultiple,
 	presetSingle,
 } from './parseFields.mock';
@@ -213,6 +215,38 @@ describe('parseFields', () => {
 							},
 						},
 					],
+				});
+			});
+		});
+
+		describe('Parse options', () => {
+			describe('noHiddenFields', () => {
+				it('should set the `hidden` prop on all fields to false when set to true', () => {
+					const fields = parseFields(
+						([hiddenPresetSingle] as unknown) as ContentTypeFieldSchema[],
+						{
+							noHiddenFields: true,
+						}
+					);
+
+					expect(fields[0]?.hidden).toBe(false);
+					expect(fields[0]?.config?.hidden).toBe(false);
+					expect((fields[0]?.fields as FieldSchema[])[0].hidden).toBe(false);
+					expect((fields[0]?.fields as FieldSchema[])[0].config?.hidden).toBe(false);
+				});
+			});
+
+			describe('noDisabledFields', () => {
+				it('should set the `disabled` prop on all fields to false when set to true', () => {
+					const fields = parseFields(
+						([disabledPresetSingle] as unknown) as ContentTypeFieldSchema[],
+						{
+							noDisabledFields: true,
+						}
+					);
+
+					expect(fields[0]?.config?.disabled).toBe(false);
+					expect((fields[0]?.fields as FieldSchema[])[0].config?.disabled).toBe(false);
 				});
 			});
 		});
