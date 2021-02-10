@@ -37,9 +37,9 @@ const FieldRenderer: React.FC<FieldRendererProps> = ({ fieldSchema, renderContex
 		return null;
 	}
 
-	const className = cx(
-		'a-field-renderer-field',
-		parentContext.level === -1 && useDividers ? 'a-field-renderer-field--level-0' : '',
+	const className = (hidden: boolean | undefined) => cx(
+		!hidden ? 'a-field-renderer-field' : '',
+		parentContext.level === -1 && useDividers && !hidden ? 'a-field-renderer-field--level-0' : '',
 		fieldSchema.config?.wrapperClassName || 'col-xs-12' // use full width by default
 	);
 
@@ -88,7 +88,7 @@ const FieldRenderer: React.FC<FieldRendererProps> = ({ fieldSchema, renderContex
 
 	return (
 		<FieldRendererContext.Provider value={newContext}>
-			<div className={className}>
+			<div className={className(fieldSchema.hidden)}>
 				{fieldSchema.hidden
 					? renderHiddenField()
 					: fieldSchema.type === 'fieldgroup'
