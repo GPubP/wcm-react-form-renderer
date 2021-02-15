@@ -49,7 +49,10 @@ const CheckboxList: FC<InputFieldProps> = ({ fieldProps, fieldSchema, fieldHelpe
 										id={`${name}-${option.value}`}
 										label={option.label}
 										disabled={!!config.disabled}
-										checked={!!field.value?.includes(option.value)}
+										checked={
+											Array.isArray(field.value) &&
+											field.value.includes(option.value)
+										}
 										onChange={(e: ChangeEvent<HTMLInputElement>) => {
 											if (e.target.checked) {
 												arrayHelpers.push(option.value);
