@@ -26,7 +26,7 @@ const Fieldgroup: React.FC<FieldGroupProps> = ({ fieldSchema }) => {
 	const { renderContext } = useFieldRendererContext();
 	const [showFieldGroup, setShowFieldGroup] = useState<boolean>(false);
 	const clearItem = useCallback((): void => {
-		helpers.setValue(undefined);
+		helpers.setValue('');
 		setShowFieldGroup(false);
 	}, [helpers]);
 	const createFieldGroup = useCallback((): void => {
