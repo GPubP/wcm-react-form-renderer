@@ -9,7 +9,7 @@ const useSelectFirstOptionWhenHidden = (
 	const showField = !(
 		config.hideWhenOnlyOneAllowedOption &&
 		Array.isArray(config.allowedOptions) &&
-		config.allowedOptions.length === 1
+		config.allowedOptions.length <= 1
 	);
 
 	useEffect(() => {

@@ -6,9 +6,12 @@ import { FieldConfig } from '../../services/fieldRegistry';
 export interface FieldRendererRenderContext {
 	wrappedInCard?: boolean;
 	wrappedInDashedContainer?: boolean;
+	wrapperClass: string;
 }
 export interface FieldRenderContextValue {
 	level: number;
+	renderContext: FieldRendererRenderContext;
+	setWrapperClass: (className: string) => void;
 	fieldConfig?: FieldConfig;
 	/**
 	 * Schema of one field
@@ -17,5 +20,4 @@ export interface FieldRenderContextValue {
 	fieldSchema?: FieldSchema;
 	fieldProps?: FieldProps<any, {}>;
 	parentContext?: FieldRenderContextValue;
-	renderContext?: FieldRendererRenderContext;
 }

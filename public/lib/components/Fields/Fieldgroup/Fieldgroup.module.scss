@@ -12,6 +12,8 @@
 		}
 
 		&__fields_row-wrapper {
+			// Undo margin of last row elements
+			margin-bottom: -$spacer;
 			min-width: 100%;
 		}
 
@@ -24,7 +26,7 @@
 			}
 		}
 
-		card {
+		.m-card {
 			min-width: 100%;
 		}
 	}
