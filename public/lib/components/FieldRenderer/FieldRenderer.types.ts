@@ -7,5 +7,5 @@ export interface FieldRendererProps {
 	 */
 	fieldSchema: FieldSchema;
 	level?: number;
-	renderContext?: FieldRendererRenderContext;
+	renderContext?: Omit<FieldRendererRenderContext, 'wrapperClass'>;
 }

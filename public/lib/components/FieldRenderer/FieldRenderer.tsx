@@ -29,8 +29,24 @@ const FieldRenderer: React.FC<FieldRendererProps> = ({ fieldSchema, renderContex
 		level: parentContext.level + 1,
 		// We can type it as it can't be undefined because the `if` below blocks further rendering
 		fieldConfig: fieldConfig as FieldRenderContextValue['fieldConfig'],
-		renderContext,
+		renderContext: {
+			...renderContext,
+			wrapperClass: fieldSchema.config?.wrapperClassName || 'col-xs-12', // use full width by default
+		},
+		// Depend on function hoisting
+		// eslint-disable-next-line @typescript-eslint/no-use-before-define
+		setWrapperClass,
 	});
+
+	function setWrapperClass(className: string): void {
+		setNewContext({
+			...newContext,
+			renderContext: {
+				...newContext.renderContext,
+				wrapperClass: className,
+			},
+		});
+	}
 
 	// Don't render anything when there is no field config available
 	if (!fieldConfig) {
@@ -43,7 +59,7 @@ const FieldRenderer: React.FC<FieldRendererProps> = ({ fieldSchema, renderContex
 			parentContext.level === -1 && useDividers && !hidden
 				? 'a-field-renderer-field--level-0'
 				: '',
-			fieldSchema.config?.wrapperClassName || 'col-xs-12' // use full width by default
+			newContext.renderContext.wrapperClass
 		);
 
 	/**

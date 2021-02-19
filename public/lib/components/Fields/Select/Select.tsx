@@ -1,8 +1,9 @@
 import { Select } from '@acpaas-ui/react-components';
 import { omit, pick } from 'ramda';
-import React, { FC, useMemo } from 'react';
+import React, { FC, useEffect, useMemo } from 'react';
 
 import { useSelectFirstOptionWhenHidden } from '../../../hooks';
+import useFieldRendererContext from '../../../hooks/useFieldRendererContext/useFieldRendererContext';
 import { InputFieldProps } from '../../../services/fieldRegistry';
 import { filterAllowedOptions } from '../../../utils';
 import { ErrorMessage } from '../../ErrorMessage';
@@ -22,6 +23,7 @@ const InputSelect: FC<InputFieldProps> = ({
 	} = fieldSchema;
 	const { field } = fieldProps;
 	const value = field.value !== '' ? field.value : undefined;
+	const { renderContext, setWrapperClass } = useFieldRendererContext();
 
 	/**
 	 * Hooks
@@ -49,6 +51,12 @@ const InputSelect: FC<InputFieldProps> = ({
 			),
 		[config]
 	);
+
+	useEffect(() => {
+		if (!showField && renderContext.wrapperClass && setWrapperClass) {
+			setWrapperClass('');
+		}
+	}, [renderContext.wrapperClass, setWrapperClass, showField]);
 
 	return (
 		<>
