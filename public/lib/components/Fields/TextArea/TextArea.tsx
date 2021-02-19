@@ -1,6 +1,6 @@
 import { Textarea } from '@acpaas-ui/react-components';
-import { omit } from 'ramda';
-import React from 'react';
+import { pick } from 'ramda';
+import React, { useMemo } from 'react';
 
 import { InputFieldProps } from '../../../services/fieldRegistry';
 import { ErrorMessage } from '../../ErrorMessage';
@@ -9,13 +9,18 @@ const InputTextarea: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }: I
 	const config = fieldSchema.config || {};
 	const { field } = fieldProps;
 
+	const fieldConfigProps = useMemo(
+		() => pick(['disabled', 'placeholder', 'className', 'required', 'size', 'qa'], config),
+		[config]
+	);
+
 	return (
 		<div className="a-input">
 			<Textarea
 				id={fieldSchema.name}
 				label={fieldSchema.label}
-				{...omit(['multiLanguage', 'min', 'max'])(config)}
 				{...field}
+				{...fieldConfigProps}
 			/>
 			{config.description && <small>{config.description}</small>}
 			<ErrorMessage name={field.name} />

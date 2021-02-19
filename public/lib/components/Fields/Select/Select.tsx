@@ -1,5 +1,5 @@
 import { Select } from '@acpaas-ui/react-components';
-import { omit } from 'ramda';
+import { omit, pick } from 'ramda';
 import React, { FC, useMemo } from 'react';
 
 import { useSelectFirstOptionWhenHidden } from '../../../hooks';
@@ -32,6 +32,24 @@ const InputSelect: FC<InputFieldProps> = ({
 	]);
 	const showField = useSelectFirstOptionWhenHidden(config, field.value, fieldHelperProps);
 
+	const fieldConfigProps = useMemo(
+		() =>
+			pick(
+				[
+					'inline',
+					'className',
+					'required',
+					'loading',
+					'placeholder',
+					'disabled',
+					'size',
+					'qa',
+				],
+				config
+			),
+		[config]
+	);
+
 	return (
 		<>
 			{showField && (
@@ -41,8 +59,8 @@ const InputSelect: FC<InputFieldProps> = ({
 						label={label}
 						options={options}
 						value={value}
-						{...omit(['multiLanguage', 'min', 'max', 'options'])(config)}
 						{...omit(['value'])(field)}
+						{...fieldConfigProps}
 					/>
 					{config.description && <small>{config.description}</small>}
 					<ErrorMessage name={field.name} />

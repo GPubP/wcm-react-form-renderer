@@ -1,5 +1,5 @@
 import { RadioGroup } from '@acpaas-ui/react-components';
-import { omit } from 'ramda';
+import { pick } from 'ramda';
 import React, { FC, useMemo } from 'react';
 
 import { useSelectFirstOptionWhenHidden } from '../../../hooks';
@@ -31,6 +31,11 @@ const InputRadio: FC<InputFieldProps> = ({
 	);
 	const showField = useSelectFirstOptionWhenHidden(config, field.value, fieldHelperProps);
 
+	const fieldConfigProps = useMemo(
+		() => pick(['description', 'className', 'style', 'required', 'inline', 'qa'], config),
+		[config]
+	);
+
 	return (
 		<>
 			{showField && (
@@ -39,8 +44,8 @@ const InputRadio: FC<InputFieldProps> = ({
 						id={name}
 						label={label}
 						options={options}
-						{...omit(['multiLanguage', 'min', 'max', 'options'])(config)}
 						{...field}
+						{...fieldConfigProps}
 					/>
 					<ErrorMessage name={field.name} />
 				</>

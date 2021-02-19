@@ -1,7 +1,7 @@
 import { TextField } from '@acpaas-ui/react-components';
 import { getIn } from 'formik';
-import { omit } from 'ramda';
-import React from 'react';
+import { pick } from 'ramda';
+import React, { useMemo } from 'react';
 
 import { InputFieldProps } from '../../../services/fieldRegistry';
 import { ErrorMessage } from '../../ErrorMessage';
@@ -15,14 +15,43 @@ const InputText: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }: Input
 
 	const state = !!error && !!touch ? 'error' : '';
 
+	// Pick only the known properties from the config object
+	const fieldConfigProps = useMemo(
+		() =>
+			pick(
+				[
+					// ALLOWED HTML PROPS
+					'size',
+					'minLength',
+					'maxLength',
+					'pattern',
+					'min',
+					'max',
+					'required',
+					'type',
+					// COMPONENT PROPS
+					'description',
+					'placeholder',
+					'mask',
+					'iconright',
+					'iconleft',
+					'loading',
+					'qa',
+					'errorDescription',
+				],
+				config
+			),
+		[config]
+	);
+
 	return (
 		<div className={config.fieldClassName}>
 			<TextField
 				id={fieldSchema.name}
 				state={state}
 				label={fieldSchema.label}
-				{...omit(['multiLanguage', 'min', 'max'])(config)}
 				{...field}
+				{...fieldConfigProps}
 			/>
 			<ErrorMessage name={field.name} />
 		</div>
