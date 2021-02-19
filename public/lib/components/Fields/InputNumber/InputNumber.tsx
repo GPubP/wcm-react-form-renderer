@@ -29,6 +29,8 @@ const InputNumber: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }: Inp
 					'placeholder',
 					'iconright',
 					'iconleft',
+					'addonright',
+					'addonleft',
 					'loading',
 					'errorDescription',
 				],
