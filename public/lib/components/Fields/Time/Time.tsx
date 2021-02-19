@@ -15,9 +15,9 @@ const Time: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }) => {
 		() =>
 			pick(
 				[
-					'className',
 					'required',
 					'disabled',
+					'className',
 					'hourLabel',
 					'minuteLabel',
 					'secondLabel',

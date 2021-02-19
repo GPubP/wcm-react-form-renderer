@@ -21,14 +21,14 @@ const Datepicker: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }: Inpu
 			pick(
 				[
 					'required',
+					'disabled',
+					'className',
 					'mask',
 					'format',
 					'locale',
-					'activeDate',
 					'selectedDates',
 					'open',
 					'autoClose',
-					'disabled',
 					'readOnly',
 					'noWeekends',
 					'minDate',

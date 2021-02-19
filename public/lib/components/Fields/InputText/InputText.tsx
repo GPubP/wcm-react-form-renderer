@@ -23,16 +23,16 @@ const InputText: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }: Input
 		() =>
 			pick(
 				[
-					// ALLOWED HTML PROPS
+					'required',
+					'disabled',
+					'className',
 					'size',
 					'minLength',
 					'maxLength',
 					'pattern',
 					'min',
 					'max',
-					'required',
 					'type',
-					// COMPONENT PROPS
 					'description',
 					'placeholder',
 					'mask',

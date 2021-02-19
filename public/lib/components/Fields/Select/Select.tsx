@@ -38,12 +38,12 @@ const InputSelect: FC<InputFieldProps> = ({
 		() =>
 			pick(
 				[
-					'inline',
-					'className',
 					'required',
+					'disabled',
+					'className',
+					'inline',
 					'loading',
 					'placeholder',
-					'disabled',
 					'size',
 					'qa',
 				],

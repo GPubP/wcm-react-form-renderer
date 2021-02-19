@@ -32,7 +32,7 @@ const InputRadio: FC<InputFieldProps> = ({
 	const showField = useSelectFirstOptionWhenHidden(config, field.value, fieldHelperProps);
 
 	const fieldConfigProps = useMemo(
-		() => pick(['description', 'className', 'style', 'required', 'inline', 'qa'], config),
+		() => pick(['required', 'disabled', 'className', 'description', 'inline', 'qa'], config),
 		[config]
 	);
 

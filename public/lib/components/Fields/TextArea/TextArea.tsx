@@ -10,7 +10,7 @@ const InputTextarea: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }: I
 	const { field } = fieldProps;
 
 	const fieldConfigProps = useMemo(
-		() => pick(['disabled', 'placeholder', 'className', 'required', 'size', 'qa'], config),
+		() => pick(['required', 'disabled', 'className', 'placeholder', 'size', 'qa'], config),
 		[config]
 	);
 

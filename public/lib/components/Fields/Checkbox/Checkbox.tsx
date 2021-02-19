@@ -10,7 +10,10 @@ const InputCheckbox: FC<InputFieldProps> = ({ fieldSchema, fieldProps, fieldHelp
 	const { field } = fieldProps;
 
 	// Pick only the known properties from the config object
-	const fieldConfigProps = useMemo(() => pick(['required', 'disabled', 'qa'], config), [config]);
+	const fieldConfigProps = useMemo(
+		() => pick(['required', 'disabled', 'className', 'qa'], config),
+		[config]
+	);
 
 	return (
 		<div className="a-input">

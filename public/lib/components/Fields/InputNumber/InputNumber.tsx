@@ -20,12 +20,13 @@ const InputNumber: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }: Inp
 		() =>
 			pick(
 				[
-					// HTML PROPS NUMBER FIELD
+					'required',
+					'disabled',
+					'className',
 					'min',
 					'max',
-					// COMPONENT PROPS
+					'size',
 					'description',
-					'required',
 					'placeholder',
 					'iconright',
 					'iconleft',
