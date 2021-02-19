@@ -37,11 +37,14 @@ const FieldRenderer: React.FC<FieldRendererProps> = ({ fieldSchema, renderContex
 		return null;
 	}
 
-	const className = (hidden: boolean | undefined) => cx(
-		!hidden ? 'a-field-renderer-field' : '',
-		parentContext.level === -1 && useDividers && !hidden ? 'a-field-renderer-field--level-0' : '',
-		fieldSchema.config?.wrapperClassName || 'col-xs-12' // use full width by default
-	);
+	const className = (hidden: boolean | undefined): string =>
+		cx(
+			!hidden ? 'a-field-renderer-field' : '',
+			parentContext.level === -1 && useDividers && !hidden
+				? 'a-field-renderer-field--level-0'
+				: '',
+			fieldSchema.config?.wrapperClassName || 'col-xs-12' // use full width by default
+		);
 
 	/**
 	 * Render a custom field depending on his field type
@@ -50,7 +53,12 @@ const FieldRenderer: React.FC<FieldRendererProps> = ({ fieldSchema, renderContex
 		<Field name={fieldSchema.name}>
 			{(fieldProps: FieldProps<any, {}>): React.ReactNode => {
 				if (!newContext.fieldProps) {
-					setNewContext({ ...newContext, fieldProps });
+					// The setTimeout function is needed!
+					// React is throwing a warning when the setNewContext function is not called inside a setTimeout function
+					// "Cannot update a component (`Unknown`) while rendering a different component (`Field`)"
+					setTimeout(() => {
+						setNewContext({ ...newContext, fieldProps });
+					});
 				}
 
 				return (
