@@ -1,5 +1,5 @@
 import { Select } from '@acpaas-ui/react-components';
-import { omit } from 'ramda';
+import { omit, pick } from 'ramda';
 import React, { FC, useEffect, useMemo } from 'react';
 
 import { useSelectFirstOptionWhenHidden } from '../../../hooks';
@@ -7,6 +7,7 @@ import useFieldRendererContext from '../../../hooks/useFieldRendererContext/useF
 import { InputFieldProps } from '../../../services/fieldRegistry';
 import { filterAllowedOptions } from '../../../utils';
 import { ErrorMessage } from '../../ErrorMessage';
+import { DEFAULT_FIELD_CONFIG_PROPS } from '../Fields.const';
 
 const InputSelect: FC<InputFieldProps> = ({
 	fieldProps,
@@ -34,6 +35,15 @@ const InputSelect: FC<InputFieldProps> = ({
 	]);
 	const showField = useSelectFirstOptionWhenHidden(config, field.value, fieldHelperProps);
 
+	const fieldConfigProps = useMemo(
+		() =>
+			pick(
+				[...DEFAULT_FIELD_CONFIG_PROPS, 'inline', 'loading', 'placeholder', 'size'],
+				config
+			),
+		[config]
+	);
+
 	useEffect(() => {
 		if (!showField && renderContext.wrapperClass && setWrapperClass) {
 			setWrapperClass('');
@@ -49,8 +59,8 @@ const InputSelect: FC<InputFieldProps> = ({
 						label={label}
 						options={options}
 						value={value}
-						{...omit(['multiLanguage', 'min', 'max', 'options'])(config)}
 						{...omit(['value'])(field)}
+						{...fieldConfigProps}
 					/>
 					{config.description && <small>{config.description}</small>}
 					<ErrorMessage name={field.name} />

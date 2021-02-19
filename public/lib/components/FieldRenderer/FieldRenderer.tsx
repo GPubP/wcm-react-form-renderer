@@ -69,7 +69,12 @@ const FieldRenderer: React.FC<FieldRendererProps> = ({ fieldSchema, renderContex
 		<Field name={fieldSchema.name}>
 			{(fieldProps: FieldProps<any, {}>): React.ReactNode => {
 				if (!newContext.fieldProps) {
-					setNewContext({ ...newContext, fieldProps });
+					// The setTimeout function is needed!
+					// React is throwing a warning when the setNewContext function is not called inside a setTimeout function
+					// "Cannot update a component (`Unknown`) while rendering a different component (`Field`)"
+					setTimeout(() => {
+						setNewContext({ ...newContext, fieldProps });
+					});
 				}
 
 				return (

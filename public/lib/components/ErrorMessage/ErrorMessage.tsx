@@ -1,19 +1,11 @@
-import classNames from 'classnames/bind';
 import { ErrorMessageProps, ErrorMessage as FormikErrorMessage } from 'formik';
 import React, { FC, ReactElement } from 'react';
 
-import styles from './ErrorMessage.module.scss';
 import { ErrorMessage as ErrorMessageType } from './ErrorMessage.types';
 
-const cx = classNames.bind(styles);
-
 const ErrorMessage: FC<ErrorMessageProps> = ({ component, ...rest }) => {
-	const className = cx('error-message', 'u-bg-danger');
-
 	const renderMessage = (msg: string): ReactElement => (
-		<div className={className}>
-			<p className="u-text-xlight">{msg}</p>
-		</div>
+		<p className="small u-margin-top-xs u-margin-bottom-xs u-text-danger">{msg}</p>
 	);
 
 	return (
