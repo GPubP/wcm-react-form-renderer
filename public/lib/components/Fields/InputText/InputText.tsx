@@ -6,6 +6,7 @@ import React, { useEffect, useMemo } from 'react';
 import { useFieldRendererContext } from '../../../hooks';
 import { InputFieldProps } from '../../../services/fieldRegistry';
 import { ErrorMessage } from '../../ErrorMessage';
+import { DEFAULT_FIELD_CONFIG_PROPS } from '../Fields.const';
 
 const InputText: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }: InputFieldProps) => {
 	const config = fieldSchema.config || {};
@@ -23,9 +24,7 @@ const InputText: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }: Input
 		() =>
 			pick(
 				[
-					'required',
-					'disabled',
-					'className',
+					...DEFAULT_FIELD_CONFIG_PROPS,
 					'description',
 					'size',
 					'minLength',
@@ -38,8 +37,9 @@ const InputText: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }: Input
 					'mask',
 					'iconright',
 					'iconleft',
+					'addonright',
+					'addonleft',
 					'loading',
-					'qa',
 					'errorDescription',
 				],
 				config

@@ -7,6 +7,7 @@ import useFieldRendererContext from '../../../hooks/useFieldRendererContext/useF
 import { InputFieldProps } from '../../../services/fieldRegistry';
 import { filterAllowedOptions } from '../../../utils';
 import { ErrorMessage } from '../../ErrorMessage';
+import { DEFAULT_FIELD_CONFIG_PROPS } from '../Fields.const';
 
 const InputSelect: FC<InputFieldProps> = ({
 	fieldProps,
@@ -37,16 +38,7 @@ const InputSelect: FC<InputFieldProps> = ({
 	const fieldConfigProps = useMemo(
 		() =>
 			pick(
-				[
-					'required',
-					'disabled',
-					'className',
-					'inline',
-					'loading',
-					'placeholder',
-					'size',
-					'qa',
-				],
+				[...DEFAULT_FIELD_CONFIG_PROPS, 'inline', 'loading', 'placeholder', 'size'],
 				config
 			),
 		[config]

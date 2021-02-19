@@ -4,13 +4,14 @@ import React, { useMemo } from 'react';
 
 import { InputFieldProps } from '../../../services/fieldRegistry';
 import { ErrorMessage } from '../../ErrorMessage';
+import { DEFAULT_FIELD_CONFIG_PROPS } from '../Fields.const';
 
 const InputTextarea: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }: InputFieldProps) => {
 	const config = fieldSchema.config || {};
 	const { field } = fieldProps;
 
 	const fieldConfigProps = useMemo(
-		() => pick(['required', 'disabled', 'className', 'placeholder', 'size', 'qa'], config),
+		() => pick([...DEFAULT_FIELD_CONFIG_PROPS, 'placeholder', 'size'], config),
 		[config]
 	);
 

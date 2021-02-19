@@ -6,6 +6,7 @@ import { useSelectFirstOptionWhenHidden } from '../../../hooks';
 import { InputFieldProps } from '../../../services/fieldRegistry';
 import { filterAllowedOptions } from '../../../utils';
 import { ErrorMessage } from '../../ErrorMessage';
+import { DEFAULT_FIELD_CONFIG_PROPS } from '../Fields.const';
 
 const InputRadio: FC<InputFieldProps> = ({
 	fieldProps,
@@ -32,7 +33,7 @@ const InputRadio: FC<InputFieldProps> = ({
 	const showField = useSelectFirstOptionWhenHidden(config, field.value, fieldHelperProps);
 
 	const fieldConfigProps = useMemo(
-		() => pick(['required', 'disabled', 'className', 'description', 'inline', 'qa'], config),
+		() => pick([...DEFAULT_FIELD_CONFIG_PROPS, 'description', 'inline'], config),
 		[config]
 	);
 

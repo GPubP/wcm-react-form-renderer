@@ -5,6 +5,7 @@ import React, { useMemo } from 'react';
 
 import { InputFieldProps } from '../../../services/fieldRegistry';
 import { ErrorMessage } from '../../ErrorMessage';
+import { DEFAULT_FIELD_CONFIG_PROPS } from '../Fields.const';
 
 const InputNumber: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }: InputFieldProps) => {
 	const config = fieldSchema.config || {};
@@ -20,9 +21,7 @@ const InputNumber: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }: Inp
 		() =>
 			pick(
 				[
-					'required',
-					'disabled',
-					'className',
+					...DEFAULT_FIELD_CONFIG_PROPS,
 					'description',
 					'min',
 					'max',
@@ -31,7 +30,6 @@ const InputNumber: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }: Inp
 					'iconright',
 					'iconleft',
 					'loading',
-					'qa',
 					'errorDescription',
 				],
 				config

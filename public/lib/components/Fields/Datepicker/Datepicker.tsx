@@ -5,6 +5,7 @@ import React, { useMemo } from 'react';
 
 import { InputFieldProps } from '../../../services/fieldRegistry';
 import { ErrorMessage } from '../../ErrorMessage';
+import { DEFAULT_FIELD_CONFIG_PROPS } from '../Fields.const';
 
 const Datepicker: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }: InputFieldProps) => {
 	const config = fieldSchema.config || {};
@@ -20,9 +21,7 @@ const Datepicker: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }: Inpu
 		() =>
 			pick(
 				[
-					'required',
-					'disabled',
-					'className',
+					...DEFAULT_FIELD_CONFIG_PROPS,
 					'description',
 					'mask',
 					'format',
@@ -34,7 +33,6 @@ const Datepicker: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }: Inpu
 					'noWeekends',
 					'minDate',
 					'maxDate',
-					'qa',
 					'size',
 				],
 				config
