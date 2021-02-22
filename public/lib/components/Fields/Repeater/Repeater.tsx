@@ -9,7 +9,7 @@ import {
 	useFormikContext,
 } from 'formik';
 import { pathOr, split } from 'ramda';
-import React, { ReactElement, Ref, useEffect } from 'react';
+import React, { ReactElement, Ref, useEffect, useMemo } from 'react';
 import { v4 as uuid } from 'uuid';
 
 import { FieldSchema } from '../../../core.types';
@@ -33,6 +33,13 @@ const Repeater: React.FC<RepeaterProps> = ({ fieldSchema }) => {
 	const max = config.max === 0 || !config.max ? Number.MAX_SAFE_INTEGER : config.max;
 	const isRequired = min >= 1;
 	const disabled = !!config.disabled;
+	const lowerCasedLabel = useMemo(
+		() =>
+			fieldSchema.label
+				? fieldSchema.label.charAt(0).toLowerCase() + fieldSchema.label.slice(1)
+				: 'item',
+		[fieldSchema.label]
+	);
 
 	useEffect(() => {
 		if (value && !Array.isArray(value)) {
@@ -259,7 +266,7 @@ const Repeater: React.FC<RepeaterProps> = ({ fieldSchema }) => {
 										htmlType="button"
 										negative
 									>
-										Voeg een item toe
+										Voeg een {lowerCasedLabel} toe
 									</Button>
 								) : null}
 							</div>
