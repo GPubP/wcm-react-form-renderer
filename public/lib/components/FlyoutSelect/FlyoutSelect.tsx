@@ -5,12 +5,12 @@ import { FieldSchema } from '../../core.types';
 
 import { FlyoutSelectProps } from './FlyoutSelect.types';
 
-const FlyoutSelect: React.FC<FlyoutSelectProps> = ({ onSelect, items }) => {
+const FlyoutSelect: React.FC<FlyoutSelectProps> = ({ label, onSelect, items }) => {
 	return (
 		<Flyout
 			trigger={
 				<Button htmlType="button" size="small" iconRight="angle-down">
-					Voeg een item toe
+					Voeg een {label} toe
 				</Button>
 			}
 		>

@@ -35,6 +35,13 @@ const DynamicRepeater: React.FC<DynamicRepeaterProps> = ({ fieldSchema }) => {
 		[config.amount]
 	);
 	const isRequired = useMemo(() => min >= 1, [min]);
+	const lowerCasedLabel = useMemo(
+		() =>
+			fieldSchema.label
+				? fieldSchema.label.charAt(0).toLowerCase() + fieldSchema.label.slice(1)
+				: 'item',
+		[fieldSchema.label]
+	);
 	const disabled = !!config.disabled;
 
 	/**
@@ -268,6 +275,7 @@ const DynamicRepeater: React.FC<DynamicRepeaterProps> = ({ fieldSchema }) => {
 								</div>
 								{!disabled && value.length < max ? (
 									<FlyoutSelect
+										label={lowerCasedLabel}
 										onSelect={(field: FieldSchema) =>
 											addItem(arrayHelper, field)
 										}
