@@ -1,6 +1,7 @@
 import AJV, { Ajv, RequiredParams, ValidateFunction } from 'ajv';
 import addKeywords from 'ajv-keywords';
 import { FormikErrors, FormikValues, setIn } from 'formik';
+import { toPath } from 'lodash';
 import { omit, path, prop } from 'ramda';
 
 import { FormProps } from '../../components/Form/Form.types';
@@ -69,13 +70,14 @@ export class CustomValidator {
 				err.keyword === 'required'
 					? `${err.dataPath}.${(err.params as RequiredParams).missingProperty}`
 					: err.dataPath;
-			const path = concatPath
-				// Replaces leading dot in path
-				.replace(/^\./, '')
-				// Replaces ['field-name'] notation to `field-name` (formik expects this)
-				.replace(/\['(.*)'\]/g, '$1'); // TODO: look into regex/non-regex speeds
+			//Replaces ['field-name'] notation to `field-name` (formik expects this)
+			const path = toPath(
+				concatPath
+					// Replaces leading dot in path
+					.replace(/^\./, '')
+			).join('.');
 			// Replaces index notation [1] to [$] for errorMessages map
-			const errorPath = path.replace(/\[([0-9])\]/g, '[$]'); // TODO: look into split/join (maybe faster?)
+			const errorPath = path.replace(/\.([0-9])(\.)?/g, '[$]$2'); // TODO: look into split/join (maybe faster?)
 
 			const error =
 				typeof this._errorMessages[errorPath] === 'string'
