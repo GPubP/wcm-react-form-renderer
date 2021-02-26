@@ -9,11 +9,11 @@
 
 		&__fields {
 			flex-basis: 100%;
-			margin: 0 24px;
+			margin: 0 $spacer;
 		}
 
 		&__content {
-			padding-right: 6px;
+			padding-right: $spacer-xs / 2;
 		}
 	}
 
