@@ -1,5 +1,4 @@
 import { Button, Card, CardBody } from '@acpaas-ui/react-components';
-import { DndContainer, DndDragDroppable } from '@acpaas-ui/react-editorial-components';
 import classNames from 'classnames/bind';
 import {
 	FieldArray,
@@ -9,7 +8,7 @@ import {
 	useFormikContext,
 } from 'formik';
 import { pathOr, split } from 'ramda';
-import React, { ReactElement, Ref, useEffect, useMemo } from 'react';
+import React, { ReactElement, useEffect, useMemo } from 'react';
 import { v4 as uuid } from 'uuid';
 
 import { FieldSchema } from '../../../core.types';
@@ -17,7 +16,6 @@ import { createInitialValues } from '../../../utils';
 import { FieldRenderer } from '../../FieldRenderer';
 import { FormRendererFieldTitle } from '../../FormRendererFieldTitle';
 
-import { DND_ITEM_TYPE } from './Repeater.const';
 import styles from './Repeater.module.scss';
 import { RepeaterProps } from './Repeater.types';
 
@@ -101,17 +99,6 @@ const Repeater: React.FC<RepeaterProps> = ({ fieldSchema }) => {
 		arrayHelper.move(index, index + 1);
 	};
 
-	const moveRow = (arrayHelper: FieldArrayRenderProps) => (
-		source: { index: number },
-		target: { index: number }
-	): void => {
-		if (source.index === target.index) {
-			return;
-		}
-
-		arrayHelper.move(source.index, target.index);
-	};
-
 	/**
 	 * Render functions
 	 */
@@ -121,95 +108,72 @@ const Repeater: React.FC<RepeaterProps> = ({ fieldSchema }) => {
 		value: { value: any; uuid: string },
 		index: number
 	): ReactElement => (
-		<DndDragDroppable
-			key={`reapeater-${arrayHelper.name}-${value.uuid}`}
-			id={value.uuid}
-			moveRow={moveRow(arrayHelper)}
-			index={index}
-			accept={[`${DND_ITEM_TYPE}_${arrayHelper.name}`]}
-		>
-			{({
-				isDragging,
-				dragDropRef,
-			}: {
-				isDragging: boolean;
-				dragDropRef: Ref<HTMLDivElement>;
-			}) => (
-				<div
-					ref={dragDropRef}
-					key={value.uuid}
-					className={cx('repeater__item', 'u-margin-bottom', {
-						'repeater__item--hovered': isDragging,
-					})}
-				>
-					<div>
-						<div className="m-button-group m-button-group--vertical">
-							<Button
-								className={cx('no-border')}
-								onClick={() => moveUp(arrayHelper, index)}
-								icon="chevron-up"
-								ariaLabel="Move item up"
-								type="primary"
-								htmlType="button"
-								size="tiny"
-								disabled={index === 0 || disabled}
-								negative
-							/>
-							<Button
-								className={cx('no-border')}
-								onClick={() => moveDown(arrayHelper, index)}
-								icon="chevron-down"
-								ariaLabel="Move item down"
-								type="primary"
-								htmlType="button"
-								size="tiny"
-								disabled={list.length - 1 === index || disabled}
-								negative
-							/>
-						</div>
-					</div>
-					<Card className={cx('repeater__item__fields')}>
-						<CardBody>
-							{fields
-								.map(
-									(schema): FieldSchema => ({
-										...schema,
-										name: `${fieldSchema.name}.${index}.${schema.name}`,
-										config: {
-											...schema.config,
-											wrapperClassName:
-												schema.config?.wrapperClassName ||
-												'u-no-margin-bottom',
-										},
-									})
-								)
-								.map(schema => (
-									<FieldRenderer
-										key={schema.name}
-										fieldSchema={schema}
-										renderContext={{
-											wrappedInCard: true,
-										}}
-									/>
-								))}
-						</CardBody>
-					</Card>
-					{list.length > min ? (
-						<div>
-							<Button
-								onClick={() => deleteItem(arrayHelper, index)}
-								negative
-								icon="trash"
-								disabled={disabled}
-								ariaLabel="Delete item"
-								type="secondary"
-								htmlType="button"
-							/>
-						</div>
-					) : null}
+		<div key={value.uuid} className={cx('repeater__item', 'u-margin-bottom')}>
+			<div>
+				<div className="m-button-group m-button-group--vertical">
+					<Button
+						className={cx('no-border')}
+						onClick={() => moveUp(arrayHelper, index)}
+						icon="chevron-up"
+						ariaLabel="Move item up"
+						type="primary"
+						htmlType="button"
+						size="tiny"
+						disabled={index === 0 || disabled}
+						negative
+					/>
+					<Button
+						className={cx('no-border')}
+						onClick={() => moveDown(arrayHelper, index)}
+						icon="chevron-down"
+						ariaLabel="Move item down"
+						type="primary"
+						htmlType="button"
+						size="tiny"
+						disabled={list.length - 1 === index || disabled}
+						negative
+					/>
 				</div>
-			)}
-		</DndDragDroppable>
+			</div>
+			<Card className={cx('repeater__item__fields')}>
+				<CardBody>
+					{fields
+						.map(
+							(schema): FieldSchema => ({
+								...schema,
+								name: `${fieldSchema.name}.${index}.${schema.name}`,
+								config: {
+									...schema.config,
+									wrapperClassName:
+										schema.config?.wrapperClassName || 'u-no-margin-bottom',
+								},
+							})
+						)
+						.map(schema => (
+							<FieldRenderer
+								key={schema.name}
+								fieldSchema={schema}
+								renderContext={{
+									wrappedInCard: true,
+								}}
+							/>
+						))}
+				</CardBody>
+			</Card>
+			{list.length > min ? (
+				<div>
+					<Button
+						onClick={() => deleteItem(arrayHelper, index)}
+						negative
+						icon="trash"
+						disabled={disabled}
+						ariaLabel="Delete item"
+						type="secondary"
+						htmlType="button"
+					/>
+				</div>
+			) : null}
+		</div>
 	);
 
 	/**
@@ -223,13 +187,13 @@ const Repeater: React.FC<RepeaterProps> = ({ fieldSchema }) => {
 		repeaterValue: FormikValues[]
 	): React.ReactNode => {
 		return (
-			<DndContainer draggable={true}>
+			<>
 				{Array.isArray(repeaterValue) && repeaterValue.length > 0
 					? repeaterValue.map((value: any, index: number) =>
 							renderListItem(arrayHelper, repeaterValue, value, index)
 					  )
 					: null}
-			</DndContainer>
+			</>
 		);
 	};
 
