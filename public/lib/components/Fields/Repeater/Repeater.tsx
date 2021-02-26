@@ -108,7 +108,7 @@ const Repeater: React.FC<RepeaterProps> = ({ fieldSchema }) => {
 		value: { value: any; uuid: string },
 		index: number
 	): ReactElement => (
-		<div key={value.uuid} className={cx('repeater__item', 'u-margin-bottom')}>
+		<div key={value.uuid} className={cx('repeater__item')}>
 			<div>
 				<div className="m-button-group m-button-group--vertical">
 					<Button
