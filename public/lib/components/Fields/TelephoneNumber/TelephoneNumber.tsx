@@ -14,7 +14,7 @@ const TelephoneNumber: React.FC<InputFieldProps> = ({
 	fieldProps,
 	fieldSchema,
 	fieldHelperProps,
-}: InputFieldProps) => {
+}) => {
 	const config = fieldSchema.config || {};
 	const { field, form } = fieldProps;
 	const { setValue } = fieldHelperProps;
