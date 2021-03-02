@@ -155,6 +155,7 @@ const Repeater: React.FC<RepeaterProps> = ({ fieldSchema }) => {
 								fieldSchema={schema}
 								renderContext={{
 									wrappedInCard: true,
+									renderAsRequired: true,
 								}}
 							/>
 						))}
