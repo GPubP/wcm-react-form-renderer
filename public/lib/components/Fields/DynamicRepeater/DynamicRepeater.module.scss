@@ -10,9 +10,13 @@
 
 		&__field {
 			flex-basis: 100%;
-			margin: 0 12px;
-			padding-top: 1.5rem;
+			margin: 0 $spacer;
 			border: 1px dashed $grey;
+			padding: 1.5rem $spacer-xs 0 $spacer;
+
+			&__content {
+				padding: 0;
+			}
 		}
 	}
 

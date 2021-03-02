@@ -168,12 +168,12 @@ const DynamicRepeater: React.FC<DynamicRepeaterProps> = ({ fieldSchema }) => {
 			<div>
 				<Button
 					onClick={() => deleteItem(arrayHelper, index)}
+					negative
 					icon="trash"
 					ariaLabel="Delete item"
 					disabled={disabled}
-					type="danger"
+					type="secondary"
 					htmlType="button"
-					size="small"
 				/>
 			</div>
 		</div>
@@ -192,6 +192,7 @@ const DynamicRepeater: React.FC<DynamicRepeaterProps> = ({ fieldSchema }) => {
 			<>
 				{(Array.isArray(repeaterValues) ? repeaterValues : []).map((value, index) => {
 					let schema = getFieldSchema(value);
+					const wrapperClass = schema?.config?.wrapperClassName || 'col-xs-12';
 
 					if (schema) {
 						schema = {
@@ -199,7 +200,9 @@ const DynamicRepeater: React.FC<DynamicRepeaterProps> = ({ fieldSchema }) => {
 							name: `${fieldSchema.name}.${index}.value`,
 							config: {
 								...schema?.config,
-								wrapperClassName: schema?.config?.wrapperClassName || 'col-xs-12',
+								wrapperClassName: `${wrapperClass} ${cx(
+									'repeater__item__field__content'
+								)}`,
 							},
 						};
 					}
@@ -216,7 +219,7 @@ const DynamicRepeater: React.FC<DynamicRepeaterProps> = ({ fieldSchema }) => {
 				name={fieldSchema.name}
 				render={arrayHelper => {
 					return (
-						<div className={cx('repeater', 'u-margin-bottom', config.wrapperClassName)}>
+						<div className={cx('repeater', config.wrapperClassName)}>
 							{fieldSchema.label && (
 								<FormRendererFieldTitle
 									isRequired={isRequired}
