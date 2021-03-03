@@ -6,6 +6,7 @@ import {
 	EmailView,
 	FieldGroupView,
 	RepeaterView,
+	TelephoneNumberView,
 	TimeView,
 } from '../Views';
 
@@ -22,6 +23,7 @@ import { InputText } from './InputText';
 import { InputRadio } from './Radio';
 import { Repeater } from './Repeater';
 import { InputSelect } from './Select';
+import { TelephoneNumber } from './TelephoneNumber';
 import { InputTextarea } from './TextArea';
 import { Time } from './Time';
 
@@ -129,6 +131,12 @@ const DefaultFields: FieldConfig[] = [
 		module: 'core',
 		component: Hidden,
 		viewComponent: () => null,
+	},
+	{
+		name: 'telephoneNumber',
+		module: 'core',
+		component: TelephoneNumber,
+		viewComponent: TelephoneNumberView,
 	},
 ];
 
