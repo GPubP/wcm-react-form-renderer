@@ -92,7 +92,7 @@ const Fieldgroup: React.FC<FieldGroupProps> = ({ fieldSchema }) => {
 	);
 
 	const renderFieldsWrappper = (): ReactElement => {
-		if (config.required) {
+		if (config.required || renderContext.renderAsRequired) {
 			return renderAsRequiredField();
 		}
 

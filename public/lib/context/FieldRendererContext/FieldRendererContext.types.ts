@@ -7,6 +7,7 @@ export interface FieldRendererRenderContext {
 	wrappedInCard?: boolean;
 	wrappedInDashedContainer?: boolean;
 	wrapperClass: string;
+	renderAsRequired?: boolean;
 }
 export interface FieldRenderContextValue {
 	level: number;
