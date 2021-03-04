@@ -61,6 +61,8 @@ const TelephoneNumber: React.FC<InputFieldProps> = ({
 				{...fieldConfigProps}
 			/>
 			<ErrorMessage name={field.name} />
+			<ErrorMessage name={`${field.name}.areaCode`} />
+			<ErrorMessage name={`${field.name}.number`} />
 		</div>
 	);
 };
