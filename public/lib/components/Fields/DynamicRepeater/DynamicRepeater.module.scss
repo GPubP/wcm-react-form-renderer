@@ -12,7 +12,7 @@
 			flex-basis: 100%;
 			margin: 0 $spacer;
 			border: 1px dashed $grey;
-			padding: 1.5rem $spacer-xs 0 $spacer;
+			padding: $spacer $spacer-xs $spacer $spacer;
 
 			&__content {
 				padding: 0;
