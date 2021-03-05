@@ -6,13 +6,13 @@
 		justify-content: space-between;
 		align-items: center;
 		min-width: 100%;
-		margin-bottom: 1.5rem;
+		margin-bottom: $spacer;
 
 		&__field {
 			flex-basis: 100%;
 			margin: 0 $spacer;
 			border: 1px dashed $grey;
-			padding: 1.5rem $spacer-xs 0 $spacer;
+			padding: $spacer $spacer-xs 0 $spacer;
 
 			&__content {
 				padding: 0;
