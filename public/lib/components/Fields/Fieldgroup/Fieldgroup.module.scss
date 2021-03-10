@@ -6,6 +6,8 @@
 		justify-content: space-between;
 		align-items: center;
 		min-width: 100%;
+		// Center trash bin icon
+		margin-right: -$spacer-xs;
 
 		&__fields {
 			flex-basis: 100%;
