@@ -99,18 +99,20 @@ const Fieldgroup: React.FC<FieldGroupProps> = ({ fieldSchema }) => {
 		if (!showFieldGroup) {
 			return (
 				<div className={cx('field-group__item', 'field-group__item--hidden')}>
-					<div className={cx('field-group__item__fields')}>
+					<div
+						className={cx('field-group__item__fields', 'field-group__item__no-fields')}
+					>
 						Er zijn geen items om weer te geven.
 					</div>
-					<div className="u-margin-top">
+					<div className="u-margin-top-xs">
 						<Button
 							onClick={() => createFieldGroup()}
 							iconLeft="plus"
 							size="small"
 							disabled={config.disabled}
-							type="primary"
+							type="transparent"
 							htmlType="button"
-							negative
+							className={cx('no-text-decoration')}
 						>
 							Voeg {fieldSchema.label?.toLocaleLowerCase()} toe
 						</Button>

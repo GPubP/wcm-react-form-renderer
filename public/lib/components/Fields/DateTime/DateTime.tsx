@@ -40,7 +40,7 @@ const DateTimepicker: React.FC<InputFieldProps> = ({
 			{fieldSchema.label && <h6 className="u-margin-bottom">{fieldSchema.label}</h6>}
 			{config.description && <p className="u-margin-bottom">{config.description}</p>}
 			<div className="row">
-				<div className="col-xs-12 col-md-6">
+				<div className="col-lg-6">
 					<Datepicker
 						fieldProps={
 							{
@@ -65,7 +65,7 @@ const DateTimepicker: React.FC<InputFieldProps> = ({
 						fieldHelperProps={fieldHelperProps}
 					/>
 				</div>
-				<div className="col-xs-12 col-md-6">
+				<div className="col-lg-6">
 					<Time
 						fieldProps={{
 							...fieldProps,

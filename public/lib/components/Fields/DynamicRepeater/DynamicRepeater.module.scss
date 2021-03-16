@@ -12,9 +12,9 @@
 
 		&__field {
 			flex-basis: 100%;
-			margin: 0 $spacer;
+			margin: 0 $spacer-xs 0 $spacer;
 			border: 1px dashed $grey;
-			padding: $spacer $spacer-xs 0 $spacer;
+			padding: $spacer $spacer 0 $spacer;
 
 			&__content {
 				padding: 0;

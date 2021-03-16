@@ -188,13 +188,13 @@ const Repeater: React.FC<RepeaterProps> = ({ fieldSchema }) => {
 		repeaterValue: FormikValues[]
 	): React.ReactNode => {
 		return (
-			<>
+			<div className="u-margin-top-xs">
 				{Array.isArray(repeaterValue) && repeaterValue.length > 0
 					? repeaterValue.map((value: any, index: number) =>
 							renderListItem(arrayHelper, repeaterValue, value, index)
 					  )
 					: null}
-			</>
+			</div>
 		);
 	};
 
@@ -211,13 +211,13 @@ const Repeater: React.FC<RepeaterProps> = ({ fieldSchema }) => {
 							{fieldSchema.label && (
 								<FormRendererFieldTitle
 									isRequired={isRequired}
-									className="u-margin-bottom"
+									className="u-margin-bottom-xs"
 								>
 									{fieldSchema.label}
 								</FormRendererFieldTitle>
 							)}
 							{config.description && (
-								<p className="u-margin-bottom"> {config.description} </p>
+								<p className="u-margin-bottom-xs"> {config.description} </p>
 							)}
 							<div>
 								{renderArrayElements(arrayHelper, value)}
@@ -227,11 +227,11 @@ const Repeater: React.FC<RepeaterProps> = ({ fieldSchema }) => {
 										iconLeft="plus"
 										size="small"
 										disabled={disabled}
-										type="primary"
+										type="transparent"
 										htmlType="button"
-										negative
+										className={cx('no-text-decoration')}
 									>
-										Voeg een {lowerCasedLabel} toe
+										Voeg {lowerCasedLabel} toe
 									</Button>
 								) : null}
 							</div>
