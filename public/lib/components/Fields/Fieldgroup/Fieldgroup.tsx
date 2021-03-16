@@ -3,6 +3,7 @@ import classNames from 'classnames/bind';
 import { useField } from 'formik';
 import React, { ReactElement, useCallback, useEffect, useState } from 'react';
 
+import { CORE_TRANSLATIONS, useCoreTranslation } from '../../../connectors';
 import { FieldSchema } from '../../../core.types';
 import { useFieldRendererContext } from '../../../hooks';
 import { addNameSpace } from '../../../utils';
@@ -15,6 +16,7 @@ import { FieldGroupProps } from './Fieldgroup.types';
 const cx = classNames.bind(styles);
 
 const Fieldgroup: React.FC<FieldGroupProps> = ({ fieldSchema }) => {
+	const [t] = useCoreTranslation();
 	const config = fieldSchema.config || {};
 	const fields = Array.isArray(fieldSchema.fields) ? fieldSchema.fields : [];
 	const withNamespace = addNameSpace(fieldSchema.name);
@@ -100,7 +102,7 @@ const Fieldgroup: React.FC<FieldGroupProps> = ({ fieldSchema }) => {
 			return (
 				<div className={cx('field-group__item', 'field-group__item--hidden')}>
 					<div className={cx('field-group__item__fields')}>
-						Er zijn geen items om weer te geven.
+						{t(CORE_TRANSLATIONS['TABLE_NO-ITEMS'])}
 					</div>
 					<div className="u-margin-top">
 						<Button

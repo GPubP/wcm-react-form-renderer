@@ -5,6 +5,7 @@ import { pathOr, split } from 'ramda';
 import React, { ReactElement, useMemo } from 'react';
 import { v4 as uuid } from 'uuid';
 
+import { CORE_TRANSLATIONS, useCoreTranslation } from '../../../connectors';
 import { FieldSchema } from '../../../core.types';
 import { ErrorMessage } from '../../ErrorMessage';
 import { FieldRenderer } from '../../FieldRenderer';
@@ -17,6 +18,7 @@ import { DynamicRepeaterItem, DynamicRepeaterProps } from './DynamicRepeater.typ
 const cx = classNames.bind(styles);
 
 const DynamicRepeater: React.FC<DynamicRepeaterProps> = ({ fieldSchema }) => {
+	const [t] = useCoreTranslation();
 	const config = fieldSchema.config || {};
 	const fields = Array.isArray(fieldSchema.fields) ? fieldSchema.fields : [];
 	const { values, setFieldValue } = useFormikContext<FormikValues>();
@@ -232,6 +234,11 @@ const DynamicRepeater: React.FC<DynamicRepeaterProps> = ({ fieldSchema }) => {
 								<p className="u-margin-bottom"> {config.description} </p>
 							) : null}
 							<div>
+								{value?.length === 0 && (
+									<div className={cx('empty', 'u-margin-bottom')}>
+										{t(CORE_TRANSLATIONS['TABLE_NO-ITEMS'])}
+									</div>
+								)}
 								{renderArrayElements(arrayHelper, value)}
 								<div className="u-margin-bottom">
 									<ErrorMessage name={fieldSchema.name} />

@@ -11,6 +11,7 @@ import { pathOr, split } from 'ramda';
 import React, { ReactElement, useEffect, useMemo } from 'react';
 import { v4 as uuid } from 'uuid';
 
+import { CORE_TRANSLATIONS, useCoreTranslation } from '../../../connectors';
 import { FieldSchema } from '../../../core.types';
 import { createInitialValues } from '../../../utils';
 import { FieldRenderer } from '../../FieldRenderer';
@@ -22,6 +23,7 @@ import { RepeaterProps } from './Repeater.types';
 const cx = classNames.bind(styles);
 
 const Repeater: React.FC<RepeaterProps> = ({ fieldSchema }) => {
+	const [t] = useCoreTranslation();
 	const config = fieldSchema.config || {};
 	const [, , helpers] = useField(fieldSchema.name);
 	const fields = Array.isArray(fieldSchema.fields) ? fieldSchema.fields : [];
@@ -220,6 +222,11 @@ const Repeater: React.FC<RepeaterProps> = ({ fieldSchema }) => {
 								<p className="u-margin-bottom"> {config.description} </p>
 							)}
 							<div>
+								{value?.length === 0 && (
+									<div className={cx('empty', 'u-margin-bottom')}>
+										{t(CORE_TRANSLATIONS['TABLE_NO-ITEMS'])}
+									</div>
+								)}
 								{renderArrayElements(arrayHelper, value)}
 								{value.length < max ? (
 									<Button

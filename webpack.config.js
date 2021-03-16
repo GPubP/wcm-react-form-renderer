@@ -11,6 +11,9 @@ module.exports = env => {
 		tsIncludes: [/public/],
 		sassIncludes: [/public/, /node_modules\/@a-ui\/core/],
 		outputPath: path.resolve(__dirname, 'dist'),
+		externals: {
+			'@redactie/translations-module': '@redactie/translations-module',
+		},
 	})(env);
 	const workerConfig = getWorkerConfig({ clean: false });
 
