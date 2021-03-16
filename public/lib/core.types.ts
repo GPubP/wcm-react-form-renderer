@@ -6,9 +6,10 @@ import { FormRendererFieldTitleProps } from './components/FormRendererFieldTitle
 import { ViewProps } from './components/View';
 import { FieldRendererContext } from './context';
 import { parseFields } from './helpers/parseFields';
-import { useFieldRendererContext, useFormContext } from './hooks';
+import { useFieldRendererContext, useFormContext, useSelectFirstOptionWhenHidden } from './hooks';
 import { FieldRegistry } from './services/fieldRegistry';
 import { ViewRegistry } from './services/viewRegistry';
+import { filterAllowedOptions } from './utils';
 
 /**
  * A list of allowed field types
@@ -109,6 +110,9 @@ export interface FormsAPI {
 	FieldRendererContext: typeof FieldRendererContext;
 	FormRendererFieldTitle: React.FC<FormRendererFieldTitleProps>;
 	DEFAULT_ALLOWED_HEADERS: readonly AllowedHeader[];
+	DEFAULT_FIELD_CONFIG_PROPS: string[];
+	useSelectFirstOptionWhenHidden: typeof useSelectFirstOptionWhenHidden;
+	filterAllowedOptions: typeof filterAllowedOptions;
 }
 
 export interface Validator {
