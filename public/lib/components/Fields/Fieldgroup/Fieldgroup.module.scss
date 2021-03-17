@@ -14,7 +14,7 @@
 		}
 
 		&__no-fields {
-			margin-right: $spacer-xs !important;
+			margin-right: $spacer-xs;
 		}
 
 		&__fields_row-wrapper {
@@ -35,13 +35,13 @@
 		.m-card {
 			min-width: 100%;
 		}
+
+		.no-text-decoration {
+			text-decoration: none;
+		}
 	}
 
 	.no-border {
 		border: none !important;
 	}
-}
-
-.no-text-decoration {
-	text-decoration: none !important;
 }
