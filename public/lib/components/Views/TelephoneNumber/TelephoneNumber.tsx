@@ -18,7 +18,9 @@ const TelephoneNumberView: FC<ViewFieldProps> = ({ value, fieldSchema }) => {
 				title={`${fieldSchema?.name}: ${number}`}
 				href={`tel:${number}`}
 				target="_blank"
-			/>
+			>
+				{number}
+			</Link>
 		</>
 	);
 };
