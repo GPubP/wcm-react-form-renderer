@@ -13,6 +13,10 @@
 			flex-basis: 100%;
 		}
 
+		&__no-fields {
+			margin-right: $spacer-xs;
+		}
+
 		&__fields_row-wrapper {
 			// Undo margin of last row elements
 			margin-bottom: -$spacer;
@@ -30,6 +34,10 @@
 
 		.m-card {
 			min-width: 100%;
+		}
+
+		.no-text-decoration {
+			text-decoration: none;
 		}
 	}
 

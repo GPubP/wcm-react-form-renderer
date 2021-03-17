@@ -10,7 +10,7 @@ const FlyoutSelect: React.FC<FlyoutSelectProps> = ({ label, onSelect, items }) =
 		<Flyout
 			trigger={
 				<Button htmlType="button" size="small" iconRight="angle-down">
-					Voeg een {label} toe
+					Voeg {label} toe
 				</Button>
 			}
 		>
