@@ -21,6 +21,11 @@
 		}
 	}
 
+	.empty {
+		padding: $spacer;
+		border: 1px dashed $grey;
+	}
+
 	.no-border {
 		border: none !important;
 	}
