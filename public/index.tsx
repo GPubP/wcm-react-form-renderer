@@ -2,15 +2,21 @@ import Core from '@redactie/redactie-core';
 
 import { CustomValidator, CustomValidatorWorker } from './lib/classes';
 import { ErrorMessage } from './lib/components/ErrorMessage';
+import { DEFAULT_FIELD_CONFIG_PROPS } from './lib/components/Fields/Fields.const';
 import { Form } from './lib/components/Form';
 import { DEFAULT_ALLOWED_HEADERS } from './lib/components/Form/Form.const';
 import { FormRendererFieldTitle } from './lib/components/FormRendererFieldTitle';
 import { View } from './lib/components/View';
 import { FieldRendererContext } from './lib/context';
 import { parseFields } from './lib/helpers';
-import { useFieldRendererContext, useFormContext } from './lib/hooks';
+import {
+	useFieldRendererContext,
+	useFormContext,
+	useSelectFirstOptionWhenHidden,
+} from './lib/hooks';
 import { fieldRegistry } from './lib/services/fieldRegistry';
 import { viewRegistry } from './lib/services/viewRegistry';
+import { filterAllowedOptions } from './lib/utils';
 
 // Expose module
 Core.modules.exposeModuleApi('forms-module', {
@@ -27,6 +33,9 @@ Core.modules.exposeModuleApi('forms-module', {
 	FieldRendererContext,
 	FormRendererFieldTitle,
 	DEFAULT_ALLOWED_HEADERS,
+	DEFAULT_FIELD_CONFIG_PROPS,
+	useSelectFirstOptionWhenHidden,
+	filterAllowedOptions,
 });
 
 export * from './lib/core.types';
