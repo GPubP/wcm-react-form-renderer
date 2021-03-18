@@ -8,4 +8,5 @@ export interface FieldRendererProps {
 	fieldSchema: FieldSchema;
 	level?: number;
 	renderContext?: Omit<FieldRendererRenderContext, 'wrapperClass'>;
+	defaultWrapperClassName?: string;
 }

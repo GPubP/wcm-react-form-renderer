@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind';
 import { Field, FieldProps } from 'formik';
-import React, { useMemo, useState } from 'react';
+import React, { ReactNode, useMemo, useState } from 'react';
 
 import { FieldRenderContextValue, FieldRendererContext } from '../../context';
 import { useFieldRendererContext, useFormContext } from '../../hooks';
@@ -13,7 +13,11 @@ import { FieldRendererProps } from './FieldRenderer.types';
 
 const cx = classNames.bind(FieldRendererStyles);
 
-const FieldRenderer: React.FC<FieldRendererProps> = ({ fieldSchema, renderContext }) => {
+const FieldRenderer: React.FC<FieldRendererProps> = ({
+	fieldSchema,
+	renderContext,
+	defaultWrapperClassName = '',
+}) => {
 	const getFieldConfig = (): FieldConfig | undefined =>
 		fieldRegistry.get(fieldSchema.module, fieldSchema.type);
 	// only get the field config when field schema has changed
@@ -31,7 +35,7 @@ const FieldRenderer: React.FC<FieldRendererProps> = ({ fieldSchema, renderContex
 		fieldConfig: fieldConfig as FieldRenderContextValue['fieldConfig'],
 		renderContext: {
 			...renderContext,
-			wrapperClass: fieldSchema.config?.wrapperClassName || 'col-xs-12', // use full width by default
+			wrapperClass: fieldSchema.config?.wrapperClassName || defaultWrapperClassName, // use full width by default
 		},
 		// Depend on function hoisting
 		// eslint-disable-next-line @typescript-eslint/no-use-before-define
@@ -91,24 +95,22 @@ const FieldRenderer: React.FC<FieldRendererProps> = ({ fieldSchema, renderContex
 	/**
 	 * Render a field group
 	 */
-	const renderFieldGroup = (): React.ReactNode => <Fieldgroup fieldSchema={fieldSchema} />;
+	const renderFieldGroup = (): ReactNode => <Fieldgroup fieldSchema={fieldSchema} />;
 
 	/**
 	 * Render a field array
 	 */
-	const renderFieldArray = (): React.ReactNode => <Repeater fieldSchema={fieldSchema} />;
+	const renderFieldArray = (): ReactNode => <Repeater fieldSchema={fieldSchema} />;
 
 	/**
 	 * Render a hidden field
 	 */
-	const renderHiddenField = (): React.ReactNode => <Hidden fieldSchema={fieldSchema} />;
+	const renderHiddenField = (): ReactNode => <Hidden fieldSchema={fieldSchema} />;
 
 	/**
 	 * Render a dynamic field array
 	 */
-	const renderDynamicFieldArray = (): React.ReactNode => (
-		<DynamicRepeater fieldSchema={fieldSchema} />
-	);
+	const renderDynamicFieldArray = (): ReactNode => <DynamicRepeater fieldSchema={fieldSchema} />;
 
 	return (
 		<FieldRendererContext.Provider value={newContext}>

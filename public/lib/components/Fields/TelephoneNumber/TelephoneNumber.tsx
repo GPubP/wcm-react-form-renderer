@@ -51,7 +51,7 @@ const TelephoneNumber: React.FC<InputFieldProps> = ({
 	const changeHandler = (newValue: TelephoneNumberOutput): void => setValue(newValue);
 
 	return (
-		<div className={config.fieldClassName}>
+		<>
 			<AUITelephoneNumber
 				id={fieldSchema.name}
 				state={state}
@@ -63,7 +63,7 @@ const TelephoneNumber: React.FC<InputFieldProps> = ({
 			<ErrorMessage name={field.name} />
 			<ErrorMessage name={`${field.name}.areaCode`} />
 			<ErrorMessage name={`${field.name}.number`} />
-		</div>
+		</>
 	);
 };
 
