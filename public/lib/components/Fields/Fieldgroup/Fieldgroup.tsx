@@ -68,6 +68,7 @@ const Fieldgroup: React.FC<FieldGroupProps> = ({ fieldSchema }) => {
 							<FieldRenderer
 								key={`${index}-${childFieldSchema.name}`}
 								fieldSchema={childFieldSchema}
+								wrapperClassName="col-xs-12"
 							/>
 						))}
 				</div>
@@ -88,6 +89,7 @@ const Fieldgroup: React.FC<FieldGroupProps> = ({ fieldSchema }) => {
 					<FieldRenderer
 						key={`${index}-${childFieldSchema.name}`}
 						fieldSchema={childFieldSchema}
+						wrapperClassName="col-xs-12"
 					/>
 				))}
 		</div>
@@ -147,7 +149,7 @@ const Fieldgroup: React.FC<FieldGroupProps> = ({ fieldSchema }) => {
 	};
 
 	return (
-		<div className={config.wrapperClassName}>
+		<>
 			{fieldSchema.label && (
 				<FormRendererFieldTitle isRequired={config.required} className="u-margin-bottom">
 					{fieldSchema.label}
@@ -155,7 +157,7 @@ const Fieldgroup: React.FC<FieldGroupProps> = ({ fieldSchema }) => {
 			)}
 			{config.description && <p className="u-margin-bottom">{config.description}</p>}
 			{renderFieldsWrappper()}
-		</div>
+		</>
 	);
 };
 

@@ -194,7 +194,7 @@ const DynamicRepeater: React.FC<DynamicRepeaterProps> = ({ fieldSchema }) => {
 			<>
 				{(Array.isArray(repeaterValues) ? repeaterValues : []).map((value, index) => {
 					let schema = getFieldSchema(value);
-					const wrapperClass = schema?.config?.wrapperClassName || 'col-xs-12';
+					const wrapperClass = schema?.config?.wrapperClassName || '';
 
 					if (schema) {
 						schema = {
@@ -202,9 +202,10 @@ const DynamicRepeater: React.FC<DynamicRepeaterProps> = ({ fieldSchema }) => {
 							name: `${fieldSchema.name}.${index}.value`,
 							config: {
 								...schema?.config,
-								wrapperClassName: `${wrapperClass} ${cx(
+								wrapperClassName: cx(
+									wrapperClass,
 									'repeater__item__field__content'
-								)}`,
+								),
 							},
 						};
 					}
@@ -221,7 +222,7 @@ const DynamicRepeater: React.FC<DynamicRepeaterProps> = ({ fieldSchema }) => {
 				name={fieldSchema.name}
 				render={arrayHelper => {
 					return (
-						<div className={cx('repeater', config.wrapperClassName)}>
+						<div className={cx('repeater')}>
 							{fieldSchema.label && (
 								<FormRendererFieldTitle
 									isRequired={isRequired}
