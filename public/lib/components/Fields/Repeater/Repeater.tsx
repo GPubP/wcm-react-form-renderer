@@ -201,52 +201,50 @@ const Repeater: React.FC<RepeaterProps> = ({ fieldSchema }) => {
 	};
 
 	return (
-		<>
-			<FieldArray
-				name={fieldSchema.name}
-				render={arrayHelper => {
-					if (value.length < min) {
-						addItem(arrayHelper);
-					}
-					return (
-						<div className={cx('repeater', config.wrapperClassName)}>
-							{fieldSchema.label && (
-								<FormRendererFieldTitle
-									isRequired={isRequired}
-									className="u-margin-bottom-xs"
+		<FieldArray
+			name={fieldSchema.name}
+			render={arrayHelper => {
+				if (value.length < min) {
+					addItem(arrayHelper);
+				}
+				return (
+					<div className={cx('repeater')}>
+						{fieldSchema.label && (
+							<FormRendererFieldTitle
+								isRequired={isRequired}
+								className="u-margin-bottom-xs"
+							>
+								{fieldSchema.label}
+							</FormRendererFieldTitle>
+						)}
+						{config.description && (
+							<p className="u-margin-bottom-xs"> {config.description} </p>
+						)}
+						<div>
+							{value?.length === 0 && (
+								<div className={cx('empty', 'u-margin-bottom')}>
+									{t(CORE_TRANSLATIONS['TABLE_NO-ITEMS'])}
+								</div>
+							)}
+							{renderArrayElements(arrayHelper, value)}
+							{value.length < max ? (
+								<Button
+									onClick={() => addItem(arrayHelper)}
+									iconLeft="plus"
+									size="small"
+									disabled={disabled}
+									type="transparent"
+									htmlType="button"
+									className={cx('no-text-decoration')}
 								>
-									{fieldSchema.label}
-								</FormRendererFieldTitle>
-							)}
-							{config.description && (
-								<p className="u-margin-bottom-xs"> {config.description} </p>
-							)}
-							<div>
-								{value?.length === 0 && (
-									<div className={cx('empty', 'u-margin-bottom')}>
-										{t(CORE_TRANSLATIONS['TABLE_NO-ITEMS'])}
-									</div>
-								)}
-								{renderArrayElements(arrayHelper, value)}
-								{value.length < max ? (
-									<Button
-										onClick={() => addItem(arrayHelper)}
-										iconLeft="plus"
-										size="small"
-										disabled={disabled}
-										type="transparent"
-										htmlType="button"
-										className={cx('no-text-decoration')}
-									>
-										Voeg {lowerCasedLabel} toe
-									</Button>
-								) : null}
-							</div>
+									Voeg {lowerCasedLabel} toe
+								</Button>
+							) : null}
 						</div>
-					);
-				}}
-			/>
-		</>
+					</div>
+				);
+			}}
+		/>
 	);
 };
 

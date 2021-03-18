@@ -58,7 +58,7 @@ const InputText: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }: Input
 	}
 
 	return (
-		<div className={config.fieldClassName}>
+		<>
 			<TextField
 				id={fieldSchema.name}
 				state={state}
@@ -67,7 +67,7 @@ const InputText: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }: Input
 				{...fieldConfigProps}
 			/>
 			<ErrorMessage name={field.name} />
-		</div>
+		</>
 	);
 };
 
