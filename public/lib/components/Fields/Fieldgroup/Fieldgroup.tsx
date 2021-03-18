@@ -68,7 +68,7 @@ const Fieldgroup: React.FC<FieldGroupProps> = ({ fieldSchema }) => {
 							<FieldRenderer
 								key={`${index}-${childFieldSchema.name}`}
 								fieldSchema={childFieldSchema}
-								wrapperClassName="col-xs-12"
+								defaultWrapperClassName="col-xs-12"
 							/>
 						))}
 				</div>
@@ -89,7 +89,7 @@ const Fieldgroup: React.FC<FieldGroupProps> = ({ fieldSchema }) => {
 					<FieldRenderer
 						key={`${index}-${childFieldSchema.name}`}
 						fieldSchema={childFieldSchema}
-						wrapperClassName="col-xs-12"
+						defaultWrapperClassName="col-xs-12"
 					/>
 				))}
 		</div>

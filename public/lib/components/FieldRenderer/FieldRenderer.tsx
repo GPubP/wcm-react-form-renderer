@@ -16,7 +16,7 @@ const cx = classNames.bind(FieldRendererStyles);
 const FieldRenderer: React.FC<FieldRendererProps> = ({
 	fieldSchema,
 	renderContext,
-	wrapperClassName = '',
+	defaultWrapperClassName = '',
 }) => {
 	const getFieldConfig = (): FieldConfig | undefined =>
 		fieldRegistry.get(fieldSchema.module, fieldSchema.type);
@@ -35,7 +35,7 @@ const FieldRenderer: React.FC<FieldRendererProps> = ({
 		fieldConfig: fieldConfig as FieldRenderContextValue['fieldConfig'],
 		renderContext: {
 			...renderContext,
-			wrapperClass: fieldSchema.config?.wrapperClassName || wrapperClassName, // use full width by default
+			wrapperClass: fieldSchema.config?.wrapperClassName || defaultWrapperClassName, // use full width by default
 		},
 		// Depend on function hoisting
 		// eslint-disable-next-line @typescript-eslint/no-use-before-define
