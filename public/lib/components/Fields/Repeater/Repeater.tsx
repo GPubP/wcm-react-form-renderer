@@ -14,6 +14,7 @@ import { v4 as uuid } from 'uuid';
 import { CORE_TRANSLATIONS, useCoreTranslation } from '../../../connectors';
 import { FieldSchema } from '../../../core.types';
 import { createInitialValues } from '../../../utils';
+import { ErrorMessage } from '../../ErrorMessage';
 import { FieldRenderer } from '../../FieldRenderer';
 import { FormRendererFieldTitle } from '../../FormRendererFieldTitle';
 
@@ -201,50 +202,53 @@ const Repeater: React.FC<RepeaterProps> = ({ fieldSchema }) => {
 	};
 
 	return (
-		<FieldArray
-			name={fieldSchema.name}
-			render={arrayHelper => {
-				if (value.length < min) {
-					addItem(arrayHelper);
-				}
-				return (
-					<div className={cx('repeater')}>
-						{fieldSchema.label && (
-							<FormRendererFieldTitle
-								isRequired={isRequired}
-								className="u-margin-bottom-xs"
-							>
-								{fieldSchema.label}
-							</FormRendererFieldTitle>
-						)}
-						{config.description && (
-							<p className="u-margin-bottom-xs"> {config.description} </p>
-						)}
-						<div>
-							{value?.length === 0 && (
-								<div className={cx('empty', 'u-margin-bottom')}>
-									{t(CORE_TRANSLATIONS['TABLE_NO-ITEMS'])}
-								</div>
-							)}
-							{renderArrayElements(arrayHelper, value)}
-							{value.length < max ? (
-								<Button
-									onClick={() => addItem(arrayHelper)}
-									iconLeft="plus"
-									size="small"
-									disabled={disabled}
-									type="transparent"
-									htmlType="button"
-									className={cx('no-text-decoration')}
+		<>
+			<FieldArray
+				name={fieldSchema.name}
+				render={arrayHelper => {
+					if (value.length < min) {
+						addItem(arrayHelper);
+					}
+					return (
+						<div className={cx('repeater')}>
+							{fieldSchema.label && (
+								<FormRendererFieldTitle
+									isRequired={isRequired}
+									className="u-margin-bottom-xs"
 								>
-									Voeg {lowerCasedLabel} toe
-								</Button>
-							) : null}
+									{fieldSchema.label}
+								</FormRendererFieldTitle>
+							)}
+							{config.description && (
+								<p className="u-margin-bottom-xs"> {config.description} </p>
+							)}
+							<div>
+								{value?.length === 0 && (
+									<div className={cx('empty', 'u-margin-bottom')}>
+										{t(CORE_TRANSLATIONS['TABLE_NO-ITEMS'])}
+									</div>
+								)}
+								{renderArrayElements(arrayHelper, value)}
+								{value.length < max ? (
+									<Button
+										onClick={() => addItem(arrayHelper)}
+										iconLeft="plus"
+										size="small"
+										disabled={disabled}
+										type="transparent"
+										htmlType="button"
+										className={cx('no-text-decoration')}
+									>
+										Voeg {lowerCasedLabel} toe
+									</Button>
+								) : null}
+							</div>
 						</div>
-					</div>
-				);
-			}}
-		/>
+					);
+				}}
+			/>
+			<ErrorMessage name={fieldSchema.name} />
+		</>
 	);
 };
 
