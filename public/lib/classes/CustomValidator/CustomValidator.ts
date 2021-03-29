@@ -1,3 +1,4 @@
+import addWcmKeywords from '@wcm/ajv-keywords';
 import AJV, { Ajv, RequiredParams, ValidateFunction } from 'ajv';
 import addKeywords from 'ajv-keywords';
 import { FormikErrors, FormikValues, setIn } from 'formik';
@@ -35,6 +36,7 @@ export class CustomValidator {
 			$data: true,
 		});
 		addKeywords(this.ajv);
+		addWcmKeywords(this.ajv);
 
 		this._compile(schema, errorMessages);
 	}
