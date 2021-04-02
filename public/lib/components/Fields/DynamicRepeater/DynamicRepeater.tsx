@@ -171,7 +171,7 @@ const DynamicRepeater: React.FC<DynamicRepeaterProps> = ({ fieldSchema }) => {
 				<Button
 					onClick={() => deleteItem(arrayHelper, index)}
 					negative
-					icon="trash"
+					icon="trash-o"
 					ariaLabel="Delete item"
 					disabled={disabled}
 					type="secondary"

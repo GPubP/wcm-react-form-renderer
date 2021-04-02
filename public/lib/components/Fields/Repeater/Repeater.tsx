@@ -169,7 +169,7 @@ const Repeater: React.FC<RepeaterProps> = ({ fieldSchema }) => {
 					<Button
 						onClick={() => deleteItem(arrayHelper, index)}
 						negative
-						icon="trash"
+						icon="trash-o"
 						disabled={disabled}
 						ariaLabel="Delete item"
 						type="secondary"
