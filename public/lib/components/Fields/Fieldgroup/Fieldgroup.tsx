@@ -135,7 +135,7 @@ const Fieldgroup: React.FC<FieldGroupProps> = ({ fieldSchema }) => {
 						<Button
 							onClick={() => clearItem()}
 							negative
-							icon="trash"
+							icon="trash-o"
 							disabled={config.disabled}
 							ariaLabel="Delete item"
 							type="secondary"
