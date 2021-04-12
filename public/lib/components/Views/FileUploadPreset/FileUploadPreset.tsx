@@ -19,7 +19,7 @@ const FileUploadPresetView: FC<ViewFieldProps> = ({ value }) => {
 	return (
 		<div className={cx('file-upload-view')}>
 			<div className={cx('file-upload-view__thumbnail')}>
-				<span className="fa fa-file"></span>
+				<span className="fa fa-file" />
 			</div>
 			<div className={cx('file-upload-view__body')}>
 				<div className="u-margin-bottom-xs">

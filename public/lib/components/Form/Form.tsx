@@ -159,7 +159,7 @@ const RedactionForm: React.FC<FormProps<FormValues>> = ({
 						{onChange ? (
 							<FormikOnChangeHandler
 								onChange={(values: FormikValues) => debouncedOnFormChange(values)}
-							></FormikOnChangeHandler>
+							/>
 						) : null}
 						<Form noValidate onSubmit={props.handleSubmit} data-testid="formik-form">
 							{renderFields(schema.fields)}
