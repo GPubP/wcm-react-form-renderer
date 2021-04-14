@@ -8,6 +8,7 @@ import {
 	RepeaterView,
 	TelephoneNumberView,
 	TimeView,
+	VideoEmbedView,
 } from '../Views';
 
 import { CheckboxList } from './CheckBoxList';
@@ -26,6 +27,7 @@ import { InputSelect } from './Select';
 import { TelephoneNumber } from './TelephoneNumber';
 import { InputTextarea } from './TextArea';
 import { Time } from './Time';
+import { VideoEmbed } from './VideoEmbed';
 
 const DefaultFields: FieldConfig[] = [
 	{
@@ -137,6 +139,12 @@ const DefaultFields: FieldConfig[] = [
 		module: 'core',
 		component: TelephoneNumber,
 		viewComponent: TelephoneNumberView,
+	},
+	{
+		name: 'videoEmbed',
+		module: 'core',
+		component: VideoEmbed,
+		viewComponent: VideoEmbedView,
 	},
 ];
 

@@ -1,0 +1,10 @@
+.m-video-embed {
+	:global(.a-input) {
+		// add right padding for close
+	}
+}
+
+.m-video-embed__clear.a-button {
+	position: absolute;
+	right: 0;
+}
