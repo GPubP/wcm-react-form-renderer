@@ -5,7 +5,7 @@
   "main": "dist/redactie-form-renderer-module.umd.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "prepublish": "npm run test && npm run build",
+    "prepublishOnly": "npm run test && npm run build",
     "build:types": "tsc --emitDeclarationOnly",
     "build": "webpack --env.prod && npm run build:types",
     "build:w": "webpack -w --env.prod && npm run build:types",

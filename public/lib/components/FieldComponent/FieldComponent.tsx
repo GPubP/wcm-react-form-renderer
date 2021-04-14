@@ -19,7 +19,7 @@ const FieldComponent: React.FC<FieldComponentProps> = ({
 			fieldHelperProps={helpers}
 			fieldProps={fieldProps}
 			fieldSchema={schema}
-		></fieldConfig.component>
+		/>
 	);
 };
 

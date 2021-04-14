@@ -11,7 +11,7 @@ const ErrorMessage: FC<ErrorMessageProps> = ({ component, ...rest }) => {
 	return (
 		<>
 			{component ? (
-				<FormikErrorMessage component={component} {...rest}></FormikErrorMessage>
+				<FormikErrorMessage component={component} {...rest} />
 			) : (
 				<FormikErrorMessage {...rest}>
 					{msg => {
