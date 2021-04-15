@@ -9,3 +9,4 @@ export * from './Time';
 export * from './FileUploadPreset';
 export * from './TelephoneNumber';
 export * from './VideoEmbed';
+export * from './TimePeriods';
