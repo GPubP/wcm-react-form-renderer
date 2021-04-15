@@ -7,6 +7,7 @@ import {
 	FieldGroupView,
 	RepeaterView,
 	TelephoneNumberView,
+	TimePeriodsView,
 	TimeView,
 	VideoEmbedView,
 } from '../Views';
@@ -27,6 +28,7 @@ import { InputSelect } from './Select';
 import { TelephoneNumber } from './TelephoneNumber';
 import { InputTextarea } from './TextArea';
 import { Time } from './Time';
+import { TimePeriods } from './TimePeriods';
 import { VideoEmbed } from './VideoEmbed';
 
 const DefaultFields: FieldConfig[] = [
@@ -145,6 +147,12 @@ const DefaultFields: FieldConfig[] = [
 		module: 'core',
 		component: VideoEmbed,
 		viewComponent: VideoEmbedView,
+	},
+	{
+		name: 'timePeriods',
+		module: 'core',
+		component: TimePeriods,
+		viewComponent: TimePeriodsView,
 	},
 ];
 
