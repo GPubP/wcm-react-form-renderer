@@ -1,4 +1,4 @@
-import { Button, Card, CardBody } from '@acpaas-ui/react-components';
+import { Button, Card, CardBody, Link } from '@acpaas-ui/react-components';
 import classNames from 'classnames/bind';
 import { useField } from 'formik';
 import React, { ReactElement, useCallback, useEffect, useState } from 'react';
@@ -109,17 +109,14 @@ const Fieldgroup: React.FC<FieldGroupProps> = ({ fieldSchema }) => {
 						{t(CORE_TRANSLATIONS['TABLE_NO-ITEMS'])}
 					</div>
 					<div className="u-margin-top-xs">
-						<Button
+						<Link
 							onClick={() => createFieldGroup()}
-							iconLeft="plus"
-							size="small"
 							disabled={config.disabled}
-							type="transparent"
-							htmlType="button"
-							className={cx('no-text-decoration')}
+							className={cx('has-icon-left', 'field-group__link')}
 						>
+							<span className="fa fa-plus" aria-hidden="true" />
 							Voeg {fieldSchema.label?.toLocaleLowerCase()} toe
-						</Button>
+						</Link>
 					</div>
 				</div>
 			);
@@ -151,11 +148,11 @@ const Fieldgroup: React.FC<FieldGroupProps> = ({ fieldSchema }) => {
 	return (
 		<>
 			{fieldSchema.label && (
-				<FormRendererFieldTitle isRequired={config.required} className="u-margin-bottom">
+				<FormRendererFieldTitle isRequired={config.required} className="u-margin-bottom-xs">
 					{fieldSchema.label}
 				</FormRendererFieldTitle>
 			)}
-			{config.description && <p className="u-margin-bottom">{config.description}</p>}
+			{config.description && <p className="u-margin-bottom-xs">{config.description}</p>}
 			{renderFieldsWrappper()}
 		</>
 	);

@@ -6,19 +6,22 @@
 		justify-content: space-between;
 		align-items: center;
 		min-width: 100%;
-		padding-top: $spacer-xs;
-		padding-bottom: $spacer-xs;
+		margin-bottom: $spacer-xs;
 		// Center trash bin icon
 		margin-right: -$spacer-xs;
 
 		&__fields {
 			flex-basis: 100%;
-			margin: 0 $spacer-xs 0 $spacer;
+			margin: 0 $spacer-xs;
 
 			&__content {
 				padding-right: $spacer-xs / 2;
 			}
 		}
+	}
+
+	&__link {
+		cursor: pointer;
 	}
 
 	.empty {
