@@ -18,3 +18,10 @@ export enum TimePeriodsRepeatType {
 	Weekly = 'weekly',
 	Monthly = 'monthly',
 }
+
+export interface TimePeriodsFormState {
+	date: string;
+	startHour: string;
+	endHour: string;
+	allDay: boolean;
+}

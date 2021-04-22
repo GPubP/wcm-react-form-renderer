@@ -1,7 +1,7 @@
 import { Datepicker, Select, Switch } from '@acpaas-ui/react-components';
 import { Timepicker } from '@acpaas-ui/react-editorial-components';
 import { Field, Formik } from 'formik';
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 
 import { ErrorMessage } from '../../../ErrorMessage';
 
@@ -12,10 +12,14 @@ import {
 } from './CreateTimePeriodsForm.const';
 import { CreateTimePeriodsFormProps } from './CreateTimePeriodsForm.types';
 
-const CreateTimePeriodsForm: React.FC<CreateTimePeriodsFormProps> = ({ children, onSubmit }) => {
+const CreateTimePeriodsForm: React.FC<CreateTimePeriodsFormProps> = ({
+	children,
+	initialState = INITIAL_CREATE_FORM_STATE,
+	onSubmit,
+}) => {
 	return (
 		<Formik
-			initialValues={INITIAL_CREATE_FORM_STATE}
+			initialValues={initialState}
 			onSubmit={onSubmit}
 			validationSchema={CREATE_VALIDATION_SCHEMA}
 		>
@@ -30,34 +34,51 @@ const CreateTimePeriodsForm: React.FC<CreateTimePeriodsFormProps> = ({ children,
 										id="date"
 										name="date"
 										label="Datum"
+										activeDate={props.values.date}
+										onChange={(value: string) =>
+											props.setFieldValue('date', value)
+										}
 										required
 									/>
 									<ErrorMessage name="date" />
 								</div>
 							</div>
 							<div className="row">
-								<div className="col-xs-12 col-md-3 u-margin-bottom">
+								<div className="col-xs-12 col-lg-3 u-margin-bottom">
 									<Field
 										as={Timepicker}
 										id="startHour"
 										name="startHour"
-										label="Startuur"
+										hourLabel="Startuur"
+										hourPlaceholder="uu"
+										minuteLabel=""
+										onChange={(value: string) =>
+											props.setFieldValue('startHour', value)
+										}
+										value={props.values.startHour}
 										required
 									/>
 									<ErrorMessage name="startHour" />
 								</div>
-								<div className="col-xs-12 col-md-1 center-xs middle-xs u-flex u-margin-bottom">
+								<div className="col-xs-12 col-lg-1 center-xs bottom-xs u-flex u-padding-bottom-sm u-margin-bottom">
 									<span>t.e.m.</span>
 								</div>
-								<div className="col-xs-12 col-md-3 u-margin-bottom">
+								<div className="col-xs-12 col-lg-3 u-margin-bottom">
 									<Field
 										as={Timepicker}
 										id="endHour"
 										name="endHour"
-										label="Einduur (optioneel)"
+										hourLabel="Einduur"
+										hourPlaceholder="uu"
+										minuteLabel=""
+										onChange={(value: string) =>
+											props.setFieldValue('endHour', value)
+										}
+										value={props.values.endHour}
 									/>
+									<ErrorMessage name="endHour" />
 								</div>
-								<div className="col-xs-12 col-md-3 u-margin-bottom">
+								<div className="col-xs-12 col-lg-3 u-margin-bottom">
 									<Field
 										as={Switch}
 										id="allDay"
@@ -65,7 +86,12 @@ const CreateTimePeriodsForm: React.FC<CreateTimePeriodsFormProps> = ({ children,
 										label="Hele dag"
 										labelFalse="Nee"
 										labelTrue="Ja"
+										checked={props.values.allDay}
+										onClick={(e: ChangeEvent<HTMLInputElement>) =>
+											props.setFieldValue('allDay', e.target.checked)
+										}
 									/>
+									<ErrorMessage name="allDay" />
 								</div>
 							</div>
 						</div>

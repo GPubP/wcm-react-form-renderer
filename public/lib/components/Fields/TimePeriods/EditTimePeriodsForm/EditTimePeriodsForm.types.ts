@@ -1,4 +1,6 @@
+import { TimePeriodsFormState } from '../TimePeriods.types';
+
 export interface EditTimePeriodsFormProps {
-	initialState: any;
-	onChange: (values: any) => void;
+	initialState: TimePeriodsFormState;
+	onChange: (values: TimePeriodsFormState) => void;
 }
