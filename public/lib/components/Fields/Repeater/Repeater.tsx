@@ -1,4 +1,4 @@
-import { Button, Card, CardBody } from '@acpaas-ui/react-components';
+import { Button, Card, CardBody, Link } from '@acpaas-ui/react-components';
 import classNames from 'classnames/bind';
 import {
 	FieldArray,
@@ -8,7 +8,7 @@ import {
 	useFormikContext,
 } from 'formik';
 import { pathOr, split } from 'ramda';
-import React, { ReactElement, useEffect, useMemo } from 'react';
+import React, { ReactElement, useEffect } from 'react';
 import { v4 as uuid } from 'uuid';
 
 import { CORE_TRANSLATIONS, useCoreTranslation } from '../../../connectors';
@@ -34,13 +34,6 @@ const Repeater: React.FC<RepeaterProps> = ({ fieldSchema }) => {
 	const max = config.max === 0 || !config.max ? Number.MAX_SAFE_INTEGER : config.max;
 	const isRequired = min >= 1;
 	const disabled = !!config.disabled;
-	const lowerCasedLabel = useMemo(
-		() =>
-			fieldSchema.label
-				? fieldSchema.label.charAt(0).toLowerCase() + fieldSchema.label.slice(1)
-				: 'item',
-		[fieldSchema.label]
-	);
 
 	useEffect(() => {
 		if (value && !Array.isArray(value)) {
@@ -191,7 +184,7 @@ const Repeater: React.FC<RepeaterProps> = ({ fieldSchema }) => {
 		repeaterValue: FormikValues[]
 	): React.ReactNode => {
 		return (
-			<div className="u-margin-top-xs">
+			<div>
 				{Array.isArray(repeaterValue) && repeaterValue.length > 0
 					? repeaterValue.map((value: any, index: number) =>
 							renderListItem(arrayHelper, repeaterValue, value, index)
@@ -224,23 +217,22 @@ const Repeater: React.FC<RepeaterProps> = ({ fieldSchema }) => {
 							)}
 							<div>
 								{value?.length === 0 && (
-									<div className={cx('empty', 'u-margin-bottom')}>
+									<div className={cx('empty', 'u-margin-top-xs')}>
 										{t(CORE_TRANSLATIONS['TABLE_NO-ITEMS'])}
 									</div>
 								)}
 								{renderArrayElements(arrayHelper, value)}
 								{value.length < max ? (
-									<Button
-										onClick={() => addItem(arrayHelper)}
-										iconLeft="plus"
-										size="small"
-										disabled={disabled}
-										type="transparent"
-										htmlType="button"
-										className={cx('no-text-decoration')}
-									>
-										Voeg {lowerCasedLabel} toe
-									</Button>
+									<div className="u-margin-top-xs">
+										<Link
+											onClick={() => addItem(arrayHelper)}
+											disabled={disabled}
+											className={cx('has-icon-left', 'repeater__link')}
+										>
+											<span className="fa fa-plus" aria-hidden="true" />
+											Voeg {fieldSchema.label?.toLocaleLowerCase()} toe
+										</Link>
+									</div>
 								) : null}
 							</div>
 						</div>
