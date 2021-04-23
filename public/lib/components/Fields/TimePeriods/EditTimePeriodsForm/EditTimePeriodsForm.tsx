@@ -8,11 +8,13 @@ import { TimePeriodsFormState } from '../TimePeriods.types';
 
 import { EditTimePeriodsFormProps } from './EditTimePeriodsForm.types';
 
-const EditTimePeriodsForm: React.FC<EditTimePeriodsFormProps> = ({ initialState, onChange }) => {
-	const noopSubmit = (): void => undefined;
-
+const EditTimePeriodsForm: React.FC<EditTimePeriodsFormProps> = ({
+	initialState,
+	onChange,
+	onSubmit = () => undefined,
+}) => {
 	return (
-		<Formik enableReinitialize initialValues={initialState} onSubmit={noopSubmit}>
+		<Formik enableReinitialize initialValues={initialState} onSubmit={onSubmit}>
 			{({ setFieldValue, values }) => {
 				return (
 					<>
