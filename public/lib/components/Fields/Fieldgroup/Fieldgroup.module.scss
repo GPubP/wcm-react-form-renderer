@@ -19,7 +19,7 @@
 
 		&__fields_row-wrapper {
 			// Undo margin of last row elements
-			margin-bottom: -$spacer;
+			margin-bottom: -$spacer-xs;
 			min-width: 100%;
 		}
 
@@ -35,10 +35,10 @@
 		.m-card {
 			min-width: 100%;
 		}
+	}
 
-		.no-text-decoration {
-			text-decoration: none;
-		}
+	&__link {
+		cursor: pointer;
 	}
 
 	.no-border {

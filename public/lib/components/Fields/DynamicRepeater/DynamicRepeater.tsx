@@ -35,13 +35,6 @@ const DynamicRepeater: React.FC<DynamicRepeaterProps> = ({ fieldSchema }) => {
 		[config.amount]
 	);
 	const isRequired = useMemo(() => min >= 1, [min]);
-	const lowerCasedLabel = useMemo(
-		() =>
-			fieldSchema.label
-				? fieldSchema.label.charAt(0).toLowerCase() + fieldSchema.label.slice(1)
-				: 'item',
-		[fieldSchema.label]
-	);
 	const disabled = !!config.disabled;
 
 	/**
@@ -226,27 +219,27 @@ const DynamicRepeater: React.FC<DynamicRepeaterProps> = ({ fieldSchema }) => {
 							{fieldSchema.label && (
 								<FormRendererFieldTitle
 									isRequired={isRequired}
-									className="u-margin-bottom"
+									className="u-margin-bottom-xs"
 								>
 									{fieldSchema.label}
 								</FormRendererFieldTitle>
 							)}
 							{config.description ? (
-								<p className="u-margin-bottom"> {config.description} </p>
+								<p className="u-margin-bottom-xs"> {config.description} </p>
 							) : null}
 							<div>
 								{value?.length === 0 && (
-									<div className={cx('empty', 'u-margin-bottom')}>
+									<div className={cx('empty', 'u-margin-bottom-xs')}>
 										{t(CORE_TRANSLATIONS['TABLE_NO-ITEMS'])}
 									</div>
 								)}
 								{renderArrayElements(arrayHelper, value)}
-								<div className="u-margin-bottom">
+								<div className="u-margin-bottom-xs">
 									<ErrorMessage name={fieldSchema.name} />
 								</div>
 								{!disabled && value.length < max ? (
 									<FlyoutSelect
-										label={lowerCasedLabel}
+										label={fieldSchema.label?.toLocaleLowerCase() || ''}
 										onSelect={(field: FieldSchema) =>
 											addItem(arrayHelper, field)
 										}
