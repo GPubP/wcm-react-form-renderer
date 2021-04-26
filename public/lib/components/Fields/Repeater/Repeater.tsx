@@ -13,6 +13,7 @@ import { v4 as uuid } from 'uuid';
 
 import { CORE_TRANSLATIONS, useCoreTranslation } from '../../../connectors';
 import { FieldSchema } from '../../../core.types';
+import { useFieldRendererContext } from '../../../hooks';
 import { createInitialValues } from '../../../utils';
 import { ErrorMessage } from '../../ErrorMessage';
 import { FieldRenderer } from '../../FieldRenderer';
@@ -26,9 +27,10 @@ const cx = classNames.bind(styles);
 const Repeater: React.FC<RepeaterProps> = ({ fieldSchema }) => {
 	const [t] = useCoreTranslation();
 	const config = fieldSchema.config || {};
-	const [, , helpers] = useField(fieldSchema.name);
+	const [, , helpers] = useField<any[]>(fieldSchema.name);
 	const fields = Array.isArray(fieldSchema.fields) ? fieldSchema.fields : [];
 	const { values } = useFormikContext<FormikValues>();
+	const { renderContext } = useFieldRendererContext();
 	const value = pathOr([], split('.', fieldSchema.name), values) as FormikValues[];
 	const min = config.min || 0;
 	const max = config.max === 0 || !config.max ? Number.MAX_SAFE_INTEGER : config.max;
@@ -45,6 +47,21 @@ const Repeater: React.FC<RepeaterProps> = ({ fieldSchema }) => {
 			]);
 		}
 	}, [helpers, value]);
+
+	// Prepare first item when defaultOpen is set by parent component
+	useEffect(
+		() => {
+			if (renderContext.defaultOpen && !Array.isArray(value)) {
+				helpers.setValue([
+					{
+						uuid: uuid(),
+						...createInitialValues({ fields }, {}),
+					},
+				]);
+			}
+		},
+		[config.required, fieldSchema.name, renderContext] // eslint-disable-line
+	);
 
 	/**
 	 * Add element to the field array
@@ -150,6 +167,7 @@ const Repeater: React.FC<RepeaterProps> = ({ fieldSchema }) => {
 								key={schema.name}
 								fieldSchema={schema}
 								renderContext={{
+									defaultOpen: true,
 									wrappedInCard: true,
 									renderAsRequired: true,
 								}}

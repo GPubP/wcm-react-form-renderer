@@ -39,6 +39,9 @@ describe('utils', () => {
 					type: 'fieldgroup',
 					label: 'user',
 					uuid: 'some-uuid-3',
+					config: {
+						required: true,
+					},
 					fields: [
 						{
 							name: 'firstname',

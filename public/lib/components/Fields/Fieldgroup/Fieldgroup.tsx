@@ -42,8 +42,7 @@ const Fieldgroup: React.FC<FieldGroupProps> = ({ fieldSchema }) => {
 	useEffect(
 		() =>
 			config.required ||
-			renderContext?.wrappedInCard ||
-			renderContext?.wrappedInDashedContainer ||
+			(renderContext.defaultOpen && !formikField.value) ||
 			(typeof formikField.value === 'object' && formikField.value !== null)
 				? createFieldGroup()
 				: clearItem(),

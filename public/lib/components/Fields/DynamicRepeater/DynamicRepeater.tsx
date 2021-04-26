@@ -156,7 +156,11 @@ const DynamicRepeater: React.FC<DynamicRepeaterProps> = ({ fieldSchema }) => {
 				{schema ? (
 					<FieldRenderer
 						fieldSchema={schema}
-						renderContext={{ wrappedInDashedContainer: true, renderAsRequired: true }}
+						renderContext={{
+							defaultOpen: true,
+							wrappedInDashedContainer: true,
+							renderAsRequired: true,
+						}}
 					/>
 				) : null}
 			</div>
