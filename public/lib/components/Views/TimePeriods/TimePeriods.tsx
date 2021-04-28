@@ -7,9 +7,9 @@ import { TimePeriodsValue } from '../../Fields/TimePeriods';
 import { DATE_FORMAT, TIME_FORMAT } from './TimePeriods.const';
 
 const TimePeriodsView: React.FC<ViewFieldProps> = ({ value }) => {
-	const { date = '', startHour = '', endHour, allDay } = value as TimePeriodsValue;
+	const { startDate = '', startHour = '', endHour, allDay } = value as TimePeriodsValue;
 
-	if (!date || !startHour) {
+	if (!startDate || !startHour) {
 		return null;
 	}
 
@@ -26,7 +26,7 @@ const TimePeriodsView: React.FC<ViewFieldProps> = ({ value }) => {
 		return `vanaf ${formattedStart}`;
 	};
 
-	return <>{`${moment(date).format(DATE_FORMAT)} ${getDurationString()}`}</>;
+	return <>{`${moment(startDate).format(DATE_FORMAT)} ${getDurationString()}`}</>;
 };
 
 export default TimePeriodsView;

@@ -1,16 +1,16 @@
 export interface TimePeriodsValue {
-	date: string;
+	startDate: string;
 	startHour: string;
 	endHour?: string;
 	allDay: boolean;
-	repeatType: TimePeriodsRepeatType;
-	repeatValue: number;
-	repeatEndDate: string;
+	repeatType: TimePeriodsRepeatType | '';
+	repeatFrequency?: number;
+	endDate?: string;
 	// Weekly only
-	repeatWeekDays: string[];
+	weeklyDays?: string[];
 	// Monthly only
-	repeatEvery: string;
-	repeatDay: string;
+	monthlyFrequency?: string;
+	monthlyWeekday?: string;
 }
 
 export enum TimePeriodsRepeatType {
@@ -19,9 +19,4 @@ export enum TimePeriodsRepeatType {
 	Monthly = 'monthly',
 }
 
-export interface TimePeriodsFormState {
-	date: string;
-	startHour: string;
-	endHour: string;
-	allDay: boolean;
-}
+export type TimePeriodsFormState = TimePeriodsValue;

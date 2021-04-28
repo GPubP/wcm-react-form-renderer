@@ -23,11 +23,11 @@ const EditTimePeriodsForm: React.FC<EditTimePeriodsFormProps> = ({ initialState,
 							<div className="col-xs-12 col-md-7 col-lg-5 u-margin-bottom">
 								<Field
 									as={Datepicker}
-									id="date"
-									name="date"
+									id="startDate"
+									name="startDate"
 									label="Datum"
-									activeDate={values.date}
-									onChange={(value: string) => setFieldValue('date', value)}
+									activeDate={values.startDate}
+									onChange={(value: string) => setFieldValue('startDate', value)}
 									required
 								/>
 							</div>
