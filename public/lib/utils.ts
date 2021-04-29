@@ -28,10 +28,10 @@ export const createInitialValues = (
 			field.type === 'fieldgroup' &&
 			Array.isArray(field.fields)
 		) {
-			acc[field.name] = createInitialValues(
-				{ fields: field.fields },
-				initialValues[field.name]
-			);
+			acc[field.name] =
+				field.config?.required || initialValues[field.name]
+					? createInitialValues({ fields: field.fields }, initialValues[field.name])
+					: '';
 
 			return acc;
 		}
