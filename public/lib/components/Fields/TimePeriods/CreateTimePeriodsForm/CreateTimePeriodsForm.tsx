@@ -1,12 +1,12 @@
 import { Datepicker, Select, Switch } from '@acpaas-ui/react-components';
 import { Timepicker } from '@acpaas-ui/react-editorial-components';
 import { SelectOption } from '@redactie/utils';
-import { Field, Formik } from 'formik';
+import { Field, Formik, FormikProps } from 'formik';
 import { isEmpty } from 'ramda';
 import React, { ChangeEvent } from 'react';
 
 import { ErrorMessage } from '../../../ErrorMessage';
-import { TimePeriodsRepeatType } from '../TimePeriods.types';
+import { TimePeriodsFormState, TimePeriodsRepeatType } from '../TimePeriods.types';
 import { WeekDayMultiSelect } from '../WeekDayMultiSelect';
 
 import {
@@ -27,6 +27,10 @@ const CreateTimePeriodsForm: React.FC<CreateTimePeriodsFormProps> = ({
 	initialState = INITIAL_CREATE_FORM_STATE,
 	onSubmit,
 }) => {
+	/**
+	 * Methods
+	 */
+
 	const getRepeatFrequencyOptions = (repeatType: TimePeriodsRepeatType | ''): SelectOption[] => {
 		switch (repeatType) {
 			case TimePeriodsRepeatType.Daily:
@@ -39,6 +43,37 @@ const CreateTimePeriodsForm: React.FC<CreateTimePeriodsFormProps> = ({
 				return [];
 		}
 	};
+
+	const onRepeatTypeChange = (
+		newRepeatType: string,
+		setFieldValue: FormikProps<TimePeriodsFormState>['setFieldValue']
+	): void => {
+		switch (newRepeatType) {
+			case TimePeriodsRepeatType.Daily:
+				setFieldValue('weeklyDays', undefined);
+				setFieldValue('monthlyFrequency', undefined);
+				setFieldValue('monthlyWeekday', undefined);
+				break;
+			case TimePeriodsRepeatType.Weekly:
+				setFieldValue('monthlyFrequency', undefined);
+				setFieldValue('monthlyWeekday', undefined);
+				break;
+			case TimePeriodsRepeatType.Monthly:
+				setFieldValue('weeklyDays', undefined);
+				setFieldValue('monthlyFrequency', MONTH_WEEK_FREQ_OPTIONS[0].value);
+				setFieldValue('monthlyWeekday', MONTH_WEEKDAY_OPTIONS[0].value);
+				break;
+			default:
+				break;
+		}
+
+		setFieldValue('repeatType', newRepeatType);
+		setFieldValue('repeatFrequency', 1);
+	};
+
+	/**
+	 * Render
+	 */
 
 	return (
 		<Formik
@@ -72,6 +107,7 @@ const CreateTimePeriodsForm: React.FC<CreateTimePeriodsFormProps> = ({
 								<div className="col-xs-12 col-lg-3 u-margin-bottom">
 									<Field
 										as={Timepicker}
+										disabled={values.allDay}
 										id="startHour"
 										name="startHour"
 										hourLabel="Startuur"
@@ -91,6 +127,7 @@ const CreateTimePeriodsForm: React.FC<CreateTimePeriodsFormProps> = ({
 								<div className="col-xs-12 col-lg-3 u-margin-bottom">
 									<Field
 										as={Timepicker}
+										disabled={values.allDay}
 										id="endHour"
 										name="endHour"
 										hourLabel="Einduur"
@@ -112,9 +149,13 @@ const CreateTimePeriodsForm: React.FC<CreateTimePeriodsFormProps> = ({
 										labelFalse="Nee"
 										labelTrue="Ja"
 										checked={values.allDay}
-										onClick={(e: ChangeEvent<HTMLInputElement>) =>
-											setFieldValue('allDay', e.target.checked)
-										}
+										onClick={(e: ChangeEvent<HTMLInputElement>) => {
+											if (e.target.checked) {
+												setFieldValue('startHour', '0:0');
+												setFieldValue('endHour', '23:55');
+											}
+											setFieldValue('allDay', e.target.checked);
+										}}
 									/>
 									<ErrorMessage name="allDay" />
 								</div>
@@ -129,6 +170,9 @@ const CreateTimePeriodsForm: React.FC<CreateTimePeriodsFormProps> = ({
 										id="repeatType"
 										name="repeatType"
 										label="Herhaling"
+										onChange={(e: ChangeEvent<HTMLSelectElement>) =>
+											onRepeatTypeChange(e.target.value, setFieldValue)
+										}
 										options={REPEAT_TYPE_OPTIONS}
 									/>
 								</div>
@@ -178,23 +222,23 @@ const CreateTimePeriodsForm: React.FC<CreateTimePeriodsFormProps> = ({
 											<div className="col-xs-12 col-lg u-margin-bottom">
 												<Field
 													as={Select}
-													id="monthFrequency"
-													name="monthFrequency"
+													id="monthlyFrequency"
+													name="monthlyFrequency"
 													label="Op de"
 													options={MONTH_WEEK_FREQ_OPTIONS}
 													required
 												/>
-												<ErrorMessage name="monthFrequency" />
+												<ErrorMessage name="monthlyFrequency" />
 											</div>
 											<div className="col-xs-12 col-lg u-padding-top u-margin-bottom">
 												<Field
 													as={Select}
-													id="monthWeekDay"
-													name="monthWeekDay"
+													id="monthlyWeekday"
+													name="monthlyWeekday"
 													options={MONTH_WEEKDAY_OPTIONS}
 													required
 												/>
-												<ErrorMessage name="monthWeekDay" />
+												<ErrorMessage name="monthlyWeekday" />
 											</div>
 										</>
 									)}

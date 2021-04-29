@@ -25,7 +25,7 @@ const TimePeriods: FC<InputFieldProps> = ({ fieldProps, fieldHelperProps }) => {
 	const { setValue } = fieldHelperProps;
 	const fieldValue = (field.value as unknown) as TimePeriodsValue;
 
-	const hasFieldValue = !isNil(field.value);
+	const hasFieldValue = !isNil(fieldValue) && fieldValue.startDate && fieldValue.startHour;
 
 	/**
 	 * Hooks
@@ -45,6 +45,7 @@ const TimePeriods: FC<InputFieldProps> = ({ fieldProps, fieldHelperProps }) => {
 
 	const onSetFieldValue = (values: TimePeriodsFormState): void => {
 		setValue(values);
+		setShowModal(false);
 	};
 
 	/**

@@ -1,8 +1,12 @@
 import { SelectOption } from '@redactie/utils';
-import { isEmpty } from 'ramda';
 import { array, boolean, date, number, object, ref, string } from 'yup';
 
-import { parseDate, transformDate } from '../TimePeriods.helpers';
+import {
+	isNilOrEmpty,
+	isStartBeforeEndTime,
+	parseDate,
+	transformDate,
+} from '../TimePeriods.helpers';
 import { TimePeriodsRepeatType } from '../TimePeriods.types';
 
 import { CreateTimePeriodsFormState } from './CreateTimePeriodsForm.types';
@@ -20,7 +24,15 @@ export const CREATE_VALIDATION_SCHEMA = object()
 		startHour: string()
 			.matches(HOUR_MINUTE_REGEX, 'Startuur moet in het formaat H:m')
 			.required('Startuur is een verplicht veld'),
-		endHour: string().matches(HOUR_MINUTE_REGEX, 'Einduur moet in het formaat H:m'),
+		endHour: string()
+			.matches(HOUR_MINUTE_REGEX, 'Einduur moet in het formaat H:m')
+			.test('isStartBeforeEndTime', 'Einduur moet na startuur', function(
+				value: string | undefined
+			) {
+				const startHourRef = this.resolve(ref('startHour'));
+				return isStartBeforeEndTime(startHourRef as string | undefined, value);
+			})
+			.optional(),
 		allDay: boolean(),
 		repeatType: string().oneOf([
 			'',
@@ -29,21 +41,19 @@ export const CREATE_VALIDATION_SCHEMA = object()
 			TimePeriodsRepeatType.Monthly,
 		]),
 		repeatFrequency: number().when('repeatType', {
-			is: (value: string) => !isEmpty(value),
-			then: number().required(),
+			is: (value: string | undefined) => !isNilOrEmpty(value),
+			then: number().required('Frequentie is een verplicht veld'),
 		}),
 		endDate: date().when('repeatType', {
-			is: (value: string) => !isEmpty(value),
+			is: (value: string | undefined) => !isNilOrEmpty(value),
 			then: date()
 				.transform(transformDate)
 				.typeError(INVALID_DATE_MESSAGE)
 				.min(
-					ref('startDate', {
-						map: value => parseDate(value as string),
-					}),
+					ref('startDate', { map: value => parseDate(value as string) }),
 					'Einddatum moet na startdatum vallen'
 				)
-				.required(),
+				.required('Einddatum is een verplicht veld'),
 		}),
 		// Weekly only
 		weeklyDays: array()
@@ -52,16 +62,17 @@ export const CREATE_VALIDATION_SCHEMA = object()
 				is: TimePeriodsRepeatType.Weekly,
 				then: array()
 					.of(string())
-					.required(),
+					.min(1, 'Selecteer minstens 1 weekdag')
+					.required('Weekdag is een verplicht veld'),
 			}),
 		// Monthly only
 		monthlyFrequency: string().when('repeatType', {
 			is: TimePeriodsRepeatType.Monthly,
-			then: string().required(),
+			then: string().required('Maandelijkse frequentie is een verplicht veld'),
 		}),
-		monthlyWeekDay: string().when('repeatType', {
+		monthlyWeekday: string().when('repeatType', {
 			is: TimePeriodsRepeatType.Monthly,
-			then: string().required(),
+			then: string().required('Weekdag is een verplicht veld'),
 		}),
 	})
 	.required();
@@ -72,6 +83,11 @@ export const INITIAL_CREATE_FORM_STATE: CreateTimePeriodsFormState = {
 	endHour: '',
 	allDay: false,
 	repeatType: '',
+	repeatFrequency: undefined,
+	endDate: undefined,
+	weeklyDays: undefined,
+	monthlyFrequency: undefined,
+	monthlyWeekday: undefined,
 };
 
 export const REPEAT_TYPE_OPTIONS: SelectOption[] = [
