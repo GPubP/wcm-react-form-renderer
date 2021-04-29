@@ -8,6 +8,7 @@ export interface FieldRendererRenderContext {
 	wrappedInDashedContainer?: boolean;
 	wrapperClass: string;
 	renderAsRequired?: boolean;
+	defaultOpen?: boolean;
 }
 export interface FieldRenderContextValue {
 	level: number;
