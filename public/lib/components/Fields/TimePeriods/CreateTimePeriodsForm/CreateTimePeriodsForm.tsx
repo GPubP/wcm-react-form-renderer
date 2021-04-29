@@ -88,7 +88,7 @@ const CreateTimePeriodsForm: React.FC<CreateTimePeriodsFormProps> = ({
 					<>
 						<div className="u-padding">
 							<div className="row">
-								<div className="col-xs-12 col-md-7 u-margin-bottom">
+								<div className="col-xs-12 col-md-6 col-lg-7 u-margin-bottom">
 									<Field
 										as={Datepicker}
 										id="startDate"
@@ -104,7 +104,7 @@ const CreateTimePeriodsForm: React.FC<CreateTimePeriodsFormProps> = ({
 								</div>
 							</div>
 							<div className="row">
-								<div className="col-xs-12 col-lg-3 u-margin-bottom">
+								<div className="col-xs-12 col-md-4 col-lg-3 u-margin-bottom">
 									<Field
 										as={Timepicker}
 										disabled={values.allDay}
@@ -121,10 +121,10 @@ const CreateTimePeriodsForm: React.FC<CreateTimePeriodsFormProps> = ({
 									/>
 									<ErrorMessage name="startHour" />
 								</div>
-								<div className="col-xs-12 col-lg-1 center-xs bottom-xs u-flex u-padding-bottom-sm u-margin-bottom">
+								<div className="col-xs-12 col-md-1 center-xs top-xs u-flex sm:u-padding-top-md sm:u-margin-bottom u-margin-bottom-xs">
 									<span>t.e.m.</span>
 								</div>
-								<div className="col-xs-12 col-lg-3 u-margin-bottom">
+								<div className="col-xs-12 col-md-4 col-lg-3 u-margin-bottom">
 									<Field
 										as={Timepicker}
 										disabled={values.allDay}
@@ -164,7 +164,7 @@ const CreateTimePeriodsForm: React.FC<CreateTimePeriodsFormProps> = ({
 						<hr className="u-no-margin" />
 						<div className="u-padding">
 							<div className="row">
-								<div className="col-xs-12 col-lg-3 u-margin-bottom">
+								<div className="col-xs-12 col-md-6 col-lg-3 u-margin-bottom">
 									<Field
 										as={Select}
 										id="repeatType"
@@ -179,7 +179,7 @@ const CreateTimePeriodsForm: React.FC<CreateTimePeriodsFormProps> = ({
 							</div>
 							{!isEmpty(values.repeatType) && (
 								<div className="row">
-									<div className="col-xs-12 col-lg-3 u-margin-bottom">
+									<div className="col-xs-12 col-md-6 col-lg-3 u-margin-bottom">
 										<Field
 											as={Select}
 											id="repeatFrequency"
@@ -190,7 +190,7 @@ const CreateTimePeriodsForm: React.FC<CreateTimePeriodsFormProps> = ({
 										/>
 										<ErrorMessage name="repeatFrequency" />
 									</div>
-									<div className="col-xs-12 col-lg-4 u-margin-bottom">
+									<div className="col-xs-12 col-md-6 col-lg-4 u-margin-bottom">
 										<Field
 											as={Datepicker}
 											id="endDate"

@@ -63,7 +63,12 @@ const TimePeriods: FC<InputFieldProps> = ({ fieldProps, fieldHelperProps }) => {
 			>
 				Voeg tijdstip toe
 			</Button>
-			<ControlledModal className={cx('o-time-periods__modal')} show={showModal} size="large">
+			<ControlledModal
+				className={cx('o-time-periods__modal')}
+				overlayClassName={cx('o-time-periods__overlay')}
+				show={showModal}
+				size="large"
+			>
 				<div className="u-padding">
 					<h3>Tijdstippen toevoegen</h3>
 				</div>
