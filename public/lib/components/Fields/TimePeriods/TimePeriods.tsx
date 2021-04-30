@@ -25,7 +25,7 @@ const TimePeriods: FC<InputFieldProps> = ({ fieldProps, fieldHelperProps }) => {
 	const { setValue } = fieldHelperProps;
 	const fieldValue = (field.value as unknown) as TimePeriodsValue;
 
-	const hasFieldValue = !isNil(field.value);
+	const hasFieldValue = !isNil(fieldValue) && fieldValue.startDate && fieldValue.startHour;
 
 	/**
 	 * Hooks
@@ -45,6 +45,7 @@ const TimePeriods: FC<InputFieldProps> = ({ fieldProps, fieldHelperProps }) => {
 
 	const onSetFieldValue = (values: TimePeriodsFormState): void => {
 		setValue(values);
+		setShowModal(false);
 	};
 
 	/**
@@ -62,7 +63,12 @@ const TimePeriods: FC<InputFieldProps> = ({ fieldProps, fieldHelperProps }) => {
 			>
 				Voeg tijdstip toe
 			</Button>
-			<ControlledModal className={cx('o-time-periods__modal')} show={showModal} size="large">
+			<ControlledModal
+				className={cx('o-time-periods__modal')}
+				overlayClassName={cx('o-time-periods__overlay')}
+				show={showModal}
+				size="large"
+			>
 				<div className="u-padding">
 					<h3>Tijdstippen toevoegen</h3>
 				</div>
