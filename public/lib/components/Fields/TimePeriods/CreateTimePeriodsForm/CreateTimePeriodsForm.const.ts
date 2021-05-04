@@ -7,7 +7,7 @@ import {
 	parseDate,
 	transformDate,
 } from '../TimePeriods.helpers';
-import { TimePeriodsRepeatType } from '../TimePeriods.types';
+import { MonthlyFrequencies, TimePeriodsRepeatType, Weekdays } from '../TimePeriods.types';
 
 import { CreateTimePeriodsFormState } from './CreateTimePeriodsForm.types';
 
@@ -128,37 +128,37 @@ const WEEKDAYS = [
 	{
 		fulLabel: 'Maandag',
 		shortLabel: 'Ma',
-		value: 'monday',
+		value: Weekdays.Monday,
 	},
 	{
 		fulLabel: 'Dinsdag',
 		shortLabel: 'Di',
-		value: 'tuesday',
+		value: Weekdays.Tuesday,
 	},
 	{
 		fulLabel: 'Woensdag',
 		shortLabel: 'Wo',
-		value: 'wednesday',
+		value: Weekdays.Wednesday,
 	},
 	{
 		fulLabel: 'Donderdag',
 		shortLabel: 'Do',
-		value: 'thursday',
+		value: Weekdays.Thursday,
 	},
 	{
 		fulLabel: 'Vrijdag',
 		shortLabel: 'Vr',
-		value: 'friday',
+		value: Weekdays.Friday,
 	},
 	{
 		fulLabel: 'Zaterdag',
 		shortLabel: 'Za',
-		value: 'saturday',
+		value: Weekdays.Saturday,
 	},
 	{
 		fulLabel: 'Zondag',
 		shortLabel: 'Zo',
-		value: 'sunday',
+		value: Weekdays.Sunday,
 	},
 ];
 
@@ -170,23 +170,23 @@ export const WEEK_DAY_OPTIONS = WEEKDAYS.map(({ shortLabel, value }) => ({
 export const MONTH_WEEK_FREQ_OPTIONS = [
 	{
 		label: 'Eerste',
-		value: 'first',
+		value: MonthlyFrequencies.First,
 	},
 	{
 		label: 'Tweede',
-		value: 'second',
+		value: MonthlyFrequencies.Second,
 	},
 	{
 		label: 'Derde',
-		value: 'third',
+		value: MonthlyFrequencies.Third,
 	},
 	{
 		label: 'Vierde',
-		value: 'fourth',
+		value: MonthlyFrequencies.Fourth,
 	},
 	{
 		label: 'Laatste',
-		value: 'last',
+		value: MonthlyFrequencies.Last,
 	},
 ];
 
