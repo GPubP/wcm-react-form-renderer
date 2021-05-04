@@ -103,6 +103,7 @@
   "dependencies": {
     "@wcm/ajv-keywords": "^1.0.1",
     "ajv": "^6.12.4",
+    "rrule": "^2.6.8",
     "uuid": "^8.3.1"
   }
 }
