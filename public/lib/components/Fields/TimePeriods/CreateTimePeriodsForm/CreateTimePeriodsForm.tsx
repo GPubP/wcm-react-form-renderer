@@ -1,6 +1,7 @@
 import { Datepicker, Select, Switch } from '@acpaas-ui/react-components';
 import { Timepicker } from '@acpaas-ui/react-editorial-components';
 import { SelectOption } from '@redactie/utils';
+import classnames from 'classnames/bind';
 import { Field, Formik, FormikProps } from 'formik';
 import { isEmpty } from 'ramda';
 import React, { ChangeEvent, useMemo, useState } from 'react';
@@ -22,7 +23,10 @@ import {
 	WEEKLY_FREQUENCY_OPTIONS,
 } from './CreateTimePeriodsForm.const';
 import { getRecurringTimePeriods } from './CreateTimePeriodsForm.helpers';
+import styles from './CreateTimePeriodsForm.module.scss';
 import { CreateTimePeriodsFormProps } from './CreateTimePeriodsForm.types';
+
+const cx = classnames.bind(styles);
 
 const CreateTimePeriodsForm: React.FC<CreateTimePeriodsFormProps> = ({
 	children,
@@ -259,8 +263,13 @@ const CreateTimePeriodsForm: React.FC<CreateTimePeriodsFormProps> = ({
 										)}
 									</div>
 									{recurringTimePeriods && (
-										<p className="u-text-light">
-											spanU staat op het punt{' '}
+										<p
+											className={cx(
+												'o-create-time-periods-form__amount',
+												'u-text-light'
+											)}
+										>
+											U staat op het punt{' '}
 											<strong>{recurringTimePeriods}</strong> toe te voegen
 										</p>
 									)}

@@ -116,7 +116,7 @@ export const DAILY_FREQUENCY_OPTIONS = Array.from(Array(7)).map((val, index) => 
 
 export const WEEKLY_FREQUENCY_OPTIONS = Array.from(Array(8)).map((val, index) => {
 	const value = index + 1;
-	return { label: `${value} ${value > 1 ? 'week' : 'weken'}`, value: value.toString() };
+	return { label: `${value} ${value > 1 ? 'weken' : 'week'}`, value: value.toString() };
 });
 
 export const MONTHLY_FREQUENCY_OPTIONS = Array.from(Array(12)).map((val, index) => {
