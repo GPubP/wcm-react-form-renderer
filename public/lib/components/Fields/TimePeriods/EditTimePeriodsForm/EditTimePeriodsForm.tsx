@@ -25,7 +25,7 @@ const EditTimePeriodsForm: React.FC<EditTimePeriodsFormProps> = ({
 							<div className="col-xs-12 col-lg-9 u-margin-bottom">
 								<Field
 									as={Datepicker}
-									id="startDate"
+									id="edit-startDate"
 									name="startDate"
 									label="Datum"
 									activeDate={values.startDate}
@@ -38,7 +38,7 @@ const EditTimePeriodsForm: React.FC<EditTimePeriodsFormProps> = ({
 							<div className="col-xs-12 col-lg-4">
 								<Field
 									as={Timepicker}
-									id="startTime"
+									id="edit-startTime"
 									name="startTime"
 									hourLabel="Startuur"
 									minuteLabel=""
@@ -52,7 +52,7 @@ const EditTimePeriodsForm: React.FC<EditTimePeriodsFormProps> = ({
 							<div className="col-xs-12 col-lg-4">
 								<Field
 									as={Timepicker}
-									id="endTime"
+									id="edit-endTime"
 									name="endTime"
 									hourLabel="Einduur"
 									minuteLabel=""

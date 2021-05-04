@@ -7,6 +7,7 @@ import {
 	useField,
 	useFormikContext,
 } from 'formik';
+import moment from 'moment';
 import { pathOr, split } from 'ramda';
 import React, { ReactElement, useEffect } from 'react';
 import { v4 as uuid } from 'uuid';
@@ -17,8 +18,11 @@ import { createInitialValues } from '../../../utils';
 import { ErrorMessage } from '../../ErrorMessage';
 import { FieldRenderer } from '../../FieldRenderer';
 import { FormRendererFieldTitle } from '../../FormRendererFieldTitle';
+import { DATE_INPUT_FORMAT, TIME_INPUT_FORMAT } from '../../Views/TimePeriods/TimePeriods.const';
 import { RepeaterProps } from '../Repeater';
 import styles from '../Repeater/Repeater.module.scss';
+
+import { TimePeriodsRepeaterValue } from './TimePeriodsRepeater.types';
 
 const cx = classNames.bind(styles);
 
@@ -68,6 +72,25 @@ const TimePeriodsRepeater: React.FC<RepeaterProps> = ({ fieldSchema }) => {
 	// Delete element form the field array
 	const deleteItem = (arrayHelper: FieldArrayRenderProps, index: number): void => {
 		arrayHelper.remove(index);
+	};
+
+	// Sort values on start date and time
+	const sortRepeaterValues = (a: FormikValues, b: FormikValues): number => {
+		const aValue = (a as TimePeriodsRepeaterValue).value;
+		const bValue = (b as TimePeriodsRepeaterValue).value;
+
+		if (
+			(!aValue?.startDate && !aValue?.startTime) ||
+			(!bValue?.startDate && !bValue?.startTime)
+		) {
+			return 0;
+		}
+
+		const dateTimeFormat = `${DATE_INPUT_FORMAT} ${TIME_INPUT_FORMAT}`;
+		const aMoment = moment(`${aValue.startDate} ${aValue.startTime}`, dateTimeFormat, true);
+		const bMoment = moment(`${bValue.startDate} ${bValue.startTime}`, dateTimeFormat, true);
+
+		return aMoment.diff(bMoment);
 	};
 
 	/**
@@ -135,9 +158,11 @@ const TimePeriodsRepeater: React.FC<RepeaterProps> = ({ fieldSchema }) => {
 		return (
 			<div>
 				{Array.isArray(repeaterValue) && repeaterValue.length > 0
-					? repeaterValue.map((value: any, index: number) =>
-							renderListItem(arrayHelper, repeaterValue, value, index)
-					  )
+					? repeaterValue
+							.sort(sortRepeaterValues)
+							.map((value: any, index: number) =>
+								renderListItem(arrayHelper, repeaterValue, value, index)
+							)
 					: null}
 			</div>
 		);
