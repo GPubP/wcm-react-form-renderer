@@ -54,6 +54,10 @@ export interface FieldSchema {
 	 */
 	hidden?: boolean;
 	/**
+	 * Custom repeater component name
+	 */
+	repeaterComponentName?: string;
+	/**
 	 * Field view
 	 * This field will be uses by the viewer component
 	 */
@@ -143,6 +147,7 @@ export interface BasePreset<T, F> {
 		label: string;
 		defaultConfig: Record<string, any>;
 		fieldType: F;
+		repeaterComponentName?: string;
 		viewComponentName?: string;
 		generalConfig: {
 			isQueryable: boolean;
@@ -173,6 +178,7 @@ export interface FieldType {
 	uuid: string;
 	data: {
 		componentName: string;
+		repeaterComponentName?: string;
 		viewComponentName?: string;
 		module: string;
 		generalConfig: {

@@ -1,6 +1,7 @@
 import { FieldHelperProps, FieldProps } from 'formik';
 import React from 'react';
 
+import { RepeaterProps } from '../../components/Fields/Repeater';
 import { FieldDataType, FieldSchema, FormValues } from '../../core.types';
 import { ViewFieldProps } from '../viewRegistry/viewRegistry.types';
 
@@ -46,6 +47,10 @@ export interface FieldConfig {
 	 * The component that will be rendered inside the viewer
 	 */
 	viewComponent?: React.FC<ViewFieldProps>;
+	/**
+	 * The component that will be used as repeater
+	 */
+	repeaterComponent?: React.FC<RepeaterProps>;
 }
 
 export interface FieldsRegistryConfig {

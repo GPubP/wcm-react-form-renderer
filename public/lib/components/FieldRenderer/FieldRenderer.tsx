@@ -100,7 +100,21 @@ const FieldRenderer: React.FC<FieldRendererProps> = ({
 	/**
 	 * Render a field array
 	 */
-	const renderFieldArray = (): ReactNode => <Repeater fieldSchema={fieldSchema} />;
+	const renderFieldArray = (): ReactNode => {
+		// Check if field has custom repeater
+		if (fieldSchema.repeaterComponentName) {
+			const customConfig = fieldRegistry.get(
+				fieldSchema.module,
+				fieldSchema.repeaterComponentName
+			);
+
+			const CustomRepeater = customConfig?.repeaterComponent || Repeater;
+
+			return <CustomRepeater fieldSchema={fieldSchema} />;
+		}
+
+		return <Repeater fieldSchema={fieldSchema} />;
+	};
 
 	/**
 	 * Render a hidden field
