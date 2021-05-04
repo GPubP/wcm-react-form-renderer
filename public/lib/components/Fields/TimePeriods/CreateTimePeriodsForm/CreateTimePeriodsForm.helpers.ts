@@ -39,7 +39,7 @@ const canShowTimePeriods = (values: TimePeriodsFormState): boolean => {
 		case TimePeriodsRepeatType.Daily:
 			return hasFrequencyAndEndDate;
 		case TimePeriodsRepeatType.Weekly:
-			return hasFrequencyAndEndDate && (values.weeklyDays || []).length > 1;
+			return hasFrequencyAndEndDate && (values.weeklyDays || []).length > 0;
 		case TimePeriodsRepeatType.Monthly:
 			return hasFrequencyAndEndDate && !!values.monthlyFrequency && !!values.monthlyWeekday;
 		default:
@@ -86,7 +86,7 @@ export const getRecurringTimePeriods = (values: TimePeriodsFormState | null): st
 	});
 
 	const amountOfDates = rule.all().length;
-	const timePeriodsString = amountOfDates > 1 ? 'nieuwe tijdstippen' : 'nieuw tijdstip';
+	const timePeriodsString = amountOfDates === 1 ? 'nieuw tijdstip' : 'nieuwe tijdstippen';
 
 	return `${amountOfDates} ${timePeriodsString}`;
 };
