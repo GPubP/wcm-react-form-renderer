@@ -82,7 +82,7 @@ const TimePeriodsRepeater: React.FC<RepeaterProps> = ({ fieldSchema }) => {
 	): ReactElement => {
 		return (
 			<div key={value.uuid} className={cx('repeater__item')}>
-				<Card className={cx('repeater__item__fields')}>
+				<Card className={cx('repeater__item__fields', 'u-no-margin-left')}>
 					<CardBody>
 						{fields
 							.map(
@@ -172,7 +172,7 @@ const TimePeriodsRepeater: React.FC<RepeaterProps> = ({ fieldSchema }) => {
 								)}
 								{renderArrayElements(arrayHelper, value)}
 								{value.length < max ? (
-									<div className="u-margin-top-xs">
+									<div className="u-margin-top">
 										<Link
 											onClick={() => addItem(arrayHelper)}
 											disabled={disabled}

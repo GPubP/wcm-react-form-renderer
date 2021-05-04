@@ -12,21 +12,22 @@ import {
 } from './TimePeriods.const';
 
 const TimePeriodsView: React.FC<ViewFieldProps> = ({ value }) => {
-	if (!value || (!value.startDate && !value.startHour)) {
+	if (!value || (!value.startDate && !value.startTime)) {
 		return null;
 	}
 
-	const { startDate = '', startHour = '', endHour, allDay } = value as TimePeriodsValue;
+	const { startDate = '', startTime = '', endTime, allDay } = value as TimePeriodsValue;
 	const formattedStartDate = moment(startDate, DATE_INPUT_FORMAT, true).format(DATE_FORMAT);
+
 	const getDurationString = (): string => {
 		if (allDay) {
 			return 'volledige dag';
 		}
 
-		const formattedStart = moment(startHour, TIME_INPUT_FORMAT, true).format(TIME_FORMAT);
+		const formattedStart = moment(startTime, TIME_INPUT_FORMAT, true).format(TIME_FORMAT);
 
-		if (endHour) {
-			const formattedEnd = moment(endHour, TIME_INPUT_FORMAT, true).format(TIME_FORMAT);
+		if (endTime) {
+			const formattedEnd = moment(endTime, TIME_INPUT_FORMAT, true).format(TIME_FORMAT);
 			return `van ${formattedStart} tot ${formattedEnd}`;
 		}
 		return `vanaf ${formattedStart}`;

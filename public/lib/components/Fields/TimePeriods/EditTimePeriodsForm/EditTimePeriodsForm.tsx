@@ -38,11 +38,11 @@ const EditTimePeriodsForm: React.FC<EditTimePeriodsFormProps> = ({
 							<div className="col-xs-12 col-lg-4">
 								<Field
 									as={Timepicker}
-									id="startHour"
-									name="startHour"
+									id="startTime"
+									name="startTime"
 									hourLabel="Startuur"
 									minuteLabel=""
-									onChange={(value: string) => setFieldValue('startHour', value)}
+									onChange={(value: string) => setFieldValue('startTime', value)}
 									required
 								/>
 							</div>
@@ -52,11 +52,11 @@ const EditTimePeriodsForm: React.FC<EditTimePeriodsFormProps> = ({
 							<div className="col-xs-12 col-lg-4">
 								<Field
 									as={Timepicker}
-									id="endHour"
-									name="endHour"
+									id="endTime"
+									name="endTime"
 									hourLabel="Einduur"
 									minuteLabel=""
-									onChange={(value: string) => setFieldValue('startHour', value)}
+									onChange={(value: string) => setFieldValue('endTime', value)}
 								/>
 							</div>
 						</div>

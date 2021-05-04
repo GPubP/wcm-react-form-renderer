@@ -1,7 +1,7 @@
 export interface TimePeriodsValue {
 	startDate: string;
-	startHour: string;
-	endHour?: string;
+	startTime: string;
+	endTime?: string;
 	allDay: boolean;
 	repeatType: TimePeriodsRepeatType | '';
 	repeatFrequency?: string;

@@ -77,8 +77,8 @@ export const getRecurringTimePeriods = (values: TimePeriodsFormState | null): st
 		return '';
 	}
 
-	const dtstart = parseUTCDate(values.startDate, values.startHour);
-	const until = parseUTCDate(values.endDate as string, values.startHour);
+	const dtstart = parseUTCDate(values.startDate, values.startTime);
+	const until = parseUTCDate(values.endDate as string, values.startTime);
 	const repeatType = values.repeatType as TimePeriodsRepeatType;
 	const rule = new RRule({
 		dtstart,

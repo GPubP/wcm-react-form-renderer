@@ -21,16 +21,16 @@ export const CREATE_VALIDATION_SCHEMA = object()
 			.transform(transformDate)
 			.typeError(INVALID_DATE_MESSAGE)
 			.required('Datum is een verplicht veld'),
-		startHour: string()
+		startTime: string()
 			.matches(HOUR_MINUTE_REGEX, 'Startuur moet in het formaat H:m')
 			.required('Startuur is een verplicht veld'),
-		endHour: string()
+		endTime: string()
 			.matches(HOUR_MINUTE_REGEX, 'Einduur moet in het formaat H:m')
 			.test('isStartBeforeEndTime', 'Einduur moet na startuur', function(
 				value: string | undefined
 			) {
-				const startHourRef = this.resolve(ref('startHour'));
-				return isStartBeforeEndTime(startHourRef as string | undefined, value);
+				const startTimeRef = this.resolve(ref('startTime'));
+				return isStartBeforeEndTime(startTimeRef as string | undefined, value);
 			})
 			.optional(),
 		allDay: boolean(),
@@ -79,8 +79,8 @@ export const CREATE_VALIDATION_SCHEMA = object()
 
 export const INITIAL_CREATE_FORM_STATE: CreateTimePeriodsFormState = {
 	startDate: '',
-	startHour: '',
-	endHour: '',
+	startTime: '',
+	endTime: '',
 	allDay: false,
 	repeatType: '',
 	repeatFrequency: undefined,

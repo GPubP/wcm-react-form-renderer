@@ -124,18 +124,18 @@ const CreateTimePeriodsForm: React.FC<CreateTimePeriodsFormProps> = ({
 									<Field
 										as={Timepicker}
 										disabled={values.allDay}
-										id="startHour"
-										name="startHour"
+										id="startTime"
+										name="startTime"
 										hourLabel="Startuur"
 										hourPlaceholder="uu"
 										minuteLabel=""
 										onChange={(value: string) =>
-											setFieldValue('startHour', value)
+											setFieldValue('startTime', value)
 										}
-										value={values.startHour}
+										value={values.startTime}
 										required
 									/>
-									<ErrorMessage name="startHour" />
+									<ErrorMessage name="startTime" />
 								</div>
 								<div className="col-xs-12 col-md-1 center-xs top-xs u-flex sm:u-padding-top-md sm:u-margin-bottom u-margin-bottom-xs">
 									<span>t.e.m.</span>
@@ -144,17 +144,17 @@ const CreateTimePeriodsForm: React.FC<CreateTimePeriodsFormProps> = ({
 									<Field
 										as={Timepicker}
 										disabled={values.allDay}
-										id="endHour"
-										name="endHour"
+										id="endTime"
+										name="endTime"
 										hourLabel="Einduur"
 										hourPlaceholder="uu"
 										minuteLabel=""
 										onChange={(value: string) =>
-											setFieldValue('endHour', value)
+											setFieldValue('endTime', value)
 										}
-										value={values.endHour}
+										value={values.endTime}
 									/>
-									<ErrorMessage name="endHour" />
+									<ErrorMessage name="endTime" />
 								</div>
 								<div className="col-xs-12 col-lg-3 u-margin-bottom">
 									<Field
@@ -167,8 +167,8 @@ const CreateTimePeriodsForm: React.FC<CreateTimePeriodsFormProps> = ({
 										checked={values.allDay}
 										onClick={(e: ChangeEvent<HTMLInputElement>) => {
 											if (e.target.checked) {
-												setFieldValue('startHour', '0:0');
-												setFieldValue('endHour', '23:55');
+												setFieldValue('startTime', '0:0');
+												setFieldValue('endTime', '23:55');
 											}
 											setFieldValue('allDay', e.target.checked);
 										}}
