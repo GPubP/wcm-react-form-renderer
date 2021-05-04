@@ -1,6 +1,7 @@
 import moment from 'moment';
 import RRule, { Weekday } from 'rrule';
 
+import { DATE_INPUT_FORMAT, TIME_INPUT_FORMAT } from '../../../Views/TimePeriods/TimePeriods.const';
 import {
 	MonthlyFrequencies,
 	TimePeriodsFormState,
@@ -63,7 +64,9 @@ const getByWeekday = (values: TimePeriodsFormState): { byweekday?: Weekday[] } =
 
 const parseUTCDate = (dateString: string, timeString?: string): Date => {
 	const dateTimeString = timeString ? `${dateString} ${timeString}` : dateString;
-	const dateTimeFormat = timeString ? 'DD/MM/YYYY H:m' : 'DD/MM/YYYY';
+	const dateTimeFormat = timeString
+		? `${DATE_INPUT_FORMAT} ${TIME_INPUT_FORMAT}`
+		: DATE_INPUT_FORMAT;
 	const parsedUTCValue = moment.utc(dateTimeString, dateTimeFormat, true);
 
 	return parsedUTCValue.isValid() ? parsedUTCValue.toDate() : new Date('');
