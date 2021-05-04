@@ -7,7 +7,7 @@ import {
 import classnames from 'classnames/bind';
 import { FormikProps } from 'formik';
 import { isNil } from 'ramda';
-import React, { FC, useState } from 'react';
+import React, { FC, ReactElement, useState } from 'react';
 
 import { CORE_TRANSLATIONS, useCoreTranslation } from '../../../connectors';
 import { InputFieldProps } from '../../../services/fieldRegistry';
@@ -20,18 +20,21 @@ import { TimePeriodsFormState, TimePeriodsValue } from './TimePeriods.types';
 
 const cx = classnames.bind(styles);
 
-const TimePeriods: FC<InputFieldProps> = ({ fieldProps, fieldHelperProps }) => {
+const TimePeriods: FC<InputFieldProps> = ({ fieldProps, fieldHelperProps, fieldSchema }) => {
+	const { config } = fieldSchema;
 	const { field } = fieldProps;
 	const { setValue } = fieldHelperProps;
 	const fieldValue = (field.value as unknown) as TimePeriodsValue;
 
 	const hasFieldValue = !isNil(fieldValue) && fieldValue.startDate && fieldValue.startHour;
+	const isRepeated = config?.isRepeated ?? false;
 
 	/**
 	 * Hooks
 	 */
 
-	const [showModal, setShowModal] = useState(false);
+	// Show modal by default in repeater context
+	const [showModal, setShowModal] = useState(isRepeated ?? false);
 	const [t] = useCoreTranslation();
 
 	/**
@@ -41,6 +44,11 @@ const TimePeriods: FC<InputFieldProps> = ({ fieldProps, fieldHelperProps }) => {
 	const onCancel = (resetForm: FormikProps<CreateTimePeriodsFormState>['resetForm']): void => {
 		resetForm({ values: INITIAL_CREATE_FORM_STATE });
 		setShowModal(false);
+
+		if (config?.onDelete && isRepeated) {
+			// Remove item from repeater values
+			config.onDelete();
+		}
 	};
 
 	const onSetFieldValue = (values: TimePeriodsFormState): void => {
@@ -52,8 +60,9 @@ const TimePeriods: FC<InputFieldProps> = ({ fieldProps, fieldHelperProps }) => {
 	 * Render
 	 */
 
-	return !hasFieldValue ? (
-		<>
+	const renderAddButton = (): ReactElement | null => {
+		// Don't show add button in repeater context, the modal will open by default
+		return !isRepeated ? (
 			<Button
 				onClick={() => setShowModal(true)}
 				iconLeft="plus"
@@ -63,6 +72,12 @@ const TimePeriods: FC<InputFieldProps> = ({ fieldProps, fieldHelperProps }) => {
 			>
 				Voeg tijdstip toe
 			</Button>
+		) : null;
+	};
+
+	return !hasFieldValue ? (
+		<>
+			{renderAddButton()}
 			<ControlledModal
 				className={cx('o-time-periods__modal')}
 				overlayClassName={cx('o-time-periods__overlay')}
