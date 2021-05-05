@@ -29,6 +29,7 @@ import { TelephoneNumber } from './TelephoneNumber';
 import { InputTextarea } from './TextArea';
 import { Time } from './Time';
 import { TimePeriods } from './TimePeriods';
+import { TimePeriodsRepeater } from './TimePeriodsRepeater';
 import { VideoEmbed } from './VideoEmbed';
 
 const DefaultFields: FieldConfig[] = [
@@ -153,6 +154,7 @@ const DefaultFields: FieldConfig[] = [
 		module: 'core',
 		component: TimePeriods,
 		viewComponent: TimePeriodsView,
+		repeaterComponent: TimePeriodsRepeater,
 	},
 ];
 

@@ -36,6 +36,22 @@ const getViewComponentName = (
 	}
 };
 
+/**
+ * Return the repeater component name
+ * The repeater component is used to replace the default repeater field
+ */
+const getRepeaterComponentName = (
+	fieldType?: FieldType,
+	preset?: Preset | PresetDetail
+): string | undefined => {
+	if (preset) {
+		return preset.data?.repeaterComponentName;
+	}
+	if (fieldType) {
+		return fieldType.data?.repeaterComponentName;
+	}
+};
+
 export const parseFields = (
 	fields: ContentTypeFieldSchema[] = [],
 	options?: ParseFieldsOptions
@@ -140,6 +156,7 @@ export const parseFields = (
 				uuid,
 				module: 'core',
 				type: 'repeater',
+				repeaterComponentName: getRepeaterComponentName(fieldType as FieldType, preset),
 				dataType: 'array',
 				hidden: isHidden,
 				defaultValue,
