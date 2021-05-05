@@ -26,7 +26,7 @@ const TimePeriods: FC<InputFieldProps> = ({ fieldProps, fieldHelperProps, fieldS
 	const { setValue } = fieldHelperProps;
 	const fieldValue = (field.value as unknown) as TimePeriodsValue;
 
-	const hasFieldValue = !isNil(fieldValue) && fieldValue.startDate && fieldValue.startHour;
+	const hasFieldValue = !isNil(fieldValue) && fieldValue.startDate && fieldValue.startTime;
 	const isRepeated = config?.isRepeated ?? false;
 
 	/**

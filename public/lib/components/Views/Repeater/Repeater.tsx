@@ -15,23 +15,19 @@ const RepeaterView: FC<ViewFieldProps> = ({ value, fieldSchema }) => {
 		<>
 			{value.length > 0 &&
 				value.map((v, index) => {
-					return (
-						<>
-							{fields.map((schema: FieldSchema) => {
-								const viewSchema = {
-									...schema,
-									name: `${fieldSchema.name}.${index}.${schema.name}`,
-								};
+					return fields.map((schema: FieldSchema) => {
+						const viewSchema = {
+							...schema,
+							name: `${fieldSchema.name}.${index}.${schema.name}`,
+						};
 
-								return (
-									<ViewRenderer
-										key={`${index}-${viewSchema.name}`}
-										fieldSchema={viewSchema}
-									/>
-								);
-							})}
-						</>
-					);
+						return (
+							<ViewRenderer
+								key={`${index}-${viewSchema.name}`}
+								fieldSchema={viewSchema}
+							/>
+						);
+					});
 				})}
 		</>
 	);

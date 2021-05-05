@@ -7,7 +7,7 @@ import {
 	parseDate,
 	transformDate,
 } from '../TimePeriods.helpers';
-import { TimePeriodsRepeatType } from '../TimePeriods.types';
+import { MonthlyFrequencies, TimePeriodsRepeatType, Weekdays } from '../TimePeriods.types';
 
 import { CreateTimePeriodsFormState } from './CreateTimePeriodsForm.types';
 
@@ -21,16 +21,16 @@ export const CREATE_VALIDATION_SCHEMA = object()
 			.transform(transformDate)
 			.typeError(INVALID_DATE_MESSAGE)
 			.required('Datum is een verplicht veld'),
-		startHour: string()
+		startTime: string()
 			.matches(HOUR_MINUTE_REGEX, 'Startuur moet in het formaat H:m')
 			.required('Startuur is een verplicht veld'),
-		endHour: string()
+		endTime: string()
 			.matches(HOUR_MINUTE_REGEX, 'Einduur moet in het formaat H:m')
 			.test('isStartBeforeEndTime', 'Einduur moet na startuur', function(
 				value: string | undefined
 			) {
-				const startHourRef = this.resolve(ref('startHour'));
-				return isStartBeforeEndTime(startHourRef as string | undefined, value);
+				const startTimeRef = this.resolve(ref('startTime'));
+				return isStartBeforeEndTime(startTimeRef as string | undefined, value);
 			})
 			.optional(),
 		allDay: boolean(),
@@ -79,8 +79,8 @@ export const CREATE_VALIDATION_SCHEMA = object()
 
 export const INITIAL_CREATE_FORM_STATE: CreateTimePeriodsFormState = {
 	startDate: '',
-	startHour: '',
-	endHour: '',
+	startTime: '',
+	endTime: '',
 	allDay: false,
 	repeatType: '',
 	repeatFrequency: undefined,
@@ -116,7 +116,7 @@ export const DAILY_FREQUENCY_OPTIONS = Array.from(Array(7)).map((val, index) => 
 
 export const WEEKLY_FREQUENCY_OPTIONS = Array.from(Array(8)).map((val, index) => {
 	const value = index + 1;
-	return { label: `${value} ${value > 1 ? 'week' : 'weken'}`, value: value.toString() };
+	return { label: `${value} ${value > 1 ? 'weken' : 'week'}`, value: value.toString() };
 });
 
 export const MONTHLY_FREQUENCY_OPTIONS = Array.from(Array(12)).map((val, index) => {
@@ -128,37 +128,37 @@ const WEEKDAYS = [
 	{
 		fulLabel: 'Maandag',
 		shortLabel: 'Ma',
-		value: 'monday',
+		value: Weekdays.Monday,
 	},
 	{
 		fulLabel: 'Dinsdag',
 		shortLabel: 'Di',
-		value: 'tuesday',
+		value: Weekdays.Tuesday,
 	},
 	{
 		fulLabel: 'Woensdag',
 		shortLabel: 'Wo',
-		value: 'wednesday',
+		value: Weekdays.Wednesday,
 	},
 	{
 		fulLabel: 'Donderdag',
 		shortLabel: 'Do',
-		value: 'thursday',
+		value: Weekdays.Thursday,
 	},
 	{
 		fulLabel: 'Vrijdag',
 		shortLabel: 'Vr',
-		value: 'friday',
+		value: Weekdays.Friday,
 	},
 	{
 		fulLabel: 'Zaterdag',
 		shortLabel: 'Za',
-		value: 'saturday',
+		value: Weekdays.Saturday,
 	},
 	{
 		fulLabel: 'Zondag',
 		shortLabel: 'Zo',
-		value: 'sunday',
+		value: Weekdays.Sunday,
 	},
 ];
 
@@ -170,23 +170,23 @@ export const WEEK_DAY_OPTIONS = WEEKDAYS.map(({ shortLabel, value }) => ({
 export const MONTH_WEEK_FREQ_OPTIONS = [
 	{
 		label: 'Eerste',
-		value: 'first',
+		value: MonthlyFrequencies.First,
 	},
 	{
 		label: 'Tweede',
-		value: 'second',
+		value: MonthlyFrequencies.Second,
 	},
 	{
 		label: 'Derde',
-		value: 'third',
+		value: MonthlyFrequencies.Third,
 	},
 	{
 		label: 'Vierde',
-		value: 'fourth',
+		value: MonthlyFrequencies.Fourth,
 	},
 	{
 		label: 'Laatste',
-		value: 'last',
+		value: MonthlyFrequencies.Last,
 	},
 ];
 

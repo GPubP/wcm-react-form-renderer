@@ -8,3 +8,8 @@ export interface RepeaterProps {
 	 */
 	fieldSchema: FieldSchema;
 }
+
+export interface RepeaterValue<V = any> {
+	uuid: string;
+	value: V;
+}

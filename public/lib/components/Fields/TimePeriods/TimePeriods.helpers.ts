@@ -2,11 +2,13 @@ import moment from 'moment';
 import { isEmpty, isNil } from 'ramda';
 import { DateSchema } from 'yup';
 
+import { DATE_INPUT_FORMAT, TIME_INPUT_FORMAT } from '../../Views/TimePeriods/TimePeriods.const';
+
 export const isNilOrEmpty = (value: string | undefined): boolean => isNil(value) || isEmpty(value);
 
 export const parseDate = (value: string): Date => {
 	// Check strict on date format
-	const parsedValue = moment(value, 'DD/MM/YYYY', true);
+	const parsedValue = moment(value, DATE_INPUT_FORMAT, true);
 	// Return date object when it's valid, otherwise 'Invalid Date'
 	return parsedValue.isValid() ? parsedValue.toDate() : new Date('');
 };
@@ -27,8 +29,8 @@ export const isStartBeforeEndTime = (
 		return true;
 	}
 
-	const startMoment = moment(startTime, 'H:m', true);
-	const endMoment = moment(endTime, 'H:m', true);
+	const startMoment = moment(startTime, TIME_INPUT_FORMAT, true);
+	const endMoment = moment(endTime, TIME_INPUT_FORMAT, true);
 	const startMinutes = getMinutesOfDay(startMoment);
 	const endMinutes = getMinutesOfDay(endMoment);
 

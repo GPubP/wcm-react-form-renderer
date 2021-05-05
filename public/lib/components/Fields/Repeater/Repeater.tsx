@@ -20,7 +20,7 @@ import { FieldRenderer } from '../../FieldRenderer';
 import { FormRendererFieldTitle } from '../../FormRendererFieldTitle';
 
 import styles from './Repeater.module.scss';
-import { RepeaterProps } from './Repeater.types';
+import { RepeaterProps, RepeaterValue } from './Repeater.types';
 
 const cx = classNames.bind(styles);
 
@@ -118,7 +118,7 @@ const Repeater: React.FC<RepeaterProps> = ({ fieldSchema }) => {
 	const renderListItem = (
 		arrayHelper: FieldArrayRenderProps,
 		list: any[],
-		value: { value: any; uuid: string },
+		value: RepeaterValue,
 		index: number
 	): ReactElement => (
 		<div key={value.uuid} className={cx('repeater__item')}>
