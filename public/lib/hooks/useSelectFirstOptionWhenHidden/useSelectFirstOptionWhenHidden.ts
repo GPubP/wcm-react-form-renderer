@@ -6,15 +6,24 @@ const useSelectFirstOptionWhenHidden = (
 	value: string,
 	fieldHelperProps: FieldHelperProps<any>
 ): boolean => {
-	const showField = !(
+	const isVisible =
+		typeof config.visible === 'undefined' ||
+		(typeof config.visible === 'boolean' && config.visible === true) ||
+		(Array.isArray(config.visible) && config.visible.includes(true));
+	const noHideWhenOnlyOneOption = !(
 		config.hideWhenOnlyOneAllowedOption &&
 		Array.isArray(config.allowedOptions) &&
 		config.allowedOptions.length <= 1
 	);
+	const showField = isVisible && noHideWhenOnlyOneOption;
 
 	useEffect(() => {
 		// Automatically select the first allowed option when the select field is hidden from the user
-		if (!showField && value !== config.allowedOptions[0]) {
+		if (
+			!showField &&
+			Array.isArray(config.allowedOptions) &&
+			value !== config.allowedOptions[0]
+		) {
 			fieldHelperProps.setValue(config.allowedOptions[0]);
 		}
 	}, [config, config.allowedOptions, value, fieldHelperProps, showField]);
