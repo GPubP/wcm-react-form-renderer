@@ -19,6 +19,7 @@ export const updateDate = (prevDate: Date, inputValue: string): string => {
 
 	prevDate.setFullYear(year, month, day);
 
+	console.log('SET value', prevDate.toISOString());
 	return prevDate.toISOString();
 };
 
