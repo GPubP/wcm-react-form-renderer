@@ -35,7 +35,6 @@ const DateTimepicker: React.FC<InputFieldProps> = ({
 					break;
 			}
 		} catch (e) {
-			console.log('set value', inputValue);
 			setValue(inputValue);
 		}
 	};
