@@ -23,15 +23,19 @@ const DateTimepicker: React.FC<InputFieldProps> = ({
 		const { value } = field;
 		const prevDate = value === '' ? new Date() : new Date(value);
 
-		switch (type) {
-			case 'date':
-				setValue(updateDate(prevDate, inputValue));
-				break;
-			case 'time':
-				setValue(updateTime(prevDate, inputValue));
-				break;
-			default:
-				break;
+		try {
+			switch (type) {
+				case 'date':
+					setValue(updateDate(prevDate, inputValue));
+					break;
+				case 'time':
+					setValue(updateTime(prevDate, inputValue));
+					break;
+				default:
+					break;
+			}
+		} catch (e) {
+			setValue(inputValue);
 		}
 	};
 
