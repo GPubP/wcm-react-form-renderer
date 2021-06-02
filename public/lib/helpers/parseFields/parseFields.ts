@@ -90,6 +90,7 @@ export const parseFields = (
 			uuid,
 			defaultValue,
 		} = field;
+
 		const isMultiple = (generalConfig.max || 0) > 1;
 		const isDisabled = parseOptions.noDisabledFields
 			? false
@@ -123,6 +124,7 @@ export const parseFields = (
 				dataType,
 			},
 			defaultValue,
+			prefill: preset?.data?.generalConfig?.mapValueToContentItemPath,
 		};
 
 		if (isMultiple) {
@@ -160,6 +162,7 @@ export const parseFields = (
 				dataType: 'array',
 				hidden: isHidden,
 				defaultValue,
+				prefill: preset?.data?.generalConfig?.mapValueToContentItemPath,
 				config: {
 					...config,
 					...generalConfig,

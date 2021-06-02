@@ -1,7 +1,8 @@
 import classNames from 'classnames/bind';
-import { Field, FieldProps } from 'formik';
-import React, { ReactNode, useMemo, useState } from 'react';
+import { Field, FieldProps, useFormikContext } from 'formik';
+import React, { ReactNode, useEffect, useMemo, useState } from 'react';
 
+import { FieldPrefill, MAP_MODES } from '../../core.types';
 import { FieldRenderContextValue, FieldRendererContext } from '../../context';
 import { useFieldRendererContext, useFormContext } from '../../hooks';
 import { FieldConfig, fieldRegistry } from '../../services/fieldRegistry';
@@ -10,6 +11,8 @@ import { DynamicRepeater, Fieldgroup, Hidden, Repeater } from '../Fields';
 
 import FieldRendererStyles from './FieldRenderer.module.scss';
 import { FieldRendererProps } from './FieldRenderer.types';
+import { lensPath, pathOr, set, slice } from 'ramda';
+import { usePrevious } from '@redactie/utils';
 
 const cx = classNames.bind(FieldRendererStyles);
 
@@ -26,6 +29,9 @@ const FieldRenderer: React.FC<FieldRendererProps> = ({
 	// Get Parent context
 	const parentContext = useFieldRendererContext();
 	const { useDividers } = useFormContext();
+	const { values, setFieldValue } = useFormikContext();
+	const previousValues = usePrevious(values);
+
 	// Setup child context
 	const [newContext, setNewContext] = useState<FieldRenderContextValue>({
 		fieldSchema,
@@ -41,6 +47,63 @@ const FieldRenderer: React.FC<FieldRendererProps> = ({
 		// eslint-disable-next-line @typescript-eslint/no-use-before-define
 		setWrapperClass,
 	});
+
+	const setDynamicValue = (prefillConfig: FieldPrefill) => {
+		const previousValue = pathOr(null, prefillConfig.destPath, previousValues);
+		const currentValue = pathOr(null, prefillConfig.destPath, values);
+		const previousSourceValue = pathOr(null, [fieldSchema.name, ...prefillConfig.sourcePath], previousValues);
+		const newSourceValue = pathOr(null, [fieldSchema.name, ...prefillConfig.sourcePath], values);
+
+		if (
+			currentValue === newSourceValue ||
+			(currentValue !== newSourceValue && (previousValue !== currentValue || previousSourceValue !== currentValue))
+		) {
+			return;
+		}
+
+		setFieldValue(prefillConfig.destPath[0], set(
+			lensPath(slice(1, Infinity, prefillConfig.destPath)),
+			newSourceValue,
+			pathOr({}, [prefillConfig.destPath[0]], values)
+		));
+	}
+
+	const setReversedDynamicValue = (prefillConfig: FieldPrefill) => {
+		const previousValue = pathOr(null, [fieldSchema.name, ...prefillConfig.destPath], previousValues);
+		const currentValue = pathOr(null, [fieldSchema.name, ...prefillConfig.destPath], values);
+		const previousSourceValue = pathOr(null, prefillConfig.sourcePath, previousValues);
+		const newSourceValue = pathOr(null, prefillConfig.sourcePath, values);
+
+		if (
+			currentValue === newSourceValue ||
+			(currentValue !== newSourceValue && (previousValue !== currentValue || previousSourceValue !== currentValue))
+		) {
+			return;
+		}
+
+		setFieldValue(fieldSchema.name, set(
+			lensPath(prefillConfig.destPath),
+			newSourceValue,
+			pathOr({}, [fieldSchema.name], values)
+		));
+	}
+
+	useEffect(() => {
+		if (!fieldSchema.prefill) {
+			return;
+		}
+
+		for (const map of fieldSchema.prefill) {
+			switch (map.type) {
+				case MAP_MODES.FE_DYNAMIC:
+					setDynamicValue(map)
+					break;
+				case MAP_MODES.FE_REVERSED_DYNAMIC:
+					setReversedDynamicValue(map);
+					break;
+			}
+		}
+	}, [values]);
 
 	function setWrapperClass(className: string): void {
 		setNewContext({

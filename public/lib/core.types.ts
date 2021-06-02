@@ -18,6 +18,11 @@ const ALL_FIELD_DATA_TYPES = ['string', 'number', 'date', 'array', 'object'];
 type FieldDataTypeTuple = typeof ALL_FIELD_DATA_TYPES;
 export type FieldDataType = FieldDataTypeTuple[number];
 
+export enum MAP_MODES {
+	FE_DYNAMIC = 'FE_DYNAMIC',
+	FE_REVERSED_DYNAMIC = 'FE_REVERSED_DYNAMIC',
+}
+
 export interface FormSchema {
 	/**
 	 * Form fields
@@ -34,6 +39,12 @@ export interface FieldOption {
 		value: string;
 		label?: string;
 	};
+}
+
+export interface FieldPrefill {
+	destPath: string[];
+	sourcePath: string[];
+	type: MAP_MODES;
 }
 
 export interface FieldSchema {
@@ -91,6 +102,7 @@ export interface FieldSchema {
 	 */
 	defaultValue?: any;
 	uuid?: string;
+	prefill?: FieldPrefill[];
 }
 
 export interface ValidationSchema {
@@ -153,6 +165,7 @@ export interface BasePreset<T, F> {
 			isQueryable: boolean;
 			isTranslate: boolean;
 			isMultiple: boolean;
+			mapValueToContentItemPath: FieldPrefill[];
 		};
 		fields: {
 			field: any;
