@@ -2,8 +2,8 @@ import classNames from 'classnames/bind';
 import { Field, FieldProps, useFormikContext } from 'formik';
 import React, { ReactNode, useEffect, useMemo, useState } from 'react';
 import { lensPath, pathOr, set, slice } from 'ramda';
-
 import { usePrevious } from '@redactie/utils';
+
 import { FieldPrefill, MAP_MODES } from '../../core.types';
 import { FieldRenderContextValue, FieldRendererContext } from '../../context';
 import { useFieldRendererContext, useFormContext } from '../../hooks';
