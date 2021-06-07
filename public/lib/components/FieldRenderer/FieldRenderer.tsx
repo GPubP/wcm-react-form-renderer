@@ -89,12 +89,9 @@ const FieldRenderer: React.FC<FieldRendererProps> = ({
 	}
 
 	useEffect(() => {
-		console.log(fieldSchema);
 		if (!fieldSchema.valueSync) {
 			return;
 		}
-
-
 
 		for (const map of fieldSchema.valueSync) {
 			switch (map.type) {
