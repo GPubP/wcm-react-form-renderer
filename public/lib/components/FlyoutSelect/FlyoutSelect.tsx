@@ -19,7 +19,7 @@ const FlyoutSelect: React.FC<FlyoutSelectProps> = ({ label, onSelect, items }) =
 					<li
 						key={`${index}-${item.name}`}
 						onClick={() => onSelect(item)}
-						className="m-selectable-list__item"
+						className="m-selectable-list__item u-clickable"
 					>
 						{item.label}
 					</li>
