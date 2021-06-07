@@ -124,7 +124,7 @@ export const parseFields = (
 				dataType,
 			},
 			defaultValue,
-			prefill: preset?.data?.generalConfig?.mapValueToContentItemPath,
+			valueSync: preset?.data?.generalConfig?.mapValueToContentItemPath,
 		};
 
 		if (isMultiple) {
@@ -162,7 +162,7 @@ export const parseFields = (
 				dataType: 'array',
 				hidden: isHidden,
 				defaultValue,
-				prefill: preset?.data?.generalConfig?.mapValueToContentItemPath,
+				valueSync: preset?.data?.generalConfig?.mapValueToContentItemPath,
 				config: {
 					...config,
 					...generalConfig,

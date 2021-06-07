@@ -41,7 +41,7 @@ export interface FieldOption {
 	};
 }
 
-export interface FieldPrefill {
+export interface FieldValueSync {
 	destPath: string[];
 	sourcePath: string[];
 	type: MAP_MODES;
@@ -102,7 +102,11 @@ export interface FieldSchema {
 	 */
 	defaultValue?: any;
 	uuid?: string;
-	prefill?: FieldPrefill[];
+	/**
+	 * Value sync
+	 * Sync value with other field in content item
+	 */
+	valueSync?: FieldValueSync[];
 }
 
 export interface ValidationSchema {
@@ -165,7 +169,7 @@ export interface BasePreset<T, F> {
 			isQueryable: boolean;
 			isTranslate: boolean;
 			isMultiple: boolean;
-			mapValueToContentItemPath: FieldPrefill[];
+			mapValueToContentItemPath: FieldValueSync[];
 		};
 		fields: {
 			field: any;

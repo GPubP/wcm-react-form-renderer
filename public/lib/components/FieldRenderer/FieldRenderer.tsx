@@ -4,7 +4,7 @@ import React, { ReactNode, useEffect, useMemo, useState } from 'react';
 import { lensPath, pathOr, set, slice } from 'ramda';
 import { usePrevious } from '@redactie/utils';
 
-import { FieldPrefill, MAP_MODES } from '../../core.types';
+import { FieldValueSync, MAP_MODES } from '../../core.types';
 import { FieldRenderContextValue, FieldRendererContext } from '../../context';
 import { useFieldRendererContext, useFormContext } from '../../hooks';
 import { FieldConfig, fieldRegistry } from '../../services/fieldRegistry';
@@ -48,11 +48,11 @@ const FieldRenderer: React.FC<FieldRendererProps> = ({
 		setWrapperClass,
 	});
 
-	const setDynamicValue = (prefillConfig: FieldPrefill) => {
-		const previousValue = pathOr(null, prefillConfig.destPath, previousValues);
-		const currentValue = pathOr(null, prefillConfig.destPath, values);
-		const previousSourceValue = pathOr(null, [fieldSchema.name, ...prefillConfig.sourcePath], previousValues);
-		const newSourceValue = pathOr(null, [fieldSchema.name, ...prefillConfig.sourcePath], values);
+	const setDynamicValue = (valueSyncConfig: FieldValueSync) => {
+		const previousValue = pathOr(null, valueSyncConfig.destPath, previousValues);
+		const currentValue = pathOr(null, valueSyncConfig.destPath, values);
+		const previousSourceValue = pathOr(null, [fieldSchema.name, ...valueSyncConfig.sourcePath], previousValues);
+		const newSourceValue = pathOr(null, [fieldSchema.name, ...valueSyncConfig.sourcePath], values);
 
 		if (
 			currentValue === newSourceValue ||
@@ -61,18 +61,18 @@ const FieldRenderer: React.FC<FieldRendererProps> = ({
 			return;
 		}
 
-		setFieldValue(prefillConfig.destPath[0], set(
-			lensPath(slice(1, Infinity, prefillConfig.destPath)),
+		setFieldValue(valueSyncConfig.destPath[0], set(
+			lensPath(slice(1, Infinity, valueSyncConfig.destPath)),
 			newSourceValue,
-			pathOr({}, [prefillConfig.destPath[0]], values)
+			pathOr({}, [valueSyncConfig.destPath[0]], values)
 		));
 	}
 
-	const setReversedDynamicValue = (prefillConfig: FieldPrefill) => {
-		const previousValue = pathOr(null, [fieldSchema.name, ...prefillConfig.destPath], previousValues);
-		const currentValue = pathOr(null, [fieldSchema.name, ...prefillConfig.destPath], values);
-		const previousSourceValue = pathOr(null, prefillConfig.sourcePath, previousValues);
-		const newSourceValue = pathOr(null, prefillConfig.sourcePath, values);
+	const setReversedDynamicValue = (valueSyncConfig: FieldValueSync) => {
+		const previousValue = pathOr(null, [fieldSchema.name, ...valueSyncConfig.destPath], previousValues);
+		const currentValue = pathOr(null, [fieldSchema.name, ...valueSyncConfig.destPath], values);
+		const previousSourceValue = pathOr(null, valueSyncConfig.sourcePath, previousValues);
+		const newSourceValue = pathOr(null, valueSyncConfig.sourcePath, values);
 
 		if (
 			currentValue === newSourceValue ||
@@ -82,18 +82,21 @@ const FieldRenderer: React.FC<FieldRendererProps> = ({
 		}
 
 		setFieldValue(fieldSchema.name, set(
-			lensPath(prefillConfig.destPath),
+			lensPath(valueSyncConfig.destPath),
 			newSourceValue,
 			pathOr({}, [fieldSchema.name], values)
 		));
 	}
 
 	useEffect(() => {
-		if (!fieldSchema.prefill) {
+		console.log(fieldSchema);
+		if (!fieldSchema.valueSync) {
 			return;
 		}
 
-		for (const map of fieldSchema.prefill) {
+
+
+		for (const map of fieldSchema.valueSync) {
 			switch (map.type) {
 				case MAP_MODES.FE_DYNAMIC:
 					setDynamicValue(map)
