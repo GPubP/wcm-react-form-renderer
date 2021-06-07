@@ -1,0 +1,18 @@
+@import '~@a-ui/core/dist/assets/styles/_quarks';
+
+.o-create-time-periods-overlay {
+	overflow: auto;
+}
+
+.o-create-time-periods-modal {
+	max-width: $screen-lg;
+}
+
+.o-create-time-periods-modal__actions {
+	background-color: $white;
+
+	:global(.u-container) {
+		max-width: none;
+		padding: 0 $spacer;
+	}
+}
