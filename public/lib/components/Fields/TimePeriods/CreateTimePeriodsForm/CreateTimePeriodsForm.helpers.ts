@@ -34,15 +34,16 @@ const MONTH_WEEK_FREQ_MAP = {
 };
 
 const canShowTimePeriods = (values: TimePeriodsFormState): boolean => {
-	const hasFrequencyAndEndDate = !!values.repeatFrequency && !!values.endDate;
+	const hasRequiredValues =
+		!!values.startDate && !!values.startTime && !!values.repeatFrequency && !!values.endDate;
 
 	switch (values.repeatType) {
 		case TimePeriodsRepeatType.Daily:
-			return hasFrequencyAndEndDate;
+			return hasRequiredValues;
 		case TimePeriodsRepeatType.Weekly:
-			return hasFrequencyAndEndDate && (values.weeklyDays || []).length > 0;
+			return hasRequiredValues && (values.weeklyDays || []).length > 0;
 		case TimePeriodsRepeatType.Monthly:
-			return hasFrequencyAndEndDate && !!values.monthlyFrequency && !!values.monthlyWeekday;
+			return hasRequiredValues && !!values.monthlyFrequency && !!values.monthlyWeekday;
 		default:
 			return false;
 	}
@@ -62,34 +63,46 @@ const getByWeekday = (values: TimePeriodsFormState): { byweekday?: Weekday[] } =
 	return {};
 };
 
-const parseUTCDate = (dateString: string, timeString?: string): Date => {
+const parseUTCDate = (dateString: string, timeString?: string): Date | null => {
 	const dateTimeString = timeString ? `${dateString} ${timeString}` : dateString;
 	const dateTimeFormat = timeString
 		? `${DATE_INPUT_FORMAT} ${TIME_INPUT_FORMAT}`
 		: DATE_INPUT_FORMAT;
 	const parsedUTCValue = moment.utc(dateTimeString, dateTimeFormat, true);
 
-	return parsedUTCValue.isValid() ? parsedUTCValue.toDate() : new Date('');
+	return parsedUTCValue.isValid() ? parsedUTCValue.toDate() : null;
 };
 
-export const getRecurringTimePeriods = (values: TimePeriodsFormState | null): string => {
+export const getRecurringTimePeriods = (
+	values: TimePeriodsFormState | null
+): string | undefined => {
 	if (!values || !canShowTimePeriods(values)) {
-		return '';
+		return;
 	}
 
 	const dtstart = parseUTCDate(values.startDate, values.startTime);
 	const until = parseUTCDate(values.endDate as string, values.startTime);
 	const repeatType = values.repeatType as TimePeriodsRepeatType;
-	const rule = new RRule({
-		dtstart,
-		until,
-		freq: FREQ_MAP[repeatType],
-		interval: parseInt(values.repeatFrequency as string, 10),
-		...getByWeekday(values),
-	});
 
-	const amountOfDates = rule.all().length;
-	const timePeriodsString = amountOfDates === 1 ? 'nieuw tijdstip' : 'nieuwe tijdstippen';
+	if (!dtstart || !until) {
+		return;
+	}
 
-	return `${amountOfDates} ${timePeriodsString}`;
+	try {
+		const rule = new RRule({
+			dtstart,
+			until,
+			freq: FREQ_MAP[repeatType],
+			interval: parseInt(values.repeatFrequency as string, 10),
+			...getByWeekday(values),
+		});
+
+		const amountOfDates = rule.all().length;
+		const timePeriodsString = amountOfDates === 1 ? 'nieuw tijdstip' : 'nieuwe tijdstippen';
+
+		return `${amountOfDates} ${timePeriodsString}`;
+	} catch (error) {
+		console.error(error);
+		return;
+	}
 };
