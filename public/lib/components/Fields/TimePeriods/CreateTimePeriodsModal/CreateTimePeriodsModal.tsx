@@ -24,8 +24,8 @@ const CreateTimePeriodsModal: React.FC<CreateTimePeriodsModalProps> = ({
 
 	return (
 		<ControlledModal
-			className={cx('o-create)time-periods-modal')}
-			overlayClassName={cx('o-create)time-periods-overlay')}
+			className={cx('o-create-time-periods-modal')}
+			overlayClassName={cx('o-create-time-periods-overlay')}
 			show={show}
 			size="large"
 		>
@@ -34,10 +34,10 @@ const CreateTimePeriodsModal: React.FC<CreateTimePeriodsModalProps> = ({
 			</div>
 			<div className="u-bg-light">
 				<CreateTimePeriodsForm onSubmit={onSubmit}>
-					{({ resetForm, submitForm }) => {
+					{({ submitForm }) => {
 						return (
 							<ActionBar
-								className={cx('o-create)time-periods-modal__actions')}
+								className={cx('o-create-time-periods-modal__actions')}
 								disablePortal
 								isOpen
 							>
@@ -46,7 +46,7 @@ const CreateTimePeriodsModal: React.FC<CreateTimePeriodsModalProps> = ({
 										<Button
 											className="u-margin-right"
 											negative
-											onClick={() => onCancel(resetForm)}
+											onClick={onCancel}
 										>
 											{t(CORE_TRANSLATIONS.BUTTON_CANCEL)}
 										</Button>

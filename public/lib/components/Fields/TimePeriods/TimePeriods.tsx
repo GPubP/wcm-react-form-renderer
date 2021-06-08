@@ -1,12 +1,9 @@
 import { Button } from '@acpaas-ui/react-components';
-import { FormikProps } from 'formik';
 import { isNil } from 'ramda';
 import React, { FC, useState } from 'react';
 
 import { InputFieldProps } from '../../../services/fieldRegistry';
 
-import { CreateTimePeriodsFormState } from './CreateTimePeriodsForm';
-import { INITIAL_CREATE_FORM_STATE } from './CreateTimePeriodsForm/CreateTimePeriodsForm.const';
 import { CreateTimePeriodsModal } from './CreateTimePeriodsModal';
 import { EditTimePeriodsForm } from './EditTimePeriodsForm';
 import { TimePeriodsFormState, TimePeriodsValue } from './TimePeriods.types';
@@ -24,21 +21,16 @@ const TimePeriods: FC<InputFieldProps> = ({ fieldProps, fieldHelperProps, fieldS
 	 * Hooks
 	 */
 
-	// Don't show modal in repeater context
-	const [showModal, setShowModal] = useState(isRepeated ?? false);
+	const [showModal, setShowModal] = useState(false);
 
 	/**
 	 * Methods
 	 */
 
-	const onCancel = (resetForm: FormikProps<CreateTimePeriodsFormState>['resetForm']): void => {
-		resetForm({ values: INITIAL_CREATE_FORM_STATE });
+	const onCancel = (): void => {
+		// TODO: remove if unnecessary
+		// resetForm({ values: INITIAL_CREATE_FORM_STATE });
 		setShowModal(false);
-
-		if (config?.onDelete && isRepeated) {
-			// Remove item from repeater values
-			config.onDelete();
-		}
 	};
 
 	const onSetFieldValue = (values: TimePeriodsFormState): void => {
