@@ -1,8 +1,11 @@
+import { usePrevious } from '@redactie/utils';
 import classNames from 'classnames/bind';
-import { Field, FieldProps } from 'formik';
-import React, { ReactNode, useMemo, useState } from 'react';
+import { Field, FieldProps, useFormikContext } from 'formik';
+import { lensPath, pathOr, set, slice } from 'ramda';
+import React, { ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
 
 import { FieldRenderContextValue, FieldRendererContext } from '../../context';
+import { FieldValueSync, MAP_MODES } from '../../core.types';
 import { useFieldRendererContext, useFormContext } from '../../hooks';
 import { FieldConfig, fieldRegistry } from '../../services/fieldRegistry';
 import { FieldComponent } from '../FieldComponent';
@@ -26,6 +29,9 @@ const FieldRenderer: React.FC<FieldRendererProps> = ({
 	// Get Parent context
 	const parentContext = useFieldRendererContext();
 	const { useDividers } = useFormContext();
+	const { values, setFieldValue } = useFormikContext();
+	const previousValues = usePrevious(values);
+
 	// Setup child context
 	const [newContext, setNewContext] = useState<FieldRenderContextValue>({
 		fieldSchema,
@@ -41,6 +47,93 @@ const FieldRenderer: React.FC<FieldRendererProps> = ({
 		// eslint-disable-next-line @typescript-eslint/no-use-before-define
 		setWrapperClass,
 	});
+
+	const setDynamicValue = useCallback(
+		(valueSyncConfig: FieldValueSync) => {
+			const previousValue = pathOr(null, valueSyncConfig.destPath, previousValues);
+			const currentValue = pathOr(null, valueSyncConfig.destPath, values);
+			const previousSourceValue = pathOr(
+				null,
+				[fieldSchema.name, ...valueSyncConfig.sourcePath],
+				previousValues
+			);
+			const newSourceValue = pathOr(
+				null,
+				[fieldSchema.name, ...valueSyncConfig.sourcePath],
+				values
+			);
+
+			if (
+				currentValue === newSourceValue ||
+				(currentValue !== newSourceValue &&
+					(previousValue !== currentValue || previousSourceValue !== currentValue))
+			) {
+				return;
+			}
+
+			setFieldValue(
+				valueSyncConfig.destPath[0],
+				set(
+					lensPath(slice(1, Infinity, valueSyncConfig.destPath)),
+					newSourceValue,
+					pathOr({}, [valueSyncConfig.destPath[0]], values)
+				)
+			);
+		},
+		[fieldSchema.name, previousValues, setFieldValue, values]
+	);
+
+	const setReversedDynamicValue = useCallback(
+		(valueSyncConfig: FieldValueSync) => {
+			const previousValue = pathOr(
+				null,
+				[fieldSchema.name, ...valueSyncConfig.destPath],
+				previousValues
+			);
+			const currentValue = pathOr(
+				null,
+				[fieldSchema.name, ...valueSyncConfig.destPath],
+				values
+			);
+			const previousSourceValue = pathOr(null, valueSyncConfig.sourcePath, previousValues);
+			const newSourceValue = pathOr(null, valueSyncConfig.sourcePath, values);
+
+			if (
+				currentValue === newSourceValue ||
+				(currentValue !== newSourceValue &&
+					(previousValue !== currentValue || previousSourceValue !== currentValue))
+			) {
+				return;
+			}
+
+			setFieldValue(
+				fieldSchema.name,
+				set(
+					lensPath(valueSyncConfig.destPath),
+					newSourceValue,
+					pathOr({}, [fieldSchema.name], values)
+				)
+			);
+		},
+		[fieldSchema.name, previousValues, setFieldValue, values]
+	);
+
+	useEffect(() => {
+		if (!fieldSchema.valueSync) {
+			return;
+		}
+
+		for (const map of fieldSchema.valueSync) {
+			switch (map.type) {
+				case MAP_MODES.FE_DYNAMIC:
+					setDynamicValue(map);
+					break;
+				case MAP_MODES.FE_REVERSED_DYNAMIC:
+					setReversedDynamicValue(map);
+					break;
+			}
+		}
+	}, [fieldSchema.valueSync, setDynamicValue, setReversedDynamicValue]);
 
 	function setWrapperClass(className: string): void {
 		setNewContext({
