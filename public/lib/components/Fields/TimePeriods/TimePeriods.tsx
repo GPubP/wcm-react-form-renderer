@@ -6,7 +6,7 @@ import { InputFieldProps } from '../../../services/fieldRegistry';
 
 import { CreateTimePeriodsModal } from './CreateTimePeriodsModal';
 import { EditTimePeriodsForm } from './EditTimePeriodsForm';
-import { TimePeriodsFormState, TimePeriodsValue } from './TimePeriods.types';
+import { TimePeriodsValue } from './TimePeriods.types';
 
 const TimePeriods: FC<InputFieldProps> = ({ fieldProps, fieldHelperProps, fieldSchema }) => {
 	const { config } = fieldSchema;
@@ -34,6 +34,7 @@ const TimePeriods: FC<InputFieldProps> = ({ fieldProps, fieldHelperProps, fieldS
 	};
 
 	const onSetFieldValue = (values: TimePeriodsFormState): void => {
+	const onSetFieldValue = (values: TimePeriodsValue): void => {
 		setValue(values);
 		setShowModal(false);
 	};

@@ -1,6 +1,6 @@
 import { FormikProps } from 'formik';
 
-import { TimePeriodsFormState } from '../TimePeriods.types';
+import { MonthlyFrequencies, TimePeriodsRepeatType, Weekdays } from '../TimePeriods.types';
 
 export interface CreateTimePeriodsFormProps {
 	className?: string;
@@ -9,4 +9,17 @@ export interface CreateTimePeriodsFormProps {
 	onSubmit: (values: CreateTimePeriodsFormState, recurringPeriods: number) => void;
 }
 
-export type CreateTimePeriodsFormState = TimePeriodsFormState;
+export interface CreateTimePeriodsFormState {
+	startDate: string;
+	startTime: string;
+	endTime?: string;
+	allDay: boolean;
+	repeatType: TimePeriodsRepeatType | '';
+	repeatFrequency?: string;
+	endDate?: string;
+	// Weekly only
+	weeklyDays?: Weekdays[];
+	// Monthly only
+	monthlyFrequency?: MonthlyFrequencies;
+	monthlyWeekday?: Weekdays;
+}

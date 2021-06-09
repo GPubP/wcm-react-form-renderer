@@ -2,15 +2,6 @@ export interface TimePeriodsValue {
 	startDate: string;
 	startTime: string;
 	endTime?: string;
-	allDay: boolean;
-	repeatType: TimePeriodsRepeatType | '';
-	repeatFrequency?: string;
-	endDate?: string;
-	// Weekly only
-	weeklyDays?: Weekdays[];
-	// Monthly only
-	monthlyFrequency?: MonthlyFrequencies;
-	monthlyWeekday?: Weekdays;
 }
 
 export enum TimePeriodsRepeatType {
@@ -36,5 +27,3 @@ export enum MonthlyFrequencies {
 	Fourth = 'fourth',
 	Last = 'last',
 }
-
-export type TimePeriodsFormState = TimePeriodsValue;

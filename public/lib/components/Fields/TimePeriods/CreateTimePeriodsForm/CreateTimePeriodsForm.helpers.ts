@@ -2,12 +2,9 @@ import moment from 'moment';
 import RRule, { Weekday } from 'rrule';
 
 import { DATE_INPUT_FORMAT, TIME_INPUT_FORMAT } from '../../../Views/TimePeriods/TimePeriods.const';
-import {
-	MonthlyFrequencies,
-	TimePeriodsFormState,
-	TimePeriodsRepeatType,
-	Weekdays,
-} from '../TimePeriods.types';
+import { MonthlyFrequencies, TimePeriodsRepeatType, Weekdays } from '../TimePeriods.types';
+
+import { CreateTimePeriodsFormState } from './CreateTimePeriodsForm.types';
 
 const FREQ_MAP = {
 	[TimePeriodsRepeatType.Daily]: RRule.DAILY,
@@ -33,7 +30,7 @@ const MONTH_WEEK_FREQ_MAP = {
 	[MonthlyFrequencies.Last]: -1,
 };
 
-const canShowTimePeriods = (values: TimePeriodsFormState): boolean => {
+const canShowTimePeriods = (values: CreateTimePeriodsFormState): boolean => {
 	const hasRequiredValues =
 		!!values.startDate && !!values.startTime && !!values.repeatFrequency && !!values.endDate;
 
@@ -49,7 +46,7 @@ const canShowTimePeriods = (values: TimePeriodsFormState): boolean => {
 	}
 };
 
-const getByWeekday = (values: TimePeriodsFormState): { byweekday?: Weekday[] } => {
+const getByWeekday = (values: CreateTimePeriodsFormState): { byweekday?: Weekday[] } => {
 	const { repeatType, monthlyFrequency, monthlyWeekday, weeklyDays } = values;
 
 	if (repeatType === TimePeriodsRepeatType.Weekly && weeklyDays) {
@@ -74,8 +71,8 @@ const parseUTCDate = (dateString: string, timeString?: string): Date | null => {
 };
 
 export const getRecurringTimePeriods = (
-	values: TimePeriodsFormState | null
-): string | undefined => {
+	values: CreateTimePeriodsFormState | null
+): number | undefined => {
 	if (!values || !canShowTimePeriods(values)) {
 		return;
 	}
