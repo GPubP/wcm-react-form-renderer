@@ -3,7 +3,6 @@ import moment from 'moment';
 import { v4 as uuid } from 'uuid';
 
 import { DATE_INPUT_FORMAT, TIME_INPUT_FORMAT } from '../../Views/TimePeriods/TimePeriods.const';
-import { TimePeriodsValue } from '../TimePeriods/TimePeriods.types';
 
 import {
 	TimePeriodsRepeaterInitialValue,

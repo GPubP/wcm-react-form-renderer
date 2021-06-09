@@ -16,7 +16,6 @@ import { createInitialValues } from '../../../utils';
 import { ErrorMessage } from '../../ErrorMessage';
 import { FieldRenderer } from '../../FieldRenderer';
 import { FormRendererFieldTitle } from '../../FormRendererFieldTitle';
-import { DATE_INPUT_FORMAT } from '../../Views/TimePeriods/TimePeriods.const';
 import { RepeaterProps } from '../Repeater';
 import styles from '../Repeater/Repeater.module.scss';
 import { CreateTimePeriodsFormState } from '../TimePeriods/CreateTimePeriodsForm';
