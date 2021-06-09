@@ -16,6 +16,7 @@ import { createInitialValues } from '../../../utils';
 import { ErrorMessage } from '../../ErrorMessage';
 import { FieldRenderer } from '../../FieldRenderer';
 import { FormRendererFieldTitle } from '../../FormRendererFieldTitle';
+import { DATE_INPUT_FORMAT } from '../../Views/TimePeriods/TimePeriods.const';
 import { RepeaterProps } from '../Repeater';
 import styles from '../Repeater/Repeater.module.scss';
 import { CreateTimePeriodsFormState } from '../TimePeriods/CreateTimePeriodsForm';
@@ -25,7 +26,11 @@ import {
 	TIME_PERIOD_VALUE_KEYS,
 } from '../TimePeriods/TimePeriodField/TimePeriodField.const';
 
-import { generateTimePeriodValues, sortRepeaterValues } from './TimePeriodsRepeater.helpers';
+import {
+	generateTimePeriodValues,
+	parseTimePeriodValues,
+	sortRepeaterValues,
+} from './TimePeriodsRepeater.helpers';
 import {
 	TimePeriodsRepeaterInitialValue,
 	TimePeriodsRepeaterValue,
@@ -75,16 +80,16 @@ const TimePeriodsRepeater: React.FC<RepeaterProps> = ({ fieldSchema }) => {
 	 */
 
 	// Add time periods to the field array
-	const onAddItems = (values: CreateTimePeriodsFormState, recurringPeriods: number): void => {
-		const singleValue = pick(TIME_PERIOD_VALUE_KEYS, values);
+	const onAddItems = (values: CreateTimePeriodsFormState, recurringPeriods: Date[]): void => {
+		const formValues = pick(TIME_PERIOD_VALUE_KEYS, values);
 		const parsedValue = createInitialValues(
 			{ fields },
-			{ value: singleValue }
+			{ value: formValues }
 		) as TimePeriodsRepeaterInitialValue;
-		const newTotal = recurringPeriods + (value?.length ?? 0);
+		const newTotal = recurringPeriods.length + (value?.length ?? 0);
 		const maxValuesToAdd =
-			newTotal > max ? recurringPeriods - (newTotal - max) : recurringPeriods;
-		const newValues = generateTimePeriodValues(parsedValue, maxValuesToAdd);
+			newTotal > max ? recurringPeriods.length - (newTotal - max) : recurringPeriods.length;
+		const newValues = parseTimePeriodValues(recurringPeriods, parsedValue, maxValuesToAdd);
 
 		helpers.setValue(
 			sort(
@@ -176,46 +181,38 @@ const TimePeriodsRepeater: React.FC<RepeaterProps> = ({ fieldSchema }) => {
 
 	return (
 		<>
-			<FieldArray
-				name={fieldSchema.name}
-				render={arrayHelper => {
-					return (
-						<div className={cx('repeater')}>
-							{fieldSchema.label && (
-								<FormRendererFieldTitle
-									isRequired={isRequired}
-									className="u-margin-bottom-xs"
-								>
-									{fieldSchema.label}
-								</FormRendererFieldTitle>
-							)}
-							{config.description && (
-								<p className="u-margin-bottom-xs">{config.description}</p>
-							)}
-							<div>
-								{value?.length === 0 && (
-									<div className={cx('empty', 'u-margin-top-xs')}>
-										{t(CORE_TRANSLATIONS['TABLE_NO-ITEMS'])}
-									</div>
-								)}
-								{renderArrayElements(arrayHelper, value)}
-								{value.length < max ? (
-									<div className="u-margin-top">
-										<Link
-											onClick={() => setShowModal(true)}
-											disabled={disabled}
-											className={cx('has-icon-left', 'repeater__link')}
-										>
-											<span className="fa fa-plus" aria-hidden="true" />
-											Voeg {fieldSchema.label?.toLocaleLowerCase()} toe
-										</Link>
-									</div>
-								) : null}
-							</div>
+			<div className={cx('repeater')}>
+				{fieldSchema.label && (
+					<FormRendererFieldTitle isRequired={isRequired} className="u-margin-bottom-xs">
+						{fieldSchema.label}
+					</FormRendererFieldTitle>
+				)}
+				{config.description && <p className="u-margin-bottom-xs">{config.description}</p>}
+				<div>
+					{value?.length === 0 && (
+						<div className={cx('empty', 'u-margin-top-xs')}>
+							{t(CORE_TRANSLATIONS['TABLE_NO-ITEMS'])}
 						</div>
-					);
-				}}
-			/>
+					)}
+					<FieldArray name={fieldSchema.name}>
+						{arrayHelper => {
+							return renderArrayElements(arrayHelper, value);
+						}}
+					</FieldArray>
+					{value.length < max ? (
+						<div className="u-margin-top">
+							<Link
+								onClick={() => setShowModal(true)}
+								disabled={disabled}
+								className={cx('has-icon-left', 'repeater__link')}
+							>
+								<span className="fa fa-plus" aria-hidden="true" />
+								Voeg {fieldSchema.label?.toLocaleLowerCase()} toe
+							</Link>
+						</div>
+					) : null}
+				</div>
+			</div>
 			<ErrorMessage name={fieldSchema.name} />
 			<CreateTimePeriodsModal
 				show={showModal}

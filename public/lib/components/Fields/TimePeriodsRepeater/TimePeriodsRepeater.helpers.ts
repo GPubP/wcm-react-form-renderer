@@ -3,6 +3,7 @@ import moment from 'moment';
 import { v4 as uuid } from 'uuid';
 
 import { DATE_INPUT_FORMAT, TIME_INPUT_FORMAT } from '../../Views/TimePeriods/TimePeriods.const';
+import { TimePeriodsValue } from '../TimePeriods/TimePeriods.types';
 
 import {
 	TimePeriodsRepeaterInitialValue,
@@ -23,6 +24,24 @@ export const generateTimePeriodValues = (
 	}
 
 	return values;
+};
+
+export const parseTimePeriodValues = (
+	dateValues: Date[],
+	initialValue: TimePeriodsRepeaterInitialValue,
+	maxAmount: number
+): TimePeriodsRepeaterValue[] => {
+	return dateValues.slice(0, maxAmount).map(date => {
+		return {
+			uuid: uuid(),
+			value: {
+				...initialValue.value,
+				startDate: moment(date)
+					.utc()
+					.format(DATE_INPUT_FORMAT),
+			},
+		} as TimePeriodsRepeaterValue;
+	});
 };
 
 // Sort values on start date and time
