@@ -55,8 +55,6 @@ const TimePeriodsRepeater: React.FC<RepeaterProps> = ({ fieldSchema }) => {
 	const value = pathOr([], split('.', fieldSchema.name), values) as TimePeriodsRepeaterValue[];
 
 	// Check what is in value
-	console.log('schema', fieldSchema);
-	console.log('fields', fields);
 	console.log('field value', value);
 
 	// Make sure our value is an array
@@ -91,9 +89,7 @@ const TimePeriodsRepeater: React.FC<RepeaterProps> = ({ fieldSchema }) => {
 		const newTotal = recurringPeriods + (value?.length ?? 0);
 		const maxValuesToAdd =
 			newTotal > max ? recurringPeriods - (newTotal - max) : recurringPeriods;
-		console.log('max to add', maxValuesToAdd);
 		const newValues = generateTimePeriodValues(parsedValue, maxValuesToAdd);
-		console.log('new array', newValues);
 
 		helpers.setValue(
 			Array.isArray(value) && value.length ? value.concat(newValues) : newValues

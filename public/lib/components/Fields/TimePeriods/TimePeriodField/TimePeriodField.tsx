@@ -7,15 +7,14 @@ import { ErrorMessage } from '../../../ErrorMessage';
 
 import { TimePeriodFieldProps } from './TimePeriodField.types';
 
-const TimePeriodField: React.FC<TimePeriodFieldProps> = ({ label, name, value, onChange }) => {
+const TimePeriodField: React.FC<TimePeriodFieldProps> = ({ name, value, onChange }) => {
 	return (
 		<div className="a-input">
-			{label && <label className="a-input__label">{label}</label>}
 			<div className="row">
 				<div className="col-xs-12 col-lg-9 u-margin-bottom">
 					<Field
 						as={Datepicker}
-						id="edit-startDate"
+						id={`edit-${name}.startDate`}
 						name={`${name}.startDate`}
 						label="Datum"
 						activeDate={value.startDate}
@@ -29,7 +28,7 @@ const TimePeriodField: React.FC<TimePeriodFieldProps> = ({ label, name, value, o
 				<div className="col-xs-12 col-lg-4">
 					<Field
 						as={Timepicker}
-						id="edit-startTime"
+						id={`edit-${name}.startTime`}
 						name={`${name}.startTime`}
 						hourLabel="Startuur"
 						minuteLabel=""
@@ -44,7 +43,7 @@ const TimePeriodField: React.FC<TimePeriodFieldProps> = ({ label, name, value, o
 				<div className="col-xs-12 col-lg-4">
 					<Field
 						as={Timepicker}
-						id="edit-endTime"
+						id={`edit-${name}.endTime`}
 						name={`${name}.endTime`}
 						hourLabel="Einduur"
 						minuteLabel=""

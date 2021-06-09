@@ -11,7 +11,7 @@ import { TIME_PERIOD_VALUE_KEYS } from './TimePeriodField/TimePeriodField.const'
 import { TimePeriodsValue } from './TimePeriods.types';
 
 const TimePeriods: FC<InputFieldProps> = ({ fieldProps, fieldHelperProps, fieldSchema }) => {
-	const { config, label, name } = fieldSchema;
+	const { config, name } = fieldSchema;
 	const { field } = fieldProps;
 	const { setValue } = fieldHelperProps;
 	const fieldValue = (field.value as unknown) as TimePeriodsValue;
@@ -71,12 +71,7 @@ const TimePeriods: FC<InputFieldProps> = ({ fieldProps, fieldHelperProps, fieldS
 			</>
 		) : null
 	) : (
-		<TimePeriodField
-			label={label}
-			name={name}
-			value={fieldValue as TimePeriodsValue}
-			onChange={onEdit}
-		/>
+		<TimePeriodField name={name} value={fieldValue as TimePeriodsValue} onChange={onEdit} />
 	);
 };
 
