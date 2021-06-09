@@ -7,7 +7,6 @@ import {
 	useField,
 	useFormikContext,
 } from 'formik';
-import moment from 'moment';
 import { pathOr, pick, sort, split } from 'ramda';
 import React, { ReactElement, useEffect, useState } from 'react';
 
@@ -17,7 +16,6 @@ import { createInitialValues } from '../../../utils';
 import { ErrorMessage } from '../../ErrorMessage';
 import { FieldRenderer } from '../../FieldRenderer';
 import { FormRendererFieldTitle } from '../../FormRendererFieldTitle';
-import { DATE_INPUT_FORMAT, TIME_INPUT_FORMAT } from '../../Views/TimePeriods/TimePeriods.const';
 import { RepeaterProps } from '../Repeater';
 import styles from '../Repeater/Repeater.module.scss';
 import { CreateTimePeriodsFormState } from '../TimePeriods/CreateTimePeriodsForm';
@@ -27,7 +25,7 @@ import {
 	TIME_PERIOD_VALUE_KEYS,
 } from '../TimePeriods/TimePeriodField/TimePeriodField.const';
 
-import { generateTimePeriodValues } from './TimePeriodsRepeater.helpers';
+import { generateTimePeriodValues, sortRepeaterValues } from './TimePeriodsRepeater.helpers';
 import {
 	TimePeriodsRepeaterInitialValue,
 	TimePeriodsRepeaterValue,
@@ -89,7 +87,10 @@ const TimePeriodsRepeater: React.FC<RepeaterProps> = ({ fieldSchema }) => {
 		const newValues = generateTimePeriodValues(parsedValue, maxValuesToAdd);
 
 		helpers.setValue(
-			Array.isArray(value) && value.length ? value.concat(newValues) : newValues
+			sort(
+				sortRepeaterValues,
+				Array.isArray(value) && value.length ? value.concat(newValues) : newValues
+			)
 		);
 
 		// Close modal
@@ -99,25 +100,6 @@ const TimePeriodsRepeater: React.FC<RepeaterProps> = ({ fieldSchema }) => {
 	// Delete element form the field array
 	const deleteItem = (arrayHelper: FieldArrayRenderProps, index: number): void => {
 		arrayHelper.remove(index);
-	};
-
-	// Sort values on start date and time
-	const sortRepeaterValues = (a: FormikValues, b: FormikValues): number => {
-		const aValue = (a as TimePeriodsRepeaterValue).value;
-		const bValue = (b as TimePeriodsRepeaterValue).value;
-
-		if (
-			(!aValue?.startDate && !aValue?.startTime) ||
-			(!bValue?.startDate && !bValue?.startTime)
-		) {
-			return 0;
-		}
-
-		const dateTimeFormat = `${DATE_INPUT_FORMAT} ${TIME_INPUT_FORMAT}`;
-		const aMoment = moment(`${aValue.startDate} ${aValue.startTime}`, dateTimeFormat, true);
-		const bMoment = moment(`${bValue.startDate} ${bValue.startTime}`, dateTimeFormat, true);
-
-		return aMoment.diff(bMoment);
 	};
 
 	/**
@@ -184,10 +166,7 @@ const TimePeriodsRepeater: React.FC<RepeaterProps> = ({ fieldSchema }) => {
 		return (
 			<div>
 				{Array.isArray(repeaterValue) && repeaterValue.length > 0
-					? sort(
-							sortRepeaterValues,
-							repeaterValue
-					  ).map((sortedValue: any, index: number) =>
+					? repeaterValue.map((sortedValue: any, index: number) =>
 							renderListItem(arrayHelper, repeaterValue, sortedValue, index)
 					  )
 					: null}
