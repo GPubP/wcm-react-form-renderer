@@ -95,7 +95,7 @@ const CreateTimePeriodsForm: React.FC<CreateTimePeriodsFormProps> = ({
 			validationSchema={CREATE_VALIDATION_SCHEMA}
 		>
 			{props => {
-				const { setFieldValue, values } = props;
+				const { setFieldTouched, setFieldValue, values } = props;
 
 				return (
 					<>
@@ -111,9 +111,12 @@ const CreateTimePeriodsForm: React.FC<CreateTimePeriodsFormProps> = ({
 										name="startDate"
 										label="Datum"
 										activeDate={values.startDate}
-										onChange={(value: string) =>
-											setFieldValue('startDate', value)
-										}
+										onChange={(value: string) => {
+											// If a date is selected via the calendar, the blur state will not be triggered
+											// This will also prevent errors from being shown directly
+											setFieldTouched('startDate', true);
+											setFieldValue('startDate', value);
+										}}
 										required
 									/>
 									<ErrorMessage name="startDate" />
@@ -216,9 +219,12 @@ const CreateTimePeriodsForm: React.FC<CreateTimePeriodsFormProps> = ({
 												name="endDate"
 												label="Tot en met"
 												activeDate={values.endDate}
-												onChange={(value: string) =>
-													setFieldValue('endDate', value)
-												}
+												onChange={(value: string) => {
+													// If a date is selected via the calendar, the blur state will not be triggered
+													// This will also prevent errors from being shown directly
+													setFieldTouched('endDate', true);
+													setFieldValue('endDate', value);
+												}}
 												required
 											/>
 											<ErrorMessage name="endDate" />
