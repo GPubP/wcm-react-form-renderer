@@ -16,7 +16,7 @@ const TimePeriods: FC<InputFieldProps> = ({ fieldProps, fieldHelperProps, fieldS
 	const { setValue } = fieldHelperProps;
 	const fieldValue = (field.value as unknown) as TimePeriodsValue;
 
-	const hasFieldValue = !isNil(fieldValue) && fieldValue.startDate && fieldValue.startTime;
+	const hasFieldValue = !isNil(fieldValue);
 	const isRepeated = config?.isRepeated ?? false;
 
 	/**
@@ -50,26 +50,26 @@ const TimePeriods: FC<InputFieldProps> = ({ fieldProps, fieldHelperProps, fieldS
 	 * Render
 	 */
 
-	if (!hasFieldValue && isRepeated) {
-		return null;
+	if (isRepeated) {
+		// When repeated the parent will handle the adding of time periods
+		return (
+			<TimePeriodField name={name} value={fieldValue as TimePeriodsValue} onChange={onEdit} />
+		);
 	}
 
 	return !hasFieldValue ? (
-		// When repeated the parent will handle the adding of time periods
-		!isRepeated ? (
-			<>
-				<Button
-					onClick={() => setShowModal(true)}
-					iconLeft="plus"
-					size="small"
-					type="transparent"
-					htmlType="button"
-				>
-					Voeg tijdstip toe
-				</Button>
-				<CreateTimePeriodsModal show={showModal} onCancel={onCancel} onSubmit={onCreate} />
-			</>
-		) : null
+		<>
+			<Button
+				onClick={() => setShowModal(true)}
+				iconLeft="plus"
+				size="small"
+				type="transparent"
+				htmlType="button"
+			>
+				Voeg tijdstip toe
+			</Button>
+			<CreateTimePeriodsModal show={showModal} onCancel={onCancel} onSubmit={onCreate} />
+		</>
 	) : (
 		<TimePeriodField name={name} value={fieldValue as TimePeriodsValue} onChange={onEdit} />
 	);
