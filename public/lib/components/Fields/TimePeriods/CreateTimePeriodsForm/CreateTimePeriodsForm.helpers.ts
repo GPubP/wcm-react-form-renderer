@@ -94,10 +94,7 @@ export const getRecurringTimePeriods = (
 			...getByWeekday(values),
 		});
 
-		const amountOfDates = rule.all().length;
-		const timePeriodsString = amountOfDates === 1 ? 'nieuw tijdstip' : 'nieuwe tijdstippen';
-
-		return `${amountOfDates} ${timePeriodsString}`;
+		return rule.all().length;
 	} catch (error) {
 		console.error(error);
 		return;

@@ -4,7 +4,7 @@ import { SelectOption } from '@redactie/utils';
 import classnames from 'classnames/bind';
 import { Field, Formik, FormikProps } from 'formik';
 import { isEmpty } from 'ramda';
-import React, { ChangeEvent, useMemo, useState } from 'react';
+import React, { ChangeEvent, ReactElement, useMemo, useState } from 'react';
 
 import { ErrorMessage } from '../../../ErrorMessage';
 import { FormikOnChangeHandler } from '../../../FormikOnChangeHandler';
@@ -60,6 +60,10 @@ const CreateTimePeriodsForm: React.FC<CreateTimePeriodsFormProps> = ({
 		}
 	};
 
+	const onFormSubmit = (values: CreateTimePeriodsFormState): void => {
+		onSubmit(values, recurringTimePeriods ?? 0);
+	};
+
 	const onRepeatTypeChange = (
 		newRepeatType: string,
 		setFieldValue: FormikProps<CreateTimePeriodsFormState>['setFieldValue']
@@ -91,10 +95,26 @@ const CreateTimePeriodsForm: React.FC<CreateTimePeriodsFormProps> = ({
 	 * Render
 	 */
 
+	const renderRecurringTimePeriodsText = (): ReactElement | null => {
+		if (!recurringTimePeriods) {
+			return null;
+		}
+
+		const newPeriodsString =
+			recurringTimePeriods === 1 ? 'nieuw tijdstip' : 'nieuwe tijdstippen';
+		const timePeriodsString = `${recurringTimePeriods} ${newPeriodsString}`;
+
+		return (
+			<p className={cx('o-create-time-periods-form__amount', 'u-text-light')}>
+				U staat op het punt <strong>{timePeriodsString}</strong> toe te voegen
+			</p>
+		);
+	};
+
 	return (
 		<Formik
 			initialValues={initialState}
-			onSubmit={onSubmit}
+			onSubmit={onFormSubmit}
 			validationSchema={CREATE_VALIDATION_SCHEMA}
 		>
 			{props => {
@@ -271,17 +291,7 @@ const CreateTimePeriodsForm: React.FC<CreateTimePeriodsFormProps> = ({
 											</>
 										)}
 									</div>
-									{recurringTimePeriods && (
-										<p
-											className={cx(
-												'o-create-time-periods-form__amount',
-												'u-text-light'
-											)}
-										>
-											U staat op het punt{' '}
-											<strong>{recurringTimePeriods}</strong> toe te voegen
-										</p>
-									)}
+									{renderRecurringTimePeriodsText()}
 								</>
 							)}
 						</div>

@@ -5,10 +5,15 @@ import {
 	ControlledModal,
 } from '@acpaas-ui/react-editorial-components';
 import classnames from 'classnames/bind';
+import { FormikProps } from 'formik';
 import React from 'react';
 
 import { CORE_TRANSLATIONS, useCoreTranslation } from '../../../../connectors';
-import { CreateTimePeriodsForm } from '../CreateTimePeriodsForm';
+import {
+	CreateTimePeriodsForm,
+	CreateTimePeriodsFormState,
+	INITIAL_CREATE_FORM_STATE,
+} from '../CreateTimePeriodsForm';
 
 import styles from './CreateTimePeriodsModal.module.scss';
 import { CreateTimePeriodsModalProps } from './CreateTimePeriodsModal.types';
@@ -22,6 +27,13 @@ const CreateTimePeriodsModal: React.FC<CreateTimePeriodsModalProps> = ({
 }) => {
 	const [t] = useCoreTranslation();
 
+	const onModalCancel = (
+		resetForm: FormikProps<CreateTimePeriodsFormState>['resetForm']
+	): void => {
+		resetForm({ errors: {}, values: INITIAL_CREATE_FORM_STATE });
+		onCancel();
+	};
+
 	return (
 		<ControlledModal
 			className={cx('o-create-time-periods-modal')}
@@ -34,7 +46,7 @@ const CreateTimePeriodsModal: React.FC<CreateTimePeriodsModalProps> = ({
 			</div>
 			<div className="u-bg-light">
 				<CreateTimePeriodsForm onSubmit={onSubmit}>
-					{({ submitForm }) => {
+					{({ resetForm, submitForm }) => {
 						return (
 							<ActionBar
 								className={cx('o-create-time-periods-modal__actions')}
@@ -46,7 +58,7 @@ const CreateTimePeriodsModal: React.FC<CreateTimePeriodsModalProps> = ({
 										<Button
 											className="u-margin-right"
 											negative
-											onClick={onCancel}
+											onClick={() => onModalCancel(resetForm)}
 										>
 											{t(CORE_TRANSLATIONS.BUTTON_CANCEL)}
 										</Button>

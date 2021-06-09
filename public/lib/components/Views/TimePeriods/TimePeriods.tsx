@@ -16,14 +16,10 @@ const TimePeriodsView: React.FC<ViewFieldProps> = ({ value }) => {
 		return null;
 	}
 
-	const { startDate = '', startTime = '', endTime, allDay } = value as TimePeriodsValue;
+	const { startDate = '', startTime = '', endTime } = value as TimePeriodsValue;
 	const formattedStartDate = moment(startDate, DATE_INPUT_FORMAT, true).format(DATE_FORMAT);
 
 	const getDurationString = (): string => {
-		if (allDay) {
-			return 'volledige dag';
-		}
-
 		const formattedStart = moment(startTime, TIME_INPUT_FORMAT, true).format(TIME_FORMAT);
 
 		if (endTime) {
