@@ -8,7 +8,7 @@ import {
 	useFormikContext,
 } from 'formik';
 import moment from 'moment';
-import { pathOr, pick, split } from 'ramda';
+import { pathOr, pick, sort, split } from 'ramda';
 import React, { ReactElement, useEffect, useState } from 'react';
 
 import { CORE_TRANSLATIONS, useCoreTranslation } from '../../../connectors';
@@ -53,9 +53,6 @@ const TimePeriodsRepeater: React.FC<RepeaterProps> = ({ fieldSchema }) => {
 	const { values } = useFormikContext<FormikValues>();
 
 	const value = pathOr([], split('.', fieldSchema.name), values) as TimePeriodsRepeaterValue[];
-
-	// Check what is in value
-	console.log('field value', value);
 
 	// Make sure our value is an array
 	useEffect(() => {
@@ -187,11 +184,12 @@ const TimePeriodsRepeater: React.FC<RepeaterProps> = ({ fieldSchema }) => {
 		return (
 			<div>
 				{Array.isArray(repeaterValue) && repeaterValue.length > 0
-					? repeaterValue
-							.sort(sortRepeaterValues)
-							.map((value: any, index: number) =>
-								renderListItem(arrayHelper, repeaterValue, value, index)
-							)
+					? sort(
+							sortRepeaterValues,
+							repeaterValue
+					  ).map((sortedValue: any, index: number) =>
+							renderListItem(arrayHelper, repeaterValue, sortedValue, index)
+					  )
 					: null}
 			</div>
 		);
