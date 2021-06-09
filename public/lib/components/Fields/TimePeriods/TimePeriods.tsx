@@ -1,15 +1,16 @@
 import { Button } from '@acpaas-ui/react-components';
-import { isNil } from 'ramda';
+import { isNil, pick } from 'ramda';
 import React, { FC, useState } from 'react';
 
 import { InputFieldProps } from '../../../services/fieldRegistry';
 
+import { CreateTimePeriodsFormState } from './CreateTimePeriodsForm';
 import { CreateTimePeriodsModal } from './CreateTimePeriodsModal';
-import { EditTimePeriodsForm } from './EditTimePeriodsForm';
+import { TimePeriodField } from './TimePeriodField';
 import { TimePeriodsValue } from './TimePeriods.types';
 
 const TimePeriods: FC<InputFieldProps> = ({ fieldProps, fieldHelperProps, fieldSchema }) => {
-	const { config } = fieldSchema;
+	const { config, label, name } = fieldSchema;
 	const { field } = fieldProps;
 	const { setValue } = fieldHelperProps;
 	const fieldValue = (field.value as unknown) as TimePeriodsValue;
@@ -28,15 +29,20 @@ const TimePeriods: FC<InputFieldProps> = ({ fieldProps, fieldHelperProps, fieldS
 	 */
 
 	const onCancel = (): void => {
-		// TODO: remove if unnecessary
-		// resetForm({ values: INITIAL_CREATE_FORM_STATE });
 		setShowModal(false);
 	};
 
-	const onSetFieldValue = (values: TimePeriodsFormState): void => {
-	const onSetFieldValue = (values: TimePeriodsValue): void => {
-		setValue(values);
+	const onCreate = (values: CreateTimePeriodsFormState): void => {
+		const valuesToAdd = pick([], values);
+		setValue(valuesToAdd);
 		setShowModal(false);
+	};
+
+	const onEdit = <K extends keyof TimePeriodsValue>(key: K, value: TimePeriodsValue[K]): void => {
+		setValue({
+			...fieldValue,
+			[key]: value,
+		});
 	};
 
 	/**
@@ -60,17 +66,15 @@ const TimePeriods: FC<InputFieldProps> = ({ fieldProps, fieldHelperProps, fieldS
 				>
 					Voeg tijdstip toe
 				</Button>
-				<CreateTimePeriodsModal
-					show={showModal}
-					onCancel={onCancel}
-					onSubmit={onSetFieldValue}
-				/>
+				<CreateTimePeriodsModal show={showModal} onCancel={onCancel} onSubmit={onCreate} />
 			</>
 		) : null
 	) : (
-		<EditTimePeriodsForm
-			initialState={fieldValue as TimePeriodsFormState}
-			onChange={onSetFieldValue}
+		<TimePeriodField
+			label={label}
+			name={name}
+			value={fieldValue as TimePeriodsValue}
+			onChange={onEdit}
 		/>
 	);
 };
