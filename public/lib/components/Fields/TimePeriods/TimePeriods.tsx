@@ -1,68 +1,64 @@
 import { Button } from '@acpaas-ui/react-components';
-import {
-	ActionBar,
-	ActionBarContentSection,
-	ControlledModal,
-} from '@acpaas-ui/react-editorial-components';
-import classnames from 'classnames/bind';
-import { FormikProps } from 'formik';
-import { isNil } from 'ramda';
-import React, { FC, ReactElement, useState } from 'react';
+import { isNil, pick } from 'ramda';
+import React, { FC, useState } from 'react';
 
-import { CORE_TRANSLATIONS, useCoreTranslation } from '../../../connectors';
 import { InputFieldProps } from '../../../services/fieldRegistry';
 
-import { CreateTimePeriodsForm, CreateTimePeriodsFormState } from './CreateTimePeriodsForm';
-import { INITIAL_CREATE_FORM_STATE } from './CreateTimePeriodsForm/CreateTimePeriodsForm.const';
-import { EditTimePeriodsForm } from './EditTimePeriodsForm';
-import styles from './TimePeriods.module.scss';
-import { TimePeriodsFormState, TimePeriodsValue } from './TimePeriods.types';
-
-const cx = classnames.bind(styles);
+import { CreateTimePeriodsFormState } from './CreateTimePeriodsForm';
+import { CreateTimePeriodsModal } from './CreateTimePeriodsModal';
+import { TimePeriodField } from './TimePeriodField';
+import { TIME_PERIOD_VALUE_KEYS } from './TimePeriodField/TimePeriodField.const';
+import { TimePeriodsValue } from './TimePeriods.types';
 
 const TimePeriods: FC<InputFieldProps> = ({ fieldProps, fieldHelperProps, fieldSchema }) => {
-	const { config } = fieldSchema;
+	const { config, name } = fieldSchema;
 	const { field } = fieldProps;
 	const { setValue } = fieldHelperProps;
 	const fieldValue = (field.value as unknown) as TimePeriodsValue;
 
-	const hasFieldValue = !isNil(fieldValue) && fieldValue.startDate && fieldValue.startTime;
+	const hasFieldValue = !isNil(fieldValue);
 	const isRepeated = config?.isRepeated ?? false;
 
 	/**
 	 * Hooks
 	 */
 
-	// Show modal by default in repeater context
-	const [showModal, setShowModal] = useState(isRepeated ?? false);
-	const [t] = useCoreTranslation();
+	const [showModal, setShowModal] = useState(false);
 
 	/**
 	 * Methods
 	 */
 
-	const onCancel = (resetForm: FormikProps<CreateTimePeriodsFormState>['resetForm']): void => {
-		resetForm({ values: INITIAL_CREATE_FORM_STATE });
+	const onCancel = (): void => {
 		setShowModal(false);
-
-		if (config?.onDelete && isRepeated) {
-			// Remove item from repeater values
-			config.onDelete();
-		}
 	};
 
-	const onSetFieldValue = (values: TimePeriodsFormState): void => {
-		setValue(values);
+	const onCreate = (values: CreateTimePeriodsFormState): void => {
+		const valuesToAdd = pick(TIME_PERIOD_VALUE_KEYS, values);
+		setValue(valuesToAdd);
 		setShowModal(false);
+	};
+
+	const onEdit = <K extends keyof TimePeriodsValue>(key: K, value: TimePeriodsValue[K]): void => {
+		setValue({
+			...fieldValue,
+			[key]: value,
+		});
 	};
 
 	/**
 	 * Render
 	 */
 
-	const renderAddButton = (): ReactElement | null => {
-		// Don't show add button in repeater context, the modal will open by default
-		return !isRepeated ? (
+	if (isRepeated) {
+		// When repeated the parent will handle the adding of time periods
+		return (
+			<TimePeriodField name={name} value={fieldValue as TimePeriodsValue} onChange={onEdit} />
+		);
+	}
+
+	return !hasFieldValue ? (
+		<>
 			<Button
 				onClick={() => setShowModal(true)}
 				iconLeft="plus"
@@ -72,56 +68,10 @@ const TimePeriods: FC<InputFieldProps> = ({ fieldProps, fieldHelperProps, fieldS
 			>
 				Voeg tijdstip toe
 			</Button>
-		) : null;
-	};
-
-	return !hasFieldValue ? (
-		<>
-			{renderAddButton()}
-			<ControlledModal
-				className={cx('o-time-periods__modal')}
-				overlayClassName={cx('o-time-periods__overlay')}
-				show={showModal}
-				size="large"
-			>
-				<div className="u-padding">
-					<h3>Tijdstippen toevoegen</h3>
-				</div>
-				<div className="u-bg-light">
-					<CreateTimePeriodsForm onSubmit={onSetFieldValue}>
-						{({ resetForm, submitForm }) => {
-							return (
-								<ActionBar
-									className={cx('o-time-periods__modal-actions')}
-									disablePortal
-									isOpen
-								>
-									<ActionBarContentSection>
-										<div className="u-text-right">
-											<Button
-												className="u-margin-right"
-												negative
-												onClick={() => onCancel(resetForm)}
-											>
-												{t(CORE_TRANSLATIONS.BUTTON_CANCEL)}
-											</Button>
-											<Button onClick={submitForm}>
-												{t(CORE_TRANSLATIONS.BUTTON_ADD)}
-											</Button>
-										</div>
-									</ActionBarContentSection>
-								</ActionBar>
-							);
-						}}
-					</CreateTimePeriodsForm>
-				</div>
-			</ControlledModal>
+			<CreateTimePeriodsModal show={showModal} onCancel={onCancel} onSubmit={onCreate} />
 		</>
 	) : (
-		<EditTimePeriodsForm
-			initialState={fieldValue as TimePeriodsFormState}
-			onChange={onSetFieldValue}
-		/>
+		<TimePeriodField name={name} value={fieldValue as TimePeriodsValue} onChange={onEdit} />
 	);
 };
 

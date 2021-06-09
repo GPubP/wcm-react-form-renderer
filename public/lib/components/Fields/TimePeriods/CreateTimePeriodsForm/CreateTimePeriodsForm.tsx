@@ -4,11 +4,11 @@ import { SelectOption } from '@redactie/utils';
 import classnames from 'classnames/bind';
 import { Field, Formik, FormikProps } from 'formik';
 import { isEmpty } from 'ramda';
-import React, { ChangeEvent, useMemo, useState } from 'react';
+import React, { ChangeEvent, ReactElement, useMemo, useState } from 'react';
 
 import { ErrorMessage } from '../../../ErrorMessage';
 import { FormikOnChangeHandler } from '../../../FormikOnChangeHandler';
-import { TimePeriodsFormState, TimePeriodsRepeatType } from '../TimePeriods.types';
+import { TimePeriodsRepeatType } from '../TimePeriods.types';
 import { WeekDayMultiSelect } from '../WeekDayMultiSelect';
 
 import {
@@ -24,7 +24,10 @@ import {
 } from './CreateTimePeriodsForm.const';
 import { getRecurringTimePeriods } from './CreateTimePeriodsForm.helpers';
 import styles from './CreateTimePeriodsForm.module.scss';
-import { CreateTimePeriodsFormProps } from './CreateTimePeriodsForm.types';
+import {
+	CreateTimePeriodsFormProps,
+	CreateTimePeriodsFormState,
+} from './CreateTimePeriodsForm.types';
 
 const cx = classnames.bind(styles);
 
@@ -37,7 +40,7 @@ const CreateTimePeriodsForm: React.FC<CreateTimePeriodsFormProps> = ({
 	 * Hooks
 	 */
 
-	const [formValues, setFormValues] = useState<TimePeriodsFormState | null>(null);
+	const [formValues, setFormValues] = useState<CreateTimePeriodsFormState | null>(null);
 	const recurringTimePeriods = useMemo(() => getRecurringTimePeriods(formValues), [formValues]);
 
 	/**
@@ -57,9 +60,13 @@ const CreateTimePeriodsForm: React.FC<CreateTimePeriodsFormProps> = ({
 		}
 	};
 
+	const onFormSubmit = (values: CreateTimePeriodsFormState): void => {
+		onSubmit(values, recurringTimePeriods ?? 0);
+	};
+
 	const onRepeatTypeChange = (
 		newRepeatType: string,
-		setFieldValue: FormikProps<TimePeriodsFormState>['setFieldValue']
+		setFieldValue: FormikProps<CreateTimePeriodsFormState>['setFieldValue']
 	): void => {
 		switch (newRepeatType) {
 			case TimePeriodsRepeatType.Daily:
@@ -88,10 +95,26 @@ const CreateTimePeriodsForm: React.FC<CreateTimePeriodsFormProps> = ({
 	 * Render
 	 */
 
+	const renderRecurringTimePeriodsText = (): ReactElement | null => {
+		if (!recurringTimePeriods) {
+			return null;
+		}
+
+		const newPeriodsString =
+			recurringTimePeriods === 1 ? 'nieuw tijdstip' : 'nieuwe tijdstippen';
+		const timePeriodsString = `${recurringTimePeriods} ${newPeriodsString}`;
+
+		return (
+			<p className={cx('o-create-time-periods-form__amount', 'u-text-light')}>
+				U staat op het punt <strong>{timePeriodsString}</strong> toe te voegen
+			</p>
+		);
+	};
+
 	return (
 		<Formik
 			initialValues={initialState}
-			onSubmit={onSubmit}
+			onSubmit={onFormSubmit}
 			validationSchema={CREATE_VALIDATION_SCHEMA}
 		>
 			{props => {
@@ -100,7 +123,7 @@ const CreateTimePeriodsForm: React.FC<CreateTimePeriodsFormProps> = ({
 				return (
 					<>
 						<FormikOnChangeHandler
-							onChange={values => setFormValues(values as TimePeriodsFormState)}
+							onChange={values => setFormValues(values as CreateTimePeriodsFormState)}
 						/>
 						<div className="u-padding">
 							<div className="row">
@@ -268,17 +291,7 @@ const CreateTimePeriodsForm: React.FC<CreateTimePeriodsFormProps> = ({
 											</>
 										)}
 									</div>
-									{recurringTimePeriods && (
-										<p
-											className={cx(
-												'o-create-time-periods-form__amount',
-												'u-text-light'
-											)}
-										>
-											U staat op het punt{' '}
-											<strong>{recurringTimePeriods}</strong> toe te voegen
-										</p>
-									)}
+									{renderRecurringTimePeriodsText()}
 								</>
 							)}
 						</div>

@@ -24,8 +24,8 @@ export const CREATE_VALIDATION_SCHEMA = object()
 		 * when using date() values which doesn't check our date format
 		 */
 		startDate: string()
-			.test('isValidStartDate', INVALID_DATE_MESSAGE, isValidDate)
-			.required('Datum is een verplicht veld'),
+			.required('Datum is een verplicht veld')
+			.test('isValidStartDate', INVALID_DATE_MESSAGE, isValidDate),
 		startTime: string()
 			.matches(HOUR_MINUTE_REGEX, 'Startuur moet in het formaat H:m')
 			.required('Startuur is een verplicht veld'),
@@ -49,10 +49,10 @@ export const CREATE_VALIDATION_SCHEMA = object()
 			is: (value: string | undefined) => !isNilOrEmpty(value),
 			then: number().required('Frequentie is een verplicht veld'),
 		}),
-		endDate: string().when(['repeatType', 'startDate'], {
-			is: (repeatType: string | undefined, startDate: string | undefined) =>
-				!isNilOrEmpty(repeatType) && !isNilOrEmpty(startDate),
+		endDate: string().when('repeatType', {
+			is: (repeatType: string | undefined) => !isNilOrEmpty(repeatType),
 			then: string()
+				.required('Einddatum is een verplicht veld')
 				.test('isValidEndDate', INVALID_DATE_MESSAGE, isValidDate)
 				.test('isEndAfterStartDate', 'Einddatum moet na startdatum vallen', function(
 					value = ''
@@ -62,8 +62,7 @@ export const CREATE_VALIDATION_SCHEMA = object()
 					const areDatesValid = startDate.isValid() && endDate.isValid();
 
 					return areDatesValid && endDate.isAfter(startDate);
-				})
-				.required('Einddatum is een verplicht veld'),
+				}),
 		}),
 		// Weekly only
 		weeklyDays: array()

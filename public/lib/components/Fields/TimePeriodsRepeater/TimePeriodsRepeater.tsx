@@ -8,9 +8,8 @@ import {
 	useFormikContext,
 } from 'formik';
 import moment from 'moment';
-import { pathOr, split } from 'ramda';
-import React, { ReactElement, useEffect } from 'react';
-import { v4 as uuid } from 'uuid';
+import { pathOr, pick, sort, split } from 'ramda';
+import React, { ReactElement, useEffect, useState } from 'react';
 
 import { CORE_TRANSLATIONS, useCoreTranslation } from '../../../connectors';
 import { FieldSchema } from '../../../core.types';
@@ -21,8 +20,18 @@ import { FormRendererFieldTitle } from '../../FormRendererFieldTitle';
 import { DATE_INPUT_FORMAT, TIME_INPUT_FORMAT } from '../../Views/TimePeriods/TimePeriods.const';
 import { RepeaterProps } from '../Repeater';
 import styles from '../Repeater/Repeater.module.scss';
+import { CreateTimePeriodsFormState } from '../TimePeriods/CreateTimePeriodsForm';
+import { CreateTimePeriodsModal } from '../TimePeriods/CreateTimePeriodsModal';
+import {
+	INITIAL_TIME_PERIOD_VALUE,
+	TIME_PERIOD_VALUE_KEYS,
+} from '../TimePeriods/TimePeriodField/TimePeriodField.const';
 
-import { TimePeriodsRepeaterValue } from './TimePeriodsRepeater.types';
+import { generateTimePeriodValues } from './TimePeriodsRepeater.helpers';
+import {
+	TimePeriodsRepeaterInitialValue,
+	TimePeriodsRepeaterValue,
+} from './TimePeriodsRepeater.types';
 
 const cx = classNames.bind(styles);
 
@@ -38,35 +47,53 @@ const TimePeriodsRepeater: React.FC<RepeaterProps> = ({ fieldSchema }) => {
 	 * Hooks
 	 */
 
+	const [showModal, setShowModal] = useState(false);
 	const [t] = useCoreTranslation();
 	const [, , helpers] = useField(fieldSchema.name);
 	const { values } = useFormikContext<FormikValues>();
 
-	const value = pathOr([], split('.', fieldSchema.name), values) as FormikValues[];
+	const value = pathOr([], split('.', fieldSchema.name), values) as TimePeriodsRepeaterValue[];
 
+	// Make sure our value is an array
 	useEffect(() => {
 		if (value && !Array.isArray(value)) {
-			helpers.setValue([
-				{
-					value,
-					uuid: uuid(),
-				},
-			]);
+			helpers.setValue(generateTimePeriodValues({ value }, 1));
 		}
 	}, [helpers, value]);
+
+	// Set minimum amount of values
+	useEffect(() => {
+		if (min > 0 && (!value || value.length === 0)) {
+			const initialFieldValue = createInitialValues(
+				{ fields },
+				{ value: INITIAL_TIME_PERIOD_VALUE }
+			) as TimePeriodsRepeaterInitialValue;
+			helpers.setValue(generateTimePeriodValues(initialFieldValue, min));
+		}
+	}, [fields, helpers, min, value]);
 
 	/**
 	 * Methods
 	 */
 
-	// Add element to the field array
-	const addItem = (arrayHelper: FieldArrayRenderProps): void => {
-		const initialValues = createInitialValues({ fields }, {});
+	// Add time periods to the field array
+	const onAddItems = (values: CreateTimePeriodsFormState, recurringPeriods: number): void => {
+		const singleValue = pick(TIME_PERIOD_VALUE_KEYS, values);
+		const parsedValue = createInitialValues(
+			{ fields },
+			{ value: singleValue }
+		) as TimePeriodsRepeaterInitialValue;
+		const newTotal = recurringPeriods + (value?.length ?? 0);
+		const maxValuesToAdd =
+			newTotal > max ? recurringPeriods - (newTotal - max) : recurringPeriods;
+		const newValues = generateTimePeriodValues(parsedValue, maxValuesToAdd);
 
-		arrayHelper.push({
-			uuid: uuid(),
-			...initialValues,
-		});
+		helpers.setValue(
+			Array.isArray(value) && value.length ? value.concat(newValues) : newValues
+		);
+
+		// Close modal
+		setShowModal(false);
 	};
 
 	// Delete element form the field array
@@ -118,7 +145,6 @@ const TimePeriodsRepeater: React.FC<RepeaterProps> = ({ fieldSchema }) => {
 											schema.config?.wrapperClassName || 'u-no-margin-bottom',
 										// Repeater specific props
 										isRepeated: true,
-										onDelete: () => deleteItem(arrayHelper, index),
 									},
 								})
 							)
@@ -158,11 +184,12 @@ const TimePeriodsRepeater: React.FC<RepeaterProps> = ({ fieldSchema }) => {
 		return (
 			<div>
 				{Array.isArray(repeaterValue) && repeaterValue.length > 0
-					? repeaterValue
-							.sort(sortRepeaterValues)
-							.map((value: any, index: number) =>
-								renderListItem(arrayHelper, repeaterValue, value, index)
-							)
+					? sort(
+							sortRepeaterValues,
+							repeaterValue
+					  ).map((sortedValue: any, index: number) =>
+							renderListItem(arrayHelper, repeaterValue, sortedValue, index)
+					  )
 					: null}
 			</div>
 		);
@@ -173,9 +200,6 @@ const TimePeriodsRepeater: React.FC<RepeaterProps> = ({ fieldSchema }) => {
 			<FieldArray
 				name={fieldSchema.name}
 				render={arrayHelper => {
-					if (value.length < min) {
-						addItem(arrayHelper);
-					}
 					return (
 						<div className={cx('repeater')}>
 							{fieldSchema.label && (
@@ -187,7 +211,7 @@ const TimePeriodsRepeater: React.FC<RepeaterProps> = ({ fieldSchema }) => {
 								</FormRendererFieldTitle>
 							)}
 							{config.description && (
-								<p className="u-margin-bottom-xs"> {config.description} </p>
+								<p className="u-margin-bottom-xs">{config.description}</p>
 							)}
 							<div>
 								{value?.length === 0 && (
@@ -199,7 +223,7 @@ const TimePeriodsRepeater: React.FC<RepeaterProps> = ({ fieldSchema }) => {
 								{value.length < max ? (
 									<div className="u-margin-top">
 										<Link
-											onClick={() => addItem(arrayHelper)}
+											onClick={() => setShowModal(true)}
 											disabled={disabled}
 											className={cx('has-icon-left', 'repeater__link')}
 										>
@@ -214,6 +238,11 @@ const TimePeriodsRepeater: React.FC<RepeaterProps> = ({ fieldSchema }) => {
 				}}
 			/>
 			<ErrorMessage name={fieldSchema.name} />
+			<CreateTimePeriodsModal
+				show={showModal}
+				onCancel={() => setShowModal(false)}
+				onSubmit={onAddItems}
+			/>
 		</>
 	);
 };
