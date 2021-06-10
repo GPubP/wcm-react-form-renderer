@@ -30,6 +30,16 @@ export const parseTimePeriodValues = (
 	initialValue: TimePeriodsRepeaterInitialValue,
 	maxAmount: number
 ): TimePeriodsRepeaterValue[] => {
+	// If there are no date values, no repeat was given so we can just return the initial form value
+	if (!dateValues || dateValues.length === 0) {
+		return [
+			{
+				uuid: uuid(),
+				...initialValue,
+			} as TimePeriodsRepeaterValue,
+		];
+	}
+
 	return dateValues.slice(0, maxAmount).map(date => {
 		return {
 			uuid: uuid(),

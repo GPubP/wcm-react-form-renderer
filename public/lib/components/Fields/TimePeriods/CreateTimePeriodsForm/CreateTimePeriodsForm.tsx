@@ -96,13 +96,20 @@ const CreateTimePeriodsForm: React.FC<CreateTimePeriodsFormProps> = ({
 	 */
 
 	const renderRecurringTimePeriodsText = (): ReactElement | null => {
-		if (!recurringTimePeriods) {
+		if (!formValues) {
 			return null;
 		}
 
-		const newPeriodsString =
-			recurringTimePeriods.length === 1 ? 'nieuw tijdstip' : 'nieuwe tijdstippen';
-		const timePeriodsString = `${recurringTimePeriods.length} ${newPeriodsString}`;
+		const { repeatType, startDate, startTime } = formValues;
+		const isNotRepeated = repeatType === '' && startDate && startTime;
+		const periodsLength = isNotRepeated ? 1 : recurringTimePeriods?.length ?? 0;
+
+		if (periodsLength === 0) {
+			return null;
+		}
+
+		const newPeriodsString = periodsLength === 1 ? 'nieuw tijdstip' : 'nieuwe tijdstippen';
+		const timePeriodsString = `${periodsLength} ${newPeriodsString}`;
 
 		return (
 			<p className={cx('o-create-time-periods-form__amount', 'u-text-light')}>
@@ -148,6 +155,7 @@ const CreateTimePeriodsForm: React.FC<CreateTimePeriodsFormProps> = ({
 							<div className="row">
 								<div className="col-xs-12 col-md-4 col-lg-3 u-margin-bottom">
 									<Field
+										key={values.startTime}
 										as={Timepicker}
 										disabled={values.allDay}
 										id="startTime"
@@ -168,6 +176,7 @@ const CreateTimePeriodsForm: React.FC<CreateTimePeriodsFormProps> = ({
 								</div>
 								<div className="col-xs-12 col-md-4 col-lg-3 u-margin-bottom">
 									<Field
+										key={values.endTime}
 										as={Timepicker}
 										disabled={values.allDay}
 										id="endTime"
@@ -220,80 +229,76 @@ const CreateTimePeriodsForm: React.FC<CreateTimePeriodsFormProps> = ({
 								</div>
 							</div>
 							{!isEmpty(values.repeatType) && (
-								<>
-									<div className="row">
-										<div className="col-xs-12 col-md-6 col-lg-3 u-margin-bottom">
+								<div className="row">
+									<div className="col-xs-12 col-md-6 col-lg-3 u-margin-bottom">
+										<Field
+											as={Select}
+											id="repeatFrequency"
+											name="repeatFrequency"
+											label="Elke"
+											options={getRepeatFrequencyOptions(values.repeatType)}
+											required
+										/>
+										<ErrorMessage name="repeatFrequency" />
+									</div>
+									<div className="col-xs-12 col-md-6 col-lg-4 u-margin-bottom">
+										<Field
+											as={Datepicker}
+											id="endDate"
+											name="endDate"
+											label="Tot en met"
+											activeDate={values.endDate}
+											onChange={(value: string) => {
+												// If a date is selected via the calendar, the blur state will not be triggered
+												// This will also prevent errors from being shown directly
+												setFieldTouched('endDate', true);
+												setFieldValue('endDate', value);
+											}}
+											required
+										/>
+										<ErrorMessage name="endDate" />
+									</div>
+									{values.repeatType === TimePeriodsRepeatType.Weekly && (
+										<div className="col-xs-12 col-lg-5 u-margin-bottom">
 											<Field
-												as={Select}
-												id="repeatFrequency"
-												name="repeatFrequency"
-												label="Elke"
-												options={getRepeatFrequencyOptions(
-													values.repeatType
-												)}
+												as={WeekDayMultiSelect}
+												id="weeklyDays"
+												name="weeklyDays"
+												label="Op de volgende weekdagen"
+												options={WEEK_DAY_OPTIONS}
 												required
 											/>
-											<ErrorMessage name="repeatFrequency" />
+											<ErrorMessage name="weeklyDays" />
 										</div>
-										<div className="col-xs-12 col-md-6 col-lg-4 u-margin-bottom">
-											<Field
-												as={Datepicker}
-												id="endDate"
-												name="endDate"
-												label="Tot en met"
-												activeDate={values.endDate}
-												onChange={(value: string) => {
-													// If a date is selected via the calendar, the blur state will not be triggered
-													// This will also prevent errors from being shown directly
-													setFieldTouched('endDate', true);
-													setFieldValue('endDate', value);
-												}}
-												required
-											/>
-											<ErrorMessage name="endDate" />
-										</div>
-										{values.repeatType === TimePeriodsRepeatType.Weekly && (
-											<div className="col-xs-12 col-lg-5 u-margin-bottom">
+									)}
+									{values.repeatType === TimePeriodsRepeatType.Monthly && (
+										<>
+											<div className="col-xs-12 col-lg u-margin-bottom">
 												<Field
-													as={WeekDayMultiSelect}
-													id="weeklyDays"
-													name="weeklyDays"
-													label="Op de volgende weekdagen"
-													options={WEEK_DAY_OPTIONS}
+													as={Select}
+													id="monthlyFrequency"
+													name="monthlyFrequency"
+													label="Op de"
+													options={MONTH_WEEK_FREQ_OPTIONS}
 													required
 												/>
-												<ErrorMessage name="weeklyDays" />
+												<ErrorMessage name="monthlyFrequency" />
 											</div>
-										)}
-										{values.repeatType === TimePeriodsRepeatType.Monthly && (
-											<>
-												<div className="col-xs-12 col-lg u-margin-bottom">
-													<Field
-														as={Select}
-														id="monthlyFrequency"
-														name="monthlyFrequency"
-														label="Op de"
-														options={MONTH_WEEK_FREQ_OPTIONS}
-														required
-													/>
-													<ErrorMessage name="monthlyFrequency" />
-												</div>
-												<div className="col-xs-12 col-lg u-padding-top u-margin-bottom">
-													<Field
-														as={Select}
-														id="monthlyWeekday"
-														name="monthlyWeekday"
-														options={MONTH_WEEKDAY_OPTIONS}
-														required
-													/>
-													<ErrorMessage name="monthlyWeekday" />
-												</div>
-											</>
-										)}
-									</div>
-									{renderRecurringTimePeriodsText()}
-								</>
+											<div className="col-xs-12 col-lg u-padding-top u-margin-bottom">
+												<Field
+													as={Select}
+													id="monthlyWeekday"
+													name="monthlyWeekday"
+													options={MONTH_WEEKDAY_OPTIONS}
+													required
+												/>
+												<ErrorMessage name="monthlyWeekday" />
+											</div>
+										</>
+									)}
+								</div>
 							)}
+							{renderRecurringTimePeriodsText()}
 						</div>
 						{children && children(props)}
 					</>
