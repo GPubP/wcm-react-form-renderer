@@ -6,7 +6,7 @@ export interface CreateTimePeriodsFormProps {
 	className?: string;
 	initialState?: CreateTimePeriodsFormState;
 	children?: (props: FormikProps<CreateTimePeriodsFormState>) => React.ReactNode;
-	onSubmit: (values: CreateTimePeriodsFormState, recurringPeriods: number) => void;
+	onSubmit: (values: CreateTimePeriodsFormState, recurringPeriods: Date[]) => void;
 }
 
 export interface CreateTimePeriodsFormState {

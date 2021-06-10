@@ -25,6 +25,24 @@ export const generateTimePeriodValues = (
 	return values;
 };
 
+export const parseTimePeriodValues = (
+	dateValues: Date[],
+	initialValue: TimePeriodsRepeaterInitialValue,
+	maxAmount: number
+): TimePeriodsRepeaterValue[] => {
+	return dateValues.slice(0, maxAmount).map(date => {
+		return {
+			uuid: uuid(),
+			value: {
+				...initialValue.value,
+				startDate: moment(date)
+					.utc()
+					.format(DATE_INPUT_FORMAT),
+			},
+		} as TimePeriodsRepeaterValue;
+	});
+};
+
 // Sort values on start date and time
 export const sortRepeaterValues = (a: FormikValues, b: FormikValues): number => {
 	const aValue = (a as TimePeriodsRepeaterValue).value;

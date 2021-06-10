@@ -11,7 +11,7 @@ const TimePeriodField: React.FC<TimePeriodFieldProps> = ({ name, value, onChange
 	return (
 		<div className="a-input">
 			<div className="row">
-				<div className="col-xs-12 col-lg-9 u-margin-bottom">
+				<div className="col-xs-12 u-margin-bottom">
 					<Field
 						as={Datepicker}
 						id={`edit-${name}.startDate`}
@@ -25,7 +25,7 @@ const TimePeriodField: React.FC<TimePeriodFieldProps> = ({ name, value, onChange
 				</div>
 			</div>
 			<div className="row">
-				<div className="col-xs-12 col-lg-4">
+				<div className="col-xs-12 col-lg-6">
 					<Field
 						as={Timepicker}
 						id={`edit-${name}.startTime`}
@@ -37,10 +37,7 @@ const TimePeriodField: React.FC<TimePeriodFieldProps> = ({ name, value, onChange
 					/>
 					<ErrorMessage name={`${name}.startTime`} />
 				</div>
-				<div className="col-xs-12 col-lg-1 center-xs top-xs u-flex u-padding-top-sm md:u-padding-top-md u-margin-bottom-xs">
-					<span>t.e.m.</span>
-				</div>
-				<div className="col-xs-12 col-lg-4">
+				<div className="col-xs-12 col-lg-6">
 					<Field
 						as={Timepicker}
 						id={`edit-${name}.endTime`}

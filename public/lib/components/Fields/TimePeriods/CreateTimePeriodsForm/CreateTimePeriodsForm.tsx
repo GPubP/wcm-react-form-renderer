@@ -61,7 +61,7 @@ const CreateTimePeriodsForm: React.FC<CreateTimePeriodsFormProps> = ({
 	};
 
 	const onFormSubmit = (values: CreateTimePeriodsFormState): void => {
-		onSubmit(values, recurringTimePeriods ?? 0);
+		onSubmit(values, recurringTimePeriods || []);
 	};
 
 	const onRepeatTypeChange = (
@@ -101,8 +101,8 @@ const CreateTimePeriodsForm: React.FC<CreateTimePeriodsFormProps> = ({
 		}
 
 		const newPeriodsString =
-			recurringTimePeriods === 1 ? 'nieuw tijdstip' : 'nieuwe tijdstippen';
-		const timePeriodsString = `${recurringTimePeriods} ${newPeriodsString}`;
+			recurringTimePeriods.length === 1 ? 'nieuw tijdstip' : 'nieuwe tijdstippen';
+		const timePeriodsString = `${recurringTimePeriods.length} ${newPeriodsString}`;
 
 		return (
 			<p className={cx('o-create-time-periods-form__amount', 'u-text-light')}>

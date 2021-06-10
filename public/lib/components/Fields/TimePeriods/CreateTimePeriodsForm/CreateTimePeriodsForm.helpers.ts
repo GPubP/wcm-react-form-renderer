@@ -72,7 +72,7 @@ const parseUTCDate = (dateString: string, timeString?: string): Date | null => {
 
 export const getRecurringTimePeriods = (
 	values: CreateTimePeriodsFormState | null
-): number | undefined => {
+): Date[] | undefined => {
 	if (!values || !canShowTimePeriods(values)) {
 		return;
 	}
@@ -94,7 +94,7 @@ export const getRecurringTimePeriods = (
 			...getByWeekday(values),
 		});
 
-		return rule.all().length;
+		return rule.all();
 	} catch (error) {
 		console.error(error);
 		return;
