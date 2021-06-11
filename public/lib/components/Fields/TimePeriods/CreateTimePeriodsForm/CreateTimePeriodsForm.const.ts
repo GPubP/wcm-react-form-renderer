@@ -11,8 +11,8 @@ import { MonthlyFrequencies, TimePeriodsRepeatType, Weekdays } from '../TimePeri
 
 import { CreateTimePeriodsFormState } from './CreateTimePeriodsForm.types';
 
-// 24 hour format, no leading zero for hours and minutes
-const HOUR_MINUTE_REGEX = /^([0-9]|1[0-9]|2[0-3]):([0-9]|[1-5][0-9])$/;
+// 24 hour format, with leading zero for hours and minutes
+const HOUR_MINUTE_REGEX = /^(0[0-9]|1[0-9]|2[0-3]):(0[0-9]|[1-5][0-9])$/;
 const INVALID_DATE_MESSAGE = 'Datum is ongeldig of niet in het formaat DD/MM/YYYY';
 
 export const CREATE_VALIDATION_SCHEMA = object()
@@ -27,10 +27,10 @@ export const CREATE_VALIDATION_SCHEMA = object()
 			.required('Datum is een verplicht veld')
 			.test('isValidStartDate', INVALID_DATE_MESSAGE, isValidDate),
 		startTime: string()
-			.matches(HOUR_MINUTE_REGEX, 'Startuur moet in het formaat H:m')
+			.matches(HOUR_MINUTE_REGEX, 'Startuur moet in het formaat HH:mm')
 			.required('Startuur is een verplicht veld'),
 		endTime: string()
-			.matches(HOUR_MINUTE_REGEX, 'Einduur moet in het formaat H:m')
+			.matches(HOUR_MINUTE_REGEX, 'Einduur moet in het formaat HH:mm')
 			.test('isStartBeforeEndTime', 'Einduur moet na startuur', function(
 				value: string | undefined
 			) {
