@@ -1,6 +1,6 @@
 {
   "name": "@redactie/form-renderer-module",
-  "version": "0.22.1",
+  "version": "0.22.2",
   "description": "A dynamic form component for react using a JSON schema",
   "main": "dist/redactie-form-renderer-module.umd.js",
   "types": "dist/index.d.ts",
