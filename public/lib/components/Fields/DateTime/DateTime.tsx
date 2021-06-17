@@ -61,7 +61,7 @@ const DateTimepicker: React.FC<InputFieldProps> = ({
 							...fieldSchema,
 							config: {
 								...config,
-								description: 'Geef een datum in',
+								description: config.inputDescription || 'Geef een datum in',
 								skipErrorMessage: true,
 							},
 							label: fieldSchema.config?.dateLabel || 'Datum',

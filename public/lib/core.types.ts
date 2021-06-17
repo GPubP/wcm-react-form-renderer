@@ -91,6 +91,7 @@ export interface FieldSchema {
 		wrapperClassName?: string;
 		id?: string;
 		preset?: Preset;
+		inputDescription?: string;
 		[key: string]: any;
 	};
 	/**
