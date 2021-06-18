@@ -1,4 +1,4 @@
-import { FormikProps } from 'formik';
+import { FormikHelpers, FormikProps } from 'formik';
 
 import { MonthlyFrequencies, TimePeriodsRepeatType, Weekdays } from '../TimePeriods.types';
 
@@ -6,7 +6,11 @@ export interface CreateTimePeriodsFormProps {
 	className?: string;
 	initialState?: CreateTimePeriodsFormState;
 	children?: (props: FormikProps<CreateTimePeriodsFormState>) => React.ReactNode;
-	onSubmit: (values: CreateTimePeriodsFormState, recurringPeriods: Date[]) => void;
+	onSubmit: (
+		values: CreateTimePeriodsFormState,
+		recurringPeriods: Date[],
+		formikHelpers: FormikHelpers<CreateTimePeriodsFormState>
+	) => void;
 }
 
 export interface CreateTimePeriodsFormState {

@@ -5,7 +5,7 @@ import {
 	ControlledModal,
 } from '@acpaas-ui/react-editorial-components';
 import classnames from 'classnames/bind';
-import { FormikProps } from 'formik';
+import { FormikHelpers, FormikProps } from 'formik';
 import React from 'react';
 
 import { CORE_TRANSLATIONS, useCoreTranslation } from '../../../../connectors';
@@ -27,11 +27,20 @@ const CreateTimePeriodsModal: React.FC<CreateTimePeriodsModalProps> = ({
 }) => {
 	const [t] = useCoreTranslation();
 
-	const onModalCancel = (
+	const onFormCancel = (
 		resetForm: FormikProps<CreateTimePeriodsFormState>['resetForm']
 	): void => {
 		resetForm({ errors: {}, values: INITIAL_CREATE_FORM_STATE });
 		onCancel();
+	};
+
+	const onFormSubmit = (
+		values: CreateTimePeriodsFormState,
+		recurringPeriods: Date[],
+		formikHelpers: FormikHelpers<CreateTimePeriodsFormState>
+	): void => {
+		formikHelpers.resetForm({ errors: {}, values: INITIAL_CREATE_FORM_STATE });
+		onSubmit(values, recurringPeriods);
 	};
 
 	return (
@@ -45,7 +54,7 @@ const CreateTimePeriodsModal: React.FC<CreateTimePeriodsModalProps> = ({
 				<h3>Tijdstippen toevoegen</h3>
 			</div>
 			<div className="u-bg-light">
-				<CreateTimePeriodsForm onSubmit={onSubmit}>
+				<CreateTimePeriodsForm onSubmit={onFormSubmit}>
 					{({ resetForm, submitForm }) => {
 						return (
 							<ActionBar
@@ -58,7 +67,7 @@ const CreateTimePeriodsModal: React.FC<CreateTimePeriodsModalProps> = ({
 										<Button
 											className="u-margin-right"
 											negative
-											onClick={() => onModalCancel(resetForm)}
+											onClick={() => onFormCancel(resetForm)}
 										>
 											{t(CORE_TRANSLATIONS.BUTTON_CANCEL)}
 										</Button>

@@ -2,7 +2,7 @@ import { Datepicker, Select, Switch } from '@acpaas-ui/react-components';
 import { Timepicker } from '@acpaas-ui/react-editorial-components';
 import { SelectOption } from '@redactie/utils';
 import classnames from 'classnames/bind';
-import { Field, Formik, FormikProps } from 'formik';
+import { Field, Formik, FormikHelpers, FormikProps } from 'formik';
 import { isEmpty } from 'ramda';
 import React, { ChangeEvent, ReactElement, useMemo, useState } from 'react';
 
@@ -60,8 +60,11 @@ const CreateTimePeriodsForm: React.FC<CreateTimePeriodsFormProps> = ({
 		}
 	};
 
-	const onFormSubmit = (values: CreateTimePeriodsFormState): void => {
-		onSubmit(values, recurringTimePeriods || []);
+	const onFormSubmit = (
+		values: CreateTimePeriodsFormState,
+		formikHelpers: FormikHelpers<CreateTimePeriodsFormState>
+	): void => {
+		onSubmit(values, recurringTimePeriods || [], formikHelpers);
 	};
 
 	const onRepeatTypeChange = (
