@@ -47,8 +47,6 @@ const InputNumber: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema, valid
 		[config]
 	);
 
-	console.log('FINALIZED: ', validationProperty)
-
 	return (
 		<>
 			<TextField
