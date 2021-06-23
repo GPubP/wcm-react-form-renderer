@@ -8,7 +8,7 @@ import { ViewFieldProps } from '../viewRegistry/viewRegistry.types';
 export interface InputFieldProps {
 	/**
 	 * Formik field props
-	 * for morde detail visit, https://jaredpalmer.com/formik/docs/api/field
+	 * for more detail visit, https://jaredpalmer.com/formik/docs/api/field
 	 */
 	fieldProps: FieldProps<FieldDataType, FormValues>;
 	/**
@@ -22,6 +22,12 @@ export interface InputFieldProps {
 	 * helper functions which you can use to imperatively change the value, error value or touched status for the field in question
 	 */
 	fieldHelperProps: FieldHelperProps<any>;
+	/**
+	 * Part of validation schema
+	 * This is a JSON schema config object
+	 * https://json-schema.org/
+	 */
+	validationProperty?: any;
 }
 export interface FieldConfig {
 	/**

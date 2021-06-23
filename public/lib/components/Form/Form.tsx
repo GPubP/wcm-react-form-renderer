@@ -1,7 +1,7 @@
 import { usePrevious, useTenantContext, useWillUnmount } from '@redactie/utils';
 import { Form, Formik, FormikHelpers, FormikProps, FormikValues } from 'formik';
 import debounce from 'lodash.debounce';
-import { equals, isEmpty } from 'ramda';
+import { equals, isEmpty, path } from 'ramda';
 import React, { ReactNode, useCallback, useEffect, useState } from 'react';
 
 import { CustomValidator, CustomValidatorWorker } from '../../classes';
@@ -135,7 +135,7 @@ const RedactionForm: React.FC<FormProps<FormValues>> = ({
 
 	const renderFields = (fields: FieldSchema[]): ReactNode => {
 		return fields.map((fieldSchema, index) => (
-			<FieldRenderer key={`${index}-${fieldSchema.name}`} fieldSchema={fieldSchema} />
+			<FieldRenderer key={`${index}-${fieldSchema.name}`} fieldSchema={fieldSchema} validationProperty={path(['properties', fieldSchema.name])(validationSchema)} />
 		));
 	};
 

@@ -7,7 +7,7 @@ import { InputFieldProps } from '../../../services/fieldRegistry';
 import { ErrorMessage } from '../../ErrorMessage';
 import { DEFAULT_FIELD_CONFIG_PROPS } from '../Fields.const';
 
-const InputNumber: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }: InputFieldProps) => {
+const InputNumber: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema, validationProperty }: InputFieldProps) => {
 	const config = fieldSchema.config || {};
 	const { field, form } = fieldProps;
 
@@ -34,10 +34,20 @@ const InputNumber: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }: Inp
 					'loading',
 					'errorDescription',
 				],
-				config
+				{
+					...config,
+					/**
+					 * We want to remap the min & max keys because they are used to repeat the field if set in a parent component
+					 * minimum & maximum are the _actual_ min & max that come from the content type validation
+					 */
+					min: validationProperty?.minimum ?? null,
+					max: validationProperty?.maximum ?? null
+				}
 			),
 		[config]
 	);
+
+	console.log('FINALIZED: ', validationProperty)
 
 	return (
 		<>

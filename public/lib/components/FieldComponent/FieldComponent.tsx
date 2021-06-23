@@ -10,6 +10,7 @@ const FieldComponent: React.FC<FieldComponentProps> = ({
 	fieldConfig,
 	fieldProps,
 	fieldSchema,
+	validationProperty,
 }: FieldComponentProps) => {
 	const [, , helpers] = useField(fieldSchema.name);
 	const schema = dissocPath<FieldSchema>(['config', 'wrapperClassName'], fieldSchema || {});
@@ -19,6 +20,7 @@ const FieldComponent: React.FC<FieldComponentProps> = ({
 			fieldHelperProps={helpers}
 			fieldProps={fieldProps}
 			fieldSchema={schema}
+			validationProperty={validationProperty}
 		/>
 	);
 };
