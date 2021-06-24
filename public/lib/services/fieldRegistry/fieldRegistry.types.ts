@@ -8,7 +8,7 @@ import { ViewFieldProps } from '../viewRegistry/viewRegistry.types';
 export interface InputFieldProps {
 	/**
 	 * Formik field props
-	 * for morde detail visit, https://jaredpalmer.com/formik/docs/api/field
+	 * for more detail visit, https://jaredpalmer.com/formik/docs/api/field
 	 */
 	fieldProps: FieldProps<FieldDataType, FormValues>;
 	/**
