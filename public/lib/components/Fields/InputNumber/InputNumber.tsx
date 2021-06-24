@@ -7,7 +7,7 @@ import { InputFieldProps } from '../../../services/fieldRegistry';
 import { ErrorMessage } from '../../ErrorMessage';
 import { DEFAULT_FIELD_CONFIG_PROPS } from '../Fields.const';
 
-const InputNumber: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema, validationProperty }: InputFieldProps) => {
+const InputNumber: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }: InputFieldProps) => {
 	const config = fieldSchema.config || {};
 	const { field, form } = fieldProps;
 
