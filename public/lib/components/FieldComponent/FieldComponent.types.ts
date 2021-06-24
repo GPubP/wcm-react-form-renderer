@@ -11,10 +11,4 @@ export interface FieldComponentProps {
 	 * declaration of how the field would look like
 	 */
 	fieldSchema: FieldSchema;
-	/**
-	 * Part of validation schema
-	 * This is a JSON schema config object
-	 * https://json-schema.org/
-	 */
-	validationProperty?: any;
 }

@@ -23,8 +23,13 @@ const InputNumber: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema, valid
 				[
 					...DEFAULT_FIELD_CONFIG_PROPS,
 					'description',
-					'min',
-					'max',
+					/**
+					 * We temporarily disable the min & max properties since they're handled by the validationSchema on the form itself.
+					 * The current `min` & `max` in `config` come from the generalConfig in regards field repeating,
+					 * not actual min & max of the num field.
+					 */
+					// 'min',
+					// 'max',
 					'size',
 					'placeholder',
 					'iconright',
@@ -34,15 +39,7 @@ const InputNumber: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema, valid
 					'loading',
 					'errorDescription',
 				],
-				{
-					...config,
-					/**
-					 * We want to remap the min & max keys because they are used to repeat the field if set in a parent component
-					 * minimum & maximum are the _actual_ min & max that come from the content type validation
-					 */
-					min: validationProperty?.minimum ?? null,
-					max: validationProperty?.maximum ?? null
-				}
+				config
 			),
 		[config]
 	);

@@ -20,7 +20,6 @@ const FieldRenderer: React.FC<FieldRendererProps> = ({
 	fieldSchema,
 	renderContext,
 	defaultWrapperClassName = '',
-	validationProperty,
 }) => {
 	const getFieldConfig = (): FieldConfig | undefined =>
 		fieldRegistry.get(fieldSchema.module, fieldSchema.type);
@@ -180,7 +179,6 @@ const FieldRenderer: React.FC<FieldRendererProps> = ({
 						fieldConfig={fieldConfig}
 						fieldProps={fieldProps}
 						fieldSchema={fieldSchema}
-						validationProperty={validationProperty}
 					/>
 				);
 			}}

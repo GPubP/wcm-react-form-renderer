@@ -9,10 +9,4 @@ export interface FieldRendererProps {
 	level?: number;
 	renderContext?: Omit<FieldRendererRenderContext, 'wrapperClass'>;
 	defaultWrapperClassName?: string;
-	/**
-	 * Part of validation schema
-	 * This is a JSON schema config object
-	 * https://json-schema.org/
-	 */
-	validationProperty?: any;
 }
