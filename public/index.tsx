@@ -18,8 +18,6 @@ import { fieldRegistry } from './lib/services/fieldRegistry';
 import { viewRegistry } from './lib/services/viewRegistry';
 import { filterAllowedOptions } from './lib/utils';
 
-console.log('renderer');
-
 // Expose module
 Core.modules.exposeModuleApi('forms-module', {
 	Form,
