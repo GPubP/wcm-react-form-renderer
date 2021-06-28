@@ -59,6 +59,7 @@ export const parseFields = (
 	const parseOptions: ParseFieldsOptions = {
 		noHiddenFields: false,
 		noDisabledFields: false,
+		valueSyncMap: {},
 		...(options ? options : {}),
 	};
 
@@ -124,7 +125,9 @@ export const parseFields = (
 				dataType,
 			},
 			defaultValue,
-			valueSync: preset?.data?.generalConfig?.mapValueToContentItemPath,
+			valueSync: parseOptions?.valueSyncMap
+				? parseOptions?.valueSyncMap[field.name]
+				: undefined,
 		};
 
 		if (isMultiple) {
@@ -162,7 +165,9 @@ export const parseFields = (
 				dataType: 'array',
 				hidden: isHidden,
 				defaultValue,
-				valueSync: preset?.data?.generalConfig?.mapValueToContentItemPath,
+				valueSync: parseOptions?.valueSyncMap
+					? parseOptions?.valueSyncMap[field.name]
+					: undefined,
 				config: {
 					...config,
 					...generalConfig,
