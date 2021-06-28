@@ -5,6 +5,7 @@ import { AllowedHeader, FormProps } from './components/Form';
 import { FormRendererFieldTitleProps } from './components/FormRendererFieldTitle/FormRendererFieldTitle.types';
 import { ViewProps } from './components/View';
 import { FieldRendererContext } from './context';
+import { getValueSyncMap } from './helpers/getValueSyncMap';
 import { parseFields } from './helpers/parseFields';
 import { useFieldRendererContext, useFormContext, useSelectFirstOptionWhenHidden } from './hooks';
 import { FieldRegistry } from './services/fieldRegistry';
@@ -126,6 +127,7 @@ export interface FormsAPI {
 	fieldRegistry: FieldRegistry;
 	viewRegistry: ViewRegistry;
 	parseFields: typeof parseFields;
+	getValueSyncMap: typeof getValueSyncMap;
 	useFieldRendererContext: typeof useFieldRendererContext;
 	useFormContext: typeof useFormContext;
 	FieldRendererContext: typeof FieldRendererContext;

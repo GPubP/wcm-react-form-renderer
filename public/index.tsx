@@ -8,7 +8,7 @@ import { DEFAULT_ALLOWED_HEADERS } from './lib/components/Form/Form.const';
 import { FormRendererFieldTitle } from './lib/components/FormRendererFieldTitle';
 import { View } from './lib/components/View';
 import { FieldRendererContext } from './lib/context';
-import { parseFields } from './lib/helpers';
+import { getValueSyncMap, parseFields } from './lib/helpers';
 import {
 	useFieldRendererContext,
 	useFormContext,
@@ -28,6 +28,7 @@ Core.modules.exposeModuleApi('forms-module', {
 	fieldRegistry,
 	viewRegistry,
 	parseFields,
+	getValueSyncMap,
 	useFieldRendererContext,
 	useFormContext,
 	FieldRendererContext,
@@ -44,6 +45,7 @@ export * from './lib/services/viewRegistry/viewRegistry.types';
 export * from './lib/context/FieldRendererContext/FieldRendererContext.types';
 export * from './lib/context/FormContext/FormContext.types';
 export * from './lib/helpers/parseFields/parseFields.types';
+export * from './lib/helpers/getValueSyncMap/getValueSyncMap.types';
 export { default as Form } from './lib/components/Form/Form';
 export { default as View } from './lib/components/View/View';
 export { default as FormikOnChangeHandler } from './lib/components/FormikOnChangeHandler/FormikOnChangeHandler';
