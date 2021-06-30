@@ -1,7 +1,7 @@
 import { usePrevious } from '@redactie/utils';
 import classNames from 'classnames/bind';
 import { Field, FieldProps, useFormikContext } from 'formik';
-import { lensPath, pathOr, set, slice } from 'ramda';
+import { equals, lensPath, pathOr, set, slice } from 'ramda';
 import React, { ReactNode, useEffect, useMemo, useState } from 'react';
 
 import { FieldRenderContextValue, FieldRendererContext } from '../../context';
@@ -64,9 +64,10 @@ const FieldRenderer: React.FC<FieldRendererProps> = ({
 			const newSourceValue = pathOr(null, map.sourcePath, values);
 
 			if (
-				currentValue === newSourceValue ||
-				(currentValue !== newSourceValue &&
-					(previousValue !== currentValue || previousSourceValue !== currentValue))
+				equals(currentValue, newSourceValue) ||
+				(currentValue &&
+					(!equals(previousSourceValue, currentValue) ||
+						!equals(previousValue, previousSourceValue)))
 			) {
 				continue;
 			}
@@ -80,7 +81,7 @@ const FieldRenderer: React.FC<FieldRendererProps> = ({
 				)
 			);
 		}
-	}, [fieldSchema.valueSync, values]); // eslint-disable-line react-hooks/exhaustive-deps
+	}, [values]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	function setWrapperClass(className: string): void {
 		setNewContext({
