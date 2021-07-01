@@ -6,7 +6,7 @@ export const INITIAL_TIME_PERIOD_VALUE: TimePeriodsValue = {
 	endTime: '',
 };
 
-export const TIME_PERIOD_VALUE_KEYS: (keyof TimePeriodsValue)[] = [
+export const TIME_PERIOD_VALUE_KEYS: (keyof TimePeriodsValue & string)[] = [
 	'startDate',
 	'startTime',
 	'endTime',

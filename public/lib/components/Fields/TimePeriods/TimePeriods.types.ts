@@ -2,6 +2,7 @@ export interface TimePeriodsValue {
 	startDate: string;
 	startTime: string;
 	endTime?: string;
+	[key: string]: string | undefined;
 }
 
 export enum TimePeriodsRepeatType {
