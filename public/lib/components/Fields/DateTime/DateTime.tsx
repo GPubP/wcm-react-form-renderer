@@ -31,7 +31,7 @@ const DateTimepicker: React.FC<InputFieldProps> = ({
 		try {
 			switch (type) {
 				case 'date':
-					setValue(updateDate(prevDate, inputValue));
+					setValue(inputValue ? updateDate(prevDate, inputValue) : null);
 					break;
 				case 'time':
 					setValue(updateTime(prevDate, inputValue));
@@ -102,7 +102,7 @@ const DateTimepicker: React.FC<InputFieldProps> = ({
 							className={cx('o-datetime__clear')}
 							negative
 							size="small"
-							icon="trash"
+							icon="trash-o"
 							ariaLabel="Reset datetime"
 							type="secondary"
 							htmlType="button"
