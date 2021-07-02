@@ -205,7 +205,7 @@ const CreateTimePeriodsForm: React.FC<CreateTimePeriodsFormProps> = ({
 										checked={values.allDay}
 										onClick={(e: ChangeEvent<HTMLInputElement>) => {
 											if (e.target.checked) {
-												setFieldValue('startTime', '0:0');
+												setFieldValue('startTime', '00:00');
 												setFieldValue('endTime', '23:55');
 											}
 											setFieldValue('allDay', e.target.checked);
