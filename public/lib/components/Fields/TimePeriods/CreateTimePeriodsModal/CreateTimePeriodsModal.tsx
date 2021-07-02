@@ -24,6 +24,8 @@ const CreateTimePeriodsModal: React.FC<CreateTimePeriodsModalProps> = ({
 	onCancel,
 	onSubmit,
 	show,
+	maxValues,
+	currentValues,
 }) => {
 	const [t] = useCoreTranslation();
 
@@ -54,7 +56,11 @@ const CreateTimePeriodsModal: React.FC<CreateTimePeriodsModalProps> = ({
 				<h3>Tijdstippen toevoegen</h3>
 			</div>
 			<div className="u-bg-light">
-				<CreateTimePeriodsForm onSubmit={onFormSubmit}>
+				<CreateTimePeriodsForm
+					onSubmit={onFormSubmit}
+					maxValues={maxValues}
+					currentValues={currentValues}
+				>
 					{({ resetForm, submitForm }) => {
 						return (
 							<ActionBar

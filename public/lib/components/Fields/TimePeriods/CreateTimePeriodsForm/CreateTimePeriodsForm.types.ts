@@ -5,6 +5,8 @@ import { MonthlyFrequencies, TimePeriodsRepeatType, Weekdays } from '../TimePeri
 export interface CreateTimePeriodsFormProps {
 	className?: string;
 	initialState?: CreateTimePeriodsFormState;
+	maxValues?: number;
+	currentValues?: number;
 	children?: (props: FormikProps<CreateTimePeriodsFormState>) => React.ReactNode;
 	onSubmit: (
 		values: CreateTimePeriodsFormState,

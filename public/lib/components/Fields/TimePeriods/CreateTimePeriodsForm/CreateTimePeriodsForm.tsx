@@ -35,6 +35,8 @@ const CreateTimePeriodsForm: React.FC<CreateTimePeriodsFormProps> = ({
 	children,
 	initialState = INITIAL_CREATE_FORM_STATE,
 	onSubmit,
+	maxValues = 0,
+	currentValues = 0,
 }) => {
 	/**
 	 * Hooks
@@ -111,12 +113,38 @@ const CreateTimePeriodsForm: React.FC<CreateTimePeriodsFormProps> = ({
 			return null;
 		}
 
-		const newPeriodsString = periodsLength === 1 ? 'nieuw tijdstip' : 'nieuwe tijdstippen';
-		const timePeriodsString = `${periodsLength} ${newPeriodsString}`;
+		const getPeriodString = (amount: number): string => {
+			const newPeriodsString = amount === 1 ? 'nieuw tijdstip' : 'nieuwe tijdstippen';
+			return `${amount} ${newPeriodsString}`;
+		};
 
 		return (
 			<p className={cx('o-create-time-periods-form__amount', 'u-text-light')}>
-				U staat op het punt <strong>{timePeriodsString}</strong> toe te voegen
+				{currentValues + periodsLength > maxValues && maxValues !== 0 ? (
+					<>
+						Opgelet, het maximaal aantal tijdstippen voor deze component staat
+						geconfigureerd op <strong>{maxValues}</strong>. U staat op het punt om{' '}
+						<strong>{getPeriodString(maxValues - currentValues)}</strong> toe te voegen,{' '}
+						{periodsLength - maxValues + currentValues === 1 ? (
+							<>
+								het overige <strong>nieuwe tijdstip</strong> wordt genegeerd.
+							</>
+						) : (
+							<>
+								de overige{' '}
+								<strong>
+									{getPeriodString(periodsLength - maxValues + currentValues)}
+								</strong>{' '}
+								worden genegeerd.
+							</>
+						)}
+					</>
+				) : (
+					<>
+						U staat op het punt <strong>{getPeriodString(periodsLength)}</strong> toe te
+						voegen
+					</>
+				)}
 			</p>
 		);
 	};
@@ -196,6 +224,7 @@ const CreateTimePeriodsForm: React.FC<CreateTimePeriodsFormProps> = ({
 								</div>
 								<div className="col-xs-12 col-lg-3 u-margin-bottom">
 									<Field
+										key={values.allDay}
 										as={Switch}
 										id="allDay"
 										name="allDay"
