@@ -29,8 +29,8 @@ const TimePeriodField: React.FC<TimePeriodFieldProps> = ({
 					<ErrorMessage name={`${name}.startDate`} />
 				</div>
 			</div>
-			<div className="row u-margin-bottom">
-				<div className="col-xs-12 col-lg-6">
+			<div className="row">
+				<div className="col-xs-12 col-lg-6 u-margin-bottom">
 					<Field
 						as={Timepicker}
 						id={`edit-${name}.startTime`}
@@ -42,7 +42,7 @@ const TimePeriodField: React.FC<TimePeriodFieldProps> = ({
 					/>
 					<ErrorMessage name={`${name}.startTime`} />
 				</div>
-				<div className="col-xs-12 col-lg-6">
+				<div className="col-xs-12 col-lg-6 u-margin-bottom">
 					<Field
 						as={Timepicker}
 						id={`edit-${name}.endTime`}
