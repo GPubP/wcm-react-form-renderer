@@ -1,13 +1,18 @@
-import { Datepicker } from '@acpaas-ui/react-components';
+import { Datepicker, TextField } from '@acpaas-ui/react-components';
 import { Timepicker } from '@acpaas-ui/react-editorial-components';
 import { Field } from 'formik';
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 
 import { ErrorMessage } from '../../../ErrorMessage';
 
 import { TimePeriodFieldProps } from './TimePeriodField.types';
 
-const TimePeriodField: React.FC<TimePeriodFieldProps> = ({ name, value, onChange }) => {
+const TimePeriodField: React.FC<TimePeriodFieldProps> = ({
+	name,
+	value,
+	onChange,
+	options = [],
+}) => {
 	return (
 		<div className="a-input">
 			<div className="row">
@@ -24,7 +29,7 @@ const TimePeriodField: React.FC<TimePeriodFieldProps> = ({ name, value, onChange
 					<ErrorMessage name={`${name}.startDate`} />
 				</div>
 			</div>
-			<div className="row">
+			<div className="row u-margin-bottom">
 				<div className="col-xs-12 col-lg-6">
 					<Field
 						as={Timepicker}
@@ -50,6 +55,24 @@ const TimePeriodField: React.FC<TimePeriodFieldProps> = ({ name, value, onChange
 					<ErrorMessage name={`${name}.endTime`} />
 				</div>
 			</div>
+			{options.map((option, index) => {
+				return (
+					<div className="row u-margin-bottom" key={index}>
+						<div className="col-xs-12">
+							<TextField
+								id={option.value.value}
+								name={option.value.value}
+								label={option.value.label}
+								value={value[option.value.value]}
+								onChange={(event: ChangeEvent<any>) =>
+									onChange(option.value.value, event.target.value)
+								}
+							/>
+							<ErrorMessage name={option.value.value} />
+						</div>
+					</div>
+				);
+			})}
 		</div>
 	);
 };

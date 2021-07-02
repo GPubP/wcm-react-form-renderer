@@ -53,7 +53,12 @@ const TimePeriods: FC<InputFieldProps> = ({ fieldProps, fieldHelperProps, fieldS
 	if (isRepeated) {
 		// When repeated the parent will handle the adding of time periods
 		return (
-			<TimePeriodField name={name} value={fieldValue as TimePeriodsValue} onChange={onEdit} />
+			<TimePeriodField
+				name={name}
+				value={fieldValue as TimePeriodsValue}
+				onChange={onEdit}
+				options={config?.options}
+			/>
 		);
 	}
 
@@ -71,7 +76,12 @@ const TimePeriods: FC<InputFieldProps> = ({ fieldProps, fieldHelperProps, fieldS
 			<CreateTimePeriodsModal show={showModal} onCancel={onCancel} onSubmit={onCreate} />
 		</>
 	) : (
-		<TimePeriodField name={name} value={fieldValue as TimePeriodsValue} onChange={onEdit} />
+		<TimePeriodField
+			name={name}
+			value={fieldValue as TimePeriodsValue}
+			onChange={onEdit}
+			options={config?.options}
+		/>
 	);
 };
 
