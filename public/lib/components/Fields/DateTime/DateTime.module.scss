@@ -1,0 +1,10 @@
+@import '~@a-ui/core/dist/assets/styles/_quarks';
+
+.o-datetime__time {
+	flex-grow: 1;
+}
+
+.o-datetime__clear {
+	align-self: flex-end;
+	margin: 0 0 $spacer-xs / 2 $spacer-xs;
+}

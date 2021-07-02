@@ -1,3 +1,5 @@
+import { Button } from '@acpaas-ui/react-components';
+import classNames from 'classnames/bind';
 import { omit } from 'ramda';
 import React, { ChangeEvent, useMemo } from 'react';
 
@@ -7,6 +9,9 @@ import Datepicker from '../Datepicker/Datepicker';
 import Time from '../Time/Time';
 
 import { getDate, getTime, updateDate, updateTime } from './DateTime.helpers';
+import DateTimeStyles from './DateTime.module.scss';
+
+const cx = classNames.bind(DateTimeStyles);
 
 const DateTimepicker: React.FC<InputFieldProps> = ({
 	fieldProps,
@@ -26,7 +31,7 @@ const DateTimepicker: React.FC<InputFieldProps> = ({
 		try {
 			switch (type) {
 				case 'date':
-					setValue(updateDate(prevDate, inputValue));
+					setValue(inputValue ? updateDate(prevDate, inputValue) : null);
 					break;
 				case 'time':
 					setValue(updateTime(prevDate, inputValue));
@@ -70,26 +75,40 @@ const DateTimepicker: React.FC<InputFieldProps> = ({
 					/>
 				</div>
 				<div className="col-lg-6">
-					<Time
-						fieldProps={{
-							...fieldProps,
-							field: {
-								...fieldProps.field,
-								value: timeValue,
-								onChange: (event: ChangeEvent<any>) =>
-									handleChange(event.target.value, 'time'),
-							},
-						}}
-						fieldSchema={{
-							...fieldSchema,
-							config: {
-								...omit(['description'], fieldSchema.config),
-								skipErrorMessage: true,
-							},
-							label: '',
-						}}
-						fieldHelperProps={fieldHelperProps}
-					/>
+					<div className="u-flex">
+						<div className={cx('o-datetime__time')}>
+							<Time
+								fieldProps={{
+									...fieldProps,
+									field: {
+										...fieldProps.field,
+										value: timeValue,
+										onChange: (event: ChangeEvent<any>) =>
+											handleChange(event.target.value, 'time'),
+									},
+								}}
+								fieldSchema={{
+									...fieldSchema,
+									config: {
+										...omit(['description'], fieldSchema.config),
+										skipErrorMessage: true,
+									},
+									label: '',
+								}}
+								fieldHelperProps={fieldHelperProps}
+							/>
+						</div>
+						<Button
+							className={cx('o-datetime__clear')}
+							negative
+							size="small"
+							icon="trash-o"
+							ariaLabel="Reset datetime"
+							type="secondary"
+							htmlType="button"
+							onClick={() => setValue(undefined)}
+						/>
+					</div>
 				</div>
 			</div>
 			<ErrorMessage name={field.name} />

@@ -58,6 +58,7 @@ const Time: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }) => {
 					field.onChange(event);
 				}}
 				value={field.value}
+				key={`${field.name}-${field.value}`}
 				{...fieldConfigProps}
 			/>
 			{!config.skipErrorMessage ? <ErrorMessage name={field.name} /> : null}
