@@ -60,8 +60,8 @@ const TimePeriodField: React.FC<TimePeriodFieldProps> = ({
 					<div className="row u-margin-bottom" key={index}>
 						<div className="col-xs-12">
 							<TextField
-								id={option.value.value}
-								name={option.value.value}
+								id={`edit-${name}.${option.value.value}.${index}`}
+								name={`edit-${name}.${option.value.value}.${index}`}
 								label={option.value.label}
 								value={value[option.value.value]}
 								onChange={(event: ChangeEvent<any>) =>

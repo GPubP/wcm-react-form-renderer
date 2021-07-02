@@ -217,6 +217,8 @@ const TimePeriodsRepeater: React.FC<RepeaterProps> = ({ fieldSchema }) => {
 				show={showModal}
 				onCancel={() => setShowModal(false)}
 				onSubmit={onAddItems}
+				maxValues={max}
+				currentValues={value?.length || 0}
 			/>
 		</>
 	);
