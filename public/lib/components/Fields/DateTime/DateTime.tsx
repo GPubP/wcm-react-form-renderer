@@ -106,7 +106,7 @@ const DateTimepicker: React.FC<InputFieldProps> = ({
 							ariaLabel="Reset datetime"
 							type="secondary"
 							htmlType="button"
-							onClick={() => setValue(undefined)}
+							onClick={() => setValue(null)}
 						/>
 					</div>
 				</div>
