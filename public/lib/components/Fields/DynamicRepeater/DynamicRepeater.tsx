@@ -51,6 +51,8 @@ const DynamicRepeater: React.FC<DynamicRepeaterProps> = ({ fieldSchema }) => {
 			fieldRef: item.uuid || '',
 			fieldType: item.config?.fieldType?.uuid || (item.config?.fieldType as string),
 			preset: item.config?.preset?.uuid || ((item.config?.preset as unknown) as string),
+			semanticType: item.name || null,
+			multiple: item.config?.max ? item.config.max > 1 : null,
 		};
 
 		arrayHelper.push(itemToAdd);
