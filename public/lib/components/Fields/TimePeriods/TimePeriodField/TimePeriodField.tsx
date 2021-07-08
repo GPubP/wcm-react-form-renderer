@@ -68,7 +68,7 @@ const TimePeriodField: React.FC<TimePeriodFieldProps> = ({
 									onChange(option.value.value, event.target.value)
 								}
 							/>
-							<ErrorMessage name={option.value.value} />
+							<ErrorMessage name={`edit-${name}.${option.value.value}.${index}`} />
 						</div>
 					</div>
 				);
