@@ -15,5 +15,7 @@ export interface DynamicRepeaterItem {
 	type: string;
 	fieldRef: string;
 	fieldType: string;
+	semanticType: string | null;
+	multiple: boolean | null;
 	preset?: string;
 }
