@@ -1,8 +1,8 @@
 import { Button } from '@acpaas-ui/react-components';
 import classNames from 'classnames/bind';
 import { FieldArray, FieldArrayRenderProps, FormikValues, useFormikContext } from 'formik';
-import { pathOr, split } from 'ramda';
-import React, { ReactElement, useMemo } from 'react';
+import { equals, pathOr, split } from 'ramda';
+import React, { ReactElement, useEffect, useMemo } from 'react';
 import { v4 as uuid } from 'uuid';
 
 import { CORE_TRANSLATIONS, useCoreTranslation } from '../../../connectors';
@@ -36,6 +36,26 @@ const DynamicRepeater: React.FC<DynamicRepeaterProps> = ({ fieldSchema }) => {
 	);
 	const isRequired = useMemo(() => min >= 1, [min]);
 	const disabled = !!config.disabled;
+
+	useEffect(() => {
+		if (!value) {
+			return;
+		}
+
+		const newValues = value.map(item => {
+			const field = fields.find(field => field.uuid === item.fieldRef);
+
+			return {
+				...item,
+				semanticType: field?.name || null,
+				multiple: field?.config?.max ? field.config.max > 1 : null,
+			};
+		});
+
+		if (!equals(newValues, value)) {
+			setFieldValue(fieldSchema.name, newValues);
+		}
+	}, [value]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	/**
 	 * Add element to the field array
