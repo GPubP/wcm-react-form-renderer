@@ -55,7 +55,7 @@ const DynamicRepeater: React.FC<DynamicRepeaterProps> = ({ fieldSchema }) => {
 		if (!equals(newValues, value)) {
 			setFieldValue(fieldSchema.name, newValues);
 		}
-	}, [value]); // eslint-disable-line react-hooks/exhaustive-deps
+	}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
 	/**
 	 * Add element to the field array
