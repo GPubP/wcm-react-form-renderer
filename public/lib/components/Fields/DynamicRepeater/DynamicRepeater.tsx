@@ -38,7 +38,7 @@ const DynamicRepeater: React.FC<DynamicRepeaterProps> = ({ fieldSchema }) => {
 	const disabled = !!config.disabled;
 
 	useEffect(() => {
-		if (!value) {
+		if (!value || !Array.isArray(value)) {
 			return;
 		}
 
