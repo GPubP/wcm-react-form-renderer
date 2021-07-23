@@ -148,33 +148,39 @@ const DynamicRepeater: React.FC<DynamicRepeaterProps> = ({ fieldSchema }) => {
 		list: DynamicRepeaterItem[]
 	): ReactElement => (
 		<div key={`reapeater-${name}-${value.uuid}`} className={cx('repeater__item')}>
-			<div>
-				<div className="m-button-group m-button-group--vertical">
-					<Button
-						className={cx('no-border')}
-						onClick={() => moveUp(arrayHelper, index)}
-						icon="chevron-up"
-						ariaLabel="Move item up"
-						type="primary"
-						htmlType="button"
-						size="tiny"
-						disabled={index === 0 || disabled}
-						negative
-					/>
-					<Button
-						className={cx('no-border')}
-						onClick={() => moveDown(arrayHelper, index)}
-						icon="chevron-down"
-						ariaLabel="Move item down"
-						type="primary"
-						htmlType="button"
-						size="tiny"
-						disabled={list.length - 1 === index || disabled}
-						negative
-					/>
+			{max !== 1 && (
+				<div>
+					<div className="m-button-group m-button-group--vertical">
+						<Button
+							className={cx('no-border')}
+							onClick={() => moveUp(arrayHelper, index)}
+							icon="chevron-up"
+							ariaLabel="Move item up"
+							type="primary"
+							htmlType="button"
+							size="tiny"
+							disabled={index === 0 || disabled}
+							negative
+						/>
+						<Button
+							className={cx('no-border')}
+							onClick={() => moveDown(arrayHelper, index)}
+							icon="chevron-down"
+							ariaLabel="Move item down"
+							type="primary"
+							htmlType="button"
+							size="tiny"
+							disabled={list.length - 1 === index || disabled}
+							negative
+						/>
+					</div>
 				</div>
-			</div>
-			<div className={cx('repeater__item__field')}>
+			)}
+			<div
+				className={cx(
+					max === 1 ? 'repeater__item__field--single' : 'repeater__item__field'
+				)}
+			>
 				{schema ? (
 					<FieldRenderer
 						fieldSchema={schema}
