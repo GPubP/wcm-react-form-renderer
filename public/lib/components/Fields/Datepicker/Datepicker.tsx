@@ -1,5 +1,6 @@
 import { Datepicker as AuiDatepicker } from '@acpaas-ui/react-components';
 import { getIn } from 'formik';
+import moment from 'moment';
 import { pick } from 'ramda';
 import React, { useMemo } from 'react';
 
@@ -47,16 +48,26 @@ const Datepicker: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }: Inpu
 				state={state}
 				label={fieldSchema.label}
 				onChange={(e: string) => {
+					const splitDate = e.split('/');
+
 					const event = {
 						target: {
 							id: fieldSchema.name,
-							value: e,
+							value: new Date(
+								parseInt(splitDate[2]),
+								parseInt(splitDate[1]) - 1,
+								parseInt(splitDate[0])
+							).toISOString(),
 						},
 					};
 
 					field.onChange(event);
 				}}
-				activeDate={field.value}
+				activeDate={
+					moment(field.value, 'MM/DD/YYYY', true).isValid()
+						? field.value
+						: moment(new Date(field.value)).format('DD/MM/YYYY')
+				}
 				{...fieldConfigProps}
 			/>
 			{!config.skipErrorMessage ? <ErrorMessage name={field.name} /> : null}
