@@ -64,6 +64,7 @@ const Datepicker: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }: Inpu
 					field.onChange(event);
 				}}
 				activeDate={
+					// (Temporary) Check to make sure old data is rendered correctly.
 					moment(field.value, 'MM/DD/YYYY', true).isValid()
 						? field.value
 						: moment(new Date(field.value)).format('DD/MM/YYYY')
