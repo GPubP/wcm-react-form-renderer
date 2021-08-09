@@ -1,6 +1,5 @@
 import { Datepicker as AuiDatepicker } from '@acpaas-ui/react-components';
 import { getIn } from 'formik';
-import moment from 'moment';
 import { pick } from 'ramda';
 import React, { useMemo } from 'react';
 
@@ -41,6 +40,14 @@ const Datepicker: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }: Inpu
 		[config]
 	);
 
+	const date = useMemo(() => {
+		if (new RegExp('^(0?[1-9]|[12][0-9]|3[01])[/](0?[1-9]|1[012])[/]d{4}$').test(field.value)) {
+			return field.value;
+		}
+
+		return new Intl.DateTimeFormat('en-GB').format(new Date(field.value));
+	}, [field.value]);
+
 	return (
 		<>
 			<AuiDatepicker
@@ -63,12 +70,7 @@ const Datepicker: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }: Inpu
 
 					field.onChange(event);
 				}}
-				activeDate={
-					// (Temporary) Check to make sure old data is rendered correctly.
-					moment(field.value, 'MM/DD/YYYY', true).isValid()
-						? field.value
-						: moment(new Date(field.value)).format('DD/MM/YYYY')
-				}
+				activeDate={date}
 				{...fieldConfigProps}
 			/>
 			{!config.skipErrorMessage ? <ErrorMessage name={field.name} /> : null}
