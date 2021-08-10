@@ -40,6 +40,18 @@ const Datepicker: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }: Inpu
 		[config]
 	);
 
+	const date = useMemo(() => {
+		if (!field.value) {
+			return;
+		}
+
+		if (new RegExp('^(0?[1-9]|[12][0-9]|3[01])[/](0?[1-9]|1[012])[/]d{4}$').test(field.value)) {
+			return field.value;
+		}
+
+		return new Intl.DateTimeFormat('en-GB').format(new Date(field.value));
+	}, [field.value]);
+
 	return (
 		<>
 			<AuiDatepicker
@@ -47,16 +59,22 @@ const Datepicker: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }: Inpu
 				state={state}
 				label={fieldSchema.label}
 				onChange={(e: string) => {
+					const splitDate = e.split('/');
+
 					const event = {
 						target: {
 							id: fieldSchema.name,
-							value: e,
+							value: new Date(
+								parseInt(splitDate[2]),
+								parseInt(splitDate[1]) - 1,
+								parseInt(splitDate[0])
+							).toISOString(),
 						},
 					};
 
 					field.onChange(event);
 				}}
-				activeDate={field.value}
+				activeDate={date}
 				{...fieldConfigProps}
 			/>
 			{!config.skipErrorMessage ? <ErrorMessage name={field.name} /> : null}
