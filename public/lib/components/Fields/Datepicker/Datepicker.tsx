@@ -65,9 +65,11 @@ const Datepicker: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }: Inpu
 						target: {
 							id: fieldSchema.name,
 							value: new Date(
-								parseInt(splitDate[2]),
-								parseInt(splitDate[1]) - 1,
-								parseInt(splitDate[0])
+								Date.UTC(
+									parseInt(splitDate[2]),
+									parseInt(splitDate[1]) - 1,
+									parseInt(splitDate[0])
+								)
 							).toISOString(),
 						},
 					};

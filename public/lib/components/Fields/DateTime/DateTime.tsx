@@ -8,7 +8,7 @@ import ErrorMessage from '../../ErrorMessage/ErrorMessage';
 import Datepicker from '../Datepicker/Datepicker';
 import Time from '../Time/Time';
 
-import { getDate, getTime, updateDate, updateTime } from './DateTime.helpers';
+import { getTime, updateDate, updateTime } from './DateTime.helpers';
 import DateTimeStyles from './DateTime.module.scss';
 
 const cx = classNames.bind(DateTimeStyles);
@@ -21,7 +21,6 @@ const DateTimepicker: React.FC<InputFieldProps> = ({
 	const config = fieldSchema.config || {};
 	const { field } = fieldProps;
 	const { setValue } = fieldHelperProps;
-	const dateValue = useMemo(() => getDate(field.value), [field.value]);
 	const timeValue = useMemo(() => getTime(field.value), [field.value]);
 
 	const handleChange = (inputValue: string, type: string): void => {
@@ -56,7 +55,6 @@ const DateTimepicker: React.FC<InputFieldProps> = ({
 								...fieldProps,
 								field: {
 									...field,
-									value: dateValue,
 									onChange: (event: ChangeEvent<any>) =>
 										handleChange(event.target.value, 'date'),
 								},
