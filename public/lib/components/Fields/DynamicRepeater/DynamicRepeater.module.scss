@@ -16,12 +16,6 @@
 			border: 1px dashed $grey;
 			padding: $spacer $spacer $spacer-xs;
 
-			&--single {
-				flex-basis: 100%;
-				margin: 0;
-				padding: $spacer-xs 0 0 0;
-			}
-
 			&__content {
 				padding: 0;
 			}
