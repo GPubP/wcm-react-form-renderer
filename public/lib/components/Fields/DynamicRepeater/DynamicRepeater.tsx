@@ -176,11 +176,7 @@ const DynamicRepeater: React.FC<DynamicRepeaterProps> = ({ fieldSchema }) => {
 					</div>
 				</div>
 			)}
-			<div
-				className={cx(
-					max === 1 ? 'repeater__item__field--single' : 'repeater__item__field'
-				)}
-			>
+			<div className={cx('repeater__item__field')}>
 				{schema ? (
 					<FieldRenderer
 						fieldSchema={schema}
