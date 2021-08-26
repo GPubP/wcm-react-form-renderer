@@ -50,6 +50,7 @@ const DateTimepicker: React.FC<InputFieldProps> = ({
 			<div className="row">
 				<div className="col-lg-6">
 					<Datepicker
+						key={field.value}
 						fieldProps={
 							{
 								...fieldProps,
