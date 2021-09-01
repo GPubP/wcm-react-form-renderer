@@ -1,7 +1,7 @@
 import { Datepicker, TextField } from '@acpaas-ui/react-components';
 import { Timepicker } from '@acpaas-ui/react-editorial-components';
 import { Field } from 'formik';
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent, useMemo } from 'react';
 
 import { ErrorMessage } from '../../../ErrorMessage';
 
@@ -13,6 +13,31 @@ const TimePeriodField: React.FC<TimePeriodFieldProps> = ({
 	onChange,
 	options = [],
 }) => {
+	const startDate = useMemo(() => {
+		if (!value.startDate) {
+			return;
+		}
+
+		if (
+			new RegExp('^(0[1-9]|1[0-9]|2[0-9]|3[0-1])/(0[1-9]|1[0-2])/20[0-9][0-9]$').test(
+				value.startDate
+			)
+		) {
+			return value.startDate;
+		}
+
+		return new Intl.DateTimeFormat('en-GB').format(new Date(value.startDate));
+	}, [value.startDate]);
+
+	const onChangeDate = (value: string): void => {
+		const splitDate = value.split('/');
+		const newDateString = new Date(
+			Date.UTC(parseInt(splitDate[2]), parseInt(splitDate[1]) - 1, parseInt(splitDate[0]))
+		).toISOString();
+
+		onChange('startDate', newDateString);
+	};
+
 	return (
 		<div className="a-input">
 			<div className="row">
@@ -22,8 +47,8 @@ const TimePeriodField: React.FC<TimePeriodFieldProps> = ({
 						id={`edit-${name}.startDate`}
 						name={`${name}.startDate`}
 						label="Datum"
-						activeDate={value.startDate}
-						onChange={(value: string) => onChange('startDate', value)}
+						activeDate={startDate}
+						onChange={(value: string) => onChangeDate(value)}
 						required
 					/>
 					<ErrorMessage name={`${name}.startDate`} />

@@ -35,7 +35,14 @@ export const parseTimePeriodValues = (
 		return [
 			{
 				uuid: uuid(),
-				...initialValue,
+				value: {
+					...(initialValue?.value || {}),
+					startDate: initialValue.value?.startDate
+						? moment(initialValue.value?.startDate, DATE_INPUT_FORMAT)
+								.utc()
+								.format()
+						: '',
+				},
 			} as TimePeriodsRepeaterValue,
 		];
 	}
@@ -46,8 +53,12 @@ export const parseTimePeriodValues = (
 			value: {
 				...initialValue.value,
 				startDate: moment(date)
+					.hours(0)
+					.minutes(0)
+					.seconds(0)
+					.milliseconds(0)
 					.utc()
-					.format(DATE_INPUT_FORMAT),
+					.format(),
 			},
 		} as TimePeriodsRepeaterValue;
 	});
@@ -63,8 +74,14 @@ export const sortRepeaterValues = (a: FormikValues, b: FormikValues): number => 
 	}
 
 	const dateTimeFormat = `${DATE_INPUT_FORMAT} ${TIME_INPUT_FORMAT}`;
-	const aMoment = moment(`${aValue.startDate} ${aValue.startTime}`, dateTimeFormat, true);
-	const bMoment = moment(`${bValue.startDate} ${bValue.startTime}`, dateTimeFormat, true);
+	const aDate = moment(aValue.startDate).format(DATE_INPUT_FORMAT);
+	const bDate = moment(bValue.startDate).format(DATE_INPUT_FORMAT);
+	const aMoment = moment(`${aDate} ${aValue.startTime}`, dateTimeFormat, true)
+		.utc()
+		.toISOString();
+	const bMoment = moment(`${bDate} ${bValue.startTime}`, dateTimeFormat, true)
+		.utc()
+		.toISOString();
 
-	return aMoment.diff(bMoment);
+	return aMoment.localeCompare(bMoment);
 };

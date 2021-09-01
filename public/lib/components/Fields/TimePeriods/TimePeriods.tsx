@@ -35,6 +35,7 @@ const TimePeriods: FC<InputFieldProps> = ({ fieldProps, fieldHelperProps, fieldS
 
 	const onCreate = (values: CreateTimePeriodsFormState): void => {
 		const valuesToAdd = pick(TIME_PERIOD_VALUE_KEYS, values);
+
 		setValue(valuesToAdd);
 		setShowModal(false);
 	};
