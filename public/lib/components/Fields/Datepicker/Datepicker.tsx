@@ -63,18 +63,13 @@ const Datepicker: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }: Inpu
 				state={state}
 				label={fieldSchema.label}
 				onChange={(e: string) => {
-					const splitDate = e.split('/');
-
 					const event = {
 						target: {
 							id: fieldSchema.name,
-							value: new Date(
-								Date.UTC(
-									parseInt(splitDate[2]),
-									parseInt(splitDate[1]) - 1,
-									parseInt(splitDate[0])
-								)
-							).toISOString(),
+							value: e
+								.split('/')
+								.reverse()
+								.join('-'),
 						},
 					};
 
