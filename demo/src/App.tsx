@@ -1,8 +1,7 @@
 import React from 'react';
 import './App.css';
 
-import { Form, FormSchema, View,  } from '@redactie/form-renderer-module';
-import { CodeSnippetEmbedView } from './components/CodeSnippetEmbed';
+import { Form, FormSchema, View } from '@redactie/form-renderer-module';
 
 const App = () => {
 	const onFormSubmit = (values: any) => {
@@ -16,6 +15,28 @@ const App = () => {
 	const form: FormSchema = {
 		fields: [
 			{
+				name: 'firstname',
+				module: 'core',
+				type: 'text',
+				dataType: 'string',
+				label: 'Firstname',
+				config: {
+					required: true,
+					placeholder: 'firstname',
+				},
+			},
+			{
+				name: 'lastname',
+				module: 'core',
+				type: 'text',
+				dataType: 'string',
+				label: 'Lastname',
+				config: {
+					required: true,
+					placeholder: 'lastname',
+				},
+			},
+			{
 				name: 'hobbies',
 				module: 'core',
 				type: 'checkboxList',
@@ -23,7 +44,7 @@ const App = () => {
 				label: 'Hobbies',
 				config: {
 					required: true,
-					allowedOptions: ['skateboarding', 'snowboarding', 'surf'],
+					allowedOptions: ['skateboarding', 'snowboarding'],
 					options: [
 						{
 							value: {
@@ -45,8 +66,18 @@ const App = () => {
 								value: 'surf',
 								label: 'Surf',
 							},
-						}
+						},
 					],
+				},
+			},
+			{
+				name: 'termsAndConditions',
+				module: 'core',
+				type: 'checkbox',
+				dataType: 'boolean',
+				label: 'I accept the Terms and conditions',
+				config: {
+					required: true,
 				},
 			},
 			{
@@ -54,7 +85,7 @@ const App = () => {
 				module: 'core',
 				type: 'fieldgroup',
 				dataType: 'object',
-				label: 'Address',
+				label: 'Adres',
 				config: {
 					description:
 						'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent non odio in risus lobortis ornare. Aenean id diam risus.',
@@ -123,11 +154,62 @@ const App = () => {
 										value: 'finland',
 										label: 'Finland',
 									},
-								}
+								},
 							],
 						},
 					},
 				],
+			},
+			{
+				name: 'ages',
+				module: 'core',
+				type: 'radio',
+				dataType: 'string',
+				label: 'Ages',
+				config: {
+					required: true,
+					options: [
+						{
+							value: {
+								key: '0',
+								value: '1-5 jaar',
+								label: '1-5 jaar',
+							},
+						},
+						{
+							value: {
+								key: '1',
+								value: '6-7 jaar',
+								label: '6-7 jaar',
+							},
+						},
+						{
+							value: {
+								key: '2',
+								value: '8-10 jaar',
+								label: '8-10 jaar',
+							},
+						},
+						{
+							value: {
+								key: '3',
+								value: '11-12 jaar',
+								label: '11-12 jaar',
+							},
+						},
+					],
+				},
+			},
+			{
+				name: 'questions',
+				module: 'core',
+				type: 'textarea',
+				dataType: 'string',
+				label: 'Questions',
+				config: {
+					required: true,
+					placeholder: 'Questions?',
+				},
 			},
 			{
 				name: 'time',
@@ -140,14 +222,215 @@ const App = () => {
 				},
 			},
 			{
-				name: 'videoEmbed',
+				name: 'dateTime',
 				module: 'core',
-				type: 'videoEmbed',
+				type: 'dateTime',
 				dataType: 'string',
-				label: 'Video Embed',
+				label: 'Datum en tijd',
 				config: {
 					required: true,
+					dateLabel: 'Datum',
 				},
+			},
+			{
+				name: 'children',
+				module: 'core',
+				type: 'repeater',
+				dataType: 'array',
+				label: 'Children',
+				config: {
+					min: 4,
+					max: 5,
+					description: 'Add new children',
+				},
+				fields: [
+					{
+						name: 'firstname',
+						module: 'core',
+						type: 'text',
+						dataType: 'string',
+						label: 'Firstname',
+						config: {
+							required: true,
+							wrapperClassName: 'col-xs-6',
+						},
+					},
+					{
+						name: 'lastname',
+						module: 'core',
+						type: 'text',
+						dataType: 'string',
+						label: 'Lastname',
+						config: {
+							required: true,
+							wrapperClassName: 'col-xs-6',
+						},
+					},
+				],
+			},
+			{
+				name: 'dynamicRepeater',
+				module: 'core',
+				type: 'dynamicRepeater',
+				dataType: 'array',
+				label: 'Vrije paragrafen',
+				config: {
+					min: 0,
+					max: 5,
+					description: 'Add dynamic content',
+				},
+				fields: [
+					{
+						name: 'textfield',
+						module: 'core',
+						type: 'text',
+						dataType: 'string',
+						label: 'Textfield',
+						config: {
+							placeholder: 'placeholder',
+							id: '1',
+							fieldType: { _id: 'type-text-id', uuid: 'type-text-id' },
+						},
+					},
+					{
+						name: 'textarea',
+						module: 'core',
+						type: 'textarea',
+						dataType: 'string',
+						label: 'Textarea',
+						config: {
+							placeholder: 'placeholder',
+							id: '2',
+						},
+					},
+					{
+						name: 'repeater',
+						module: 'core',
+						type: 'repeater',
+						dataType: 'array',
+						label: 'Repeater',
+						config: {
+							min: 4,
+							max: 5,
+							description: 'Add new children',
+							id: '3',
+						},
+						fields: [
+							{
+								name: 'firstname',
+								module: 'core',
+								type: 'text',
+								dataType: 'string',
+								label: 'Firstname',
+								config: {
+									required: true,
+									wrapperClassName: 'col-xs-6',
+								},
+							},
+							{
+								name: 'lastname',
+								module: 'core',
+								type: 'text',
+								dataType: 'string',
+								label: 'Lastname',
+								config: {
+									required: true,
+									wrapperClassName: 'col-xs-6',
+								},
+							},
+						],
+					},
+					{
+						name: 'address',
+						module: 'core',
+						type: 'fieldgroup',
+						dataType: 'object',
+						label: 'Adres',
+						config: {
+							id: '4',
+							description:
+								'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent non odio in risus lobortis ornare. Aenean id diam risus.',
+						},
+						fields: [
+							{
+								name: 'zipcode',
+								module: 'core',
+								type: 'text',
+								dataType: 'string',
+								label: 'Zipcode',
+								config: {
+									wrapperClassName: 'col-xs-6',
+									required: true,
+									placeholder: 'zipcode',
+									description: 'Description text',
+								},
+							},
+							{
+								name: 'city',
+								module: 'core',
+								type: 'text',
+								dataType: 'string',
+								label: 'City',
+								config: {
+									wrapperClassName: 'col-xs-6',
+									required: true,
+									placeholder: 'city',
+								},
+							},
+							{
+								name: 'country',
+								module: 'core',
+								type: 'select',
+								dataType: 'string',
+								label: 'Country',
+								config: {
+									required: true,
+									wrapperClassName: 'col-xs-12',
+									options: [
+										{
+											value: {
+												key: '0',
+												value: 'belgium',
+												label: 'Belgium',
+											},
+										},
+										{
+											value: {
+												key: '1',
+												value: 'france',
+												label: 'France',
+											},
+										},
+										{
+											value: {
+												key: '2',
+												value: 'germany',
+												label: 'Germany',
+											},
+										},
+										{
+											value: {
+												key: '3',
+												value: 'finland',
+												label: 'Finland',
+											},
+										},
+									],
+								},
+							},
+						],
+					},
+					{
+						name: 'time',
+						module: 'core',
+						type: 'time',
+						dataType: 'string',
+						label: 'Time',
+						config: {
+							required: true,
+						},
+					},
+				],
 			},
 		],
 	};
@@ -156,13 +439,28 @@ const App = () => {
 		$schema: 'http://json-schema.org/draft-07/schema#',
 		type: 'object',
 		required: [
+			'firstname',
+			'lastname',
 			'hobbies',
+			'termsAndConditions',
+			'ages',
 			'address',
+			'questions',
 			'time',
+			'dateTime',
 		],
 		properties: {
+			firstname: {
+				type: 'string',
+			},
+			lastname: {
+				type: 'string',
+			},
 			hobbies: {
 				type: 'array',
+			},
+			termsAndConditions: {
+				type: 'boolean',
 			},
 			address: {
 				type: 'object',
@@ -177,92 +475,152 @@ const App = () => {
 					},
 				},
 			},
+			ages: {
+				type: 'string',
+			},
+			questions: {
+				type: 'string',
+			},
+			children: {
+				type: 'array',
+				minItems: 4,
+				items: {
+					type: 'object',
+					required: ['firstname', 'lastname'],
+					properties: {
+						firstname: {
+							type: 'string',
+							minLength: 1,
+						},
+						lastname: {
+							type: 'string',
+							minLength: 1,
+						},
+					},
+				},
+			},
 			time: {
 				type: 'string',
 				pattern: '^[0-9]{1,2}:[0-9]{1,2}$',
 			},
-			videoEmbed: {
+			dateTime: {
 				type: 'string',
-			}
+				format: 'date-time',
+			},
+			dynamicRepeater: {
+				type: 'array',
+				items: {
+					type: 'object',
+					properties: {
+						fieldType: {
+							type: 'string',
+						},
+						type: {
+							type: 'string',
+						},
+						value: {},
+					},
+					allOf: [
+						{
+							if: { properties: { fieldType: { const: 'type-text-id' } } },
+							then: { properties: { value: { minLength: 3 } } },
+						},
+					],
+				},
+			},
 		},
 	};
 
 	const initialValues = {
+		firstname: 'John',
+		lastname: 'Doe',
 		hobbies: ['skateboarding', 'snowboarding'],
 		address: {
-			zipcode: '2350',
-			city: 'Vosselaar',
-			country: 'belgium',
+			zipcode: '',
+			city: '',
+			// country: 'belgium',
 		},
+		ages: '8-10 jaar',
+		questions: 'no questions',
 		time: '10:30',
-		videoEmbed: 'youtu.be/SFmpPtl2IQI'
+		children: [
+			{
+				firstname: 'glenn',
+				lastname: 'verschooren',
+			},
+			{
+				firstname: 'mieke',
+				lastname: 'scheirs',
+			},
+		],
+		dynamicRepeater: [
+			{
+				value: 'maarten',
+				type: '1',
+				fieldType: 'type-text-id',
+			},
+			{
+				value: 'de weerdt',
+				type: '2',
+			},
+			{
+				value: [
+					{
+						firstname: 'glenn',
+						lastname: 'verschooren',
+					},
+					{
+						firstname: 'mieke',
+						lastname: 'scheirs',
+					},
+				],
+				type: '3',
+			},
+			{
+				value: {
+					zipcode: '2500',
+					city: 'Lier',
+					country: 'belgium',
+				},
+				type: '4',
+			},
+		],
 	};
 
-	const errorMessages = {};
+	const errorMessages = {
+		firstname: {
+			required: 'You must enter a name',
+			minLength: 'You must enter a name',
+		},
+		lastname: {
+			required: 'You must enter a lastname',
+			minLength: 'You must enter a lastname',
+		},
+		'address.zipcode': {
+			// eslint-disable-next-line no-template-curly-in-string
+			required: '${path} You must enter a zipcode',
+			// eslint-disable-next-line no-template-curly-in-string
+			minLength: '${path} You must enter a zipcode',
+		},
+		children: {
+			minItems: 'Fill in at least two children',
+		},
+		'children[$].firstname': {
+			required: 'You muster enter the name of the child',
+		},
+		'children[$].lastname': {
+			required: 'You muster enter the lastname of the child',
+		},
+		'dynamicRepeater[$].value': {
+			minLength: 'Give me minimum 3',
+		},
+		$required: 'this is a default required message',
+	};
 
 	return (
 		<div className="App">
 			<div className="header">
 				<h1>Redaction Form Renderer Module</h1>
-			</div>
-			<div className="u-margin-top">
-				<CodeSnippetEmbedView
-					fieldSchema={{} as any}
-					value={{
-						url: '',
-						title: 'Title of iframe',
-						width: '100%',
-						height: '300px'
-					}}
-				/>
-
-				<hr />
-
-				<CodeSnippetEmbedView
-					fieldSchema={{} as any}
-					value={{
-						url: 'https://codepen.io/Redn4s/embed/preview/dyWqpjW?default-tab=html%2Cresult&editable=true&theme-id=dark',
-						title: 'Title of iframe',
-						width: '',
-						height: '100px'
-					}}
-				/>
-
-				<hr />
-
-				<CodeSnippetEmbedView
-					fieldSchema={{} as any}
-					value={{
-						url: 'https://codepen.io/Redn4s/embed/preview/dyWqpjW?default-tab=html%2Cresult&editable=true&theme-id=dark',
-						title: 'Title of iframe',
-						width: '50%',
-						height: ''
-					}}
-				/>
-
-				<hr />
-
-				<CodeSnippetEmbedView
-					fieldSchema={{} as any}
-					value={{
-						url: 'https://codepen.io/Redn4s/embed/preview/dyWqpjW?default-tab=html%2Cresult&editable=true&theme-id=dark',
-						title: 'Title of iframe',
-						width: '50%',
-						height: '100px'
-					}}
-				/>
-
-				<hr />
-
-				<CodeSnippetEmbedView
-					fieldSchema={{} as any}
-					value={{
-						url: 'https://codepen.io/Redn4s/embed/preview/dyWqpjW?default-tab=html%2Cresult&editable=true&theme-id=dark',
-						title: 'Title of iframe',
-						width: '',
-						height: ''
-					}}
-				/>
 			</div>
 			<div className="u-margin-top">
 				<h2>Form</h2>
