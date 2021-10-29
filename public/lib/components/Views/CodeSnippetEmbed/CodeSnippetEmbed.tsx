@@ -3,18 +3,18 @@ import React, { FC } from 'react';
 import { ViewFieldProps } from '../../../services/viewRegistry/viewRegistry.types';
 
 const CodeSnippetEmbedView: FC<ViewFieldProps> = ({ value }) => {
-	if (!value || !value.url || typeof value.url !== 'string') {
+	if (!value || !value.url?.url || typeof value.url.url !== 'string') {
 		return null;
 	}
 
 	return (
 		<iframe
 			style={{
-				width: value.width || '100%',
-				height: value.height || 300,
+				width: value.width?.text || '100%',
+				height: value.height?.text || '300px',
 			}}
-			src={value.url}
-			title={value.title}
+			src={value.url.url}
+			title={value.url.text}
 			frameBorder="0"
 		/>
 	);
