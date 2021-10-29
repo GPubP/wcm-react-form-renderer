@@ -3,7 +3,7 @@ import React, { FC } from 'react';
 import { ViewFieldProps } from '@redactie/form-renderer-module';
 
 const CodeSnippetEmbedView: FC<ViewFieldProps> = ({ value }) => {
-	if (!value || !value?.url || typeof value?.url !== 'string') {
+	if (!value || !value.url || typeof value.url !== 'string') {
 		return null;
 	}
 
