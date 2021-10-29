@@ -1,7 +1,8 @@
 import React from 'react';
 import './App.css';
 
-import { Form, FormSchema, View } from '@redactie/form-renderer-module';
+import { Form, FormSchema, View,  } from '@redactie/form-renderer-module';
+import { CodeSnippetEmbedView } from './components/CodeSnippetEmbed';
 
 const App = () => {
 	const onFormSubmit = (values: any) => {
@@ -203,6 +204,60 @@ const App = () => {
 		<div className="App">
 			<div className="header">
 				<h1>Redaction Form Renderer Module</h1>
+			</div>
+			<div className="u-margin-top">
+				<CodeSnippetEmbedView
+					fieldSchema={{} as any}
+					value={{
+						url: '',
+						width: '100%',
+						height: '300px'
+					}}
+				/>
+
+				<hr />
+
+				<CodeSnippetEmbedView
+					fieldSchema={{} as any}
+					value={{
+						url: 'https://codepen.io/Redn4s/embed/preview/dyWqpjW?default-tab=html%2Cresult&editable=true&theme-id=dark',
+						width: '',
+						height: '100px'
+					}}
+				/>
+
+				<hr />
+
+				<CodeSnippetEmbedView
+					fieldSchema={{} as any}
+					value={{
+						url: 'https://codepen.io/Redn4s/embed/preview/dyWqpjW?default-tab=html%2Cresult&editable=true&theme-id=dark',
+						width: '50%',
+						height: ''
+					}}
+				/>
+
+				<hr />
+
+				<CodeSnippetEmbedView
+					fieldSchema={{} as any}
+					value={{
+						url: 'https://codepen.io/Redn4s/embed/preview/dyWqpjW?default-tab=html%2Cresult&editable=true&theme-id=dark',
+						width: '50%',
+						height: '100px'
+					}}
+				/>
+
+				<hr />
+
+				<CodeSnippetEmbedView
+					fieldSchema={{} as any}
+					value={{
+						url: 'https://codepen.io/Redn4s/embed/preview/dyWqpjW?default-tab=html%2Cresult&editable=true&theme-id=dark',
+						width: '',
+						height: ''
+					}}
+				/>
 			</div>
 			<div className="u-margin-top">
 				<h2>Form</h2>
