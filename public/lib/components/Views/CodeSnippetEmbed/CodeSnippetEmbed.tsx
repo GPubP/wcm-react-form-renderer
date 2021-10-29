@@ -3,7 +3,7 @@ import React, { FC } from 'react';
 import { ViewFieldProps } from '../../../services/viewRegistry/viewRegistry.types';
 
 const CodeSnippetEmbedView: FC<ViewFieldProps> = ({ value }) => {
-	if (!value || !value.url?.url || typeof value.url.url !== 'string') {
+	if (!value?.url?.url || typeof value.url.url !== 'string') {
 		return null;
 	}
 
