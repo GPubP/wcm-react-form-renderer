@@ -9,12 +9,12 @@ const CodeSnippetEmbedView: FC<ViewFieldProps> = ({ value }) => {
 
 	return (
 		<iframe
-			title="Titel van iframe"
 			style={{
 				width: value.width || '100%',
 				height: value.height || 300,
 			}}
 			src={value.url}
+			title={value.title}
 			frameBorder="0"
 		/>
 	);

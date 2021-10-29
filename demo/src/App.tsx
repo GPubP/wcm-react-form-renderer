@@ -210,6 +210,7 @@ const App = () => {
 					fieldSchema={{} as any}
 					value={{
 						url: '',
+						title: 'Title of iframe',
 						width: '100%',
 						height: '300px'
 					}}
@@ -221,6 +222,7 @@ const App = () => {
 					fieldSchema={{} as any}
 					value={{
 						url: 'https://codepen.io/Redn4s/embed/preview/dyWqpjW?default-tab=html%2Cresult&editable=true&theme-id=dark',
+						title: 'Title of iframe',
 						width: '',
 						height: '100px'
 					}}
@@ -232,6 +234,7 @@ const App = () => {
 					fieldSchema={{} as any}
 					value={{
 						url: 'https://codepen.io/Redn4s/embed/preview/dyWqpjW?default-tab=html%2Cresult&editable=true&theme-id=dark',
+						title: 'Title of iframe',
 						width: '50%',
 						height: ''
 					}}
@@ -243,6 +246,7 @@ const App = () => {
 					fieldSchema={{} as any}
 					value={{
 						url: 'https://codepen.io/Redn4s/embed/preview/dyWqpjW?default-tab=html%2Cresult&editable=true&theme-id=dark',
+						title: 'Title of iframe',
 						width: '50%',
 						height: '100px'
 					}}
@@ -254,6 +258,7 @@ const App = () => {
 					fieldSchema={{} as any}
 					value={{
 						url: 'https://codepen.io/Redn4s/embed/preview/dyWqpjW?default-tab=html%2Cresult&editable=true&theme-id=dark',
+						title: 'Title of iframe',
 						width: '',
 						height: ''
 					}}

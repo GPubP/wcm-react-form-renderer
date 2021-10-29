@@ -14,6 +14,7 @@ const CodeSnippetEmbedView: FC<ViewFieldProps> = ({ value }) => {
 				height: value.height || 300,
 			}}
 			src={value.url}
+			title={value.title}
 			frameBorder="0"
 		/>
 	);
