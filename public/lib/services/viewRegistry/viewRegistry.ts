@@ -1,3 +1,4 @@
+import { CodeSnippetEmbedView } from '../../components/Views/CodeSnippetEmbed';
 import { EmailView } from '../../components/Views/Email';
 import { FileUploadPresetView } from '../../components/Views/FileUploadPreset';
 import { TelephoneNumberView } from '../../components/Views/TelephoneNumber';
@@ -76,5 +77,10 @@ export const viewRegistry = new ViewRegistry([
 		name: 'telephoneNumber',
 		module: 'core',
 		component: TelephoneNumberView,
+	},
+	{
+		name: 'codeSnippetEmbed',
+		module: 'core',
+		component: CodeSnippetEmbedView,
 	},
 ]);
