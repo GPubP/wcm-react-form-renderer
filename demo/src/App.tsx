@@ -194,7 +194,7 @@ const App = () => {
 			country: 'belgium',
 		},
 		time: '10:30',
-		videoEmbed: 'https://youtu.be/SFmpPtl2IQI'
+		videoEmbed: 'youtu.be/SFmpPtl2IQI'
 	};
 
 	const errorMessages = {};
