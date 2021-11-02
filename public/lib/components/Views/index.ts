@@ -1,3 +1,4 @@
+export * from './CodeSnippetEmbed';
 export * from './Default';
 export * from './Email';
 export * from './FieldGroup';

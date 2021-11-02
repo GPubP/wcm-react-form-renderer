@@ -47,19 +47,25 @@ const App = () => {
 					allowedOptions: ['skateboarding', 'snowboarding'],
 					options: [
 						{
-							key: '0',
-							value: 'skateboarding',
-							label: 'Skateboarding',
+							value: {
+								key: '0',
+								value: 'skateboarding',
+								label: 'Skateboarding',
+							},
 						},
 						{
-							key: '1',
-							value: 'snowboarding',
-							label: 'Snowboarding',
+							value: {
+								key: '1',
+								value: 'snowboarding',
+								label: 'Snowboarding',
+							},
 						},
 						{
-							key: '2',
-							value: 'surf',
-							label: 'Surf',
+							value: {
+								key: '2',
+								value: 'surf',
+								label: 'Surf',
+							},
 						},
 					],
 				},
@@ -122,24 +128,32 @@ const App = () => {
 							allowedOptions: ['belgium', 'france'],
 							options: [
 								{
-									key: '0',
-									value: 'belgium',
-									label: 'Belgium',
+									value: {
+										key: '0',
+										value: 'belgium',
+										label: 'Belgium',
+									},
 								},
 								{
-									key: '1',
-									value: 'france',
-									label: 'France',
+									value: {
+										key: '1',
+										value: 'france',
+										label: 'France',
+									},
 								},
 								{
-									key: '2',
-									value: 'germany',
-									label: 'Germany',
+									value: {
+										key: '2',
+										value: 'germany',
+										label: 'Germany',
+									},
 								},
 								{
-									key: '3',
-									value: 'finland',
-									label: 'Finland',
+									value: {
+										key: '3',
+										value: 'finland',
+										label: 'Finland',
+									},
 								},
 							],
 						},
@@ -156,24 +170,32 @@ const App = () => {
 					required: true,
 					options: [
 						{
-							key: '0',
-							value: '1-5 jaar',
-							label: '1-5 jaar',
+							value: {
+								key: '0',
+								value: '1-5 jaar',
+								label: '1-5 jaar',
+							},
 						},
 						{
-							key: '1',
-							value: '6-7 jaar',
-							label: '6-7 jaar',
+							value: {
+								key: '1',
+								value: '6-7 jaar',
+								label: '6-7 jaar',
+							},
 						},
 						{
-							key: '2',
-							value: '8-10 jaar',
-							label: '8-10 jaar',
+							value: {
+								key: '2',
+								value: '8-10 jaar',
+								label: '8-10 jaar',
+							},
 						},
 						{
-							key: '3',
-							value: '11-12 jaar',
-							label: '11-12 jaar',
+							value: {
+								key: '3',
+								value: '11-12 jaar',
+								label: '11-12 jaar',
+							},
 						},
 					],
 				},
@@ -366,24 +388,32 @@ const App = () => {
 									wrapperClassName: 'col-xs-12',
 									options: [
 										{
-											key: '0',
-											value: 'belgium',
-											label: 'Belgium',
+											value: {
+												key: '0',
+												value: 'belgium',
+												label: 'Belgium',
+											},
 										},
 										{
-											key: '1',
-											value: 'france',
-											label: 'France',
+											value: {
+												key: '1',
+												value: 'france',
+												label: 'France',
+											},
 										},
 										{
-											key: '2',
-											value: 'germany',
-											label: 'Germany',
+											value: {
+												key: '2',
+												value: 'germany',
+												label: 'Germany',
+											},
 										},
 										{
-											key: '3',
-											value: 'finland',
-											label: 'Finland',
+											value: {
+												key: '3',
+												value: 'finland',
+												label: 'Finland',
+											},
 										},
 									],
 								},
