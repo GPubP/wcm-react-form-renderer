@@ -5,10 +5,13 @@ import { FormSchema } from '../../core.types';
 export interface CompareViewMeta {
 	label: string;
 	slug: Record<string, string>;
-	description: string | undefined;
-	created: string;
-	lastEditor: string;
-	lastModified: string;
+	description?: string | undefined;
+	created?: string;
+	lastEditor?: {
+		firstname?: string;
+		lastname?: string;
+	};
+	lastModified?: string;
 }
 
 export interface CompareViewProps {
