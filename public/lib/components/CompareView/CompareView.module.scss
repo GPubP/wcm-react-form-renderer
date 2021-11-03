@@ -1,0 +1,21 @@
+@import '~@a-ui/core/src/styles/_quarks';
+
+.m-compare-view {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	column-gap: $spacer;
+
+	&__from {
+		grid-column: 1 / span 1;
+	}
+
+	&__to {
+		grid-column: 2 / span 1;
+	}
+
+	&__divider {
+		grid-column: 1 / span 2;
+		border-bottom: 1px dashed $grey;
+		margin-bottom: $spacer;
+	}
+}
