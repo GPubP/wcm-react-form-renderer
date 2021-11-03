@@ -1,6 +1,7 @@
 import { ErrorMessageProps, FormikValues } from 'formik';
 
 import { CustomValidator, CustomValidatorWorker } from './classes';
+import { CompareViewProps } from './components/CompareView';
 import { AllowedHeader, FormProps } from './components/Form';
 import { FormRendererFieldTitleProps } from './components/FormRendererFieldTitle/FormRendererFieldTitle.types';
 import { ViewProps } from './components/View';
@@ -121,7 +122,7 @@ export interface ValidationSchema {
 export interface FormsAPI {
 	Form: React.FC<FormProps<FormValues>>;
 	View: React.FC<ViewProps>;
-	CompareView: React.FC<ViewProps>;
+	CompareView: React.FC<CompareViewProps>;
 	ErrorMessage: React.FC<ErrorMessageProps>;
 	CustomValidator: CustomValidator;
 	CustomValidatorWorker: CustomValidatorWorker;
