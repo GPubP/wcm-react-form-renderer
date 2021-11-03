@@ -1,6 +1,7 @@
 import Core from '@redactie/redactie-core';
 
 import { CustomValidator, CustomValidatorWorker } from './lib/classes';
+import { CompareView } from './lib/components/CompareView';
 import { ErrorMessage } from './lib/components/ErrorMessage';
 import { DEFAULT_FIELD_CONFIG_PROPS } from './lib/components/Fields/Fields.const';
 import { Form } from './lib/components/Form';
@@ -22,6 +23,7 @@ import { filterAllowedOptions } from './lib/utils';
 Core.modules.exposeModuleApi('forms-module', {
 	Form,
 	View,
+	CompareView,
 	ErrorMessage,
 	CustomValidator,
 	CustomValidatorWorker,
@@ -48,6 +50,7 @@ export * from './lib/helpers/parseFields/parseFields.types';
 export * from './lib/helpers/getValueSyncMap/getValueSyncMap.types';
 export { default as Form } from './lib/components/Form/Form';
 export { default as View } from './lib/components/View/View';
+export { default as CompareView } from './lib/components/CompareView/CompareView';
 export { default as FormikOnChangeHandler } from './lib/components/FormikOnChangeHandler/FormikOnChangeHandler';
 export { CustomValidator } from './lib/classes/CustomValidator';
 export { FieldRendererStyles } from './lib/components/FieldRenderer';

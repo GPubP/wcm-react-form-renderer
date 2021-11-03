@@ -1,0 +1,10 @@
+@import '~@a-ui/core/src/styles/_quarks';
+
+.m-compare-view-renderer {
+	&__empty-state {
+		background-color: $grey-lighter;
+		padding: $spacer;
+		text-align: center;
+		color: $grey;
+	}
+}
