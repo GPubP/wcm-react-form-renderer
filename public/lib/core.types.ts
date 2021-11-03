@@ -121,6 +121,7 @@ export interface ValidationSchema {
 export interface FormsAPI {
 	Form: React.FC<FormProps<FormValues>>;
 	View: React.FC<ViewProps>;
+	CompareView: React.FC<ViewProps>;
 	ErrorMessage: React.FC<ErrorMessageProps>;
 	CustomValidator: CustomValidator;
 	CustomValidatorWorker: CustomValidatorWorker;
