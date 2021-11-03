@@ -4,7 +4,7 @@ import { FormSchema } from '../../core.types';
 
 export interface CompareViewMeta {
 	label: string;
-	slug: string;
+	slug: Record<string, string>;
 	description: string;
 	created: string;
 	lastEditor: string;
