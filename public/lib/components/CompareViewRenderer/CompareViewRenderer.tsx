@@ -49,14 +49,6 @@ const CompareViewRenderer: FC<CompareViewRendererProps> = ({ fieldSchema }) => {
 						);
 					}
 
-					if (!fieldProps?.field?.value?.text) {
-						return (
-							<div className={cx('m-compare-view-renderer__empty-state')}>
-								Niets ingevuld
-							</div>
-						);
-					}
-
 					return (
 						<ViewComponent fieldSchema={fieldSchema} value={fieldProps.field.value} />
 					);

@@ -119,43 +119,35 @@ const CompareView: FC<CompareViewProps> = ({ schema, fromValues, toValues, fromM
 	const renderMeta = (meta: any): ReactElement => {
 		return (
 			<>
-				<div className="">
-					{!equals(fromMeta.description, toMeta.description) && (
-						<p className="u-margin-top a-description">{meta.description}</p>
-					)}
-					{!equals(fromMeta.slug, toMeta.slug) && (
-						<div className="u-margin-top">
-							<p>
-								<span className="u-text-bold">Slug:</span> {meta.slug.nl}
-							</p>
-						</div>
-					)}
-					{!equals(fromMeta.created, toMeta.created) && (
-						<div className="u-margin-top">
-							<p>
-								<span className="u-text-bold">Aangemaakt op:</span>{' '}
-								{moment(meta.created).format(DATE_FORMATS.dateAndTime)}
-							</p>
-						</div>
-					)}
-					{!equals(fromMeta.lastModified, toMeta.lastModified) && (
-						<div className="u-margin-top">
-							<p>
-								<span className="u-text-bold">Laatst aangepast op:</span>{' '}
-								{moment(meta.lastModified).format(DATE_FORMATS.dateAndTime)}
-							</p>
-						</div>
-					)}
-					{!equals(fromMeta.lastEditor, toMeta.lastEditor) && (
-						<div>
-							<p>
-								<span className="u-text-bold">Door:</span>{' '}
-								{meta.lastEditor?.firstname
-									? `${meta.lastEditor?.firstname} ${meta.lastEditor?.lastname}`
-									: 'Onbekend'}
-							</p>
-						</div>
-					)}
+				{meta.description ? (
+					<p className={cx('a-description')}>{meta.description}</p>
+				) : (
+					<p className={cx('a-description')}>Geen beschrijving ingevuld</p>
+				)}
+				<div className="u-margin-top">
+					<p>
+						<span className="u-text-bold">Slug:</span> {meta.slug.nl}
+					</p>
+				</div>
+				<div className="u-margin-top">
+					<p>
+						<span className="u-text-bold">Aangemaakt op:</span>{' '}
+						{moment(meta.created).format(DATE_FORMATS.dateAndTime)}
+					</p>
+				</div>
+				<div className="u-margin-top">
+					<p>
+						<span className="u-text-bold">Laatst aangepast op:</span>{' '}
+						{moment(meta.lastModified).format(DATE_FORMATS.dateAndTime)}
+					</p>
+				</div>
+				<div>
+					<p>
+						<span className="u-text-bold">Door:</span>{' '}
+						{meta.lastEditor?.firstname
+							? `${meta.lastEditor?.firstname} ${meta.lastEditor?.lastname}`
+							: 'Onbekend'}
+					</p>
 				</div>
 			</>
 		);
@@ -168,17 +160,15 @@ const CompareView: FC<CompareViewProps> = ({ schema, fromValues, toValues, fromM
 
 		return (
 			<div className={cx('m-compare-view')}>
-				{fromMeta.label !== toMeta.label && (
-					<>
-						<div className={cx('m-compare-view__from')}>
-							<h4>{fromMeta.label}</h4>
-						</div>
-						<div className={cx('m-compare-view__to')}>
-							<h4>{toMeta.label}</h4>
-						</div>
-						<div className={cx('m-compare-view__divider')} />
-					</>
-				)}
+				<>
+					<div className={cx('m-compare-view__from')}>
+						<h4>{fromMeta.label}</h4>
+					</div>
+					<div className={cx('m-compare-view__to')}>
+						<h4>{toMeta.label}</h4>
+					</div>
+					<div className={cx('m-compare-view__divider', 'u-margin-top')} />
+				</>
 				<div className={cx('m-compare-view__from')}>{renderMeta(fromMeta)}</div>
 				<div className={cx('m-compare-view__to')}>{renderMeta(toMeta)}</div>
 				<div className={cx('m-compare-view__divider', 'u-margin-top')} />
