@@ -2,6 +2,7 @@ import classNames from 'classnames/bind';
 import { Field, FieldProps } from 'formik';
 import React, { FC, useMemo } from 'react';
 
+import { detectEmptyField } from '../../helpers/detectEmptyField';
 import { FieldConfig, fieldRegistry } from '../../services/fieldRegistry';
 import { ViewConfig, ViewFieldProps, viewRegistry } from '../../services/viewRegistry';
 
@@ -45,6 +46,14 @@ const CompareViewRenderer: FC<CompareViewRendererProps> = ({ fieldSchema }) => {
 						return (
 							<div className={cx('m-compare-view-renderer__empty-state')}>
 								{fieldSchema.label} gewijzigd (Kan niet getoond worden)
+							</div>
+						);
+					}
+
+					if (detectEmptyField(fieldSchema, fieldProps.field)) {
+						return (
+							<div className={cx('m-compare-view-renderer__empty-state')}>
+								Niets ingevuld
 							</div>
 						);
 					}

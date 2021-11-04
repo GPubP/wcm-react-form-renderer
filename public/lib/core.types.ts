@@ -80,6 +80,10 @@ export interface FieldSchema {
 	 */
 	dataType: FieldDataType;
 	/**
+	 * Field Semantic type
+	 */
+	semanticType: string;
+	/**
 	 * Field label
 	 */
 	label?: string;

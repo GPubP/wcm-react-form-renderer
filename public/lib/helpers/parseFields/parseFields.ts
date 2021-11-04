@@ -106,6 +106,7 @@ export const parseFields = (
 			type: fieldType?.data?.componentName,
 			view: getViewComponentName(fieldType as FieldType, preset),
 			dataType: dataType.data.type,
+			semanticType: dataType.data.semanticType,
 			fields: parseFields(config.fields, {
 				...parseOptions,
 				parentGeneralConfig: {
@@ -163,6 +164,7 @@ export const parseFields = (
 				type: 'repeater',
 				repeaterComponentName: getRepeaterComponentName(fieldType as FieldType, preset),
 				dataType: 'array',
+				semanticType: dataType.data.semanticType,
 				hidden: isHidden,
 				defaultValue,
 				valueSync: parseOptions?.valueSyncMap
