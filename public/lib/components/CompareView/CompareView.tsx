@@ -102,15 +102,13 @@ const CompareView: FC<CompareViewProps> = ({ schema, fromValues, toValues, fromM
 
 			return (
 				<div key={`${index}-${fieldSchema.name}`} className={cx('m-compare-view')}>
+					<div className={cx('m-compare-view__divider')} />
 					<div className={cx('m-compare-view__from')}>
 						<CompareViewRenderer fieldSchema={fromFieldSchema[fieldSchema.name]} />
 					</div>
 					<div className={cx('m-compare-view__to')}>
 						<CompareViewRenderer fieldSchema={toFieldSchema[fieldSchema.name]} />
 					</div>
-					{index !== fields.length - 1 && (
-						<div className={cx('m-compare-view__divider')} />
-					)}
 				</div>
 			);
 		});
@@ -159,7 +157,7 @@ const CompareView: FC<CompareViewProps> = ({ schema, fromValues, toValues, fromM
 		}
 
 		return (
-			<div className={cx('m-compare-view')}>
+			<div className={cx('m-compare-view', 'u-margin-bottom')}>
 				<>
 					<div className={cx('m-compare-view__from')}>
 						<h4>{fromMeta.label}</h4>
@@ -171,7 +169,6 @@ const CompareView: FC<CompareViewProps> = ({ schema, fromValues, toValues, fromM
 				</>
 				<div className={cx('m-compare-view__from')}>{renderMeta(fromMeta)}</div>
 				<div className={cx('m-compare-view__to')}>{renderMeta(toMeta)}</div>
-				<div className={cx('m-compare-view__divider', 'u-margin-top')} />
 			</div>
 		);
 	};
