@@ -68,7 +68,9 @@ const Datepicker: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }: Inpu
 								parseInt(splitDate[1]) - 1,
 								parseInt(splitDate[0])
 							)
-						).toISOString();
+						)
+							.toISOString()
+							.slice(0, 10);
 						field.onChange(event);
 					}
 
