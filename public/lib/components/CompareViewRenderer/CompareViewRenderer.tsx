@@ -34,7 +34,10 @@ const CompareViewRenderer: FC<CompareViewRendererProps> = ({ fieldSchema }) => {
 		<div className="u-margin-bottom">
 			<Field name={fieldSchema.name}>
 				{(fieldProps: FieldProps<any, {}>): React.ReactNode => {
-					if (!fieldProps.field.value) {
+					if (
+						!detectEmptyField(fieldSchema, fieldProps.field) &&
+						!fieldProps.field.value
+					) {
 						return (
 							<div className={cx('m-compare-view-renderer__empty-state')}>
 								Component bestaat niet in deze revisie

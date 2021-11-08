@@ -7,7 +7,11 @@ export const detectEmptyField = (
 	field: FieldInputProps<any>
 ): boolean => {
 	if (fieldSchema.semanticType === 'textWithStyle') {
-		return !field.value.text;
+		return !field.value?.text;
+	}
+
+	if (fieldSchema.semanticType === 'html') {
+		return !field?.value;
 	}
 
 	return false;
