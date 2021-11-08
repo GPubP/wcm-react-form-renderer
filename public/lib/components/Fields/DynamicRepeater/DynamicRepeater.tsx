@@ -48,6 +48,7 @@ const DynamicRepeater: React.FC<DynamicRepeaterProps> = ({ fieldSchema }) => {
 			return {
 				...item,
 				semanticType: field?.name || null,
+				type: field?.type || item.type,
 				multiple: field?.config?.max ? field.config.max > 1 : null,
 			};
 		});
