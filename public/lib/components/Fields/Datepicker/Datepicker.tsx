@@ -62,14 +62,7 @@ const Datepicker: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }: Inpu
 					};
 
 					if (isAUCompleteDateRegex.test(e)) {
-						event.target.value = new Date(
-							Date.UTC(
-								parseInt(splitDate[2]),
-								parseInt(splitDate[1]) - 1,
-								parseInt(splitDate[0])
-							)
-						).toISOString();
-						field.onChange(event);
+						(event.target.value = splitDate.reverse().join('-')), field.onChange(event);
 					}
 
 					if (!e.replace(/_|\//g, '')) {
