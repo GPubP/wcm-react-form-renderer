@@ -1,7 +1,7 @@
 import { Button } from '@acpaas-ui/react-components';
 import classNames from 'classnames/bind';
 import { FieldArray, FieldArrayRenderProps, FormikValues, useFormikContext } from 'formik';
-import { equals, pathOr, split } from 'ramda';
+import { equals, path, pathOr, split } from 'ramda';
 import React, { ReactElement, useEffect, useMemo } from 'react';
 import { v4 as uuid } from 'uuid';
 
@@ -22,10 +22,7 @@ const DynamicRepeater: React.FC<DynamicRepeaterProps> = ({ fieldSchema }) => {
 	const config = fieldSchema.config || {};
 	const fields = Array.isArray(fieldSchema.fields) ? fieldSchema.fields : [];
 	const { values, setFieldValue } = useFormikContext<FormikValues>();
-	const value = useMemo(
-		() => pathOr([], split('.', fieldSchema.name), values) as DynamicRepeaterItem[],
-		[fieldSchema.name, values]
-	);
+	const value = pathOr([], split('.', fieldSchema.name), values) as DynamicRepeaterItem[];
 	const min = useMemo(() => config.amount?.minValue || 0, [config.amount]);
 	const max = useMemo(
 		() =>
@@ -44,12 +41,20 @@ const DynamicRepeater: React.FC<DynamicRepeaterProps> = ({ fieldSchema }) => {
 
 		const newValues = value.map(item => {
 			const field = fields.find(field => field.uuid === item.fieldRef);
+			// Adjust to multiple = single config changes
+			const newValue =
+				Array.isArray(item.value) &&
+				['object', 'string', 'number'].includes(field?.dataType || '') &&
+				(field?.config?.max as number) <= 1
+					? pathOr(path([0])(item), [0, 'value'])(item.value)
+					: item.value;
 
 			return {
 				...item,
 				semanticType: field?.name || null,
 				type: field?.type || item.type,
 				multiple: field?.config?.max ? field.config.max > 1 : null,
+				value: newValue,
 			};
 		});
 
