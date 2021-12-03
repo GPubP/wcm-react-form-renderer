@@ -122,8 +122,8 @@ const CreateTimePeriodsForm: React.FC<CreateTimePeriodsFormProps> = ({
 			<p className={cx('o-create-time-periods-form__amount', 'u-text-light')}>
 				{currentValues + periodsLength > maxValues && maxValues !== 0 ? (
 					<>
-						Opgelet, het maximaal aantal tijdstippen voor deze component staat
-						geconfigureerd op <strong>{maxValues}</strong>. U staat op het punt om{' '}
+						Opgelet: het maximaal aantal tijdstippen voor deze component staat
+						geconfigureerd op <strong>{maxValues}</strong>. Je staat op het punt om{' '}
 						<strong>{getPeriodString(maxValues - currentValues)}</strong> toe te voegen,{' '}
 						{periodsLength - maxValues + currentValues === 1 ? (
 							<>
@@ -141,8 +141,8 @@ const CreateTimePeriodsForm: React.FC<CreateTimePeriodsFormProps> = ({
 					</>
 				) : (
 					<>
-						U staat op het punt <strong>{getPeriodString(periodsLength)}</strong> toe te
-						voegen
+						Je staat op het punt <strong>{getPeriodString(periodsLength)}</strong> toe
+						te voegen
 					</>
 				)}
 			</p>
