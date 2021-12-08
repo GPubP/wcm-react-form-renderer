@@ -49,6 +49,23 @@ const FieldRenderer: React.FC<FieldRendererProps> = ({
 	});
 
 	useEffect(() => {
+		if (
+			!!pathOr(null, [fieldSchema.name], values) &&
+			typeof pathOr(null, [fieldSchema.name], values) !== fieldSchema.dataType
+		) {
+			const value = fieldSchema.defaultValue
+				? fieldSchema.defaultValue
+				: fieldSchema.dataType === 'string'
+				? ''
+				: fieldSchema.dataType === 'object'
+				? {}
+				: fieldSchema.dataType === 'array'
+				? []
+				: null;
+
+			setFieldValue(fieldSchema.name, value);
+		}
+
 		if (!fieldSchema.valueSync) {
 			return;
 		}
