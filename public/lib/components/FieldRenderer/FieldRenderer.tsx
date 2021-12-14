@@ -49,21 +49,25 @@ const FieldRenderer: React.FC<FieldRendererProps> = ({
 	});
 
 	useEffect(() => {
-		if (
-			!!pathOr(null, [fieldSchema.name], values) &&
-			typeof pathOr(null, [fieldSchema.name], values) !== fieldSchema.dataType
-		) {
-			const value = fieldSchema.defaultValue
-				? fieldSchema.defaultValue
+		const value = pathOr(null, [fieldSchema.name], values);
+
+		if (!!value && !Array.isArray(value) && fieldSchema.dataType === 'array') {
+			const newValue = fieldSchema.defaultValue ? fieldSchema.defaultValue : [];
+
+			setFieldValue(fieldSchema.name, newValue);
+		}
+
+		if (!!value && typeof value !== fieldSchema.dataType) {
+			const newValue = fieldSchema.defaultValue
+				? fieldSchema.defaultValue &&
+				  typeof fieldSchema.defaultValue === fieldSchema.dataType
 				: fieldSchema.dataType === 'string'
 				? ''
 				: fieldSchema.dataType === 'object'
 				? {}
-				: fieldSchema.dataType === 'array'
-				? []
 				: null;
 
-			setFieldValue(fieldSchema.name, value);
+			setFieldValue(fieldSchema.name, newValue);
 		}
 
 		if (!fieldSchema.valueSync) {
