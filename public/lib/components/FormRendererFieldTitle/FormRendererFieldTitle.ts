@@ -14,21 +14,22 @@ export const FormRendererFieldTitle: FC<FormRendererFieldTitleProps> = ({
 	className: inputClassName,
 	...props
 }) => {
-	const { level } = useFieldRendererContext();
+	const { level, fieldSchema } = useFieldRendererContext();
 	const { allowedHeaders } = useFormContext();
 
-	const controlledLevel = level >= allowedHeaders.length ? allowedHeaders.length - 1 : level;
+	const header =
+		level === 0 ||
+		['fieldgroup', 'repeater', 'dynamicRepeater'].includes(fieldSchema?.type || '')
+			? allowedHeaders.find(h => h.element === 'h5') ??
+			  allowedHeaders[allowedHeaders.length - 1]
+			: { element: 'label', class: 'a-input__label' };
 
 	const className = cx(
 		'a-field-renderer-field__title',
 		isRequired ? 'a-field-renderer-field__title--required' : '',
-		allowedHeaders[controlledLevel].class,
+		header.class,
 		inputClassName
 	);
 
-	return createElement(
-		allowedHeaders[controlledLevel].element,
-		{ ...props, className },
-		children
-	);
+	return createElement(header.element, { ...props, className }, children);
 };
