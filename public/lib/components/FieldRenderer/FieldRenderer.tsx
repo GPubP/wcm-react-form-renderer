@@ -69,7 +69,10 @@ const FieldRenderer: React.FC<FieldRendererProps> = ({
 
 			setFieldValue(fieldSchema.name, newValue);
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
+	useEffect(() => {
 		if (!fieldSchema.valueSync) {
 			return;
 		}
