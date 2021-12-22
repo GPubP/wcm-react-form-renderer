@@ -1,10 +1,10 @@
 import React, { FC, useMemo } from 'react';
 
 import { ViewFieldProps } from '../../../services/viewRegistry/viewRegistry.types';
-import { getProviderUrl } from '../../Fields/VideoEmbed/VideoEmbed.helpers';
+import { getProviderUrl } from '../../Fields/AudioEmbed/AudioEmbed.helpers';
 import { MediaIFrame } from '../../MediaIFrame';
 
-const VideoEmbedView: FC<ViewFieldProps> = ({ value }) => {
+const AudioEmbedView: FC<ViewFieldProps> = ({ value }) => {
 	const iframeUrl = useMemo(() => {
 		if (!value || typeof value !== 'string') {
 			return null;
@@ -19,4 +19,4 @@ const VideoEmbedView: FC<ViewFieldProps> = ({ value }) => {
 	return <MediaIFrame src={iframeUrl} />;
 };
 
-export default VideoEmbedView;
+export default AudioEmbedView;

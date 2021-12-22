@@ -1,4 +1,4 @@
-export interface VideoIFrameProps {
+export interface MediaIFrameProps {
 	className?: string;
 	src: string;
 }

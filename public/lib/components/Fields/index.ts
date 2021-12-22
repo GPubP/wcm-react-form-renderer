@@ -1,5 +1,6 @@
 import { FieldConfig } from '../../services/fieldRegistry';
 import {
+	AudioEmbedView,
 	DateTimeView,
 	DateView,
 	DynamicRepeaterView,
@@ -12,6 +13,7 @@ import {
 	VideoEmbedView,
 } from '../Views';
 
+import { AudioEmbed } from './AudioEmbed';
 import { CheckboxList } from './CheckBoxList';
 import { InputCheckbox } from './Checkbox';
 import { DateTimepicker } from './DateTime';
@@ -155,6 +157,12 @@ const DefaultFields: FieldConfig[] = [
 		component: TimePeriods,
 		viewComponent: TimePeriodsView,
 		repeaterComponent: TimePeriodsRepeater,
+	},
+	{
+		name: 'audioEmbed',
+		module: 'core',
+		component: AudioEmbed,
+		viewComponent: AudioEmbedView,
 	},
 ];
 

@@ -8,12 +8,12 @@ import { ErrorMessage } from '../../ErrorMessage';
 import { MediaIFrame } from '../../MediaIFrame';
 import { DEFAULT_FIELD_CONFIG_PROPS } from '../Fields.const';
 
-import { getProviderUrl } from './VideoEmbed.helpers';
-import styles from './VideoEmbed.module.scss';
+import { getProviderUrl } from './AudioEmbed.helpers';
+import styles from './AudioEmbed.module.scss';
 
 const cx = classnames.bind(styles);
 
-const VideoEmbed: FC<InputFieldProps> = ({ fieldSchema, fieldProps }) => {
+const AudioEmbed: FC<InputFieldProps> = ({ fieldSchema, fieldProps }) => {
 	const { config = {}, name, label } = fieldSchema;
 	const { field, meta } = fieldProps;
 
@@ -27,6 +27,7 @@ const VideoEmbed: FC<InputFieldProps> = ({ fieldSchema, fieldProps }) => {
 		if (!field.value || typeof field.value !== 'string') {
 			return null;
 		}
+
 		return getProviderUrl(field.value);
 	}, [field.value]);
 	// Pick only the known properties from the config object
@@ -37,7 +38,7 @@ const VideoEmbed: FC<InputFieldProps> = ({ fieldSchema, fieldProps }) => {
 	 */
 
 	return (
-		<div className={cx('m-video-embed')}>
+		<div className={cx('m-audio-embed')}>
 			<div className="a-input">
 				<TextField id={name} state={state} label={label} {...field} {...fieldConfigProps} />
 				<ErrorMessage name={field.name} />
@@ -48,4 +49,4 @@ const VideoEmbed: FC<InputFieldProps> = ({ fieldSchema, fieldProps }) => {
 	);
 };
 
-export default VideoEmbed;
+export default AudioEmbed;
