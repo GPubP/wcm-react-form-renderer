@@ -49,15 +49,20 @@ const FieldRenderer: React.FC<FieldRendererProps> = ({
 	});
 
 	useEffect(() => {
+		if (!['array', 'string', 'object'].includes(fieldSchema.dataType)) {
+			return;
+		}
+
 		const value = pathOr(null, [fieldSchema.name], values);
 
 		if (!!value && !Array.isArray(value) && fieldSchema.dataType === 'array') {
 			const newValue = fieldSchema.defaultValue ? fieldSchema.defaultValue : [];
-
 			setFieldValue(fieldSchema.name, newValue);
+
+			return;
 		}
 
-		if (!!value && typeof value !== fieldSchema.dataType && fieldSchema.dataType !== 'array') {
+		if (!!value && typeof value !== fieldSchema.dataType) {
 			const newValue = fieldSchema.defaultValue
 				? fieldSchema.defaultValue &&
 				  typeof fieldSchema.defaultValue === fieldSchema.dataType
@@ -69,7 +74,10 @@ const FieldRenderer: React.FC<FieldRendererProps> = ({
 
 			setFieldValue(fieldSchema.name, newValue);
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
+	useEffect(() => {
 		if (!fieldSchema.valueSync) {
 			return;
 		}
