@@ -3,7 +3,7 @@ import { AllowedHeader } from './Form.types';
 export const DEFAULT_ALLOWED_HEADERS = Object.freeze([
 	{
 		element: 'h2',
-		class: 'h3',
+		class: 'h6',
 	},
 	{
 		element: 'h3',
