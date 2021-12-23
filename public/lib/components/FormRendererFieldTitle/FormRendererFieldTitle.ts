@@ -20,7 +20,7 @@ export const FormRendererFieldTitle: FC<FormRendererFieldTitleProps> = ({
 	const header =
 		level === 0 ||
 		['fieldgroup', 'repeater', 'dynamicRepeater'].includes(fieldSchema?.type || '')
-			? allowedHeaders.find(h => h.element === 'h5') ??
+			? allowedHeaders.find(h => h.element === 'h2') ??
 			  allowedHeaders[allowedHeaders.length - 1]
 			: { element: 'label', class: 'a-input__label' };
 

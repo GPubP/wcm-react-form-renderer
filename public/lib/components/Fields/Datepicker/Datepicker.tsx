@@ -5,7 +5,6 @@ import React, { useEffect, useMemo, useState } from 'react';
 
 import { InputFieldProps } from '../../../services/fieldRegistry';
 import { ErrorMessage } from '../../ErrorMessage';
-import { FormRendererFieldTitle } from '../../FormRendererFieldTitle';
 import { DEFAULT_FIELD_CONFIG_PROPS } from '../Fields.const';
 
 import { ALLOWED_DATEPICKER_PROPS, isAUCompleteDateRegex } from './Datepicker.const';
@@ -45,12 +44,10 @@ const Datepicker: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }: Inpu
 
 	return (
 		<>
-			<FormRendererFieldTitle isRequired={config.required} className="u-margin-bottom-xs">
-				{fieldSchema.label}
-			</FormRendererFieldTitle>
 			<AuiDatepicker
 				id={fieldSchema.name}
 				state={state}
+				label={fieldSchema.label}
 				// eslint-disable-next-line no-prototype-builtins
 				mask={config.hasOwnProperty('mask') ? config.mask : '99/99/9999'}
 				// eslint-disable-next-line no-prototype-builtins
