@@ -11,6 +11,7 @@ import React, { useEffect, useState } from 'react';
 import { parseAllowedFileTypes } from '../../../helpers';
 import { InputFieldProps } from '../../../services/fieldRegistry';
 import { ErrorMessage } from '../../ErrorMessage';
+import { FormRendererFieldTitle } from '../../FormRendererFieldTitle';
 
 import { File, FileUploadData, FileUploadResponse } from './FileUpload.types';
 
@@ -81,7 +82,11 @@ const FileUpload: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema, fieldH
 	 */
 	return (
 		<div className={fieldClass}>
-			{label && <label className="a-input__label">{label}</label>}
+			{label && (
+				<FormRendererFieldTitle isRequired={config.required} className="u-margin-bottom-xs">
+					{label}
+				</FormRendererFieldTitle>
+			)}
 			<EditorialFileUpload
 				disabled={config.disabled}
 				id={name}

@@ -5,6 +5,7 @@ import React, { ChangeEvent, useMemo } from 'react';
 
 import { InputFieldProps } from '../../../services/fieldRegistry/fieldRegistry.types';
 import ErrorMessage from '../../ErrorMessage/ErrorMessage';
+import { FormRendererFieldTitle } from '../../FormRendererFieldTitle';
 import Datepicker from '../Datepicker/Datepicker';
 import Time from '../Time/Time';
 
@@ -45,7 +46,11 @@ const DateTimepicker: React.FC<InputFieldProps> = ({
 
 	return (
 		<>
-			{fieldSchema.label && <h6 className="u-margin-bottom">{fieldSchema.label}</h6>}
+			{fieldSchema.label && (
+				<FormRendererFieldTitle isRequired={config.required} className="u-margin-bottom-xs">
+					{fieldSchema.label}
+				</FormRendererFieldTitle>
+			)}
 			{config.description && <p className="u-margin-bottom">{config.description}</p>}
 			<div className="row">
 				<div className="col-lg-6">

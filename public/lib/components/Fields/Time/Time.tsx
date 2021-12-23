@@ -4,6 +4,7 @@ import React, { useMemo } from 'react';
 
 import { InputFieldProps } from '../../../services/fieldRegistry/fieldRegistry.types';
 import ErrorMessage from '../../ErrorMessage/ErrorMessage';
+import { FormRendererFieldTitle } from '../../FormRendererFieldTitle';
 
 const Time: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }) => {
 	const { config = {}, label = '' } = fieldSchema;
@@ -42,7 +43,9 @@ const Time: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }) => {
 	return (
 		<>
 			{trimmedLabel && trimmedLabel !== '' && (
-				<h6 className="u-margin-bottom">{fieldSchema.label}</h6>
+				<FormRendererFieldTitle isRequired={config.required} className="u-margin-bottom-xs">
+					{fieldSchema.label}
+				</FormRendererFieldTitle>
 			)}
 			{config.description && <p className="u-margin-bottom">{config.description}</p>}
 			<Timepicker

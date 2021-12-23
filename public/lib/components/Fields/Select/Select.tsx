@@ -7,6 +7,7 @@ import useFieldRendererContext from '../../../hooks/useFieldRendererContext/useF
 import { InputFieldProps } from '../../../services/fieldRegistry';
 import { filterAllowedOptions } from '../../../utils';
 import { ErrorMessage } from '../../ErrorMessage';
+import { FormRendererFieldTitle } from '../../FormRendererFieldTitle';
 import { DEFAULT_FIELD_CONFIG_PROPS } from '../Fields.const';
 
 const InputSelect: FC<InputFieldProps> = ({
@@ -54,9 +55,14 @@ const InputSelect: FC<InputFieldProps> = ({
 		<>
 			{showField && (
 				<div className="a-input">
+					<FormRendererFieldTitle
+						isRequired={config.required}
+						className="u-margin-bottom-xs"
+					>
+						{label}
+					</FormRendererFieldTitle>
 					<Select
 						id={name}
-						label={label}
 						options={options}
 						value={value}
 						{...omit(['value'])(field)}

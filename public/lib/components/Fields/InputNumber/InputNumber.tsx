@@ -5,6 +5,7 @@ import React, { useMemo } from 'react';
 
 import { InputFieldProps } from '../../../services/fieldRegistry';
 import { ErrorMessage } from '../../ErrorMessage';
+import { FormRendererFieldTitle } from '../../FormRendererFieldTitle';
 import { DEFAULT_FIELD_CONFIG_PROPS } from '../Fields.const';
 
 const InputNumber: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }: InputFieldProps) => {
@@ -46,10 +47,12 @@ const InputNumber: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }: Inp
 
 	return (
 		<>
+			<FormRendererFieldTitle isRequired={config.required} className="u-margin-bottom-xs">
+				{fieldSchema.label}
+			</FormRendererFieldTitle>
 			<TextField
 				id={fieldSchema.name}
 				state={state}
-				label={fieldSchema.label}
 				type="number"
 				{...field}
 				{...fieldConfigProps}

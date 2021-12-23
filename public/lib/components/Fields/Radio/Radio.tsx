@@ -6,6 +6,7 @@ import { useSelectFirstOptionWhenHidden } from '../../../hooks';
 import { InputFieldProps } from '../../../services/fieldRegistry';
 import { filterAllowedOptions } from '../../../utils';
 import { ErrorMessage } from '../../ErrorMessage';
+import { FormRendererFieldTitle } from '../../FormRendererFieldTitle';
 import { DEFAULT_FIELD_CONFIG_PROPS } from '../Fields.const';
 
 const InputRadio: FC<InputFieldProps> = ({
@@ -41,13 +42,13 @@ const InputRadio: FC<InputFieldProps> = ({
 		<>
 			{showField && (
 				<>
-					<RadioGroup
-						id={name}
-						label={label}
-						options={options}
-						{...field}
-						{...fieldConfigProps}
-					/>
+					<FormRendererFieldTitle
+						isRequired={config.required}
+						className="u-margin-bottom-xs"
+					>
+						{label}
+					</FormRendererFieldTitle>
+					<RadioGroup id={name} options={options} {...field} {...fieldConfigProps} />
 					<ErrorMessage name={field.name} />
 				</>
 			)}

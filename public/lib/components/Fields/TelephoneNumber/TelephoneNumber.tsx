@@ -6,6 +6,7 @@ import React, { useMemo } from 'react';
 
 import { InputFieldProps } from '../../../services/fieldRegistry';
 import { ErrorMessage } from '../../ErrorMessage';
+import { FormRendererFieldTitle } from '../../FormRendererFieldTitle';
 import { DEFAULT_FIELD_CONFIG_PROPS } from '../Fields.const';
 
 import { TelephoneNumberOutput } from './TelephoneNumber.types';
@@ -52,10 +53,12 @@ const TelephoneNumber: React.FC<InputFieldProps> = ({
 
 	return (
 		<>
+			<FormRendererFieldTitle isRequired={config.required} className="u-margin-bottom-xs">
+				{fieldSchema.label}
+			</FormRendererFieldTitle>
 			<AUITelephoneNumber
 				id={fieldSchema.name}
 				state={state}
-				label={fieldSchema.label}
 				onChange={changeHandler}
 				value={field.value}
 				{...fieldConfigProps}
