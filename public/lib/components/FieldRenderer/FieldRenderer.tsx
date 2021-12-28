@@ -62,7 +62,7 @@ const FieldRenderer: React.FC<FieldRendererProps> = ({
 			return;
 		}
 
-		if (!!value && typeof value !== fieldSchema.dataType) {
+		if (!!value && !Array.isArray(value) && typeof value !== fieldSchema.dataType) {
 			const newValue = fieldSchema.defaultValue
 				? fieldSchema.defaultValue &&
 				  typeof fieldSchema.defaultValue === fieldSchema.dataType
