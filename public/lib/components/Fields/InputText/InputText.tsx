@@ -6,6 +6,7 @@ import React, { useEffect, useMemo } from 'react';
 import { useFieldRendererContext } from '../../../hooks';
 import { InputFieldProps } from '../../../services/fieldRegistry';
 import { ErrorMessage } from '../../ErrorMessage';
+import { FormRendererFieldInfo } from '../../FormRendererFieldInfo';
 import { FormRendererFieldTitle } from '../../FormRendererFieldTitle';
 import { DEFAULT_FIELD_CONFIG_PROPS } from '../Fields.const';
 
@@ -63,8 +64,14 @@ const InputText: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }: Input
 			<FormRendererFieldTitle isRequired={config.required} className="u-margin-bottom-xs">
 				{fieldSchema.label}
 			</FormRendererFieldTitle>
-			<TextField id={fieldSchema.name} state={state} {...field} {...fieldConfigProps} />
+			<TextField
+				id={fieldSchema.name}
+				state={state}
+				{...field}
+				{...fieldConfigProps}
+			/>
 			<ErrorMessage name={field.name} />
+			{config.fieldInfo && <FormRendererFieldInfo content={config.fieldInfo} />}
 		</>
 	);
 };
