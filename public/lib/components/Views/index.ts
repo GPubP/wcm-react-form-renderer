@@ -9,6 +9,5 @@ export * from './DateTime';
 export * from './Time';
 export * from './FileUploadPreset';
 export * from './TelephoneNumber';
-export * from './VideoEmbed';
-export * from './AudioEmbed';
+export * from './MediaEmbed';
 export * from './TimePeriods';

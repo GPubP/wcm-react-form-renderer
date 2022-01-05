@@ -1,19 +1,17 @@
 import { FieldConfig } from '../../services/fieldRegistry';
 import {
-	AudioEmbedView,
 	DateTimeView,
 	DateView,
 	DynamicRepeaterView,
 	EmailView,
 	FieldGroupView,
+	MediaEmbedView,
 	RepeaterView,
 	TelephoneNumberView,
 	TimePeriodsView,
 	TimeView,
-	VideoEmbedView,
 } from '../Views';
 
-import { AudioEmbed } from './AudioEmbed';
 import { CheckboxList } from './CheckBoxList';
 import { InputCheckbox } from './Checkbox';
 import { DateTimepicker } from './DateTime';
@@ -24,6 +22,7 @@ import { FileUpload } from './FileUpload';
 import { Hidden } from './Hidden';
 import { InputNumber } from './InputNumber';
 import { InputText } from './InputText';
+import { MediaEmbed } from './MediaEmbed';
 import { InputRadio } from './Radio';
 import { Repeater } from './Repeater';
 import { InputSelect } from './Select';
@@ -32,7 +31,6 @@ import { InputTextarea } from './TextArea';
 import { Time } from './Time';
 import { TimePeriods } from './TimePeriods';
 import { TimePeriodsRepeater } from './TimePeriodsRepeater';
-import { VideoEmbed } from './VideoEmbed';
 
 const DefaultFields: FieldConfig[] = [
 	{
@@ -146,12 +144,6 @@ const DefaultFields: FieldConfig[] = [
 		viewComponent: TelephoneNumberView,
 	},
 	{
-		name: 'videoEmbed',
-		module: 'core',
-		component: VideoEmbed,
-		viewComponent: VideoEmbedView,
-	},
-	{
 		name: 'timePeriods',
 		module: 'core',
 		component: TimePeriods,
@@ -159,10 +151,10 @@ const DefaultFields: FieldConfig[] = [
 		repeaterComponent: TimePeriodsRepeater,
 	},
 	{
-		name: 'audioEmbed',
+		name: 'mediaEmbed',
 		module: 'core',
-		component: AudioEmbed,
-		viewComponent: AudioEmbedView,
+		component: MediaEmbed,
+		viewComponent: MediaEmbedView,
 	},
 ];
 
