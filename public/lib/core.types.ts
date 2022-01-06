@@ -5,7 +5,7 @@ import { CompareViewProps } from './components/CompareView';
 import { AllowedHeader, FormProps } from './components/Form';
 import { FormRendererFieldTitleProps } from './components/FormRendererFieldTitle/FormRendererFieldTitle.types';
 import { ViewProps } from './components/View';
-import { FieldRendererContext } from './context';
+import { FieldRendererContext, FormContext } from './context';
 import { getValueSyncMap } from './helpers/getValueSyncMap';
 import { parseFields } from './helpers/parseFields';
 import { useFieldRendererContext, useFormContext, useSelectFirstOptionWhenHidden } from './hooks';
@@ -137,6 +137,7 @@ export interface FormsAPI {
 	useFieldRendererContext: typeof useFieldRendererContext;
 	useFormContext: typeof useFormContext;
 	FieldRendererContext: typeof FieldRendererContext;
+	FormContext: typeof FormContext;
 	FormRendererFieldTitle: React.FC<FormRendererFieldTitleProps>;
 	DEFAULT_ALLOWED_HEADERS: readonly AllowedHeader[];
 	DEFAULT_FIELD_CONFIG_PROPS: string[];
