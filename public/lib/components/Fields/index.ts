@@ -5,11 +5,11 @@ import {
 	DynamicRepeaterView,
 	EmailView,
 	FieldGroupView,
+	MediaEmbedView,
 	RepeaterView,
 	TelephoneNumberView,
 	TimePeriodsView,
 	TimeView,
-	VideoEmbedView,
 } from '../Views';
 
 import { CheckboxList } from './CheckBoxList';
@@ -23,6 +23,7 @@ import { Hidden } from './Hidden';
 import { InputNumber } from './InputNumber';
 import { InputText } from './InputText';
 import { KeyValueRepeater } from './KeyValueRepeater';
+import { MediaEmbed } from './MediaEmbed';
 import { InputRadio } from './Radio';
 import { Repeater } from './Repeater';
 import { InputSelect } from './Select';
@@ -31,7 +32,6 @@ import { InputTextarea } from './TextArea';
 import { Time } from './Time';
 import { TimePeriods } from './TimePeriods';
 import { TimePeriodsRepeater } from './TimePeriodsRepeater';
-import { VideoEmbed } from './VideoEmbed';
 
 const DefaultFields: FieldConfig[] = [
 	{
@@ -151,17 +151,17 @@ const DefaultFields: FieldConfig[] = [
 		viewComponent: TelephoneNumberView,
 	},
 	{
-		name: 'videoEmbed',
-		module: 'core',
-		component: VideoEmbed,
-		viewComponent: VideoEmbedView,
-	},
-	{
 		name: 'timePeriods',
 		module: 'core',
 		component: TimePeriods,
 		viewComponent: TimePeriodsView,
 		repeaterComponent: TimePeriodsRepeater,
+	},
+	{
+		name: 'mediaEmbed',
+		module: 'core',
+		component: MediaEmbed,
+		viewComponent: MediaEmbedView,
 	},
 ];
 

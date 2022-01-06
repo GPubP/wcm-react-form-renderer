@@ -1,4 +1,4 @@
-import { VIDEO_EMBED_PROVIDERS } from './VideoEmbed.const';
+import { MediaProvider } from './MediaEmbed.types';
 
 export const getUrlMatches = (url: string, pattern: RegExp): string[] | null => {
 	// 1. Try to match without stripping the protocol and "www" subdomain.
@@ -27,15 +27,15 @@ export const getUrlMatches = (url: string, pattern: RegExp): string[] | null => 
 	return null;
 };
 
-export const getProviderUrl = (url: string): string | undefined => {
+export const getProviderUrl = (url: string, providers: MediaProvider[]): string | undefined => {
 	const trimmedUrl = url.trim();
 
-	for (const provider of VIDEO_EMBED_PROVIDERS) {
+	for (const provider of providers) {
 		for (const regex of provider.pattern) {
-			const match = getUrlMatches(trimmedUrl, regex);
+			const match = getUrlMatches(trimmedUrl, new RegExp(regex));
 
 			if (match) {
-				return provider.url(match[1]);
+				return provider.url.replace('${id}', match[1]);
 			}
 		}
 	}
