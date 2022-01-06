@@ -100,14 +100,10 @@ describe('<Form />', () => {
 				lastname: 'Doe',
 			},
 		};
-		const { getByLabelText } = renderForm(formProps);
+		const { getByDisplayValue } = renderForm(formProps);
 
-		expect(getByLabelText(formProps.schema.fields[0].label).getAttribute('value')).toBe(
-			formProps.initialValues.name
-		);
-		expect(getByLabelText(formProps.schema.fields[1].label).getAttribute('value')).toBe(
-			formProps.initialValues.lastname
-		);
+		expect(getByDisplayValue(formProps.initialValues.name)).toBeDefined();
+		expect(getByDisplayValue(formProps.initialValues.lastname)).toBeDefined();
 	});
 
 	it('should get access to the formik instance when using the formikRef function', () => {

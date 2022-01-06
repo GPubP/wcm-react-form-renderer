@@ -22,6 +22,7 @@ import { FileUpload } from './FileUpload';
 import { Hidden } from './Hidden';
 import { InputNumber } from './InputNumber';
 import { InputText } from './InputText';
+import { KeyValueRepeater } from './KeyValueRepeater';
 import { MediaEmbed } from './MediaEmbed';
 import { InputRadio } from './Radio';
 import { Repeater } from './Repeater';
@@ -118,6 +119,12 @@ const DefaultFields: FieldConfig[] = [
 		module: 'core',
 		component: Fieldgroup,
 		viewComponent: FieldGroupView,
+	},
+	{
+		name: 'keyValueRepeater',
+		module: 'core',
+		component: () => null,
+		repeaterComponent: KeyValueRepeater,
 	},
 	{
 		name: 'repeater',

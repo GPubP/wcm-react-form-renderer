@@ -4,6 +4,7 @@ import {
 	FileUploadMessage,
 } from '@acpaas-ui/react-editorial-components';
 import Core from '@redactie/redactie-core';
+import { useSiteContext } from '@redactie/utils';
 import classNames from 'classnames';
 import { FieldHelperProps } from 'formik';
 import React, { useEffect, useState } from 'react';
@@ -11,6 +12,7 @@ import React, { useEffect, useState } from 'react';
 import { parseAllowedFileTypes } from '../../../helpers';
 import { InputFieldProps } from '../../../services/fieldRegistry';
 import { ErrorMessage } from '../../ErrorMessage';
+import { FormRendererFieldTitle } from '../../FormRendererFieldTitle';
 
 import { File, FileUploadData, FileUploadResponse } from './FileUpload.types';
 
@@ -18,13 +20,17 @@ const FileUpload: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema, fieldH
 	const { name, label, config = {} } = fieldSchema;
 	const { field } = fieldProps;
 	const coreConfig = Core.config.getValue('core') ?? {};
+	const { siteId } = useSiteContext();
 
 	const allowedFileTypes = parseAllowedFileTypes(config.allowedFileTypes);
 	const uploadFieldOptions = {
 		allowedMimeTypes: config.allowedMimeTypes ?? [],
 		allowedFileTypes: allowedFileTypes ?? [],
 		maxFileSize: config.maxFileSize ?? 0,
-		url: config.url ?? '/v1/proxy/admin/assets/v1/files',
+		url:
+			config.url ?? siteId
+				? `/v1/proxy/admin/assets/v1/sites/${siteId}/files`
+				: `/v1/proxy/admin/assets/v1/files`,
 		requestHeader: {
 			key: 'x-tenant-id',
 			value: coreConfig.tenantId,
@@ -81,7 +87,11 @@ const FileUpload: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema, fieldH
 	 */
 	return (
 		<div className={fieldClass}>
-			{label && <label className="a-input__label">{label}</label>}
+			{label && (
+				<FormRendererFieldTitle isRequired={config.required} className="u-margin-bottom-xs">
+					{label}
+				</FormRendererFieldTitle>
+			)}
 			<EditorialFileUpload
 				disabled={config.disabled}
 				id={name}

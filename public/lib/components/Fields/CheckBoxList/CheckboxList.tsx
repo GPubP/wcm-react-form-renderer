@@ -7,6 +7,7 @@ import { useSelectFirstOptionWhenHidden } from '../../../hooks';
 import { InputFieldProps } from '../../../services/fieldRegistry';
 import { filterAllowedOptions } from '../../../utils';
 import { ErrorMessage } from '../../ErrorMessage';
+import { FormRendererFieldTitle } from '../../FormRendererFieldTitle';
 
 const CheckboxList: FC<InputFieldProps> = ({ fieldProps, fieldSchema, fieldHelperProps }) => {
 	const {
@@ -37,7 +38,14 @@ const CheckboxList: FC<InputFieldProps> = ({ fieldProps, fieldSchema, fieldHelpe
 			{showField && (
 				<div className="a-input">
 					<div className={labelClass}>
-						{label && <label className="a-input__label">{label}</label>}
+						{label && (
+							<FormRendererFieldTitle
+								isRequired={config.required}
+								className="u-margin-bottom-xs"
+							>
+								{label}
+							</FormRendererFieldTitle>
+						)}
 					</div>
 					<FieldArray
 						name={name}

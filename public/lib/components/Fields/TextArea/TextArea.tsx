@@ -4,6 +4,7 @@ import React, { useMemo } from 'react';
 
 import { InputFieldProps } from '../../../services/fieldRegistry';
 import { ErrorMessage } from '../../ErrorMessage';
+import { FormRendererFieldTitle } from '../../FormRendererFieldTitle';
 import { DEFAULT_FIELD_CONFIG_PROPS } from '../Fields.const';
 
 const InputTextarea: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }: InputFieldProps) => {
@@ -17,12 +18,10 @@ const InputTextarea: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }: I
 
 	return (
 		<div className="a-input">
-			<Textarea
-				id={fieldSchema.name}
-				label={fieldSchema.label}
-				{...field}
-				{...fieldConfigProps}
-			/>
+			<FormRendererFieldTitle isRequired={config.required} className="u-margin-bottom-xs">
+				{fieldSchema.label}
+			</FormRendererFieldTitle>
+			<Textarea id={fieldSchema.name} {...field} {...fieldConfigProps} />
 			{config.description && <small>{config.description}</small>}
 			<ErrorMessage name={field.name} />
 		</div>

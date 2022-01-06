@@ -1,7 +1,8 @@
-import { InputLabel } from '@acpaas-ui/react-components';
 import classnames from 'classnames/bind';
 import { FieldArray } from 'formik';
 import React, { ChangeEvent } from 'react';
+
+import { FormRendererFieldTitle } from '../../../FormRendererFieldTitle';
 
 import styles from './WeekDayMultiSelect.module.scss';
 import { WeekDayMultiSelectProps } from './WeekDayMultiSelect.types';
@@ -21,7 +22,11 @@ const WeekDayMultiSelect: React.FC<WeekDayMultiSelectProps> = ({
 	});
 	return (
 		<div className={inputClassNames}>
-			{label && <InputLabel>{label}</InputLabel>}
+			{label && (
+				<FormRendererFieldTitle isRequired={required} className="u-margin-bottom-xs">
+					{label}
+				</FormRendererFieldTitle>
+			)}
 			<div className={cx('weekday-multiselect__wrapper')}>
 				<FieldArray name={name}>
 					{arrayHelpers =>
