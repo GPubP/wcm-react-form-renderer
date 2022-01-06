@@ -1,4 +1,4 @@
-import { omit } from 'ramda';
+import { omit, pathOr } from 'ramda';
 
 import {
 	ContentTypeFieldSchema,
@@ -6,6 +6,9 @@ import {
 	FieldType,
 	Preset,
 	PresetDetail,
+	ValicationCheckWithAllowedFields,
+	ValicationCheckWithFields,
+	ValidationCheck,
 } from '../../core.types';
 
 import { ParseFieldsOptions } from './parseFields.types';
@@ -52,6 +55,23 @@ const getRepeaterComponentName = (
 	}
 };
 
+/**
+ * Return the mask value
+ * The mask is used to put a mask on a text field
+ */
+const getMaskValidator = (
+	checks: (ValidationCheck | ValicationCheckWithFields | ValicationCheckWithAllowedFields)[]
+): string | undefined => {
+	const result: { [key: string]: string } = {};
+	checks.forEach(e => {
+		const key = pathOr(null, ['key'])(e);
+		if (key) {
+			result[key] = pathOr('', ['val'])(e);
+		}
+	});
+	return result['mask'];
+};
+
 export const parseFields = (
 	fields: ContentTypeFieldSchema[] = [],
 	options?: ParseFieldsOptions
@@ -90,6 +110,7 @@ export const parseFields = (
 			preset,
 			uuid,
 			defaultValue,
+			validation,
 		} = field;
 
 		const isMultiple = (generalConfig.max || 0) > 1;
@@ -124,6 +145,7 @@ export const parseFields = (
 				preset: preset as Preset,
 				fieldType,
 				dataType,
+				mask: validation && getMaskValidator(validation?.checks),
 			},
 			defaultValue,
 			valueSync: parseOptions?.valueSyncMap
