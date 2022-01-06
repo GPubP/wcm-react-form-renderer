@@ -12,7 +12,7 @@ export const csvToArray = (
 			if (values.length !== 2 || !values[0] || !values[1]) {
 				return {
 					...acc,
-					warning: 'Onjuiste CSV ingegeven.',
+					warning: 'Ongeldige CSV',
 				};
 			}
 

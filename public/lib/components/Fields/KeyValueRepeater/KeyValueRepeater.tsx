@@ -281,7 +281,7 @@ const KeyValueRepeater: React.FC<RepeaterProps> = ({ fieldSchema }) => {
 									)}
 									{renderArrayElements(arrayHelper, value)}
 									{value.length < max ? (
-										<div className="u-margin-top-xs u-flex u-flex-column">
+										<div className="u-margin-top-xs u-flex u-flex-row">
 											<Link
 												onClick={() => addItem(arrayHelper)}
 												disabled={disabled}
@@ -296,7 +296,7 @@ const KeyValueRepeater: React.FC<RepeaterProps> = ({ fieldSchema }) => {
 												className={cx(
 													'has-icon-left',
 													'repeater__link',
-													'u-margin-top'
+													'u-margin-left'
 												)}
 											>
 												<span className="fa fa-plus" aria-hidden="true" />

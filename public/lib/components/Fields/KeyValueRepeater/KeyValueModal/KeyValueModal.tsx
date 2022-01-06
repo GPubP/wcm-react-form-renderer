@@ -28,12 +28,16 @@ const KeyValuePairsModal: React.FC<KeyValuePairsModalProps> = ({
 	valueCopy,
 }) => {
 	const [t] = useCoreTranslation();
-	const [initialValues, setInitialValues] = useState<{ csv: string }>({ csv: '' });
 	const [keyValuePairs, setKeyValuePairs] = useState<SelectOption[]>([]);
 	const [warning, setWarning] = useState<string>('');
 
 	const handleChange = (values: FormikValues): void => {
 		setWarning('');
+
+		if (!values.csv) {
+			return;
+		}
+
 		const res = csvToArray(values.csv);
 
 		if (res.warning) {
@@ -52,22 +56,21 @@ const KeyValuePairsModal: React.FC<KeyValuePairsModalProps> = ({
 	const debouncedChange = debounce(handleChange, 500);
 
 	const handleSubmit = (): void => {
-		setInitialValues({ csv: '' });
 		setKeyValuePairs([]);
 		onSubmit(keyValuePairs);
 	};
 
 	return (
 		<ControlledModal className={cx('o-key-value-modal')} show={show} size="large">
-			<div className={cx('o-key-value-modal__body')}>
-				<div className="u-margin-top u-margin-left u-margin-right">
-					<h3>Opties toevoegen</h3>
-				</div>
-				<Formik initialValues={initialValues} enableReinitialize onSubmit={debouncedChange}>
-					{() => {
-						return (
-							<>
-								<FormikOnChangeHandler onChange={debouncedChange} />
+			<Formik initialValues={{ csv: '' }} enableReinitialize onSubmit={debouncedChange}>
+				{({ setFieldValue }) => {
+					return (
+						<>
+							<FormikOnChangeHandler onChange={debouncedChange} />
+							<div className={cx('o-key-value-modal__body')}>
+								<div className="u-margin-top u-margin-left u-margin-right">
+									<h3>Opties toevoegen</h3>
+								</div>
 								<div className="u-margin">
 									<div className="row">
 										<div className="col-xs-12">
@@ -123,23 +126,35 @@ const KeyValuePairsModal: React.FC<KeyValuePairsModalProps> = ({
 										</div>
 									)}
 								</div>
-							</>
-						);
-					}}
-				</Formik>
-			</div>
-			<ActionBar disablePortal isOpen>
-				<ActionBarContentSection>
-					<div className="u-text-right">
-						<Button className="u-margin-right" negative onClick={() => onCancel()}>
-							{t(CORE_TRANSLATIONS.BUTTON_CANCEL)}
-						</Button>
-						<Button onClick={handleSubmit} disabled={!!warning}>
-							{t(CORE_TRANSLATIONS.BUTTON_ADD)}
-						</Button>
-					</div>
-				</ActionBarContentSection>
-			</ActionBar>
+							</div>
+							<div className={cx('o-key-value-modal__actions')}>
+								<ActionBar disablePortal isOpen>
+									<ActionBarContentSection>
+										<div className="u-text-right">
+											<Button
+												className="u-margin-right"
+												negative
+												onClick={() => onCancel()}
+											>
+												{t(CORE_TRANSLATIONS.BUTTON_CANCEL)}
+											</Button>
+											<Button
+												onClick={() => {
+													setFieldValue('csv', '');
+													handleSubmit();
+												}}
+												disabled={!!warning}
+											>
+												{t(CORE_TRANSLATIONS.BUTTON_ADD)}
+											</Button>
+										</div>
+									</ActionBarContentSection>
+								</ActionBar>
+							</div>
+						</>
+					);
+				}}
+			</Formik>
 		</ControlledModal>
 	);
 };
