@@ -4,7 +4,6 @@ import React, { FC, useMemo } from 'react';
 
 import { InputFieldProps } from '../../../services/fieldRegistry';
 import { ErrorMessage } from '../../ErrorMessage';
-import { FormRendererFieldTitle } from '../../FormRendererFieldTitle';
 import { DEFAULT_FIELD_CONFIG_PROPS } from '../Fields.const';
 
 const InputCheckbox: FC<InputFieldProps> = ({ fieldSchema, fieldProps, fieldHelperProps }) => {
@@ -16,12 +15,10 @@ const InputCheckbox: FC<InputFieldProps> = ({ fieldSchema, fieldProps, fieldHelp
 
 	return (
 		<div className="a-input">
-			<FormRendererFieldTitle isRequired={config.required} className="u-margin-bottom-xs">
-				{label}
-			</FormRendererFieldTitle>
 			<Checkbox
 				id={name}
 				name={name}
+				label={label}
 				checked={field.value}
 				onChange={() => fieldHelperProps.setValue(!field.value)}
 				{...fieldConfigProps}
