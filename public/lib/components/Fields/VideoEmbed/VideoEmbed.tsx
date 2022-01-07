@@ -5,6 +5,7 @@ import React, { FC, useMemo } from 'react';
 
 import { InputFieldProps } from '../../../services/fieldRegistry';
 import { ErrorMessage } from '../../ErrorMessage';
+import { FormRendererFieldTitle } from '../../FormRendererFieldTitle';
 import { VideoIFrame } from '../../VideoIFrame';
 import { DEFAULT_FIELD_CONFIG_PROPS } from '../Fields.const';
 
@@ -39,11 +40,18 @@ const VideoEmbed: FC<InputFieldProps> = ({ fieldSchema, fieldProps }) => {
 	return (
 		<div className={cx('m-video-embed')}>
 			<div className="a-input">
+				{label && (
+					<FormRendererFieldTitle
+						isRequired={config.required}
+						className="u-margin-bottom-xs"
+					>
+						{label}
+					</FormRendererFieldTitle>
+				)}
 				<TextField
 					addonleft="https://"
 					id={name}
 					state={state}
-					label={label}
 					{...field}
 					{...fieldConfigProps}
 				/>
