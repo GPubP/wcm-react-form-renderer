@@ -6,10 +6,10 @@ import { ErrorMessage } from './lib/components/ErrorMessage';
 import { DEFAULT_FIELD_CONFIG_PROPS } from './lib/components/Fields/Fields.const';
 import { Form } from './lib/components/Form';
 import { DEFAULT_ALLOWED_HEADERS } from './lib/components/Form/Form.const';
-import { FormRendererFieldTitle } from './lib/components/FormRendererFieldTitle';
 import { FormRendererFieldInfo } from './lib/components/FormRendererFieldInfo';
+import { FormRendererFieldTitle } from './lib/components/FormRendererFieldTitle';
 import { View } from './lib/components/View';
-import { FieldRendererContext } from './lib/context';
+import { FieldRendererContext, FormContext } from './lib/context';
 import { getValueSyncMap, parseFields } from './lib/helpers';
 import {
 	useFieldRendererContext,
@@ -35,6 +35,7 @@ Core.modules.exposeModuleApi('forms-module', {
 	useFieldRendererContext,
 	useFormContext,
 	FieldRendererContext,
+	FormContext,
 	FormRendererFieldTitle,
 	FormRendererFieldInfo,
 	DEFAULT_ALLOWED_HEADERS,
