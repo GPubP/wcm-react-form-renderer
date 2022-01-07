@@ -6,6 +6,7 @@ import { ErrorMessage } from './lib/components/ErrorMessage';
 import { DEFAULT_FIELD_CONFIG_PROPS } from './lib/components/Fields/Fields.const';
 import { Form } from './lib/components/Form';
 import { DEFAULT_ALLOWED_HEADERS } from './lib/components/Form/Form.const';
+import { FormRendererFieldInfo } from './lib/components/FormRendererFieldInfo';
 import { FormRendererFieldTitle } from './lib/components/FormRendererFieldTitle';
 import { View } from './lib/components/View';
 import { FieldRendererContext, FormContext } from './lib/context';
@@ -36,6 +37,7 @@ Core.modules.exposeModuleApi('forms-module', {
 	FieldRendererContext,
 	FormContext,
 	FormRendererFieldTitle,
+	FormRendererFieldInfo,
 	DEFAULT_ALLOWED_HEADERS,
 	DEFAULT_FIELD_CONFIG_PROPS,
 	useSelectFirstOptionWhenHidden,

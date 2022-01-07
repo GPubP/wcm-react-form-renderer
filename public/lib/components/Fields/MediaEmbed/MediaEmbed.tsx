@@ -1,20 +1,20 @@
 import { TextField } from '@acpaas-ui/react-components';
 import classnames from 'classnames/bind';
-import { pick } from 'ramda';
+import { pathOr, pick } from 'ramda';
 import React, { FC, useMemo } from 'react';
 
 import { InputFieldProps } from '../../../services/fieldRegistry';
 import { ErrorMessage } from '../../ErrorMessage';
 import { FormRendererFieldTitle } from '../../FormRendererFieldTitle';
-import { VideoIFrame } from '../../VideoIFrame';
+import { MediaIFrame } from '../../MediaIFrame';
 import { DEFAULT_FIELD_CONFIG_PROPS } from '../Fields.const';
 
-import { getProviderUrl } from './VideoEmbed.helpers';
-import styles from './VideoEmbed.module.scss';
+import { getProviderUrl } from './MediaEmbed.helpers';
+import styles from './MediaEmbed.module.scss';
 
 const cx = classnames.bind(styles);
 
-const VideoEmbed: FC<InputFieldProps> = ({ fieldSchema, fieldProps }) => {
+const MediaEmbed: FC<InputFieldProps> = ({ fieldSchema, fieldProps }) => {
 	const { config = {}, name, label } = fieldSchema;
 	const { field, meta } = fieldProps;
 
@@ -24,12 +24,17 @@ const VideoEmbed: FC<InputFieldProps> = ({ fieldSchema, fieldProps }) => {
 	 * Hooks
 	 */
 
+	const providers = useMemo(() => {
+		return pathOr([], ['fieldType', 'data', 'config', 'providers'], config);
+	}, [config]);
+
 	const iframeSrc = useMemo(() => {
 		if (!field.value || typeof field.value !== 'string') {
 			return null;
 		}
-		return getProviderUrl(field.value);
-	}, [field.value]);
+
+		return getProviderUrl(field.value, providers);
+	}, [field.value, providers]);
 	// Pick only the known properties from the config object
 	const fieldConfigProps = useMemo(() => pick(DEFAULT_FIELD_CONFIG_PROPS, config), [config]);
 
@@ -38,7 +43,7 @@ const VideoEmbed: FC<InputFieldProps> = ({ fieldSchema, fieldProps }) => {
 	 */
 
 	return (
-		<div className={cx('m-video-embed')}>
+		<div className={cx('m-media-embed')}>
 			<div className="a-input">
 				{label && (
 					<FormRendererFieldTitle
@@ -48,19 +53,13 @@ const VideoEmbed: FC<InputFieldProps> = ({ fieldSchema, fieldProps }) => {
 						{label}
 					</FormRendererFieldTitle>
 				)}
-				<TextField
-					addonleft="https://"
-					id={name}
-					state={state}
-					{...field}
-					{...fieldConfigProps}
-				/>
+				<TextField id={name} state={state} {...field} {...fieldConfigProps} />
 				<ErrorMessage name={field.name} />
 			</div>
 			{/* Only show iframe when the field value is valid */}
-			{iframeSrc && <VideoIFrame className="u-margin-top" src={iframeSrc} />}
+			{iframeSrc && <MediaIFrame className="u-margin-top" src={iframeSrc} />}
 		</div>
 	);
 };
 
-export default VideoEmbed;
+export default MediaEmbed;
