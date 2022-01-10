@@ -5,6 +5,7 @@ import React, { FC, useMemo } from 'react';
 
 import { InputFieldProps } from '../../../services/fieldRegistry';
 import { ErrorMessage } from '../../ErrorMessage';
+import { FormRendererFieldTitle } from '../../FormRendererFieldTitle';
 import { MediaIFrame } from '../../MediaIFrame';
 import { DEFAULT_FIELD_CONFIG_PROPS } from '../Fields.const';
 
@@ -44,7 +45,15 @@ const MediaEmbed: FC<InputFieldProps> = ({ fieldSchema, fieldProps }) => {
 	return (
 		<div className={cx('m-media-embed')}>
 			<div className="a-input">
-				<TextField id={name} state={state} label={label} {...field} {...fieldConfigProps} />
+				{label && (
+					<FormRendererFieldTitle
+						isRequired={config.required}
+						className="u-margin-bottom-xs"
+					>
+						{label}
+					</FormRendererFieldTitle>
+				)}
+				<TextField id={name} state={state} {...field} {...fieldConfigProps} />
 				<ErrorMessage name={field.name} />
 			</div>
 			{/* Only show iframe when the field value is valid */}
