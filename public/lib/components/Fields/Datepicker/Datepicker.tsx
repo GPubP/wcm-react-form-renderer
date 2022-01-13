@@ -38,9 +38,16 @@ const Datepicker: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }: Inpu
 			)
 		) {
 			setInternalValue(field.value);
+			return;
 		}
 
-		setInternalValue(new Intl.DateTimeFormat('en-GB').format(new Date(field.value)));
+		const dateValue = new Date(field.value);
+
+		if (isNaN(dateValue.getTime())) {
+			return;
+		}
+
+		setInternalValue(new Intl.DateTimeFormat('en-GB').format(dateValue));
 	}, [field.value]);
 
 	return (
