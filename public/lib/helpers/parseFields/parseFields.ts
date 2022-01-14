@@ -145,7 +145,7 @@ export const parseFields = (
 				preset: preset as Preset,
 				fieldType,
 				dataType,
-				mask: validation && getMaskValidator(validation?.checks),
+				mask: config.mask || (validation && getMaskValidator(validation?.checks)),
 			},
 			defaultValue,
 			valueSync: parseOptions?.valueSyncMap
