@@ -63,9 +63,6 @@ const InputSelect: FC<InputFieldProps> = ({
 						{label}
 					</FormRendererFieldTitle>
 					<div className="row u-flex-align-center">
-						{/* <div>
-
-						</div> */}
 						<Select
 							className="col-xs-11"
 							id={name}
