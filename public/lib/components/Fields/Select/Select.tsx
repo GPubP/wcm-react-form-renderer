@@ -1,4 +1,5 @@
 import { Button, Select } from '@acpaas-ui/react-components';
+import classNames from 'classnames/bind';
 import { omit, pick } from 'ramda';
 import React, { FC, useEffect, useMemo } from 'react';
 
@@ -9,6 +10,10 @@ import { filterAllowedOptions } from '../../../utils';
 import { ErrorMessage } from '../../ErrorMessage';
 import { FormRendererFieldTitle } from '../../FormRendererFieldTitle';
 import { DEFAULT_FIELD_CONFIG_PROPS } from '../Fields.const';
+
+import SelectStyles from './Select.module.scss';
+
+const cx = classNames.bind(SelectStyles);
 
 const InputSelect: FC<InputFieldProps> = ({
 	fieldProps,
@@ -64,7 +69,7 @@ const InputSelect: FC<InputFieldProps> = ({
 					</FormRendererFieldTitle>
 					<div className="row u-flex-align-center">
 						<Select
-							className="col-xs-11"
+							className={cx('o-select')}
 							id={name}
 							options={options}
 							value={value}
@@ -73,7 +78,7 @@ const InputSelect: FC<InputFieldProps> = ({
 						/>
 						{config.description && <small>{config.description}</small>}
 						<Button
-							className={''}
+							className="u-margin-left-xs"
 							negative
 							size="small"
 							icon="trash-o"
