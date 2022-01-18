@@ -1,4 +1,4 @@
-import { Select } from '@acpaas-ui/react-components';
+import { Button, Select } from '@acpaas-ui/react-components';
 import { omit, pick } from 'ramda';
 import React, { FC, useEffect, useMemo } from 'react';
 
@@ -26,6 +26,7 @@ const InputSelect: FC<InputFieldProps> = ({
 	const { field } = fieldProps;
 	const value = field.value !== '' ? field.value : undefined;
 	const { renderContext, setWrapperClass } = useFieldRendererContext();
+	const { setValue } = fieldHelperProps;
 
 	/**
 	 * Hooks
@@ -61,14 +62,29 @@ const InputSelect: FC<InputFieldProps> = ({
 					>
 						{label}
 					</FormRendererFieldTitle>
-					<Select
-						id={name}
-						options={options}
-						value={value}
-						{...omit(['value'])(field)}
-						{...fieldConfigProps}
-					/>
-					{config.description && <small>{config.description}</small>}
+					<div className="row u-flex-align-center">
+						{/* <div>
+
+						</div> */}
+						<Select
+							className="col-xs-11"
+							id={name}
+							options={options}
+							value={value}
+							{...omit(['value'])(field)}
+							{...fieldConfigProps}
+						/>
+						{config.description && <small>{config.description}</small>}
+						<Button
+							className={''}
+							negative
+							size="small"
+							icon="trash-o"
+							type="secondary"
+							htmlType="button"
+							onClick={() => setValue(undefined)}
+						/>
+					</div>
 					<ErrorMessage name={field.name} />
 				</div>
 			)}
