@@ -124,7 +124,6 @@ export const parseFields = (
 				preset: preset as Preset,
 				fieldType,
 				dataType,
-				...(config.mask && { mask: config.mask }),
 			},
 			defaultValue,
 			valueSync: parseOptions?.valueSyncMap
