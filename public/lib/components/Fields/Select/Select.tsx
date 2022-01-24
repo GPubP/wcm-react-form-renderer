@@ -60,34 +60,38 @@ const InputSelect: FC<InputFieldProps> = ({
 	return (
 		<>
 			{showField && (
-				<div className="a-input">
-					<FormRendererFieldTitle
-						isRequired={config.required}
-						className="u-margin-bottom-xs"
-					>
-						{label}
-					</FormRendererFieldTitle>
-					<div className="row u-flex-align-center">
-						<Select
-							className={cx('o-select')}
-							id={name}
-							options={options}
-							value={value}
-							{...omit(['value'])(field)}
-							{...fieldConfigProps}
-						/>
-						{config.description && <small>{config.description}</small>}
-						<Button
-							className="u-margin-left-xs"
-							negative
-							size="small"
-							icon="trash-o"
-							type="secondary"
-							htmlType="button"
-							onClick={() => setValue(undefined)}
-						/>
+				<div className="row">
+					<div className="col-xs">
+						<FormRendererFieldTitle
+							isRequired={config.required}
+							className="u-margin-bottom-xs"
+						>
+							{label}
+						</FormRendererFieldTitle>
+						<div className="a-input">
+							<div className="u-flex u-flex-align-center">
+								<Select
+									className={cx('o-select')}
+									id={name}
+									options={options}
+									value={value}
+									{...omit(['value'])(field)}
+									{...fieldConfigProps}
+								/>
+								{config.description && <small>{config.description}</small>}
+								<Button
+									className="u-margin-left-xs"
+									negative
+									size="small"
+									icon="trash-o"
+									type="secondary"
+									htmlType="button"
+									onClick={() => setValue(undefined)}
+								/>
+							</div>
+						</div>
+						<ErrorMessage name={field.name} />
 					</div>
-					<ErrorMessage name={field.name} />
 				</div>
 			)}
 		</>
