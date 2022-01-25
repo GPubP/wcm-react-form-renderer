@@ -16,7 +16,8 @@ const DateView: FC<ViewFieldProps> = ({ fieldSchema, value }) => {
 		return null;
 	}
 
-	const formatDate = moment(value, 'DD/MM/YYYY').format(
+	// incoming date format is YYYY-MM-DD
+	const formatDate = moment(value, 'YYYY-MM-DD').format(
 		DATE_FORMATS[config.dateFormat] || DATE_FORMATS.dayMonthAndYear
 	);
 
