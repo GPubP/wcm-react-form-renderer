@@ -72,7 +72,7 @@ const InputSelect: FC<InputFieldProps> = ({
 							className={cx('o-select')}
 							id={name}
 							options={options}
-							value={value}
+							value={options.find(i => i.value === value)?.value}
 							{...omit(['value'])(field)}
 							{...fieldConfigProps}
 						/>
