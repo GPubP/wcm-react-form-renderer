@@ -52,6 +52,9 @@ const DynamicRepeater: React.FC<DynamicRepeaterProps> = ({ fieldSchema }) => {
 			return {
 				...item,
 				semanticType: field?.name || null,
+				componentType:
+					field?.config?.preset?.data.name || field?.config?.fieldType?.data.name || null,
+				componentName: field?.name || null,
 				type: field?.type || item.type,
 				multiple: field?.config?.max ? field.config.max > 1 : null,
 				value: newValue,
@@ -78,6 +81,9 @@ const DynamicRepeater: React.FC<DynamicRepeaterProps> = ({ fieldSchema }) => {
 			fieldType: item.config?.fieldType?.uuid || (item.config?.fieldType as string),
 			preset: item.config?.preset?.uuid || ((item.config?.preset as unknown) as string),
 			semanticType: item.name || null,
+			componentName: item.name || null,
+			componentType:
+				item.config?.preset?.data.name || item.config?.fieldType?.data.name || null,
 			multiple: item.config?.max ? item.config.max > 1 : null,
 		};
 
