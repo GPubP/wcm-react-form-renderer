@@ -53,9 +53,7 @@ const DynamicRepeater: React.FC<DynamicRepeaterProps> = ({ fieldSchema }) => {
 				...item,
 				semanticType: field?.name || null,
 				componentType:
-					field?.config?.preset?.data.name ||
-					field?.config?.fieldType?.data.componentName ||
-					null,
+					field?.config?.preset?.data.name || field?.config?.fieldType?.data.name || null,
 				componentName: field?.name || null,
 				type: field?.type || item.type,
 				multiple: field?.config?.max ? field.config.max > 1 : null,
@@ -85,9 +83,7 @@ const DynamicRepeater: React.FC<DynamicRepeaterProps> = ({ fieldSchema }) => {
 			semanticType: item.name || null,
 			componentName: item.name || null,
 			componentType:
-				item.config?.preset?.data.name ||
-				item.config?.fieldType?.data.componentName ||
-				null,
+				item.config?.preset?.data.name || item.config?.fieldType?.data.name || null,
 			multiple: item.config?.max ? item.config.max > 1 : null,
 		};
 
