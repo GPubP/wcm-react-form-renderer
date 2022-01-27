@@ -57,6 +57,10 @@ const InputSelect: FC<InputFieldProps> = ({
 		}
 	}, [renderContext.wrapperClass, setWrapperClass, showField]);
 
+	if (field.value && options.findIndex(i => i.value === field.value) === -1) {
+		setValue(undefined);
+	}
+
 	return (
 		<>
 			{showField && (
