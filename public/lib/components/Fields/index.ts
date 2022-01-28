@@ -163,6 +163,12 @@ const DefaultFields: FieldConfig[] = [
 		component: MediaEmbed,
 		viewComponent: MediaEmbedView,
 	},
+	{
+		name: 'videoEmbed',
+		module: 'core',
+		component: MediaEmbed,
+		viewComponent: MediaEmbedView,
+	},
 ];
 
 export {
