@@ -3,6 +3,7 @@ import { getIn } from 'formik';
 import { pick } from 'ramda';
 import React, { useEffect, useMemo, useState } from 'react';
 
+import { isDeprecatedDateFormat } from '../../../helpers';
 import { InputFieldProps } from '../../../services/fieldRegistry';
 import { ErrorMessage } from '../../ErrorMessage';
 import { FormRendererFieldTitle } from '../../FormRendererFieldTitle';
@@ -32,11 +33,7 @@ const Datepicker: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }: Inpu
 			return;
 		}
 
-		if (
-			new RegExp('^(0[1-9]|1[0-9]|2[0-9]|3[0-1])/(0[1-9]|1[0-2])/20[0-9][0-9]$').test(
-				field.value
-			)
-		) {
+		if (isDeprecatedDateFormat(field.value)) {
 			setInternalValue(field.value);
 			return;
 		}
