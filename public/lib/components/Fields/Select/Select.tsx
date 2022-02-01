@@ -83,15 +83,17 @@ const InputSelect: FC<InputFieldProps> = ({
 									{...fieldConfigProps}
 								/>
 								{config.description && <small>{config.description}</small>}
-								<Button
-									className="u-margin-left-xs"
-									negative
-									size="small"
-									icon="trash-o"
-									type="secondary"
-									htmlType="button"
-									onClick={() => setValue(undefined)}
-								/>
+								{!config.required && (
+									<Button
+										className="u-margin-left-xs"
+										negative
+										size="small"
+										icon="trash-o"
+										type="secondary"
+										htmlType="button"
+										onClick={() => setValue(undefined)}
+									/>
+								)}
 							</div>
 						</div>
 						<ErrorMessage name={field.name} />
