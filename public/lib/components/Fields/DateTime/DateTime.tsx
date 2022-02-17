@@ -3,6 +3,7 @@ import classNames from 'classnames/bind';
 import { omit } from 'ramda';
 import React, { ChangeEvent, useMemo } from 'react';
 
+import { FieldSchema } from '../../../core.types';
 import { InputFieldProps } from '../../../services/fieldRegistry/fieldRegistry.types';
 import ErrorMessage from '../../ErrorMessage/ErrorMessage';
 import { FormRendererFieldTitle } from '../../FormRendererFieldTitle';
@@ -103,16 +104,18 @@ const DateTimepicker: React.FC<InputFieldProps> = ({
 								fieldHelperProps={fieldHelperProps}
 							/>
 						</div>
-						<Button
-							className={cx('o-datetime__clear')}
-							negative
-							size="small"
-							icon="trash-o"
-							ariaLabel="Reset datetime"
-							type="secondary"
-							htmlType="button"
-							onClick={() => setValue(null)}
-						/>
+						{!fieldSchema.config?.disabled && (
+							<Button
+								className={cx('o-datetime__clear')}
+								negative
+								size="small"
+								icon="trash-o"
+								ariaLabel="Reset datetime"
+								type="secondary"
+								htmlType="button"
+								onClick={() => setValue(null)}
+							/>
+						)}
 					</div>
 				</div>
 			</div>
