@@ -64,12 +64,7 @@ const InputText: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }: Input
 			<FormRendererFieldTitle isRequired={config.required} className="u-margin-bottom-xs">
 				{fieldSchema.label}
 			</FormRendererFieldTitle>
-			<TextField
-				id={fieldSchema.name}
-				state={state}
-				{...field}
-				{...fieldConfigProps}
-			/>
+			<TextField id={fieldSchema.name} state={state} {...field} {...fieldConfigProps} />
 			<ErrorMessage name={field.name} />
 			{config.fieldInfo && <FormRendererFieldInfo content={config.fieldInfo} />}
 		</>

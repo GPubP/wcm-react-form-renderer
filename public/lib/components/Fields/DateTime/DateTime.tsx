@@ -3,7 +3,6 @@ import classNames from 'classnames/bind';
 import { omit } from 'ramda';
 import React, { ChangeEvent, useMemo } from 'react';
 
-import { FieldSchema } from '../../../core.types';
 import { InputFieldProps } from '../../../services/fieldRegistry/fieldRegistry.types';
 import ErrorMessage from '../../ErrorMessage/ErrorMessage';
 import { FormRendererFieldTitle } from '../../FormRendererFieldTitle';
