@@ -103,16 +103,18 @@ const DateTimepicker: React.FC<InputFieldProps> = ({
 								fieldHelperProps={fieldHelperProps}
 							/>
 						</div>
-						<Button
-							className={cx('o-datetime__clear')}
-							negative
-							size="small"
-							icon="trash-o"
-							ariaLabel="Reset datetime"
-							type="secondary"
-							htmlType="button"
-							onClick={() => setValue(null)}
-						/>
+						{!fieldSchema.config?.disabled && (
+							<Button
+								className={cx('o-datetime__clear')}
+								negative
+								size="small"
+								icon="trash-o"
+								ariaLabel="Reset datetime"
+								type="secondary"
+								htmlType="button"
+								onClick={() => setValue(null)}
+							/>
+						)}
 					</div>
 				</div>
 			</div>
