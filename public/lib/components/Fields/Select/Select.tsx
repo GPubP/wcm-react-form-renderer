@@ -82,7 +82,6 @@ const InputSelect: FC<InputFieldProps> = ({
 									{...omit(['value'])(field)}
 									{...fieldConfigProps}
 								/>
-								{config.description && <small>{config.description}</small>}
 								{!config.required && (
 									<Button
 										className="u-margin-left-xs"
@@ -95,6 +94,7 @@ const InputSelect: FC<InputFieldProps> = ({
 									/>
 								)}
 							</div>
+							{config.description && <small>{config.description}</small>}
 						</div>
 						<ErrorMessage name={field.name} />
 					</div>
