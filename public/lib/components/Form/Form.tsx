@@ -27,6 +27,7 @@ const RedactionForm: React.FC<FormProps<FormValues>> = ({
 	formikRef,
 	useDividers = false,
 	allowedHeaders = DEFAULT_ALLOWED_HEADERS,
+	activeLanguage,
 	...rest
 }) => {
 	const [initialFormValue, setInitialFormValue] = useState<FormValues | undefined>(initialValues);
@@ -145,7 +146,7 @@ const RedactionForm: React.FC<FormProps<FormValues>> = ({
 	}
 
 	return (
-		<FormContext.Provider value={{ useDividers, schema, allowedHeaders }}>
+		<FormContext.Provider value={{ useDividers, schema, allowedHeaders, activeLanguage }}>
 			<Formik
 				innerRef={instance => isFunction(formikRef) && formikRef(instance)}
 				initialValues={initialFormValue}
