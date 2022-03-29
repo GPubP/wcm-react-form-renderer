@@ -1,9 +1,7 @@
 import { Datepicker as AuiDatepicker } from '@acpaas-ui/react-components';
 import { getIn } from 'formik';
-import moment from 'moment';
 import { pick } from 'ramda';
 import React, { useEffect, useMemo, useState } from 'react';
-import 'moment/locale/nl';
 
 import { isDeprecatedDateFormat } from '../../../helpers';
 import { InputFieldProps } from '../../../services/fieldRegistry';
@@ -86,7 +84,6 @@ const Datepicker: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }: Inpu
 				}}
 				activeDate={internalValue}
 				{...fieldConfigProps}
-				locale={'nl'}
 			/>
 			{!config.skipErrorMessage ? <ErrorMessage name={field.name} /> : null}
 		</>
