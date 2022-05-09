@@ -27,6 +27,8 @@ describe('parseFields', () => {
 					uuid: fieldTypeSingle.uuid,
 					fields: [],
 					defaultValue: fieldTypeSingle.defaultValue,
+					semanticType: undefined,
+					valueSync: undefined,
 					config: {
 						...fieldTypeSingle.config,
 						...fieldTypeSingle.generalConfig,
@@ -35,6 +37,7 @@ describe('parseFields', () => {
 						description: fieldTypeSingle.generalConfig.guideline,
 						disabled: false,
 						preset: undefined,
+						synced: true,
 					},
 				});
 			});
@@ -60,6 +63,8 @@ describe('parseFields', () => {
 					hidden: fieldTypeMultiple.generalConfig.hidden,
 					description: fieldTypeMultiple.generalConfig.guideline,
 					disabled: false,
+					preset: undefined,
+					synced: true,
 				},
 				fields: [
 					{
@@ -72,6 +77,8 @@ describe('parseFields', () => {
 						view: undefined,
 						dataType: fieldTypeMultiple.dataType.data.type,
 						fields: [],
+						semanticType: undefined,
+						valueSync: undefined,
 						config: {
 							max: 2,
 							guideline: fieldTypeMultiple.generalConfig.guideline,
@@ -82,6 +89,7 @@ describe('parseFields', () => {
 							fieldType: fieldTypeMultiple.fieldType,
 							dataType: fieldTypeMultiple.dataType,
 							disabled: false,
+							synced: true,
 						},
 					},
 				],
@@ -125,6 +133,7 @@ describe('parseFields', () => {
 								fieldType: fieldTypeSingle.fieldType,
 								dataType: fieldTypeSingle.dataType,
 								disabled: false,
+								synced: true,
 							},
 						},
 					],
@@ -138,6 +147,7 @@ describe('parseFields', () => {
 						fieldType: presetSingle.fieldType,
 						dataType: presetSingle.dataType,
 						disabled: false,
+						synced: false,
 					},
 				});
 			});
@@ -168,6 +178,7 @@ describe('parseFields', () => {
 						hidden: presetMultiple.generalConfig.hidden,
 						description: presetMultiple.generalConfig.guideline,
 						disabled: false,
+						synced: false,
 					},
 					fields: [
 						{
@@ -191,6 +202,8 @@ describe('parseFields', () => {
 									uuid: fieldTypeSingle.uuid,
 									defaultValue: fieldTypeSingle.defaultValue,
 									fields: [],
+									semanticType: undefined,
+									valueSync: undefined,
 									config: {
 										max: fieldTypeSingle.generalConfig.max,
 										guideline: fieldTypeSingle.generalConfig.guideline,
@@ -200,6 +213,7 @@ describe('parseFields', () => {
 										fieldType: fieldTypeSingle.fieldType,
 										dataType: fieldTypeSingle.dataType,
 										disabled: false,
+										synced: true,
 									},
 								},
 							],
@@ -212,6 +226,7 @@ describe('parseFields', () => {
 								fieldType: presetMultiple.fieldType,
 								dataType: presetMultiple.dataType,
 								disabled: false,
+								synced: false,
 							},
 						},
 					],
