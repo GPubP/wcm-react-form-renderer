@@ -125,7 +125,10 @@ export const parseFields = (
 				preset: preset as Preset,
 				fieldType,
 				dataType,
-				synced: !hasMultilanguageParent && !config.fields?.length,
+				synced:
+					!hasMultilanguageParent &&
+					!config.fields?.length &&
+					!generalConfig.multiLanguage,
 			},
 			defaultValue,
 			valueSync: parseOptions?.valueSyncMap
