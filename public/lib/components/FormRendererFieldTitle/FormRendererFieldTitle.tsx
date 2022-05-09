@@ -49,16 +49,15 @@ export const FormRendererFieldTitle: FC<FormRendererFieldTitleProps> = ({
 						'has-icon',
 						'a-field-renderer-field__title-synced'
 					)}
-					ref={buttonRef}
+					//ref={buttonRef}
 					onMouseEnter={() => setVisibility(true)}
 					onMouseLeave={() => setVisibility(false)}
 				>
-					<Icon name="refresh" />
-
-					<div>{isVisible}</div>
-
-					{/* 	{
-						<Tooltip
+					<>
+						<Icon name="recycle" />
+						{
+							// TODO: find out why tooltip throws error
+							/* <Tooltip
 							isVisible={isVisible}
 							targetRef={buttonRef}
 							type={TooltipTypeMap.PRIMARY}
@@ -66,8 +65,9 @@ export const FormRendererFieldTitle: FC<FormRendererFieldTitleProps> = ({
 						>
 							Deze component wordt gesynchroniseerd tussen alle talen. Je kan dus geen
 							vertaling ingeven.
-						</Tooltip>
-					} */}
+						</Tooltip> */
+						}
+					</>
 				</button>
 			)}
 		</div>
