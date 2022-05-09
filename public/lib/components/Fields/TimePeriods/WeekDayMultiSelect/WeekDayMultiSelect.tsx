@@ -15,6 +15,7 @@ const WeekDayMultiSelect: React.FC<WeekDayMultiSelectProps> = ({
 	name,
 	options = [],
 	required,
+	synced,
 	value = [],
 }) => {
 	const inputClassNames = cx(className, 'a-input', 'weekday-multiselect', {
@@ -23,7 +24,11 @@ const WeekDayMultiSelect: React.FC<WeekDayMultiSelectProps> = ({
 	return (
 		<div className={inputClassNames}>
 			{label && (
-				<FormRendererFieldTitle isRequired={required} className="u-margin-bottom-xs">
+				<FormRendererFieldTitle
+					isRequired={required}
+					isSynced={synced}
+					className="u-margin-bottom-xs"
+				>
 					{label}
 				</FormRendererFieldTitle>
 			)}

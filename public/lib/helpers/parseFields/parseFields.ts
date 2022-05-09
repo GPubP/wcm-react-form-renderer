@@ -98,6 +98,7 @@ export const parseFields = (
 			: parseOptions.parentGeneralConfig?.disabled || generalConfig.disabled || false;
 		const isHidden = parseOptions.noHiddenFields ? false : !!generalConfig.hidden;
 		const isPreset = !!preset;
+		const hasMultilanguageParent = parseOptions.parentGeneralConfig?.multiLanguage || false;
 		const formField: FieldSchema = {
 			name,
 			label,
@@ -124,6 +125,7 @@ export const parseFields = (
 				preset: preset as Preset,
 				fieldType,
 				dataType,
+				synced: !hasMultilanguageParent && !config.fields?.length,
 			},
 			defaultValue,
 			valueSync: parseOptions?.valueSyncMap

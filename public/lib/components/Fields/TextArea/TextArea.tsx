@@ -18,7 +18,11 @@ const InputTextarea: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }: I
 
 	return (
 		<div className="a-input">
-			<FormRendererFieldTitle isRequired={config.required} className="u-margin-bottom-xs">
+			<FormRendererFieldTitle
+				isRequired={config.required}
+				isSynced={config.synced}
+				className="u-margin-bottom-xs"
+			>
 				{fieldSchema.label}
 			</FormRendererFieldTitle>
 			<Textarea id={fieldSchema.name} {...field} {...fieldConfigProps} />

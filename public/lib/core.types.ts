@@ -236,6 +236,7 @@ export interface GeneralConfig {
 	guideline: string;
 	multiLanguage?: boolean;
 	required?: boolean;
+	synced?: boolean;
 	hidden?: boolean;
 	disabled?: boolean;
 	min?: number;

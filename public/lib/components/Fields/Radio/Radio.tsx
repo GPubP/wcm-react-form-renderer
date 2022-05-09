@@ -44,6 +44,7 @@ const InputRadio: FC<InputFieldProps> = ({
 				<>
 					<FormRendererFieldTitle
 						isRequired={config.required}
+						isSynced={config.synced}
 						className="u-margin-bottom-xs"
 					>
 						{label}
