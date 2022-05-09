@@ -94,6 +94,7 @@ export interface FieldSchema {
 	config?: {
 		options?: FieldOption[];
 		required?: boolean;
+		synced?: boolean;
 		wrapperClassName?: string;
 		id?: string;
 		preset?: Preset;

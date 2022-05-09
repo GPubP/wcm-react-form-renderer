@@ -43,7 +43,11 @@ const Time: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }) => {
 	return (
 		<>
 			{trimmedLabel && trimmedLabel !== '' && (
-				<FormRendererFieldTitle isRequired={config.required} className="u-margin-bottom-xs">
+				<FormRendererFieldTitle
+					isRequired={config.required}
+					isSynced={config.synced}
+					className="u-margin-bottom-xs"
+				>
 					{fieldSchema.label}
 				</FormRendererFieldTitle>
 			)}

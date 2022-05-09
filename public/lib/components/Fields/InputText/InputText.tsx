@@ -61,7 +61,11 @@ const InputText: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema }: Input
 
 	return (
 		<>
-			<FormRendererFieldTitle isRequired={config.required} className="u-margin-bottom-xs">
+			<FormRendererFieldTitle
+				isRequired={config.required}
+				isSynced={config.synced}
+				className="u-margin-bottom-xs"
+			>
 				{fieldSchema.label}
 			</FormRendererFieldTitle>
 			<TextField id={fieldSchema.name} state={state} {...field} {...fieldConfigProps} />
