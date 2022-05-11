@@ -37,7 +37,7 @@ describe('parseFields', () => {
 						description: fieldTypeSingle.generalConfig.guideline,
 						disabled: false,
 						preset: undefined,
-						synced: true,
+						synced: false,
 					},
 				});
 			});
@@ -64,7 +64,7 @@ describe('parseFields', () => {
 					description: fieldTypeMultiple.generalConfig.guideline,
 					disabled: false,
 					preset: undefined,
-					synced: true,
+					synced: false,
 				},
 				fields: [
 					{
@@ -89,7 +89,7 @@ describe('parseFields', () => {
 							fieldType: fieldTypeMultiple.fieldType,
 							dataType: fieldTypeMultiple.dataType,
 							disabled: false,
-							synced: true,
+							synced: false,
 						},
 					},
 				],
@@ -133,7 +133,7 @@ describe('parseFields', () => {
 								fieldType: fieldTypeSingle.fieldType,
 								dataType: fieldTypeSingle.dataType,
 								disabled: false,
-								synced: true,
+								synced: false,
 							},
 						},
 					],
@@ -213,7 +213,7 @@ describe('parseFields', () => {
 										fieldType: fieldTypeSingle.fieldType,
 										dataType: fieldTypeSingle.dataType,
 										disabled: false,
-										synced: true,
+										synced: false,
 									},
 								},
 							],

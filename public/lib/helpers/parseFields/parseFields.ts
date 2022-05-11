@@ -128,7 +128,9 @@ export const parseFields = (
 				synced:
 					!hasMultilanguageParent &&
 					!config.fields?.length &&
-					!generalConfig.multiLanguage,
+					!generalConfig.multiLanguage &&
+					(generalConfig.required || false) &&
+					((generalConfig.max || 0) <= 1 ? true : false),
 			},
 			defaultValue,
 			valueSync: parseOptions?.valueSyncMap
