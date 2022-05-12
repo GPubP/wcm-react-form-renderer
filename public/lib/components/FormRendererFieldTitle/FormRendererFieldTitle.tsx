@@ -56,7 +56,7 @@ export const FormRendererFieldTitle: FC<FormRendererFieldTitleProps> = ({
 					<>
 						<Icon name="recycle" />
 						{
-							// TODO: find out why tooltip throws error
+							// TODO: find out why tooltip throws error in demo
 							<Tooltip
 								isVisible={isVisible}
 								targetRef={buttonRef}
