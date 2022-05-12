@@ -94,6 +94,7 @@ export interface FieldSchema {
 	config?: {
 		options?: FieldOption[];
 		required?: boolean;
+		synced?: boolean;
 		wrapperClassName?: string;
 		id?: string;
 		preset?: Preset;
@@ -235,6 +236,7 @@ export interface GeneralConfig {
 	guideline: string;
 	multiLanguage?: boolean;
 	required?: boolean;
+	synced?: boolean;
 	hidden?: boolean;
 	disabled?: boolean;
 	min?: number;

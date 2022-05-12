@@ -41,6 +41,7 @@ const CheckboxList: FC<InputFieldProps> = ({ fieldProps, fieldSchema, fieldHelpe
 						{label && (
 							<FormRendererFieldTitle
 								isRequired={config.required}
+								isSynced={config.synced}
 								className="u-margin-bottom-xs"
 							>
 								{label}

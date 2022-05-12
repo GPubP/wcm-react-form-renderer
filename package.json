@@ -1,6 +1,6 @@
 {
   "name": "@redactie/form-renderer-module",
-  "version": "1.8.8",
+  "version": "1.8.10",
   "description": "A dynamic form component for react using a JSON schema",
   "main": "dist/redactie-form-renderer-module.umd.js",
   "types": "dist/index.d.ts",
@@ -30,7 +30,7 @@
   "license": "ISC",
   "devDependencies": {
     "@acpaas-ui/react-components": "5.0.2",
-    "@acpaas-ui/react-editorial-components": "0.0.2-9",
+    "@acpaas-ui/react-editorial-components": "^1.4.1",
     "@babel/compat-data": "^7.8.0",
     "@babel/core": "^7.8.0",
     "@babel/preset-env": "^7.8.0",

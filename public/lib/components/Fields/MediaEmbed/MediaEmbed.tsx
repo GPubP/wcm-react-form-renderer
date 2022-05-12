@@ -48,6 +48,7 @@ const MediaEmbed: FC<InputFieldProps> = ({ fieldSchema, fieldProps }) => {
 				{label && (
 					<FormRendererFieldTitle
 						isRequired={config.required}
+						isSynced={config.synced}
 						className="u-margin-bottom-xs"
 					>
 						{label}

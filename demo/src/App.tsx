@@ -20,8 +20,10 @@ const App = () => {
 				type: 'text',
 				dataType: 'string',
 				label: 'Firstname',
+				semanticType: 'text',
 				config: {
-					required: true,
+					required: false,
+					synced: false,
 					placeholder: 'firstname',
 				},
 			},
@@ -31,17 +33,116 @@ const App = () => {
 				type: 'text',
 				dataType: 'string',
 				label: 'Lastname',
+				semanticType: 'text',
 				config: {
 					required: true,
+					synced: true,
 					placeholder: 'lastname',
 				},
 			},
 			{
+				name: 'time',
+				module: 'core',
+				type: 'time',
+				dataType: 'string',
+				label: 'Time',
+				semanticType: 'text',
+				config: {
+					required: true,
+					synced: true,
+				},
+			},
+			{
+				name: 'address',
+				module: 'core',
+				type: 'fieldgroup',
+				dataType: 'object',
+				label: 'Adres',
+				semanticType: 'text',
+				config: {
+					id: '4',
+					description:
+						'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent non odio in risus lobortis ornare. Aenean id diam risus.',
+				},
+				fields: [
+					{
+						name: 'zipcode',
+						module: 'core',
+						type: 'text',
+						dataType: 'string',
+						label: 'Zipcode',
+						semanticType: 'text',
+						config: {
+							wrapperClassName: 'col-xs-6',
+							required: true,
+							placeholder: 'zipcode',
+							description: 'Description text',
+						},
+					},
+					{
+						name: 'city',
+						module: 'core',
+						type: 'text',
+						dataType: 'string',
+						label: 'City',
+						semanticType: 'text',
+						config: {
+							wrapperClassName: 'col-xs-6',
+							required: true,
+							placeholder: 'city',
+						},
+					},
+					{
+						name: 'country',
+						module: 'core',
+						type: 'select',
+						dataType: 'string',
+						label: 'Country',
+						semanticType: 'text',
+						config: {
+							required: true,
+							wrapperClassName: 'col-xs-12',
+							options: [
+								{
+									value: {
+										key: '0',
+										value: 'belgium',
+										label: 'Belgium',
+									},
+								},
+								{
+									value: {
+										key: '1',
+										value: 'france',
+										label: 'France',
+									},
+								},
+								{
+									value: {
+										key: '2',
+										value: 'germany',
+										label: 'Germany',
+									},
+								},
+								{
+									value: {
+										key: '3',
+										value: 'finland',
+										label: 'Finland',
+									},
+								},
+							],
+						},
+					},
+				],
+			},
+			/* {
 				name: 'hobbies',
 				module: 'core',
 				type: 'checkboxList',
 				dataType: 'array',
 				label: 'Hobbies',
+				semanticType: 'text',
 				config: {
 					required: true,
 					allowedOptions: ['skateboarding', 'snowboarding'],
@@ -76,6 +177,7 @@ const App = () => {
 				type: 'checkbox',
 				dataType: 'boolean',
 				label: 'I accept the Terms and conditions',
+				semanticType: 'text',
 				config: {
 					required: true,
 				},
@@ -86,6 +188,7 @@ const App = () => {
 				type: 'fieldgroup',
 				dataType: 'object',
 				label: 'Adres',
+				semanticType: 'text',
 				config: {
 					description:
 						'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent non odio in risus lobortis ornare. Aenean id diam risus.',
@@ -97,6 +200,7 @@ const App = () => {
 						type: 'text',
 						dataType: 'string',
 						label: 'Zipcode',
+						semanticType: 'text',
 						config: {
 							wrapperClassName: 'col-xs-6',
 							required: true,
@@ -110,6 +214,7 @@ const App = () => {
 						type: 'text',
 						dataType: 'string',
 						label: 'City',
+						semanticType: 'text',
 						config: {
 							wrapperClassName: 'col-xs-6',
 							required: true,
@@ -122,6 +227,7 @@ const App = () => {
 						type: 'select',
 						dataType: 'string',
 						label: 'Country',
+						semanticType: 'text',
 						config: {
 							required: true,
 							wrapperClassName: 'col-xs-12',
@@ -166,6 +272,7 @@ const App = () => {
 				type: 'radio',
 				dataType: 'string',
 				label: 'Ages',
+				semanticType: 'text',
 				config: {
 					required: true,
 					options: [
@@ -206,6 +313,7 @@ const App = () => {
 				type: 'textarea',
 				dataType: 'string',
 				label: 'Questions',
+				semanticType: 'text',
 				config: {
 					required: true,
 					placeholder: 'Questions?',
@@ -217,6 +325,7 @@ const App = () => {
 				type: 'time',
 				dataType: 'string',
 				label: 'Time',
+				semanticType: 'text',
 				config: {
 					required: true,
 				},
@@ -227,6 +336,7 @@ const App = () => {
 				type: 'dateTime',
 				dataType: 'string',
 				label: 'Datum en tijd',
+				semanticType: 'text',
 				config: {
 					required: true,
 					dateLabel: 'Datum',
@@ -238,6 +348,7 @@ const App = () => {
 				type: 'repeater',
 				dataType: 'array',
 				label: 'Children',
+				semanticType: 'text',
 				config: {
 					min: 4,
 					max: 5,
@@ -250,6 +361,7 @@ const App = () => {
 						type: 'text',
 						dataType: 'string',
 						label: 'Firstname',
+						semanticType: 'text',
 						config: {
 							required: true,
 							wrapperClassName: 'col-xs-6',
@@ -261,6 +373,7 @@ const App = () => {
 						type: 'text',
 						dataType: 'string',
 						label: 'Lastname',
+						semanticType: 'text',
 						config: {
 							required: true,
 							wrapperClassName: 'col-xs-6',
@@ -274,6 +387,7 @@ const App = () => {
 				type: 'dynamicRepeater',
 				dataType: 'array',
 				label: 'Vrije paragrafen',
+				semanticType: 'text',
 				config: {
 					min: 0,
 					max: 5,
@@ -286,6 +400,7 @@ const App = () => {
 						type: 'text',
 						dataType: 'string',
 						label: 'Textfield',
+						semanticType: 'text',
 						config: {
 							placeholder: 'placeholder',
 							id: '1',
@@ -298,6 +413,7 @@ const App = () => {
 						type: 'textarea',
 						dataType: 'string',
 						label: 'Textarea',
+						semanticType: 'text',
 						config: {
 							placeholder: 'placeholder',
 							id: '2',
@@ -309,6 +425,7 @@ const App = () => {
 						type: 'repeater',
 						dataType: 'array',
 						label: 'Repeater',
+						semanticType: 'text',
 						config: {
 							min: 4,
 							max: 5,
@@ -322,6 +439,7 @@ const App = () => {
 								type: 'text',
 								dataType: 'string',
 								label: 'Firstname',
+								semanticType: 'text',
 								config: {
 									required: true,
 									wrapperClassName: 'col-xs-6',
@@ -333,6 +451,7 @@ const App = () => {
 								type: 'text',
 								dataType: 'string',
 								label: 'Lastname',
+								semanticType: 'text',
 								config: {
 									required: true,
 									wrapperClassName: 'col-xs-6',
@@ -346,6 +465,7 @@ const App = () => {
 						type: 'fieldgroup',
 						dataType: 'object',
 						label: 'Adres',
+						semanticType: 'text',
 						config: {
 							id: '4',
 							description:
@@ -358,6 +478,7 @@ const App = () => {
 								type: 'text',
 								dataType: 'string',
 								label: 'Zipcode',
+								semanticType: 'text',
 								config: {
 									wrapperClassName: 'col-xs-6',
 									required: true,
@@ -371,6 +492,7 @@ const App = () => {
 								type: 'text',
 								dataType: 'string',
 								label: 'City',
+								semanticType: 'text',
 								config: {
 									wrapperClassName: 'col-xs-6',
 									required: true,
@@ -383,6 +505,7 @@ const App = () => {
 								type: 'select',
 								dataType: 'string',
 								label: 'Country',
+								semanticType: 'text',
 								config: {
 									required: true,
 									wrapperClassName: 'col-xs-12',
@@ -426,12 +549,13 @@ const App = () => {
 						type: 'time',
 						dataType: 'string',
 						label: 'Time',
+						semanticType: 'text',
 						config: {
 							required: true,
 						},
 					},
 				],
-			},
+			}, */
 		],
 	};
 

@@ -182,7 +182,11 @@ const TimePeriodsRepeater: React.FC<RepeaterProps> = ({ fieldSchema }) => {
 		<>
 			<div className={cx('repeater')}>
 				{fieldSchema.label && (
-					<FormRendererFieldTitle isRequired={isRequired} className="u-margin-bottom-xs">
+					<FormRendererFieldTitle
+						isRequired={isRequired}
+						isSynced={config.synced}
+						className="u-margin-bottom-xs"
+					>
 						{fieldSchema.label}
 					</FormRendererFieldTitle>
 				)}

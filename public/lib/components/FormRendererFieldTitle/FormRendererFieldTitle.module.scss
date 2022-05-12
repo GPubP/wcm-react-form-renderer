@@ -1,6 +1,18 @@
-.a-field-renderer-field__title--required {
-	&::after {
-		color: #da291c;
-		content: ' *';
+.a-field-renderer-field {
+	&__title-wrapper {
+		position: relative;
+	}
+
+	&__title-synced {
+		position: absolute !important;
+		right: 0;
+		top: -0.5rem;
+	}
+
+	&__title--required {
+		&::after {
+			color: #da291c;
+			content: ' *';
+		}
 	}
 }

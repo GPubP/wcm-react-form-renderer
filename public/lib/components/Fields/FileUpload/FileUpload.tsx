@@ -88,7 +88,11 @@ const FileUpload: React.FC<InputFieldProps> = ({ fieldProps, fieldSchema, fieldH
 	return (
 		<div className={fieldClass}>
 			{label && (
-				<FormRendererFieldTitle isRequired={config.required} className="u-margin-bottom-xs">
+				<FormRendererFieldTitle
+					isRequired={config.required}
+					isSynced={config.synced}
+					className="u-margin-bottom-xs"
+				>
 					{label}
 				</FormRendererFieldTitle>
 			)}
