@@ -143,7 +143,7 @@ const RedactionForm: React.FC<FormProps<FormValues>> = ({
 					...fieldSchema,
 					config: {
 						...fieldSchema.config,
-						synced: noSync || fieldSchema.config?.synced,
+						synced: !noSync && fieldSchema.config?.synced,
 					},
 				}}
 			/>
