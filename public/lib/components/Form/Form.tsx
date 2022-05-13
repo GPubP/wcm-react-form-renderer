@@ -28,6 +28,7 @@ const RedactionForm: React.FC<FormProps<FormValues>> = ({
 	useDividers = false,
 	allowedHeaders = DEFAULT_ALLOWED_HEADERS,
 	activeLanguage,
+	noSync = false,
 	...rest
 }) => {
 	const [initialFormValue, setInitialFormValue] = useState<FormValues | undefined>(initialValues);
@@ -136,7 +137,16 @@ const RedactionForm: React.FC<FormProps<FormValues>> = ({
 
 	const renderFields = (fields: FieldSchema[]): ReactNode => {
 		return fields.map((fieldSchema, index) => (
-			<FieldRenderer key={`${index}-${fieldSchema.name}`} fieldSchema={fieldSchema} />
+			<FieldRenderer
+				key={`${index}-${fieldSchema.name}`}
+				fieldSchema={{
+					...fieldSchema,
+					config: {
+						...fieldSchema.config,
+						synced: noSync || fieldSchema.config?.synced,
+					},
+				}}
+			/>
 		));
 	};
 
