@@ -77,4 +77,5 @@ export interface FormProps<Values> {
 	useDividers?: boolean;
 	allowedHeaders?: readonly AllowedHeader[] | AllowedHeader[];
 	activeLanguage?: string;
+	noSync?: boolean;
 }
