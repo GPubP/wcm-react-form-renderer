@@ -60,6 +60,12 @@ const Fieldgroup: React.FC<FieldGroupProps> = ({ fieldSchema }) => {
 						.map(
 							(childFieldSchema): FieldSchema => ({
 								...childFieldSchema,
+								config: {
+									...childFieldSchema.config,
+									synced: !config.synced
+										? false
+										: childFieldSchema.config?.synced,
+								},
 								name: withNamespace(childFieldSchema.name),
 							})
 						)
@@ -81,6 +87,10 @@ const Fieldgroup: React.FC<FieldGroupProps> = ({ fieldSchema }) => {
 				.map(
 					(childFieldSchema): FieldSchema => ({
 						...childFieldSchema,
+						config: {
+							...childFieldSchema.config,
+							synced: !config.synced ? false : childFieldSchema.config?.synced,
+						},
 						name: withNamespace(childFieldSchema.name),
 					})
 				)
