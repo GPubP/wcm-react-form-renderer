@@ -99,6 +99,12 @@ export const parseFields = (
 		const isHidden = parseOptions.noHiddenFields ? false : !!generalConfig.hidden;
 		const isPreset = !!preset;
 		const hasMultilanguageParent = parseOptions.parentGeneralConfig?.multiLanguage || false;
+		const langConfig = {
+			...(config.multiLanguage && options?.activeLanguageKey
+				? config[options.activeLanguageKey]
+				: config),
+			fields: config.fields,
+		};
 		const formField: FieldSchema = {
 			name,
 			label,
@@ -117,7 +123,7 @@ export const parseFields = (
 			}),
 			hidden: isHidden,
 			config: {
-				...config,
+				...langConfig,
 				...generalConfig,
 				hidden: isHidden,
 				disabled: isDisabled,
@@ -178,7 +184,7 @@ export const parseFields = (
 					? parseOptions?.valueSyncMap[field.name]
 					: undefined,
 				config: {
-					...config,
+					...langConfig,
 					...generalConfig,
 					...formField.config,
 					description: generalConfig.guideline,
