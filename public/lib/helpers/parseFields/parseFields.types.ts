@@ -6,4 +6,5 @@ export interface ParseFieldsOptions {
 	noDisabledFields?: boolean;
 	parentGeneralConfig?: GeneralConfig;
 	valueSyncMap?: ValueSyncMap;
+	activeLanguageKey?: string;
 }
