@@ -298,7 +298,7 @@ export interface ContentTypeFieldSchema {
 		fields?: ContentTypeFieldSchema[];
 		[key: string]: any;
 	};
-	defaultValue?: string;
+	defaultValue?: any;
 	validators: Validator[];
 	operators: Operator[];
 	validation?: Validation;
