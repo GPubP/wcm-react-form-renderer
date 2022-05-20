@@ -105,6 +105,10 @@ export const parseFields = (
 				: config),
 			fields: config.fields,
 		};
+		const langDefaultValue =
+			defaultValue?.multiLanguage && options?.activeLanguageKey
+				? defaultValue[options.activeLanguageKey]
+				: defaultValue;
 		const formField: FieldSchema = {
 			name,
 			label,
@@ -138,7 +142,7 @@ export const parseFields = (
 					(generalConfig.required || false) &&
 					((generalConfig.max || 0) <= 1 ? true : false),
 			},
-			defaultValue,
+			defaultValue: langDefaultValue,
 			valueSync: parseOptions?.valueSyncMap
 				? parseOptions?.valueSyncMap[field.name]
 				: undefined,
@@ -179,7 +183,7 @@ export const parseFields = (
 				dataType: 'array',
 				semanticType: dataType.data.semanticType,
 				hidden: isHidden,
-				defaultValue,
+				defaultValue: langDefaultValue,
 				valueSync: parseOptions?.valueSyncMap
 					? parseOptions?.valueSyncMap[field.name]
 					: undefined,
