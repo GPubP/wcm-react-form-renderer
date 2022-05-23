@@ -1,48 +1,6 @@
-import Core from '@redactie/redactie-core';
+import { registerFormsModule } from './lib/api';
 
-import { CustomValidator, CustomValidatorWorker } from './lib/classes';
-import { CompareView } from './lib/components/CompareView';
-import { ErrorMessage } from './lib/components/ErrorMessage';
-import { DEFAULT_FIELD_CONFIG_PROPS } from './lib/components/Fields/Fields.const';
-import { Form } from './lib/components/Form';
-import { DEFAULT_ALLOWED_HEADERS } from './lib/components/Form/Form.const';
-import { FormRendererFieldInfo } from './lib/components/FormRendererFieldInfo';
-import { FormRendererFieldTitle } from './lib/components/FormRendererFieldTitle';
-import { View } from './lib/components/View';
-import { FieldRendererContext, FormContext } from './lib/context';
-import { getValueSyncMap, parseFields } from './lib/helpers';
-import {
-	useFieldRendererContext,
-	useFormContext,
-	useSelectFirstOptionWhenHidden,
-} from './lib/hooks';
-import { fieldRegistry } from './lib/services/fieldRegistry';
-import { viewRegistry } from './lib/services/viewRegistry';
-import { filterAllowedOptions } from './lib/utils';
-
-// Expose module
-Core.modules.exposeModuleApi('forms-module', {
-	Form,
-	View,
-	CompareView,
-	ErrorMessage,
-	CustomValidator,
-	CustomValidatorWorker,
-	fieldRegistry,
-	viewRegistry,
-	parseFields,
-	getValueSyncMap,
-	useFieldRendererContext,
-	useFormContext,
-	FieldRendererContext,
-	FormContext,
-	FormRendererFieldTitle,
-	FormRendererFieldInfo,
-	DEFAULT_ALLOWED_HEADERS,
-	DEFAULT_FIELD_CONFIG_PROPS,
-	useSelectFirstOptionWhenHidden,
-	filterAllowedOptions,
-});
+registerFormsModule();
 
 export * from './lib/core.types';
 export * from './lib/services/fieldRegistry/fieldRegistry.types';
