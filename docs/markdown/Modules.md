@@ -1,6 +1,6 @@
-## @redactie/form-renderer-module
+# @redactie/form-renderer-module
 
-- [Home](../wiki/Home)
+## Table of contents
 
 ### Modules
 
